@@ -252,7 +252,7 @@ function TOSLabel() {
     
     var label = document.createElement("a");
     label.setAttribute("id", "ReferenceLink");
-    label.setAttribute("href", "http://travelmapping.net/credits.php");
+    label.setAttribute("href", "https://travelmapping.net/credits.php");
     label.setAttribute("target", "_blank");
     label.innerHTML = "Credits and Sources";
     
@@ -413,7 +413,7 @@ function readServer(event) {
                 }
             }
         };
-        xmlhttp.open("GET", "http://courses.teresco.org/metal/graphdata/"+value, true);
+        xmlhttp.open("GET", "https://courses.teresco.org/metal/graphdata/"+value, true);
         xmlhttp.send(); 
     }
 }
@@ -589,7 +589,7 @@ function errorHandler(evt) {
 // parse the contents of a .tmg file
 //
 // supports version 1.0 and 2.0 "simple", "collapsed" or "traveled".
-// see http://courses.teresco.org/metal/graph-formats.shtml
+// see https://courses.teresco.org/metal/graph-formats.shtml
 //
 function parseTMGContents(fileContents) {
     

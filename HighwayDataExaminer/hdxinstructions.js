@@ -45,7 +45,7 @@ once you select data.)</p>
 vertices) and <i>connections</i> (i.e., graph edges) are shown both on
 the map and in a table.  Waypoints are typically major intersections
 of roads as chosen by the <a target="_blank"
-href="http://travelmapping.net">Travel 
+href="https://travelmapping.net">Travel 
 Mapping</a> project, from which METAL graph data is derived, and
 connections represent road segments that connect these waypoints.
 Clicking on the waypoints (represented with the little yellow
@@ -274,9 +274,9 @@ years.</p>
 <header><b>Travel Mapping</b></header>
 
 <p>METAL's data is dervied from the <a target="blank"
-href="http://travelmapping.net">Travel Mapping (TM) Project</a>, and METAL
+href="https://travelmapping.net">Travel Mapping (TM) Project</a>, and METAL
 exists thanks to the <a target="_blank"
-href="http://travelmapping.net/credits.php">contributors, tools, and
+href="https://travelmapping.net/credits.php">contributors, tools, and
 sources used by TM</a>.</p>
 
 <header><b>Funding Sources</b></header>
