@@ -123,9 +123,9 @@ ENDOFSTUFF;
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
-<link rel="stylesheet" type="text/css" href="http://travelmapping.net/css/travelMapping.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
+<link rel="stylesheet" type="text/css" href="https://travelmapping.net/css/travelMapping.css"/>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
@@ -290,11 +290,11 @@ ENDOFSTUFF;
                 intended to be self-explanatory, but some of its
                 features might not be obvious.  Select among the tabs
                 above to learn how to get the most out
-                of <a href="http://courses.teresco.org/metal/">METAL</a>
+                of <a href="https://courses.teresco.org/metal/">METAL</a>
                 and HDX.  This panel will close automatically after
                 data is loaded into HDX using the panel to the left.<br />
 		  <b>What's New?</b><br />  The 2019 Summer Scholars
-		project at <a href="http://www.siena.edu">Siena
+		project at <a href="https://www.siena.edu">Siena
 		College</a> added new algorithms (Kruskal's algorithm,
 		a recursive depth-first traversal, a vertex degree
 		search) new options and features in existing
