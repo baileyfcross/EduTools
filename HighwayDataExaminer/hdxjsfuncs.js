@@ -442,7 +442,7 @@ function readServerSearch(file)
                         
                 }
         };
-        xmlhttp.open("GET", "http://courses.teresco.org/metal/graphdata/"+tmgFile, true);
+        xmlhttp.open("GET", "https://courses.teresco.org/metal/graphdata/"+tmgFile, true);
         xmlhttp.send();
 }
 
