@@ -346,14 +346,14 @@ var hdxAV = {
         // hover over the current action, this shows the last 5 messages
         //hdxAV.algStat.innerHTML = currentAction.logMessage(thisAV);
 
-        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV));
+        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV).replace(/ /g,"&nbsp;"));
         if (hdxAV.logMessageArr.length == 8) {
              hdxAV.logMessageArr.splice(0, 1);
         }
         ans = '<span custom-title="Past Logs -  ';
         for (let j = 2; j <7; j++) {
             if (hdxAV.logMessageArr.length > j) {
-                ans += '<br>' + (j-1) + " - " +
+                ans += '<br>' + (j-1) + "&nbsp;-&nbsp;" +
 		    hdxAV.logMessageArr[hdxAV.logMessageArr.length-j];
             }
         }    
