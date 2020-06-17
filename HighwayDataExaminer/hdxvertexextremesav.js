@@ -20,9 +20,9 @@ function extremePointLeaderString(category) {
         ans += ' <span title="';
         for (let i = 0; i < category.tiedWith.length; i++) {
             ans += '[#' + category.tiedWith[i] +
-        ' (' + waypoints[category.tiedWith[i]].lat + ',' +
-        waypoints[category.tiedWith[i]].lon +
-        ') ' + waypoints[category.tiedWith[i]].label + ']';
+		' (' + waypoints[category.tiedWith[i]].lat + ',' +
+		waypoints[category.tiedWith[i]].lon +
+		') ' + waypoints[category.tiedWith[i]].label + ']';
         }
         ans += '">[tie with ' +
             category.tiedWith.length + ' other' +
@@ -49,7 +49,6 @@ function vertexLabelLeaderString(category) {
         ans += '">[tie with ' + category.tiedWith.length + ' other' +
             (category.tiedWith.length > 1 ? 's' : '') + ']</span>';
     }
-
     return ans;
 }
 
@@ -342,7 +341,7 @@ var hdxVertexExtremesSearchAV = {
             logMessage: function(thisAV) {
                 return "Top of main for loop over vertices, check=" + thisAV.nextToCheck;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.nextToCheck+1);
             }
         },
@@ -379,7 +378,7 @@ var hdxVertexExtremesSearchAV = {
             logMessage: function(thisAV) {
                 return "Check for new " + thisAV.categories[thisAV.checkedCategory].label + " leader";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.categories[thisAV.nextCategory].newLeader();
             }
         },
@@ -527,7 +526,7 @@ var hdxVertexExtremesSearchAV = {
         {
             label: "forLoopBottom",
             comment: "end of for loop iteration",
-            code: function(thisAV){
+            code: function(thisAV) {
 
                 // if this waypoint is the leader in any category, show it,
                 // otherwise it gets discarded
@@ -862,88 +861,87 @@ For Ties, Remember:<br />
         this.boundingPoly = [];
     },
     
-    idOfAction(action){
-        if(action.label == "forLoopTop")
-        {
+    idOfAction(action) {
+	
+        if (action.label == "forLoopTop") {
             return action.label;
         }
-        else
-        {
-            var category = this.nextCategory;
-            var currAction = action.label;
-            return (currAction + "" + category);
+        else {
+	    return action.label + this.nextCategory;
         }
     },
     
-    setConditionalBreakpoints(name){
+    setConditionalBreakpoints(name) {
+	
         let max = waypoints.length-1;
         let temp = commonConditionalBreakpoints(name);
-        if(temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
-        else{
-            switch(name){
-                case "checkNextCategory0":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV0",
-                                                 "current vertex is the northern most",
-                                                 "current vertex is not the northern most");
-                    return html;
-                case "checkNextCategory1":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV1",
-                                                 "current vertex is the southern most",
-                                                 "current vertex is not the southern most");
-                    return html;
-                case "checkNextCategory2":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV2",
-                                                 "current vertex is the eastern most",
-                                                 "current vertex is not the eastern most");
-                    return html;
-                case "checkNextCategory3":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV3",
-                                                 "current vertex is the western most",
-                                                 "current vertex is not the western most");
-                    return html;
-                case "checkNextCategory4":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV4",
-                                                 "current label is the shortest",
-                                                 "current label is not the shortest");
-                    return html;
-                case "checkNextCategory5":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV5",
-                                                 "current label is the longest",
-                                                 "current label is not the longest");
-                    return html;
-                case "checkNextCategory6":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV6",
-                                                 "current label is first alphabetically",
-                                                 "current label is not first alphabetically");
-                    return html;
-                case "checkNextCategory7":
-                    html = createInnerHTMLChoice("boolean","checkNextCategoryCV7",
-                                                 "current label is last alphabetically",
-                                                 "current label is not last alphabetically");
-                    return html;
+        else {
+            switch (name) {
+            case "checkNextCategory0":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV0",
+                                             "current vertex is the northern most",
+                                             "current vertex is not the northern most");
+                return html;
+            case "checkNextCategory1":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV1",
+                                             "current vertex is the southern most",
+                                             "current vertex is not the southern most");
+                return html;
+            case "checkNextCategory2":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV2",
+                                             "current vertex is the eastern most",
+                                             "current vertex is not the eastern most");
+                return html;
+            case "checkNextCategory3":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV3",
+                                             "current vertex is the western most",
+                                             "current vertex is not the western most");
+                return html;
+            case "checkNextCategory4":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV4",
+                                             "current label is the shortest",
+                                             "current label is not the shortest");
+                return html;
+            case "checkNextCategory5":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV5",
+                                             "current label is the longest",
+                                             "current label is not the longest");
+                return html;
+            case "checkNextCategory6":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV6",
+                                             "current label is first alphabetically",
+                                             "current label is not first alphabetically");
+                return html;
+            case "checkNextCategory7":
+                html = createInnerHTMLChoice("boolean","checkNextCategoryCV7",
+                                             "current label is last alphabetically",
+                                             "current label is not last alphabetically");
+                return html;
             }
         }
         return "No innerHTML";
     },
-
-    hasConditonalBreakpoints(name){
+    
+    hasConditonalBreakpoints(name) {
+	
         let answer = hasCommonConditonalBreakpoints(name);
-        if(answer == true){
+        if (answer) {
             return true;
         }
-        else{
-            switch(name){
-                case "checkNextCategory0":
-                case "checkNextCategory1":
-                case "checkNextCategory2":
-                case "checkNextCategory3":
-                case "checkNextCategory4":
-                case "checkNextCategory5":
-                case "checkNextCategory6":
-                case "checkNextCategory7":
-                    return true;
+        else {
+            switch (name) {
+            case "checkNextCategory0":
+            case "checkNextCategory1":
+            case "checkNextCategory2":
+            case "checkNextCategory3":
+            case "checkNextCategory4":
+            case "checkNextCategory5":
+            case "checkNextCategory6":
+            case "checkNextCategory7":
+                return true;
             }
         }
         return false;

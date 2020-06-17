@@ -8,15 +8,16 @@
 
 //This is for Instructions tabs
 //This creates the clickable tabs for the info box
-function createTabs(){
+function createTabs() {
+    
     var instructionTabSelected = "instructionTab1"
     let elements = document.getElementsByClassName("tabs");
-    for (let element of elements){
-        element.addEventListener("click", function(event){
+    for (let element of elements) {
+        element.addEventListener("click", function(event) {
             instructionTabSelected = element.getAttribute("id");
             document.getElementById("instructionsBody").innerHTML = instructionsText(instructionTabSelected);
             let temp = document.getElementsByClassName("tabs");
-            for (let ele of temp){
+            for (let ele of temp) {
                 ele.style.backgroundColor = "white";
             }
             event.target.style.backgroundColor = "yellow";
@@ -25,11 +26,12 @@ function createTabs(){
 }
 
 //This is the text that goes into the help box
-function instructionsText(whatText){
-    switch (whatText){
+function instructionsText(whatText) {
+
+    switch (whatText) {
         //Map Waypoints Tab
-        case "instructionTab1":
-            return `
+    case "instructionTab1":
+        return `
 <header><b><u>Maps and Graph Data</u></b></header><br /> 
 
 <p>HDX is the METAL's visualization tool for the project's highway-based data
@@ -83,8 +85,8 @@ algorithm.<br />
 Options Example"></p>`;
 
         // AV Control panel
-        case "instructionTab2":
-            return `
+    case "instructionTab2":
+        return `
 <header><b><u>Algorithm Visualization Control Panel</u></b></header><br />
 
 <p>The Algorithm Visualization Control Panel appears at the top edge
@@ -117,8 +119,8 @@ load in different data.</p>
 `;
 
         //AV Status Box
-        case "instructionTab3":
-            return `
+    case "instructionTab3":
+        return `
 <header><b><u>Algorithm Visualization Status Panel</u></b></header><br />
 
 <p>The Algorithm Visualization (AV) Status Panel, which occupies the
@@ -168,7 +170,7 @@ that category.
 </p>
 `;
         //Pseudocode tab
-        case "instructionTab4":
+    case "instructionTab4":
         return `
 <header><b><u>Pseudocode and Conditional
 Breakpoints</u></b></header><br />
@@ -239,7 +241,7 @@ to the next breakpoint, the "Jump to Breakpoint" setting can be used.
 `;
 
         //Contributions tab
-        case "instructionTab5":
+    case "instructionTab5":
 	let html = `
 <header><b><u>Credits</u></b></header><br />
 
@@ -252,7 +254,7 @@ project as well.</p>
 
 <header><b>Student Contributors</b></header>
 `;
-
+	
         html += contributions("Siena College Summer Scholars 2019", "Tyler Gorman");
         html += contributions("Siena College Summer Scholars 2019", "Zac Goodsell");
         html += contributions("Siena College Summer Scholars 2019", "Alissa Ronca");
@@ -295,7 +297,8 @@ Activity (CURCA), at Siena College</a>.</p>
 
 //This function takes a title of a person, and their name
 //and it sets them float left, float right and adds a new line after
-function contributions(title, name){
+function contributions(title, name) {
+    
     let line = '<div style="float: left;">' + title + '</div><div style="float: right;">' + name + '</div><br \>';
     return line;
 }

@@ -53,12 +53,11 @@ function buildWaypointSelector(id,label,initVal) {
         (waypoints.length-1) + '" size="6" style="width: 7em" ' +
         'onchange="waypointSelectorChanged(\'' + id + '\')"' +
         '/><span id="' + id + 'Label">' + waypoints[initVal].label +
-        '</span>';
-        
+        '</span>';        
 }
 
-//Same as buildWaypointSelector but is used for
-//conditional breakpoints
+// Same as buildWaypointSelector but is used for
+// conditional breakpoints
 function buildWaypointSelector2(id,label) {
 
     return label + ' <input id="' + id +
@@ -67,7 +66,6 @@ function buildWaypointSelector2(id,label) {
         (waypoints.length-1) + '" size="6" style="width: 7em" name="quantity" ' +
         'onchange="waypointSelectorChanged(\'' + id + '\')"' +
         '/><span id="' + id + 'Label"></span>';
-
 }
 
 // event handler for waypoint selectors
@@ -75,6 +73,5 @@ function waypointSelectorChanged(id) {
 
     let vNum = document.getElementById(id).value;
     //let vNum = document.querySelector(id).value;
-    document.getElementById(id + "Label").innerHTML = waypoints[vNum].label;
-        
+    document.getElementById(id + "Label").innerHTML = waypoints[vNum].label;       
 }

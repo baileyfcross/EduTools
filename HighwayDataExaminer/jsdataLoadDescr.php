@@ -1,4 +1,6 @@
 <?php
+// PHP for loading the list of graph descriptions for the HDX search box
+//
 // Script written by Michael Dagostino
 //connect to the db
 $tmconffile = fopen($_SERVER['DOCUMENT_ROOT']."/metal/lib/tm.conf", "r");

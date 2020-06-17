@@ -58,6 +58,8 @@ var hdxAV = {
     algOptions: null,
     startPause: null,
 
+    // log message history for mouse-over of current log message in
+    // the AV status panel
     logMessageArr: [],
 
     // used in hdxpseudocode for breakpoint functionality
@@ -148,7 +150,7 @@ var hdxAV = {
         //Pause the map, set jumpToBreakpoint=false
         //and return, so it stays on the current action and doesn't run an
         //extra action
-        if(hdxAV.jumpToBreakpoint){
+        if (hdxAV.jumpToBreakpoint) {
             hdxAV.setStatus(hdxStates.AV_PAUSED);
             hdxAV.startPause.innerHTML = "Resume";
             hdxAV.jumpToBreakpoint = false;
@@ -170,7 +172,7 @@ var hdxAV = {
             return;
         }
         //this is for Jump To Breakpoint
-        else if(hdxAV.delay == 0){
+        else if (hdxAV.delay == 0) {
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
                 hdxAV.oneIteration(thisAV);
             }    
@@ -211,7 +213,7 @@ var hdxAV = {
         hdxAV.iterationDone = false;
         while (!hdxAV.iterationDone) {
             //console.log("oneIteration() calling oneAction(), nextAction=" + this.nextAction);
-            if(hdxAV.jumpToBreakpoint){
+            if (hdxAV.jumpToBreakpoint) {
                 hdxAV.iterationDone = true;
                 return;
             }
@@ -239,7 +241,7 @@ var hdxAV = {
         // if breakpoint is the action, pause then, if
         // useVariableForBreakpoint = true compare the special break
         // instance to determine if you have to pause else just pause
-        if (thisAV.idOfAction(currentAction) == hdxAV.currentBreakpoint){
+        if (thisAV.idOfAction(currentAction) == hdxAV.currentBreakpoint) {
             //If more than one element is chosen, put them 
             //into an array - chosenPoints
             let chosenPoints; 
@@ -258,28 +260,28 @@ var hdxAV = {
                             variable = document.getElementsByName("quantity")[counter].value;
                             //If it has an ID, push it onto the stack. Used for the method
                             //currentVariable to determine what to send back
-                            if(document.getElementsByName("quantity")[counter].hasAttribute("id")){
+                            if (document.getElementsByName("quantity")[counter].hasAttribute("id")) {
                                 methodPicker.push(document.getElementsByName("quantity")[counter].id);
                             }  
                             counter++;
                         }
                         else {
                             variable += " " + document.getElementsByName("quantity")[counter].value;
-                            if(document.getElementsByName("quantity")[counter].hasAttribute("id")){
+                            if (document.getElementsByName("quantity")[counter].hasAttribute("id")) {
                                 methodPicker.push(document.getElementsByName("quantity")[counter].id);
                             }
                             counter++;
                         }
                     }
                     // null value means to still continue, just add on
-                    // to the counter, dont take that value
+                    // to the counter, don't take that value
                     catch (error) {
                         counter++;
                     }
                 }
 
                 // If the value of your variable is null, set it to
-                // -1, essentially ignoring it. If it doesnt include a
+                // -1, essentially ignoring it. If it doesn't include a
                 // space, parse it as an Int(only if it has a number).
                 // If it does include a space, any on the end should
                 // be thrown away and now split the string by spaces
@@ -325,10 +327,10 @@ var hdxAV = {
                     }
                 }
             }
-            else{
+            else {
                 hdxAV.setStatus(hdxStates.AV_PAUSED);
                 hdxAV.startPause.innerHTML = "Resume";
-            }    
+            }
         }
         
         
@@ -389,9 +391,9 @@ var hdxAV = {
         return "rgb(" + r + ",210, " + b + ")";
     },
     
-    //This is what determines whether a conditional breakpoint
-    //has been met or not. If so, break. This will manipulate strings
-    //aka multiple things to be checked against our own variable(s)
+    // This is what determines whether a conditional breakpoint
+    // has been met or not. If so, break. This will manipulate strings
+    // aka multiple things to be checked against our own variable(s)
     determineBreakOrContinue(selectedStop, currentPoints) {
         let checker;//current values
         let selection;//your selected value
@@ -465,7 +467,7 @@ var hdxAV = {
                 console.log("useVariableForBreakpoint has encountered errors parsing breakpointText howToDeal=NumberString ");
             }
         }
-        //Both are numbers
+        // Both are numbers
         else if (howToDeal == "Number") {
             try {
                 if (selection == checker) {
@@ -538,4 +540,3 @@ var hdxAV = {
         }
     }
 };
-

@@ -18,6 +18,7 @@
 // providing a working example in which to work off of
 
 var substringMatcher = function(strs) {
+    
     return function findMatches(q, cb) {
         var matches, substringRegex;
         
@@ -48,15 +49,15 @@ function returnInput() {
 
 // first ajax request to get all of the values for the descriptions
 var description = ['Choose A Graph']; 
-function getDescriptions(){
+function getDescriptions() {
+    
     var xmlhttp = new XMLHttpRequest();
     var descr;
     var i =0;
     xmlhttp.onreadystatechange = function() {
-        if(this.readyState==4 && this.status ==200) {
+        if (this.readyState == 4 && this.status == 200) {
             descr = Array.from(JSON.parse(this.responseText));
-            for(i=0; i < descr.length; i++)
-            {
+            for (i=0; i < descr.length; i++) {
                 description.push(descr[i]);
             }
         }
@@ -67,11 +68,11 @@ function getDescriptions(){
 
 // Make a new ajax request for the graphs object created in php
 var graphs = {};
-function getGraphs(){
+function getGraphs() {
     var graphsResponse;
     var xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if(this.readyState==4 && this.status ==200) {
+        if (this.readyState == 4 && this.status == 200) {
             graphsResponse = JSON.parse(this.responseText);
             graphs=graphsResponse;
         }
@@ -80,7 +81,7 @@ function getGraphs(){
     xmlhttp.send();
 }
 
-$(document).ready(function(){
+$(document).ready(function() {
     $('#the-basics .typeahead').typeahead(
         {
             hint: true,
@@ -96,10 +97,9 @@ $(document).ready(function(){
     // adapted from https://howtodoinjava.com/scripting/jquery/jquery-detect-if-enter-key-is-pressed/
     $("#searchBox").keypress(function(event) {
         var keycode = (event.keycode ? event.keycode : event.which);
-        if(keycode == '13'){
+        if (keycode == '13') {
             var getFile = returnInput(); 
             readServerSearch(getFile);
         }
     });
 });
-

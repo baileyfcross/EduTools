@@ -35,6 +35,7 @@ function labelClickHDX(i) {
 // get the selected algorithm from the AlgorithmSelection menu
 // (factored out here to avoid repeated code)
 function getSelectedAlgorithm() {
+
     var menuSelection = document.getElementById("AlgorithmSelection");
     var selectionIndex = menuSelection.selectedIndex;
     return menuSelection.options[selectionIndex].value;
@@ -87,7 +88,7 @@ function startPausePressed() {
         // the running algorithm will pause when its next
         // timer event fires    
         hdxAV.setStatus(hdxStates.AV_PAUSED);
-        if (hdxAV.delay == -1){
+        if (hdxAV.delay == -1) {
             hdxAV.startPause.innerHTML = "Next Step";
         }
         else {
@@ -289,36 +290,43 @@ function showTopControlPanel() {
 }
 
 function hideTopControlPanel() {
+    
     document.getElementById("topControlPanel").style.display="none";
 }
 
 // the load data panel, where graphs and other data are specified
 // to be loaded into HDX
 function showLoadDataPanel() {
+    
     document.getElementById("loadDataPanel").style.display = "table";
     document.getElementById("hideLoadDataPanel").disabled=false;
 }
 
 function hideLoadDataPanel() {
+
     document.getElementById("loadDataPanel").style.display ="none";
 }
 
 // the algorithm selection panel, where an algorithm is selected
 // and its parameters are specified
 function hideAlgorithmSelectionPanel() {
+
     document.getElementById("algorithmSelectionPanel").style.display="none";
 }
 
 function showAlgorithmSelectionPanel() {
+
     document.getElementById("algorithmSelectionPanel").style.display="table";
 }
 
 // the algorithm status panel, including messages, code, data, and
 // other information showing the status of an AV
 function showAVStatusPanel() {
+
     document.getElementById("avStatusPanel").style.display="block";
 }
 
 function hideAVStatusPanel() {
+
     document.getElementById("avStatusPanel").style.display="none";
 }

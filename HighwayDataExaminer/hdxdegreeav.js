@@ -1,9 +1,8 @@
 //
-// HDX Min/Max Degree
+// HDX Min/Max Degree Search AV
 //
 // METAL Project
 // highly adapted from hdxvertexextremesav.js 
-//
 //
 
 var hdxDegreeAV = {
@@ -163,7 +162,7 @@ var hdxDegreeAV = {
             logMessage: function(thisAV) {
                 return "Top of main for loop over vertices, check=" + thisAV.nextToCheck;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.nextToCheck+1);
             }
         },
@@ -184,7 +183,7 @@ var hdxDegreeAV = {
             logMessage: function(thisAV) {
                 return "Check for new " + thisAV.categories[thisAV.nextCategory].label + " leader";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.categories[thisAV.nextCategory].newLeader();
             }
         },
@@ -236,7 +235,7 @@ var hdxDegreeAV = {
                 thisAV.categories[thisAV.nextCategory].index = thisAV.nextToCheck;
                 
                 ans = ' <span custom-title=';
-                for(let j = 0; j <thisAV.categories[thisAV.nextCategory].tiedWith.length; j++){
+                for (let j = 0; j < thisAV.categories[thisAV.nextCategory].tiedWith.length; j++) {
                 
                     ans += "\n" + thisAV.categories[thisAV.nextCategory].tiedWith[j] ;
                            
@@ -275,8 +274,7 @@ var hdxDegreeAV = {
                 }
                 else {
                     // advance category, skipping if necessary
-                    
-                        thisAV.nextCategory++;
+                    thisAV.nextCategory++;
                     if (thisAV.nextCategory == thisAV.categories.length) {
                         hdxAV.nextAction = "forLoopBottom";
                     }
@@ -290,7 +288,7 @@ var hdxDegreeAV = {
             logMessage: function(thisAV) {
                 return "Check for tie in " + thisAV.categories[thisAV.checkedCategory].label;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.categories[thisAV.nextCategory].tiedForLead();
             }
         },
@@ -307,8 +305,6 @@ var hdxDegreeAV = {
 
                 // add to list of values tied for the lead
                 thisAV.categories[thisAV.nextCategory].tiedWith.push(thisAV.nextToCheck);
-
-
 
                 ans = ' <span custom-title="Tied with:';
                 for (let j = 0;
@@ -351,7 +347,7 @@ var hdxDegreeAV = {
         {
             label: "forLoopBottom",
             comment: "end of for loop iteration",
-            code: function(thisAV){
+            code: function(thisAV) {
 
                 // if this waypoint is the leader in any category, show it,
                 // otherwise it gets discarded
@@ -417,40 +413,31 @@ var hdxDegreeAV = {
         updateMarkerAndTable(0, visualSettings.visiting, 40, false);
 
         // build pseudocode based on options selected
-        this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
-
-        
-            this.code += `
+        this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';        
+        this.code += `
         min &larr; 0, 
         max &larr; 0,<br />
         ` ;
-                
+        
         this.code += '</td></tr>' +
             pcEntry(0, "for (check &larr; 1 to |V|-1)", "forLoopTop", "forLoopTop");
-
+	
         // min
         this.code += pcEntry(1, "if (v[check].degree < v[min].degree)",
                              "checkNextCategory0");
         this.code += pcEntry(2, ("min &larr; check"), "updateNextCategory0");
-
-            this.code += pcEntry(1, "else if (v[check].degree = v[min].degree)",
-                                 "checkTieCategory0");
-            this.code += pcEntry(2, "min.add(check)", "updateTieCategory0");
-        
-
+	
+        this.code += pcEntry(1, "else if (v[check].degree = v[min].degree)",
+                             "checkTieCategory0");
+        this.code += pcEntry(2, "min.add(check)", "updateTieCategory0");
+	
         // max
         this.code += pcEntry(1, "if (v[check].degree > v[max].degree)",
                              "checkNextCategory1");
         this.code += pcEntry(2, ("max &larr; check"), "updateNextCategory1");
-
-       
-            this.code += pcEntry(1, "else if (v[check].degree = v[max].degree)",
-                                 "checkTieCategory1");
-            this.code += pcEntry(2, "max.add(check)", "updateTieCategory1");
-        
-        
-                    
-        
+        this.code += pcEntry(1, "else if (v[check].degree = v[max].degree)",
+                             "checkTieCategory1");
+        this.code += pcEntry(2, "max.add(check)", "updateTieCategory1");
         this.code += "</table>";
         
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered);
@@ -459,9 +446,7 @@ var hdxDegreeAV = {
         for (var i = 0; i < this.categories.length; i++) {
                 addEntryToAVControlPanel(this.categories[i].name,
                                          this.categories[i].visualSettings);
-            
         }
-       
     },
 
     // set up UI for the start of this algorithm
@@ -472,62 +457,57 @@ var hdxDegreeAV = {
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
         hdxAV.algOptions.innerHTML = ``;
-
     },
 
     cleanupUI() {
 
     },
     
-    idOfAction(action){
-        if(action.label == "forLoopTop")
-        {
+    idOfAction(action) {
+        if (action.label == "forLoopTop") {
             return action.label;
         }
-        else
-        {
-            var category = this.nextCategory;
-            var currAction = action.label;
-            return (currAction + "" + category);
+        else {
+	    return action.label + this.nextCategory;
         }
     },
     
-    setConditionalBreakpoints(name){
+    setConditionalBreakpoints(name) {
         let max = waypoints.length-1;
         let temp = commonConditionalBreakpoints(name);
         
         let isThere = name.search(/\d/);
         name = (isThere != -1) ? name.substring(0,isThere) : name;
         
-        if(temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
-        else{
-            switch(name){
-                case "checkNextCategory":
-                case "checkTieCategory":
-                    html = createInnerHTMLChoice("boolean", "checkCategories2","True",
-                        "False");
-                    return html;
+        else {
+            switch (name) {
+            case "checkNextCategory":
+            case "checkTieCategory":
+                html = createInnerHTMLChoice("boolean", "checkCategories2","True",
+					     "False");
+                return html;
             }
         }
         return "No innerHTML";
     },
 
-    hasConditonalBreakpoints(name){
+    hasConditonalBreakpoints(name) {
         
         let isThere = name.search(/\d/);
         name = (isThere != -1) ? name.substring(0,isThere) : name;
     
         let answer = hasCommonConditonalBreakpoints(name);
-        if(answer == true){
+        if (answer) {
             return true;
         }
-        else{
-            switch(name){
-                case "checkNextCategory":
-                case "checkTieCategory":
-                    return true;
+        else {
+            switch (name) {
+            case "checkNextCategory":
+            case "checkTieCategory":
+                return true;
             }
         }
         return false;

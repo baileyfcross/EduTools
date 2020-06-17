@@ -125,7 +125,7 @@ function HDXLinear(type, displayName) {
 
         this.removeCount++;
         let retval = null;
-        switch(this.type) {
+        switch (this.type) {
 
         case hdxLinearTypes.STACK:
         case hdxLinearTypes.CALL_STACK:
@@ -250,7 +250,7 @@ function HDXLinear(type, displayName) {
     // names to use when referring to add and remove operations
     this.addOperation = function() {
         switch(this.type) {
-
+	    
         case hdxLinearTypes.STACK:
             return "push";
         case hdxLinearTypes.PRIORITY_QUEUE:
@@ -260,10 +260,10 @@ function HDXLinear(type, displayName) {
             return "enqueue";
         }
     };
-
+    
     this.removeOperation = function() {
         switch(this.type) {
-
+	    
         case hdxLinearTypes.STACK:
             return "pop";
         case hdxLinearTypes.PRIORITY_QUEUE:

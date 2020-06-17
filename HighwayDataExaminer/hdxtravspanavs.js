@@ -38,8 +38,7 @@ function LDVEntry(vIndex, val, connection) {
         else {
             this.fromVIndex = graphEdges[connection].v1;
         }
-    }
-    
+    }   
     return this;
 }
 
@@ -48,6 +47,7 @@ function LDVEntry(vIndex, val, connection) {
 // traversal and spanning tree algorithms
 // required function to display an LDV entry
 function displayLDVItem(item, ldv) {
+    
     let edgeLabel = "START";
     let edgeLabelFull = "START";
     let showFrom = "(none)";
@@ -441,7 +441,7 @@ var hdxTraversalsSpanningAVCommon = {
                 return "Checking if #" + thisAV.visiting.vIndex +
                     " was previously added";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.addedV[thisAV.visiting.vIndex];
             }
         },
@@ -566,14 +566,14 @@ var hdxTraversalsSpanningAVCommon = {
             logMessage: function(thisAV) {
                 return "Adding " + thisAV.formatLDVEntry(thisAV.visiting) + " to tree";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 //graphEdges[thisAV.visiting.connection] <- gives edge #
                 //thisAV.visiting.vIndex <- vertex start
-                if(whatToDo == "wasNotAdded1")
+                if (whatToDo == "wasNotAdded1")
                 {
                     return thisAV.visiting.connection;
                 }
-                else if(whatToDo == "wasNotAdded2"){
+                else if (whatToDo == "wasNotAdded2") {
                     return thisAV.visiting.vIndex;
                 }
                 else{
@@ -742,7 +742,7 @@ var hdxTraversalsSpanningAVCommon = {
                     graphEdges[thisAV.nextNeighbor.via].label +
                     " added to " + thisAV.ldv.displayName;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.nextNeighbor.to + " " + thisAV.nextNeighbor.via;
             }
         },
@@ -976,7 +976,6 @@ var hdxTraversalsSpanningAVCommon = {
                              this.numEDiscardedOnDiscovery + " E");
         updateAVControlEntry("discardedOnRemoval", "Discarded on removal: " +
                              this.numEDiscardedOnRemoval + " E");
-
     },
 
     // format an LDV entry for addition to the found table
@@ -1126,13 +1125,15 @@ var hdxTraversalsSpanningAVCommon = {
     },
     
     idOfAction(action) {
-            return action.label;
+	
+        return action.label;
     },
     
     setConditionalBreakpoints(name) {
+	
         let max = waypoints.length-1;
         let temp = commonConditionalBreakpoints(name);
-        if(temp != "No innerHTML") {
+        if (temp != "No innerHTML") {
             return temp;
         }
         else {
@@ -1160,8 +1161,9 @@ var hdxTraversalsSpanningAVCommon = {
     },
     
     hasConditonalBreakpoints(name) {
+
         let answer = hasCommonConditonalBreakpoints(name);
-        if (answer){
+        if (answer) {
             return true;
         }
         else {

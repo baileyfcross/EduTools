@@ -12,7 +12,6 @@ var hdxKruskalAV = {
     value: "kruskal",
     name: "Kruskal's Algorithm",
     description: "Finds Minimum Spanning tree/forest by considering edges in increasing length.",
-
     
     // state variables for edge search
     discarded: 0,
@@ -46,10 +45,12 @@ var hdxKruskalAV = {
     // second parameter is the destination vertex and edge traversed
     // to get from the vertex being visited
     valForLDVEntry: function() {
+
         return edgeLengthInMiles(graphEdges[nextEdge]);
     },
     
     isCycle: function(edgeNum) {
+
         let vertex1 = graphEdges[edgeNum].v1;
         let vertex2 = graphEdges[edgeNum].v2;
         
@@ -160,19 +161,19 @@ var hdxKruskalAV = {
                 return "Removed edge #" +
                     thisAV.visiting.connection + " from Priority Queue";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
 
 		if (thisAV.visiting == null) {
 		    // haven't got an edge yet
 		    return -1;
 		}
-                if (whatToDo == "getPlaceFromLDVCV1"){
+                if (whatToDo == "getPlaceFromLDVCV1") {
                     return thisAV.visiting.fromVIndex;
                 }
-                if (whatToDo == "getPlaceFromLDVCV2"){
+                if (whatToDo == "getPlaceFromLDVCV2") {
                     return thisAV.visiting.vIndex;
                 }
-                if (whatToDo == "getPlaceFromLDVCV3"){
+                if (whatToDo == "getPlaceFromLDVCV3") {
                     return thisAV.visiting.connection;
                 }
 
@@ -200,7 +201,7 @@ var hdxKruskalAV = {
                 return "Checking if edge #" + thisAV.visiting.connection +
                     " creates a cycle";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.isCycle(thisAV.visiting.connection);
             }
         },
@@ -230,7 +231,7 @@ var hdxKruskalAV = {
                 return "Discarding edge #" + 
                     thisAV.visiting.connection + " on removal";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.visiting.connection;
             }
         },
@@ -272,10 +273,10 @@ var hdxKruskalAV = {
                 //add edge to spanning tree vertex's adjacency list
                 for (let i = 0; i < thisAV.componentVList.length; i++) {
                     let vertex = thisAV.componentVList[i];
-                    if (vertex == vertex1){
+                    if (vertex == vertex1) {
                         thisAV.componentVAdj[i].push(thisAV.componentVList.indexOf(vertex2));
                     }
-                    if (vertex == vertex2){
+                    if (vertex == vertex2) {
                         thisAV.componentVAdj[i].push(thisAV.componentVList.indexOf(vertex1));
                     }
                 }
@@ -293,7 +294,7 @@ var hdxKruskalAV = {
             logMessage: function(thisAV) {
                 return "Adding edge #" + thisAV.visiting.connection + " to tree";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 if (whatToDo == "isNotCycleCV1") {
                     return graphEdges[thisAV.visiting.connection].v1;
                 }
@@ -394,7 +395,7 @@ var hdxKruskalAV = {
         this.totalTreeCost = 0;
                 
         this.ldv = new HDXLinear(hdxLinearTypes.PRIORITY_QUEUE,
-                         "Priority Queue");
+				 "Priority Queue");
         if (this.hasOwnProperty("comparator")) {
             this.ldv.setComparator(this.comparator);
         }
@@ -439,7 +440,6 @@ var hdxKruskalAV = {
         updateAVControlEntry("found", foundEntry);
         this.foundTBody = document.getElementById("foundEntries");
         this.foundLabel = document.getElementById("foundTableLabel");
-
     },
 
     // clean up kruskal UI
@@ -447,15 +447,17 @@ var hdxKruskalAV = {
 
     }, 
     
-    idOfAction(action){
+    idOfAction(action) {
+	
         return action.label;
     },
     
-    setConditionalBreakpoints(name){
+    setConditionalBreakpoints(name) {
+	
         let max = waypoints.length-1;
         let temp = commonConditionalBreakpoints(name);
         
-        if (temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
         else {
@@ -484,19 +486,18 @@ var hdxKruskalAV = {
                 html += buildWaypointSelector2("getPlaceFromLDVCV3",
 					       "Please select the connection to stop at: ");
                 return html;
-		
             }
         }
         return "No innerHTML";
     },
 
-    hasConditonalBreakpoints(name){
+    hasConditonalBreakpoints(name) {
     
         let answer = hasCommonConditonalBreakpoints(name);
-        if (answer){
+        if (answer) {
             return true;
         }
-        switch (name){
+        switch (name) {
         case "checkCycle":
         case "isNotCycle":
         case "isCycle":

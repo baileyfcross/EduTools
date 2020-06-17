@@ -12,7 +12,6 @@ var hdxDFSRecAV = {
     value: "dfs-recursive",
     name: "Recursive Depth First Search",
     description: "Recursive Depth-First search.",
-
     
     // state variables for edge search
     discarded: 0,
@@ -25,7 +24,6 @@ var hdxDFSRecAV = {
     prevConnection: 0,
     nextEdge: 0,
     nextVertex: 0,
-    
 
     // when finding all, track the lists of vertices and edges that are
     // forming the current spanning tree
@@ -39,7 +37,6 @@ var hdxDFSRecAV = {
     numEUndiscovered: 0,
     numEDiscardedOnRemoval: 0,
     totalTreeCost: 0,
-    
 
     // the actions that make up this algorithm
     avActions: [
@@ -60,8 +57,7 @@ var hdxDFSRecAV = {
         
                 thisAV.updateControlEntries();
                 
-              
-                for(let j = 0; j < waypoints.length; j++) {
+                for (let j = 0; j < waypoints.length; j++) {
                     waypoints[j].hops = -1;
                     waypoints[j].prevVertex = -1;
                 }
@@ -99,10 +95,10 @@ var hdxDFSRecAV = {
                     thisAV.componentVList.push(thisAV.visiting);
                 if (thisAV.connection != -1) {
                     updatePolylineAndTable(thisAV.connection, 
-                        visualSettings.visiting, false);
-                        thisAV.numEUndiscovered--;
-                        thisAV.numESpanningTree++;
-                        thisAV.componentEList.push(thisAV.connection);
+					   visualSettings.visiting, false);
+                    thisAV.numEUndiscovered--;
+                    thisAV.numESpanningTree++;
+                    thisAV.componentEList.push(thisAV.connection);
                 }
                 thisAV.updateControlEntries(); 
                 thisAV.updateSpanningTreeTable();
@@ -112,12 +108,12 @@ var hdxDFSRecAV = {
                 if (thisAV.stack.length > 0) {
                     let prevRoute = thisAV.stack[thisAV.stack.length - 1];
                     updateMarkerAndTable(waypoints[thisAV.visiting].prevVertex,
-                        visualSettings.discovered, 10, false);
+					 visualSettings.discovered, 10, false);
                     if (prevRoute[1] != -1 ) {
                         updatePolylineAndTable(prevRoute[1], 
-                            visualSettings.discovered, false);
+					       visualSettings.discovered, false);
                         updateMarkerAndTable(thisAV.startingVertex,
-                    visualSettings.startVertex, 4, false);
+					     visualSettings.startVertex, 4, false);
                     }
                 }
                     
@@ -127,7 +123,7 @@ var hdxDFSRecAV = {
             logMessage: function(thisAV) {
                 return "Recursive call to dfs on vertex #" + thisAV.visiting;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.visiting;
             }
         },
@@ -136,7 +132,6 @@ var hdxDFSRecAV = {
             comment: "Set vertex's number of hops to mark as discovered",
             code: function(thisAV) {
                 highlightPseudocode(this.label, visualSettings.visiting);
-
 
                 //set number of hops to its parent vertex's number of hops + 1
                 //if its the first point set hops to 0
@@ -156,7 +151,7 @@ var hdxDFSRecAV = {
                 return "Set vertex #" + thisAV.visiting + "'s hops to " +
                     waypoints[thisAV.visiting].hops + " to mark as discovered";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return waypoints[waypoints[thisAV.visiting].prevVertex].hops + 1;
             }
         },
@@ -178,7 +173,6 @@ var hdxDFSRecAV = {
                     hdxAV.nextAction = "return";
                 }
                 else {
-
                     //get the other vertex from the adjacency list 
                     thisAV.connection =
                         waypoints[thisAV.visiting].edgeList[thisAV.nextEdge].edgeListIndex;
@@ -189,15 +183,16 @@ var hdxDFSRecAV = {
                     else if (graphEdges[thisAV.connection].v2 == thisAV.visiting) {
                         thisAV.nextVertex = graphEdges[thisAV.connection].v1;
                     }
-                    //check nextVertex against all vertexalready discovered
-                    //if discovered skip and incriment by one then go through the for loop again                         
-                        hdxAV.nextAction = "checkUndiscovered";
+                    // check nextVertex against all vertices already
+                    // discovered, if discovered, skip and increment
+                    // by one then go through the for loop again
+                    hdxAV.nextAction = "checkUndiscovered";
                 }
             },
             logMessage: function(thisAV) {
                 return "Loop through each vertex in V's adjacency list";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.nextVertex;
             }
         },
@@ -211,14 +206,14 @@ var hdxDFSRecAV = {
 
                     hdxAV.nextAction = "callRecursion";
                 }
-                else{
+                else {
                     thisAV.nextEdge++;                    
                     hdxAV.nextAction = "forLoopTop";
                     if (thisAV.stack.length != 0 &&
                         thisAV.stack[thisAV.stack.length - 1][1] != thisAV.connection
-                         && !thisAV.backEdgesArr.includes(thisAV.connection) ) {
+                        && !thisAV.backEdgesArr.includes(thisAV.connection) ) {
                         updatePolylineAndTable(thisAV.connection,
-                        visualSettings.discarded, false);
+					       visualSettings.discarded, false);
                         thisAV.numEDiscardedOnRemoval++;
                         thisAV.numEUndiscovered--;
                         thisAV.updateControlEntries();     
@@ -230,7 +225,7 @@ var hdxDFSRecAV = {
                 return "Check if vertex #" + thisAV.nextVertex +
                     " has previously been discovered";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (waypoints[thisAV.nextVertex].hops == -1);
             }
         },
@@ -256,30 +251,28 @@ var hdxDFSRecAV = {
 
                 //color finished edges and vertices added to tree
                 updateMarkerAndTable(graphEdges[thisAV.connection].v1,
-                    visualSettings.spanningTree, 10, false);
+				     visualSettings.spanningTree, 10, false);
                 updateMarkerAndTable(graphEdges[thisAV.connection].v2,
-                    visualSettings.spanningTree, 10, false);
-                if(!thisAV.backEdgesArr.includes(thisAV.connection))
-                    {
+				     visualSettings.spanningTree, 10, false);
+                if (!thisAV.backEdgesArr.includes(thisAV.connection)) {
                     updatePolylineAndTable(thisAV.connection,
-                        visualSettings.spanningTree, false);
-                    }
+					   visualSettings.spanningTree, false);
+                }
 
                 //update color for new current vertex
                 updateAVControlEntry("visiting", "Visiting vertex " + thisAV.visiting
-                    + ": " + waypoints[thisAV.visiting].label);
+				     + ": " + waypoints[thisAV.visiting].label);
                 updateMarkerAndTable(thisAV.visiting,
-                    visualSettings.visiting, 10, false);
-                                
+				     visualSettings.visiting, 10, false);
 
-                if (thisAV.stack.length == 0 && thisAV.nextEdge >= waypoints[thisAV.visiting].edgeList.length) {
+                if (thisAV.stack.length == 0 &&
+		    thisAV.nextEdge >= waypoints[thisAV.visiting].edgeList.length) {
                     hdxAV.nextAction = "cleanup";
                 }
                 else {
                     thisAV.nextEdge++;
                     hdxAV.nextAction = "forLoopTop";
-                }
-                
+                }                
             },
             logMessage: function(thisAV) {
                 return "Return from vertex #" + thisAV.visiting +
@@ -292,19 +285,16 @@ var hdxDFSRecAV = {
             comment: "Cleanup and updates at the end of the visualization",
             code: function (thisAV) {
                 updateMarkerAndTable(thisAV.startingVertex,
-                    visualSettings.startVertex, 4, false);
+				     visualSettings.startVertex, 4, false);
                 hdxAV.algStat.innerHTML =
                     "Done! Visited " + graphEdges.length + " edges.";
                 updateAVControlEntry("visiting", "");
-                //updateAVControlEntry("discovered", "");
-                //updateAVControlEntry("undiscovered", "");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
             }
-                
         }
     ],
 
@@ -338,7 +328,6 @@ var hdxDFSRecAV = {
                            "Path to #" + this.visiting + ":" +
                            waypoints[this.visiting].label + ", " + 
                            fullFrom + ", via " + fullEdgeLabel);
-
         
         // actual table row to display
         newtr.innerHTML = 
@@ -360,7 +349,6 @@ var hdxDFSRecAV = {
                              this.numESpanningTree + " E, " + this.numVSpanningTree + " V");
         updateAVControlEntry("discardedOnRemoval", "Back edges: " +
                              this.numEDiscardedOnRemoval + "");
-
     },
 
     // required prepToStart function
@@ -436,47 +424,47 @@ var hdxDFSRecAV = {
         updateAVControlEntry("found", foundEntry);
         this.foundTBody = document.getElementById("foundEntries");
         this.foundLabel = document.getElementById("foundTableLabel");
-
     },
 
     cleanupUI() {
 
     }, 
     
-    idOfAction(action){
+    idOfAction(action) {
         return action.label;
     },
 
-    setConditionalBreakpoints(name){
+    setConditionalBreakpoints(name) {
         let temp = commonConditionalBreakpoints(name);
         
-        if(temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
-        else{
-            switch(name){
+        else {
+            switch (name) {
                 case "setHops":
-                    html = createInnerHTMLChoice("number", "setHopsCV", "hops is equal to");
-                    return html;
+                html = createInnerHTMLChoice("number", "setHopsCV", "hops is equal to");
+                return html;
                 case "checkUndiscovered":
-                    html = createInnerHTMLChoice("boolean", "checkUndiscoveredCV", "call recursion",
-                                                 "do not call recursion");
-                    return html;
-                case "recursiveCallTop":
-                    html = buildWaypointSelector2("recursiveCallTopCV", "Please select the vertex to stop at: ");
-                    return html;
+                html = createInnerHTMLChoice("boolean", "checkUndiscoveredCV", "call recursion",
+                                             "do not call recursion");
+                return html;
+            case "recursiveCallTop":
+                html = buildWaypointSelector2("recursiveCallTopCV", "Please select the vertex to stop at: ");
+                return html;
             }
         }
         return "No innerHTML";
     },
 
-    hasConditonalBreakpoints(name){
+    hasConditonalBreakpoints(name) {
+
         let answer = hasCommonConditonalBreakpoints(name);
-        if(answer == true){
+        if (answer) {
             return true;
         }
-        else{
-            switch(name){
+        else {
+            switch (name) {
                 case "setHops":
                 case "checkUndiscovered":
                 case "recursiveCallTop":
@@ -485,7 +473,6 @@ var hdxDFSRecAV = {
         }
         return false;
     }
-
 };
 
 

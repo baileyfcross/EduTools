@@ -15,7 +15,7 @@ function addEntryToAVControlPanel(namePrefix, vs) {
     
     let avControlTbody = document.getElementById('algorithmVars');
     let infoBox = document.createElement('td');
-    let infoBoxtr= document.createElement('tr');
+    let infoBoxtr = document.createElement('tr');
     infoBox.setAttribute('id', namePrefix + AVCPsuffix);
     infoBox.setAttribute('style', "color:" + vs.textColor +
                          "; background-color:" + vs.color);
@@ -49,11 +49,9 @@ function removeEntryFromAVControlPanel(namePrefix) {
 function updateAVControlEntry(namePrefix, text) {
 
     document.getElementById(namePrefix + AVCPsuffix).innerHTML = text;
-    if(hdxAV.delay != 0)
-    {
+    if (hdxAV.delay != 0) {
         customTitle();
-    }
-    
+    }   
 }
 
 /* set the visualSettings of an AV control panel entry */
@@ -69,4 +67,3 @@ function getAVControlEntryDocumentElement(namePrefix) {
 
     return document.getElementById(namePrefix + AVCPsuffix);
 }
-

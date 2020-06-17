@@ -222,7 +222,7 @@ var hdxBFConvexHullAV = {
             logMessage: function(thisAV) {
                 return "Top of outer for loop over vertices, v<sub>1</sub>=" + thisAV.hullv1;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.hullv1+1);
             }
         },
@@ -253,7 +253,7 @@ var hdxBFConvexHullAV = {
             logMessage: function(thisAV) {
                 return "Top of inner for loop over vertices, v<sub>2</sub>=" + thisAV.hullv2;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.hullv2+1);
             }
         },
@@ -332,7 +332,7 @@ var hdxBFConvexHullAV = {
                 return "Top of loop over vertices testing " +
                     thisAV.currentSegmentString();
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.hullvtest+1);
             }
         },
@@ -372,7 +372,7 @@ var hdxBFConvexHullAV = {
                 return "Checking if checkVal=" +
                     thisAV.checkVal.toFixed(3) + " is 0";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.checkVal == 0);
             }
         },
@@ -394,7 +394,7 @@ var hdxBFConvexHullAV = {
                 return "Checking if colinear point is on " +
                     thisAV.currentSegmentString();
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return isBetween(waypoints[thisAV.hullv1],
                               waypoints[thisAV.hullv2],
                               waypoints[thisAV.hullvtest]);
@@ -428,7 +428,7 @@ var hdxBFConvexHullAV = {
             logMessage: function(thisAV) {
                 return "checking if we are doing the first point for the segment";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.lookingFor == "UNKNOWN");
             }
         },
@@ -448,7 +448,7 @@ var hdxBFConvexHullAV = {
                 return "Testing if checkVal=" + thisAV.checkVal +
                     " is negative";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.checkVal < 0);
             }
         },
@@ -483,7 +483,7 @@ var hdxBFConvexHullAV = {
                 return "Testing if checkVal=" + thisAV.checkVal +
                     " is positive";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.checkVal > 0);
             }
         },
@@ -535,7 +535,7 @@ var hdxBFConvexHullAV = {
                 return "Checking if " + thisAV.hullvtest +
                     " is on the same side as previously checked points";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return ((thisAV.lookingFor == "POSITIVE" && thisAV.checkVal < 0) ||
                     (thisAV.lookingFor == "NEGATIVE" && thisAV.checkVal > 0));
             }
@@ -585,7 +585,7 @@ var hdxBFConvexHullAV = {
                     " has been eliminated after " +
                     thisAV.checkValThisSegment + " points";
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return thisAV.eliminated;
             }
         },
@@ -724,17 +724,18 @@ var hdxBFConvexHullAV = {
 	}
     },
     
-    idOfAction(action){
+    idOfAction(action) {
         return action.label;
     },
-    
-    setConditionalBreakpoints(name){
+
+    // set the conditional breakpoints for this AV
+    setConditionalBreakpoints(name) {
         let temp = commonConditionalBreakpoints(name);
-        if(temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
-        else{
-            switch(name){
+        else {
+            switch (name) {
                 case "isCheckVal0":
                     html = createInnerHTMLChoice("boolean","isCheckVal0CV","checkVal = 0","checkVal != 0");
                     return html;
@@ -765,13 +766,15 @@ var hdxBFConvexHullAV = {
         return "No innerHTML";
     },
 
-    hasConditonalBreakpoints(name){
+    // return whether the action with the given name in common or in
+    // this AV has conditional breakpoints
+    hasConditonalBreakpoints(name) {
         let answer = hasCommonConditonalBreakpoints(name);
-        if(answer == true){
+        if (answer) {
             return true;
         }
-        else{
-            switch(name){
+        else {
+            switch (name) {
                 case "isCheckVal0":
                 case "checkBetween":
                 case "checkFirst":
@@ -793,8 +796,7 @@ var hdxBFConvexHullAV = {
     @param o1 one of the points
     @param o2 the other point
     @return whether this point is between the two given points
-    */
-
+*/
 function isBetween(o1, o2, o3) {
     var sqDisto1o2 = squaredDistance(o1,o2);
     //alert("isBetween" + (squaredDistance(o3,o2) < sqDisto1o2) &&

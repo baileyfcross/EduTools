@@ -18,7 +18,6 @@ function HDXPresort() {
         this.comesBefore = c;
     };
     
-
     // the actual array representing this linear structure
     this.sortedWaypoints = [];
     
@@ -49,10 +48,6 @@ function HDXPresort() {
     //     graphEdges[i].v2 = waypoints[graphEdges[i].v2].newIndex;
     // }
         
-    return this;
-    
-    
-    
-    
+    return this;    
 }
 

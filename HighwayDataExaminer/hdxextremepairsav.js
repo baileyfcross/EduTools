@@ -108,7 +108,7 @@ var hdxExtremePairsAV = {
             logMessage: function(thisAV) {
                 return "Next v<sub>1</sub>=" + thisAV.v1;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.v1+1);
             }
         },
@@ -138,7 +138,7 @@ var hdxExtremePairsAV = {
                 return "Checking v<sub>1</sub>=" + thisAV.v1 +
                     "and v<sub>2</sub>=" + thisAV.v2;
             },
-            currentVariable: function(thisAV, whatToDo){
+            currentVariable: function(thisAV, whatToDo) {
                 return (thisAV.v2+1);
             }
         },
@@ -174,7 +174,7 @@ var hdxExtremePairsAV = {
             logMessage: function(thisAV) {
                 return "Check if [" + thisAV.v1 + "," + thisAV.v2 + "] is the new closest pair";
             },
-            currentVariable: function(thisAV){
+            currentVariable: function(thisAV) {
                 return (thisAV.d_this < thisAV.d_closest);
             }
         },
@@ -238,7 +238,7 @@ var hdxExtremePairsAV = {
             logMessage: function(thisAV) {
                 return "Check if [" + thisAV.v1 + "," + thisAV.v2 + "] is the new farthest pair";
             },
-            currentVariable: function(thisAV){
+            currentVariable: function(thisAV) {
                 return (thisAV.d_this > thisAV.d_farthest);
             }
         },
@@ -290,7 +290,7 @@ var hdxExtremePairsAV = {
         {
             label: "v2forLoopBottom",
             comment: "end of outer for loop iteration",
-            code: function(thisAV){
+            code: function(thisAV) {
 
                 // undisplay the visiting segment
                 thisAV.removeLineVisiting();
@@ -341,7 +341,7 @@ var hdxExtremePairsAV = {
         {
             label: "v1forLoopBottom",
             comment: "end of outer for loop iteration",
-            code: function(thisAV){
+            code: function(thisAV) {
 
                 // if the current v1 isn't part of the current closest pair
                 // or current farthest pair, we discard it
@@ -502,41 +502,43 @@ var hdxExtremePairsAV = {
         }
     },
     
-    idOfAction(action){
-            return action.label;
+    idOfAction(action) {
+        return action.label;
     },
     
-    setConditionalBreakpoints(name){
+    setConditionalBreakpoints(name) {
+	
         let max = waypoints.length-1;
         let temp = commonConditionalBreakpoints(name);
-        if(temp != "No innerHTML"){
+        if (temp != "No innerHTML") {
             return temp;
         }
-        else{
-            switch(name){
-                case "checkCloseLeader":
-                    html = createInnerHTMLChoice("boolean","checkCloseLeaderCV",
-                                                 "distance is the new closest","distnace is not the closest");
-                    return html;
-                case "checkFarLeader":
-                    html = createInnerHTMLChoice("boolean","checkCloseLeaderCV",
-                                                 "distance is the new farthest","distnace is not the farthest");
-                    return html;
+        else {
+            switch (name) {
+            case "checkCloseLeader":
+                html = createInnerHTMLChoice("boolean","checkCloseLeaderCV",
+                                             "distance is the new closest","distnace is not the closest");
+                return html;
+            case "checkFarLeader":
+                html = createInnerHTMLChoice("boolean","checkCloseLeaderCV",
+                                             "distance is the new farthest","distnace is not the farthest");
+                return html;
             }
         }
         return "No innerHTML";
     },
 
-    hasConditonalBreakpoints(name){
+    hasConditonalBreakpoints(name) {
+	
         let answer = hasCommonConditonalBreakpoints(name);
-        if(answer == true){
+        if (answer) {
             return true;
         }
-        else{
-            switch(name){
-                case "checkCloseLeader":
-                case "checkFarLeader":
-                    return true;
+        else {
+            switch(name) {
+            case "checkCloseLeader":
+            case "checkFarLeader":
+                return true;
             }
         }
         return false;
