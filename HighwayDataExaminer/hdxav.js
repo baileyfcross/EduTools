@@ -146,10 +146,10 @@ var hdxAV = {
     // this will do an action, an iteration, or run to completion
     // for the AV passed in
     nextStep(thisAV) {
-        //If the breakpoint conditions are met
-        //Pause the map, set jumpToBreakpoint=false
-        //and return, so it stays on the current action and doesn't run an
-        //extra action
+
+        // If we have reached a breakpoint with its conditions met, pause the
+	// AV then return, so we are still on the current action and don't run
+	// an extra action
         if (hdxAV.jumpToBreakpoint) {
             hdxAV.setStatus(hdxStates.AV_PAUSED);
             hdxAV.startPause.innerHTML = "Resume";
@@ -157,13 +157,14 @@ var hdxAV = {
             startPausePressed();
             return;
         }
+	
         // if the simulation is paused, we can do nothing, as this function
         // will be called again when we restart
         if (hdxAV.paused()) {
             return;
         }
 
-        // run to completion option
+        // Run to Completion option
         if (hdxAV.delay == 0 && hdxAV.speedName == "Run To Completion") {
             while (hdxAV.nextAction != "DONE") {
                 hdxAV.oneIteration(thisAV);
@@ -171,8 +172,9 @@ var hdxAV = {
             hdxAV.avDone();
             return;
         }
-        //this is for Jump To Breakpoint
-        else if (hdxAV.delay == 0) {
+	
+        // Jump To Breakpoint
+        if (hdxAV.delay == 0) {
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
                 hdxAV.oneIteration(thisAV);
             }    
@@ -238,12 +240,12 @@ var hdxAV = {
 
         // we have an action to execute
         
-        // if breakpoint is the action, pause then, if
+        // if the action is the current breakpoint, pause then, if
         // useVariableForBreakpoint = true compare the special break
         // instance to determine if you have to pause else just pause
         if (thisAV.idOfAction(currentAction) == hdxAV.currentBreakpoint) {
-            //If more than one element is chosen, put them 
-            //into an array - chosenPoints
+            // If more than one element is chosen, put them 
+            // into an array - chosenPoints
             let chosenPoints; 
             let methodPicker = [];
             if (hdxAV.useVariableForBreakpoint) {
@@ -258,8 +260,10 @@ var hdxAV = {
                     try {
                         if (variable == "") {
                             variable = document.getElementsByName("quantity")[counter].value;
-                            //If it has an ID, push it onto the stack. Used for the method
-                            //currentVariable to determine what to send back
+                            // If it has an ID, push it onto the
+                            // stack. Used for the method
+                            // currentVariable to determine what to
+                            // send back
                             if (document.getElementsByName("quantity")[counter].hasAttribute("id")) {
                                 methodPicker.push(document.getElementsByName("quantity")[counter].id);
                             }  
@@ -306,7 +310,8 @@ var hdxAV = {
                 // else run through the entire array and parse any
                 // numbers.  Use all of the indexs as values
 
-		//ALL NUMBERS ARE PARSED CORRECTLY BEFORE GOING INTO determineBreakOrContinue
+		// ALL NUMBERS ARE PARSED CORRECTLY BEFORE GOING INTO
+		// determineBreakOrContinue
                 if (chosenPoints == null) {
                     hdxAV.determineBreakOrContinue(
 			variable,
@@ -332,8 +337,7 @@ var hdxAV = {
                 hdxAV.startPause.innerHTML = "Resume";
             }
         }
-        
-        
+                
         // undo any previous highlighting
         unhighlightPseudocode();
         //console.log("ACTION: " + hdxAV.nextAction);
