@@ -22,4 +22,10 @@ function HDXInit() {
     
     // create the tabs for HDX instructions popup
     createTabs();
+
+    // if the load= QS parameter is present, try to load the file
+    // from the graphdata on the server
+    if (HDXQSIsSpecified("load")) {
+	HDXReadFileFromWebServer(HDXQSValue("load"));
+    }
 }

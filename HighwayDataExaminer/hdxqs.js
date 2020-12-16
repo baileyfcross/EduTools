@@ -37,17 +37,14 @@ function HDXInitQS() {
     }
 }
 
-// old load code:
-/*
-        if (qsitem[0] == "load") {
-            var request = new XMLHttpRequest();
-            //DBG.write("qsitem[1] = " + qsitem[1]);
-            document.getElementById('filename').innerHTML = qsitem[1];
-            request.open("GET", qsitem[1], false);
-            request.setRequestHeader("User-Agent", navigator.userAgent);
-            request.send(null);
-            if (request.status == 200) {
-                processContents(request.responseText);
-            }
-        }
-*/
+// check if a given QS was provided
+function HDXQSIsSpecified(param) {
+
+    return hdxQS.hasOwnProperty(param);
+}
+
+// get the value associated with a given QS param
+function HDXQSValue(param) {
+
+    return hdxQS[param];
+}

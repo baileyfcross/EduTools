@@ -369,7 +369,8 @@ function HDXReadFileFromWebServer(graphName) {
     // set up and make the AJAX request
     let xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        if (xmlhttp.readyState != 4) return;
+	if (xmlhttp.status == 200) {
             let file = new Blob([xmlhttp.responseText], {type : "text/plain"});
 	    if (file) {
 		file.name = graphName;
@@ -378,12 +379,16 @@ function HDXReadFileFromWebServer(graphName) {
                     reader = new FileReader();
                 }
                 catch(e) {
+		    console.log("HDXReadFileFromWebServer, onreadystatechange exception " + e);
                     pointboxErrorMsg("Error: unable to access file (Perhaps no browser support?  Try recent Firefox or Chrome releases.).");
                     return;
                 }
                 reader.readAsText(file, "UTF-8");
                 reader.onload = HDXFileLoadedCallback;
             }
+	}
+	else {
+	    alert("Error " + xmlhttp.status + " loading " + graphName);
 	}
     };
 
