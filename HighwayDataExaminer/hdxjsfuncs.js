@@ -31,6 +31,9 @@ var hdxStates = {
     AV_COMPLETE: 10
 };
 
+// object to hold HDX global status info
+var hdxGlobals = new Object();
+
 // functions related to changes of units in the display
 function changeUnits(event) {
     prevUnit = curUnit;
@@ -313,6 +316,7 @@ function HDXStartFileselectorRead(filesel) {
     // which must be done before we toggle the table to force
     // the pointbox to be displayed
     let file = document.getElementById(filesel).files[0];
+    hdxGlobals.loadingFile = file.name;
     
     // force data table to be displayed
     let datatable = document.getElementById("datatable");
@@ -322,13 +326,13 @@ function HDXStartFileselectorRead(filesel) {
 
     if (file) {
         //DBG.write("file: " + file.name);
-        document.getElementById('filename').innerHTML = file.name;
-        if ((file.name.indexOf(".wpt") == -1) &&
-            (file.name.indexOf(".pth") == -1) &&
-            (file.name.indexOf(".nmp") == -1) &&
-            (file.name.indexOf(".gra") == -1) &&
-            (file.name.indexOf(".tmg") == -1) &&
-            (file.name.indexOf(".wpl") == -1)) {
+        document.getElementById('filename').innerHTML = hdxGlobals.loadingFile;
+        if ((hdxGlobals.loadingFile.indexOf(".wpt") == -1) &&
+            (hdxGlobals.loadingFile.indexOf(".pth") == -1) &&
+            (hdxGlobals.loadingFile.indexOf(".nmp") == -1) &&
+            (hdxGlobals.loadingFile.indexOf(".gra") == -1) &&
+            (hdxGlobals.loadingFile.indexOf(".tmg") == -1) &&
+            (hdxGlobals.loadingFile.indexOf(".wpl") == -1)) {
             pointboxErrorMsg("Unrecognized file type!");
             return;
         }
@@ -342,12 +346,57 @@ function HDXStartFileselectorRead(filesel) {
             return;
         }
         reader.readAsText(file, "UTF-8");
-        reader.onload = fileLoaded;
+        reader.onload = HDXFileLoadedCallback;
         //reader.onerror = fileLoadError;
     }
 }
 
-function readServer(event) {
+// read the graph chosen from the dropdown menu "graphList" in the Load Data
+// panel, Option 2
+function HDXReadSelectedGraphFromServer(event) {
+
+    let index = document.getElementById("graphList").selectedIndex;
+    let graphName = document.getElementById("graphList").options[index].value;
+    
+    if (graphName != "") {
+	HDXReadFileFromWebServer(graphName);
+    }
+}
+
+// read a data file from the "graphdata" directory on the server
+function HDXReadFileFromWebServer(graphName) {
+
+    // set up and make the AJAX request
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            let file = new Blob([xmlhttp.responseText], {type : "text/plain"});
+	    if (file) {
+		file.name = graphName;
+                let reader;
+                try {
+                    reader = new FileReader();
+                }
+                catch(e) {
+                    pointboxErrorMsg("Error: unable to access file (Perhaps no browser support?  Try recent Firefox or Chrome releases.).");
+                    return;
+                }
+                reader.readAsText(file, "UTF-8");
+                reader.onload = HDXFileLoadedCallback;
+            }
+	}
+    };
+
+    hdxGlobals.loadingFile = graphName;
+    // open and send the AJAX request, on completion the HDXFileLoadedCallback
+    // function will handle the results
+    xmlhttp.open("GET",
+		 "https://courses.teresco.org/metal/graphdata/" + graphName,
+		 true);
+    xmlhttp.send(); 
+}
+
+function oldreadServer(event) {
 
     var index = document.getElementById("graphList").selectedIndex;
     var value = document.getElementById("graphList").options[index].value;
@@ -414,68 +463,68 @@ function readServerSearch(file) {
                 }
                 reader.readAsText(file, "UTF-8");
                 reader.onload = fileLoaded;
-            }
-            
+            }            
         }
     };
     xmlhttp.open("GET", "https://courses.teresco.org/metal/graphdata/"+tmgFile, true);
     xmlhttp.send();
 }
 
-// when the FileReader created in startRead has finished, this will be called
-// to process the contents of the file
-function fileLoaded(event) {
+// when the FileReader created in HDXReadFileFromWebServer or
+// HDXStartFileselectorRead has finished, this will be called to
+// process the contents of the file
+function HDXFileLoadedCallback(event) {
     
     // file done loading, read the contents
-    processContents(event.target.result);
+    HDXProcessFileContents(event.target.result);
     customTitle();
     hideInstructions();
 }
 
 // process the contents of a String which came from a file or elsewhere
-function processContents(fileContents) {
+function HDXProcessFileContents(fileContents) {
     
-    // place the contents into the file contents area (will improve later)
-    // document.getElementById('pointbox').innerHTML = "<pre>" + fileContents + "</pre>";
-    // document.getElementById('selected').innerHTML = "<pre>" + fileContents + "</pre>";
-    
-    var pointboxContents = "";
+    let pointboxContents = "";
     
     // parse the file and process as appropriate
-    // TODO: check that this is always still here when we ask, might be
-    // better to store the filename in a variable for safe keeping
-    var fileName = document.getElementById('filename').innerHTML;
-    if (fileName.indexOf(".wpt") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Waypoint File)";
+    // its name should have been stored in hdxGlobals.loadingFile
+    if (hdxGlobals.loadingFile.indexOf(".wpt") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Waypoint File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseWPTContents(fileContents);
         showTopControlPanel();
     }
-    else if (fileName.indexOf(".pth") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Waypoint Path File)";
+    else if (hdxGlobals.loadingFile.indexOf(".pth") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Waypoint Path File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parsePTHContents(fileContents);
         showTopControlPanel();
     }
-    else if (fileName.indexOf(".nmp") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Near-Miss Point File)";
+    else if (hdxGlobals.loadingFile.indexOf(".nmp") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Near-Miss Point File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseNMPContents(fileContents);
         showTopControlPanel();
     }
-    else if (fileName.indexOf(".wpl") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Waypoint List File)";
+    else if (hdxGlobals.loadingFile.indexOf(".wpl") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Waypoint List File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseWPLContents(fileContents);
         showTopControlPanel();
     }
-    else if (fileName.indexOf(".gra") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Highway Graph File)";
+    else if (hdxGlobals.loadingFile.indexOf(".gra") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Highway Graph File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseGRAContents(fileContents);
     }
-    else if (fileName.indexOf(".tmg") >= 0) {
-        document.getElementById('filename').innerHTML = fileName + " (Highway Graph File)";
+    else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
+        document.getElementById('filename').innerHTML =
+	    hdxGlobals.loadingFile + " (Highway Graph File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
         showAlgorithmSelectionPanel();
@@ -504,7 +553,7 @@ function fillGraphList(e) {
     }
     var mapSel = document.createElement("select");
     mapSel.setAttribute("id", "graphList");
-    mapSel.setAttribute("onchange", "readServer(event)");
+    mapSel.setAttribute("onchange", "HDXReadSelectedGraphFromServer(event)");
     var init = document.createElement("option");
     init.innerHTML = "Choose a Graph";
     init.value = "init";

@@ -13,7 +13,7 @@
 // HDXQS.load = "NY-region-collapsed.tmg"
 //
 // being one of its properties
-var HDXQS = new Object();
+var hdxQS = new Object();
 
 // populate the object - this should be called on page load
 function HDXInitQS() {
@@ -29,10 +29,10 @@ function HDXInitQS() {
     for (let i = 0; i < qsitems.length; i++) {
         var qsitem = qsitems[i].split('=');
 	if (qsitem.length > 1) {
-	    HDXQS[qsitem[0]] = qsitem[1];
+	    hdxQS[qsitem[0]] = qsitem[1];
 	}
 	else {
-	    HDXQS[qsitem[0]] = "";
+	    hdxQS[qsitem[0]] = "";
 	}
     }
 }

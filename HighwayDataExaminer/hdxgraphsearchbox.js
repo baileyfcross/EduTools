@@ -4,7 +4,7 @@
 // METAL Project
 //
 // Primary Author: Michael Dagostino
-//
+// Maintenance edits: Jim Teresco
 
 /***********************************************************************/
 /* Code formerly in basic-sch.js mainly, Michael Dagostino Summer 2018 */
@@ -92,7 +92,7 @@ $(document).ready(function() {
         if (keycode == '13') {
 	    let input = document.getElementById("searchBox").value;
 	    if (HDXGraphs.hasOwnProperty(input)) {
-		readServerSearch(HDXGraphs[input]);
+		HDXReadFileFromWebServer(HDXGraphs[input]);
 	    }
 	    else {
 		// some user feedback would be good here
