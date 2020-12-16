@@ -12,12 +12,45 @@
 /* a word contained in the graph's name/description.                   */
 /***********************************************************************/
 
+// we will fill these two lists
+var HDXGraphDescriptions = ['Choose A Graph']; 
+var HDXGraphs = {};
+
+// initialization code for HDX Graph search box
+function HDXGraphSearchInit() {
+
+    // first ajax request to get all of the values for the descriptions
+    var xmlhttp = new XMLHttpRequest();
+    var descr;
+    var i =0;
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            descr = Array.from(JSON.parse(this.responseText));
+            for (i=0; i < descr.length; i++) {
+                HDXGraphDescriptions.push(descr[i]);
+            }
+        }
+    };
+    xmlhttp.open("GET", "jsdataLoadDescr.php", true);
+    xmlhttp.send();
+
+    // And now the graphs
+    var xmlhttp2 = new XMLHttpRequest();
+    xmlhttp2.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            HDXGraphs = JSON.parse(this.responseText);
+        }
+    };
+    xmlhttp2.open("GET", "jsLoadDataGraphs.php", true);
+    xmlhttp2.send();
+}
+
 // adapted from the example provided by
 // http://twitter.github.io/typeahead.js/examples/ The Basics also
 // thanks to https://codepen.io/jonvadillo/details/NrGWEX for
 // providing a working example in which to work off of
 
-var substringMatcher = function(strs) {
+var HDXGraphSubstringMatcher = function(strs) {
     
     return function findMatches(q, cb) {
         var matches, substringRegex;
@@ -40,47 +73,6 @@ var substringMatcher = function(strs) {
     };
 };
 
-function returnInput() {
-    
-    var input = document.getElementById("searchBox").value;
-    var getGraph = graphs[input];
-    return graphs[input];
-}
-
-// first ajax request to get all of the values for the descriptions
-var description = ['Choose A Graph']; 
-function getDescriptions() {
-    
-    var xmlhttp = new XMLHttpRequest();
-    var descr;
-    var i =0;
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            descr = Array.from(JSON.parse(this.responseText));
-            for (i=0; i < descr.length; i++) {
-                description.push(descr[i]);
-            }
-        }
-    };
-    xmlhttp.open("GET", "jsdataLoadDescr.php", true);
-    xmlhttp.send();
-}
-
-// Make a new ajax request for the graphs object created in php
-var graphs = {};
-function getGraphs() {
-    var graphsResponse;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            graphsResponse = JSON.parse(this.responseText);
-            graphs=graphsResponse;
-        }
-    };
-    xmlhttp.open("GET", "jsLoadDataGraphs.php", true);
-    xmlhttp.send();
-}
-
 $(document).ready(function() {
     $('#the-basics .typeahead').typeahead(
         {
@@ -91,15 +83,21 @@ $(document).ready(function() {
         },
         {
             name: 'description',
-            source: substringMatcher(description)
+            source: HDXGraphSubstringMatcher(HDXGraphDescriptions)
         });     
     
     // adapted from https://howtodoinjava.com/scripting/jquery/jquery-detect-if-enter-key-is-pressed/
     $("#searchBox").keypress(function(event) {
         var keycode = (event.keycode ? event.keycode : event.which);
         if (keycode == '13') {
-            var getFile = returnInput(); 
-            readServerSearch(getFile);
+	    let input = document.getElementById("searchBox").value;
+	    if (HDXGraphs.hasOwnProperty(input)) {
+		readServerSearch(HDXGraphs[input]);
+	    }
+	    else {
+		// some user feedback would be good here
+		console.log("Invalid: " + input);
+	    }
         }
     });
 });

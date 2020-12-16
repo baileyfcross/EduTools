@@ -10,17 +10,14 @@ function HDXInit() {
 
     // get query string parameters
     HDXInitQS();
-
-    console.log(HDXQS);
     
     // TravelMapping's loadmap
     loadmap();
 
-    // graph list for data load menu (load later on demand?)
-    getDescriptions();
-    getGraphs();
+    // graph selector data initialization
+    HDXGraphSearchInit();
 
-    // HDX AV initialization (could also delay?)
+    // HDX AV initialization (could delay?)
     hdxAV.initOnLoad();
     
     // create the tabs for HDX instructions popup
