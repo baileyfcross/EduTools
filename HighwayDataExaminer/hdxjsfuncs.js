@@ -458,7 +458,14 @@ function HDXProcessFileContents(fileContents) {
 	    hdxGlobals.loadingFile + " (Highway Graph File)";
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
-        showAlgorithmSelectionPanel();
+	// if the "noav" QS parameter is specified, we skip over the
+	// AV Selection Panel
+	if (HDXQSIsSpecified("noav")) {
+	    showTopControlPanel();
+	}
+	else {
+            showAlgorithmSelectionPanel();
+	}
     }
     
     document.getElementById('datatable').innerHTML = pointboxContents;
