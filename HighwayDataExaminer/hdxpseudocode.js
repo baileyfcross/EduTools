@@ -311,7 +311,7 @@ function hasInnerHTML(label) {
 function deleteVariableSelector() {
     
     let element = document.getElementById("breakpointVariableSelector");
-    element.parentNode.removeChild(element);
+    if (element != null) element.parentNode.removeChild(element);
     hdxAV.useVariableForBreakpoint = false;
 }
 

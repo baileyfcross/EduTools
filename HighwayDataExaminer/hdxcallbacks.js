@@ -129,7 +129,7 @@ function algorithmSelectionChanged() {
     let value = getSelectedAlgorithm();
 
     // set the current algorithm
-    for (var i = 1; i < hdxAV.avList.length; i++) {
+    for (let i = 0; i < hdxAV.avList.length; i++) {
         if (value == hdxAV.avList[i].value) {
             hdxAV.currentAV = hdxAV.avList[i];
             break;
