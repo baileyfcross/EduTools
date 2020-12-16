@@ -45,6 +45,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
 <script src="tmlib/tmjsfuncs.js" type="text/javascript"></script>
 <script src="hdxjsfuncs.js" type="text/javascript"></script>
+<script src="hdxqs.js" type="text/javascript"></script>
+<script src="hdxinit.js" type="text/javascript"></script>
 <script src="hdxav.js" type="text/javascript"></script>
 <script src="hdxcallbacks.js" type="text/javascript"></script>
 <script src="hdxvisualsettings.js" type="text/javascript"></script>
@@ -130,7 +132,7 @@ ENDOFSTUFF;
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
 
-<body onload="loadmap(); getDescriptions(); getGraphs(); hdxAV.initOnLoad(); createTabs();" ondragover="allowdrop(event)" ondrop="drop(event)">
+<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
 <p class="menubar">
   HDX: <span id="startUp">To begin, select data to display using the Load Data panel at the upper left of the map</span>
   <span id="filename"></span>
