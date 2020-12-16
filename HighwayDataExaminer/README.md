@@ -12,12 +12,14 @@ The JS code for HDX is split among several files for easier management.
 * `hdxextremepairsav.js` contains the implementation of the extreme pairs (closest and furthest pairs) AV.
 * `hdxgraphsearchbox.js` contains the functionality related to the "Option 1" search box for loading graph data.
 * `hdxhover.js` contains the implementation of "hover over" highlighting of graph vertices and edges.
+* `hdxinit.js` provides the `HDXInit` function called on the main HDX page load.
 * `hdxinstructions.js` contains the implementation of the instructions panel that pops up when HDX is first loaded.
 * `hdxjsfuncs.js` contains miscellaneous functions and data.
 * `hdxlinear.js` contains the implementation of the `HDXLinear` objects, which reprsent the structures including stacks, queues, and priority queues, with a representation in the AVCP.
 * `hdxkruskalav.js` contains the implementation of the Kruskal's algorithm AV.
 * `hdxnoav.js` contains the implementation of the dummy "no AV selected" AV.
 * `hdxpseudocode.js` contains functions related to pseudocode display and highlighting.
+* `hdxqs.js` contains the support for Query String parameters.
 * `hdxtravspanavs.js` contains the implementations of the graph traversal (BFS, DFS, RFS) and spanning tree (Dijkstra's, Prim's) AVs.
 * `hdxvertexextremesav.js` contains the implementation of the vertex-based extremes search AV.
 * `hdxvertexselector.js` contains the implemenation of the vertex selector objects, which allow the selection of a vertex as an AV parameter by entering its number, clicking on it on the map, or clicking on it in the data table.
