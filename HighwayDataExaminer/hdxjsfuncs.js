@@ -304,13 +304,15 @@ function pointboxErrorMsg(msg) {
     
 }
 
-// when a file is selected, this will be called
-function startRead() {
+// When a file is selected by a fileselector whose DOM id
+// is provided by the parameter, this function will be called
+// to start the loading process.
+function HDXStartFileselectorRead(filesel) {
 
     // first, retrieve the selected file (as a File object)
     // which must be done before we toggle the table to force
     // the pointbox to be displayed
-    var file = document.getElementById('filesel').files[0];
+    let file = document.getElementById(filesel).files[0];
     
     // force data table to be displayed
     let datatable = document.getElementById("datatable");

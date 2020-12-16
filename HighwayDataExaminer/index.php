@@ -117,7 +117,7 @@ ENDOFSTUFF;
 	  </tr>	  
       <tr><td class="loadcollapse">
 	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
-        <input id="filesel" type="file"  value="Start" onchange="startRead()">
+          <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
       </td></tr>
 ENDOFSTUFF;
 }
