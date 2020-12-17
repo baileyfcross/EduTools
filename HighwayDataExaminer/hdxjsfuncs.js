@@ -248,21 +248,6 @@ function getAdjacentPoints(pointIndex) {
     return resultArray;
 }
 
-// Creates the TOSLabels for the different map tiles and appends them
-// to a div which is returned
-function TOSLabel() {
-    var menubar = document.querySelector(".menubar");
-    
-    var label = document.createElement("a");
-    label.setAttribute("id", "ReferenceLink");
-    label.setAttribute("href", "https://travelmapping.net/credits.php");
-    label.setAttribute("target", "_blank");
-    label.innerHTML = "Credits and Sources";
-    
-    return label;
-}
-
-
 /* object to display the value of a variable (which should be
    a number or string) with a given label and in the given
    document element's innerHTML, beginning with the given
