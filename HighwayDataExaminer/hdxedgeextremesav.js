@@ -11,8 +11,8 @@
 function edgeLabelLeaderString(label, edgeNum) {
     
     return label + ':<br />#' + edgeNum +
-        ' (length ' + graphEdges[edgeNum].label.length + ') ' +
-        graphEdges[edgeNum].label;
+        ' (length ' + graphEdges[edgeNum].label.length
+	+ ') ' + graphEdges[edgeNum].label;
 }
 
 // function to create the table entry for the leader for
@@ -20,8 +20,8 @@ function edgeLabelLeaderString(label, edgeNum) {
 function edgeLengthLeaderString(label, edgeNum) {
     
     return label + ': ' +
-        edgeLengthInMiles(graphEdges[edgeNum]).toFixed(3) + ' mi<br />#' +
-        edgeNum + ' ' + graphEdges[edgeNum].label + " " +
+	length_in_current_units(edgeLengthInMiles(graphEdges[edgeNum])) +
+	'<br />#' + edgeNum + ' ' + graphEdges[edgeNum].label + " " +
         waypoints[graphEdges[edgeNum].v1].label + ' <-> ' +
         waypoints[graphEdges[edgeNum].v2].label;
 }

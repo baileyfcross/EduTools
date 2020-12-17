@@ -46,7 +46,7 @@ var hdxKruskalAV = {
     // to get from the vertex being visited
     valForLDVEntry: function() {
 
-        return edgeLengthInMiles(graphEdges[nextEdge]);
+        return convertToCurrentUnits(edgeLengthInMiles(graphEdges[nextEdge]));
     },
     
     isCycle: function(edgeNum) {
@@ -103,7 +103,7 @@ var hdxKruskalAV = {
                 // add all edges to PQ sorted by length
                 for (let i = 0; i < graphEdges.length; i++) {
                     thisAV.ldv.add(new LDVEntry(graphEdges[i].v1,
-						edgeLengthInMiles(graphEdges[i]), i));
+						convertToCurrentUnits(edgeLengthInMiles(graphEdges[i])), i));
 		    updatePolylineAndTable(i, visualSettings.discovered, false);
                 }
                 

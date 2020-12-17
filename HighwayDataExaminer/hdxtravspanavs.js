@@ -541,7 +541,7 @@ var hdxTraversalsSpanningAVCommon = {
                 if (thisAV.visiting.connection != -1) {
                     thisAV.numESpanningTree++;
                     thisAV.totalTreeCost +=
-                        edgeLengthInMiles(graphEdges[thisAV.visiting.connection]);
+                        convertToCurrentUnits(edgeLengthInMiles(graphEdges[thisAV.visiting.connection]));
                     thisAV.componentEList.push(thisAV.visiting.connection);
                     updatePolylineAndTable(thisAV.visiting.connection,
                                            visualSettings.spanningTree,
@@ -890,7 +890,7 @@ var hdxTraversalsSpanningAVCommon = {
                         }
 
                         hops++;
-                        distance += edgeLengthInMiles(graphEdges[treeEdge.connection]);
+                        distance += convertToCurrentUnits(edgeLengthInMiles(graphEdges[treeEdge.connection]));
                         // we are at the next place on the path, update vertex
                         updateMarkerAndTable(place,
                                              thisAV.visualSettings.foundPath,
@@ -1340,7 +1340,7 @@ hdxDijkstraAV.comparator = function(a, b) {
 // to get from the vertex being visited
 hdxDijkstraAV.valForLDVEntry = function(oldEntry, nextNeighbor) {
 
-    return oldEntry.val + edgeLengthInMiles(graphEdges[nextNeighbor.via]);
+    return oldEntry.val + convertToCurrentUnits(edgeLengthInMiles(graphEdges[nextNeighbor.via]));
 };
 
 // helper function to help build pseudocode
@@ -1418,7 +1418,7 @@ hdxPrimAV.comparator = function(a, b) {
 // to get from the vertex being visited
 hdxPrimAV.valForLDVEntry = function(oldEntry, nextNeighbor) {
 
-    return edgeLengthInMiles(graphEdges[nextNeighbor.via]);
+    return convertToCurrentUnits(edgeLengthInMiles(graphEdges[nextNeighbor.via]));
 }
 
 // helper function to help build pseudocode
