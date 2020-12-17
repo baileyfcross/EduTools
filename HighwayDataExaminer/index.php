@@ -180,14 +180,6 @@ ENDOFSTUFF;
 </div>
 <div id="map">
 </div>
-<!-- commented out until this system can be reworked
-<select id="distUnits" style="position:absolute; left:100px; top:48px; width: 7rem; z-index:2;" onchange="changeUnits(event)">
-	<option value="miles">Miles</option>
-	<option value="km">Kilometers</option>
-	<option value="feet">Feet</option>
-	<option value="meters">Meters</option>
-</select>
--->
 <div id="loadDataPanel">
     <table id="loadDataTable" class="gratable">
       <thead>
