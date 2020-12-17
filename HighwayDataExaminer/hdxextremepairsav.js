@@ -147,10 +147,11 @@ var hdxExtremePairsAV = {
             comment: "compute distance of current candidate pair",
             code: function(thisAV) {
                 highlightPseudocode(this.label, visualSettings.visiting);       
-                thisAV.d_this = distanceInMiles(waypoints[thisAV.v1].lat,
-                                                waypoints[thisAV.v1].lon,
-                                                waypoints[thisAV.v2].lat,
-                                                waypoints[thisAV.v2].lon);
+                thisAV.d_this = convertToCurrentUnits(
+		    distanceInMiles(waypoints[thisAV.v1].lat,
+                                    waypoints[thisAV.v1].lon,
+                                    waypoints[thisAV.v2].lat,
+                                    waypoints[thisAV.v2].lon));
                 updateAVControlEntry("checkingDistance", "Distance: " + thisAV.d_this.toFixed(3));
                 hdxAV.nextAction = "checkCloseLeader";
 

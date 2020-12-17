@@ -193,7 +193,7 @@ var hdxClosestPairsRecAV = {
                         thisAV.minDist = [minDistTest, thisAV.WtoE[thisAV.startIndex], thisAV.WtoE[thisAV.endIndex]];
                         updateAVControlEntry("closeLeader", "Closest: [" + 
 					     thisAV.minDist[1].label + "," + thisAV.minDist[2].label
-					     + "], d: " + thisAV.minDist[0].toFixed(5));
+					     + "], d: " + length_in_current_units(thisAV.minDist[0]));
                     }
                 }
                 else {
@@ -205,7 +205,7 @@ var hdxClosestPairsRecAV = {
                                 thisAV.minDist = [minDistTest, thisAV.WtoE[i], thisAV.WtoE[j]];
                                 updateAVControlEntry("closeLeader", "Closest: [" + 
 						     thisAV.minDist[1].label + "," + thisAV.minDist[2].label
-						     + "], d: " + thisAV.minDist[0].toFixed(5));
+						     + "], d: " + length_in_current_units(thisAV.minDist[0]));
                             }
                         }
                     }
@@ -461,7 +461,8 @@ var hdxClosestPairsRecAV = {
                     updateAVControlEntry("closeLeader", "Closest: [" + 
 					 thisAV.minDist[1].label + "," +
 					 thisAV.minDist[2].label
-					 + "], d: " + thisAV.minDist[0].toFixed(5));
+					 + "], d: " +
+					 length_in_current_units(thisAV.minDist[0]));
                     for (let i = 0; i < thisAV.WtoE.length; i++) {
                         updateMarkerAndTable(waypoints.indexOf(thisAV.WtoE[i]),
                             visualSettings.discarded,
@@ -543,12 +544,13 @@ var hdxClosestPairsRecAV = {
             comment: "compute distance of current candidate pair",
             code: function(thisAV) {
                 highlightPseudocode(this.label, visualSettings.visiting);       
-                thisAV.d_this = distanceInMiles(waypoints[thisAV.v1].lat,
-                                                waypoints[thisAV.v1].lon,
-                                                waypoints[thisAV.v2].lat,
-                                                waypoints[thisAV.v2].lon);
+                thisAV.d_this = convertToCurrentUnits(
+		    distanceInMiles(waypoints[thisAV.v1].lat,
+                                    waypoints[thisAV.v1].lon,
+                                    waypoints[thisAV.v2].lat,
+                                    waypoints[thisAV.v2].lon));
                 updateAVControlEntry("checkingDistance", "Distance: " +
-				     thisAV.d_this.toFixed(3));
+				     length_in_current_units(thisAV.d_this));
                 hdxAV.nextAction = "checkCloseLeader";
 
             },
