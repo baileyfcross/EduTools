@@ -325,6 +325,9 @@ function HDXFileLoadedCallback(event) {
 function HDXProcessFileContents(fileContents) {
     
     let pointboxContents = "";
+
+    // in case we had set colors (for an NMP file) previously:
+    waypointColors = new Array();
     
     // parse the file and process as appropriate
     // its name should have been stored in hdxGlobals.loadingFile
