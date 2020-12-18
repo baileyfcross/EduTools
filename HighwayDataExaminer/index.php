@@ -114,7 +114,7 @@ ENDOFSTUFF;
 		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
 		vertices
 		<br>
-		<input type="button" value="Get Graph List" onclick="fillGraphList(event)">
+		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
 	  </td>
 	  </tr>	  
       <tr><td class="loadcollapse">

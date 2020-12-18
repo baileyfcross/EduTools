@@ -330,3 +330,71 @@ function hideAVStatusPanel() {
 
     document.getElementById("avStatusPanel").style.display="none";
 }
+
+// Populate the dropdown menu of selected graphs based on the filters
+// and other criteria in Option 2 of the Load Data panel.  Called when
+// the "Get Graph List" button is pressed.
+function HDXFillGraphList(e) {
+    
+    var sels = document.getElementById("selects");
+    var orderSel = document.getElementById("orderOptions").value;
+    var resSel = document.getElementById("restrictOptions").value;
+    var cateSel = document.getElementById("categoryOptions").value;
+    var min = document.getElementById("minVertices").value;
+    var max = document.getElementById("maxVertices").value;
+    if (max < 0 || min < 0 || min > max) {
+        return;
+    }
+    if ($("#graphList").length != 0) {
+        sels.removeChild(document.getElementById("graphList"));
+    }
+    var mapSel = document.createElement("select");
+    mapSel.setAttribute("id", "graphList");
+    mapSel.setAttribute("onchange", "HDXReadSelectedGraphFromServer(event)");
+    var init = document.createElement("option");
+    init.innerHTML = "Choose a Graph";
+    init.value = "init";
+    mapSel.appendChild(init);
+    sels.appendChild(mapSel);
+    var params = {
+        order:orderSel,
+        restrict:resSel,
+        category:cateSel,
+        min:min,
+        max:max
+    };
+    var jsonParams = JSON.stringify(params);
+    $.ajax({
+        type: "POST",
+        url: "./generateGraphList.php",
+        datatype: "json",
+        data: {"params":jsonParams},
+        success: function(data) {
+            var opts = $.parseJSON(data);
+            var txt = opts['text'];
+            var values = opts['values'];
+            var vertices = opts['vertices'];
+            var edges = opts['edges'];
+            var opt;
+            var str = "";
+            if (txt.length == 0) {
+                alert("No graphs matched!  Please choose less restrictive filters.");
+            }
+            for (var i = 0; i < txt.length; i++) {
+                opt = document.createElement("option");
+                if (values[i].indexOf("simple") != -1) {
+                    str = txt[i] + " (simple), size: (" + vertices[i] + ", " + edges[i] + ")";
+                }
+                else if (values[i].indexOf("traveled") != -1) {
+                    str = txt[i] + " (traveled), size: (" + vertices[i] + ", " + edges[i] + ")";
+                }
+                else {
+                    str = txt[i] + " (collapsed), size: (" + vertices[i] + ", " + edges[i] + ")" ;
+                }
+                opt.innerHTML = str;
+                opt.value = values[i];
+                document.getElementById("graphList").appendChild(opt);
+            }
+        }
+    });
+}
