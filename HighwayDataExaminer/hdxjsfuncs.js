@@ -687,7 +687,7 @@ YT1,YT2 YT1/YT2@CenSt 60.759893 -135.141191
 */
 function parsePTHContents(fileContents) {
 
-    var table = '<table class="pthtable"><thead><tr><th>Route</th><th>To Point</th><th>Seg.<br>Miles</th><th>Cumul.<br>Miles</th></tr></thead><tbody>';
+    var table = '<table class="pthtable"><thead><tr><th>Route</th><th>To Point</th><th>Seg.<br>' + distanceUnits + '</th><th>Cumul.<br>' + distanceUnits + '</th></tr></thead><tbody>';
     var lines = fileContents.replace(/\r\n/g,"\n").split('\n');
     graphEdges = new Array();
     waypoints = new Array();
@@ -711,10 +711,12 @@ function parsePTHContents(fileContents) {
             }
             previousWaypoint = info.waypoint;
             table += '<tr><td>' + waypoints[waypoints.length-1].elabel +
-                "</td><td><a onclick=\"javascript:labelClickHDX(0);\">" + waypoints[waypoints.length-1].label +
-                '</a></td><td style="text-align:right">' + info.mileage.toFixed(2) +
-                '</td><td style="text-align:right">' + totalMiles.toFixed(2) +
-                '</td></tr>';
+                "</td><td><a onclick=\"javascript:labelClickHDX(0);\">" +
+		waypoints[waypoints.length-1].label +
+                '</a></td><td style="text-align:right">' +
+		convertToCurrentUnits(info.mileage).toFixed(2) +
+                '</td><td style="text-align:right">' +
+		convertToCurrentUnits(totalMiles).toFixed(2) + '</td></tr>';
         }
     }
     table += '</tbody></table>';
