@@ -177,7 +177,11 @@ var hdxAV = {
         if (hdxAV.delay == 0) {
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
                 hdxAV.oneIteration(thisAV);
-            }    
+            }
+	    // AV completely done?
+	    if (hdxAV.nextAction == "DONE") {
+		hdxAV.avDone();
+	    }
             return;
         }
 
