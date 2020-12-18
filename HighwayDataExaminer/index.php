@@ -188,16 +188,14 @@ ENDOFSTUFF;
 	<tr><th>Load Data:</th></tr>
       </thead>
       <tbody>
-	<tr><td>
-	    Use this panel to load one of METAL's graphs right
-	    from METAL's database (Options 1 and 2),<br />
-	    or upload any data file
-	    in a format recognized by HDX from your computer (Option
-	    3).
+	<tr><td> Use this panel to load one of METAL's graphs right
+	    from METAL's database (Options 1 and 2), or to upload any
+	    data file in a format recognized by HDX from your computer
+	    (Option 3).
 	</td></tr>
 	<tr>
 	  <td>
-	    <b>Option 1: </b>Search for a METAL collapsed graph by name.<br />Start typing in the box below for suggestions.
+	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
 	    <div id="the-basics">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
 	      
