@@ -117,6 +117,19 @@ function startPausePressed() {
     }
 }
 
+// cancel was pressed on the Load Data panel
+function loadDataPanelCancelPressed() {
+
+    hideLoadDataPanel();
+    showTopControlPanel();
+
+    // if we're paused or completed in an AV, also put the status panel back up
+    if (hdxAV.status == hdxStates.AV_PAUSED ||
+	hdxAV.status == hdxStates.AV_COMPLETE) {
+	showAVStatusPanel();
+    }
+}
+
 // Event handler for state change on the algorithm selection select control
 function algorithmSelectionChanged() {
 
@@ -201,19 +214,19 @@ function loadDataOptionsPressed() {
     case hdxStates.AV_COMPLETE:
     case hdxStates.GRAPH_LOADED:
         // show waypoints, show connections
-        initWaypointsAndConnections(true, true,
-                                    visualSettings.undiscovered);
+        //initWaypointsAndConnections(true, true,
+        //                            visualSettings.undiscovered);
         
-        cleanupAVControlPanel();
-        algorithmSelectionChanged();
-        hideAVStatusPanel();
+        //cleanupAVControlPanel();
+        //algorithmSelectionChanged();
+	hideAVStatusPanel();
         break;
     }
 
     // in all cases, we hide the top panel, show the load panel
     hideTopControlPanel();
     showLoadDataPanel();
-    deleteVariableSelector();
+    //deleteVariableSelector();
 }
 
 // event handler for "Show Data Tables" checkbox

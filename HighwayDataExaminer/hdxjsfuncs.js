@@ -328,6 +328,21 @@ function HDXProcessFileContents(fileContents) {
 
     // in case we had set colors (for an NMP file) previously:
     waypointColors = new Array();
+
+    // in case we had an AV already running or complete, we should
+    // clean that up, and set the AV to be no AV
+    if (hdxAV.status == hdxStates.AV_PAUSED ||
+	hdxAV.status == hdxStates.AV_COMPLETE) {
+	// no need to reset waypoints and connections, as they will be
+	// overwritten by the loading
+	cleanupAVControlPanel();
+	hdxAV.currentAV.cleanupUI();
+	deleteVariableSelector();
+	hdxAV.currentAV = hdxAV.avList[0];
+	document.getElementById("AlgorithmSelection").selectedIndex = 0;
+	document.getElementById("currentAlgorithm").innerHTML =
+            hdxAV.currentAV.name;
+    }
     
     // parse the file and process as appropriate
     // its name should have been stored in hdxGlobals.loadingFile
