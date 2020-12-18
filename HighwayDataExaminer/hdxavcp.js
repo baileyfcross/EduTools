@@ -50,7 +50,7 @@ function updateAVControlEntry(namePrefix, text) {
 
     document.getElementById(namePrefix + AVCPsuffix).innerHTML = text;
     if (hdxAV.delay != 0) {
-        customTitle();
+        HDXAddCustomTitles();
     }   
 }
 

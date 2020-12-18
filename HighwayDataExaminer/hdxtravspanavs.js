@@ -1132,7 +1132,7 @@ var hdxTraversalsSpanningAVCommon = {
     setConditionalBreakpoints(name) {
 	
         let max = waypoints.length-1;
-        let temp = commonConditionalBreakpoints(name);
+        let temp = HDXCommonConditionalBreakpoints(name);
         if (temp != "No innerHTML") {
             return temp;
         }
@@ -1162,7 +1162,7 @@ var hdxTraversalsSpanningAVCommon = {
     
     hasConditonalBreakpoints(name) {
 
-        let answer = hasCommonConditonalBreakpoints(name);
+        let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
             return true;
         }

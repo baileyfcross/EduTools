@@ -48,8 +48,10 @@
 <script src="hdxqs.js" type="text/javascript"></script>
 <script src="hdxinit.js" type="text/javascript"></script>
 <script src="hdxav.js" type="text/javascript"></script>
+<script src="hdxbreakpoints.js" type="text/javascript"></script>
 <script src="hdxcallbacks.js" type="text/javascript"></script>
 <script src="hdxvisualsettings.js" type="text/javascript"></script>
+<script src="hdxcustomtitles.js" type="text/javascript"></script>
 <script src="hdxavcp.js" type="text/javascript"></script>
 <script src="hdxvertexselector.js" type="text/javascript"></script>
 <script src="hdxhover.js" type="text/javascript"></script>

@@ -738,13 +738,13 @@ var hdxClosestPairsRecAV = {
 
 	// since this AV has none of its own conditional breakpoints
 	// at this time, we just return the common ones
-        return commonConditionalBreakpoints(name);
+        return HDXCommonConditionalBreakpoints(name);
     },
 
     hasConditonalBreakpoints(name) {
 
 	// same, only has a conditional breakpoint at name if it's a common one
-        return hasCommonConditonalBreakpoints(name);
+        return HDXHasCommonConditonalBreakpoints(name);
     }
 };
     

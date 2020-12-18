@@ -435,7 +435,7 @@ var hdxDFSRecAV = {
     },
 
     setConditionalBreakpoints(name) {
-        let temp = commonConditionalBreakpoints(name);
+        let temp = HDXCommonConditionalBreakpoints(name);
         
         if (temp != "No innerHTML") {
             return temp;
@@ -459,7 +459,7 @@ var hdxDFSRecAV = {
 
     hasConditonalBreakpoints(name) {
 
-        let answer = hasCommonConditonalBreakpoints(name);
+        let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
             return true;
         }

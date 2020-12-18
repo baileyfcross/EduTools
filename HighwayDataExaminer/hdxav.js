@@ -367,7 +367,7 @@ var hdxAV = {
 	    '</span>';
         hdxAV.algStat.innerHTML =  ans;
         if (hdxAV.delay != 0) {
-            customTitle();
+            HDXAddCustomTitles();
         }
         
         //console.log("ACTION DONE: " + currentAction.logMessage(thisAV));
@@ -381,7 +381,7 @@ var hdxAV = {
         document.getElementById("pseudoText").style.display = "none";
             
         hdxAV.setStatus(hdxStates.AV_COMPLETE);
-        customTitle();
+        HDXAddCustomTitles();
         cleanupBreakpoints();
             
     },

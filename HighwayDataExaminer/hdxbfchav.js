@@ -730,7 +730,7 @@ var hdxBFConvexHullAV = {
 
     // set the conditional breakpoints for this AV
     setConditionalBreakpoints(name) {
-        let temp = commonConditionalBreakpoints(name);
+        let temp = HDXCommonConditionalBreakpoints(name);
         if (temp != "No innerHTML") {
             return temp;
         }
@@ -769,7 +769,7 @@ var hdxBFConvexHullAV = {
     // return whether the action with the given name in common or in
     // this AV has conditional breakpoints
     hasConditonalBreakpoints(name) {
-        let answer = hasCommonConditonalBreakpoints(name);
+        let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
             return true;
         }

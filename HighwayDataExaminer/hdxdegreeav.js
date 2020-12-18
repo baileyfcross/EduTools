@@ -474,7 +474,7 @@ var hdxDegreeAV = {
     
     setConditionalBreakpoints(name) {
         let max = waypoints.length-1;
-        let temp = commonConditionalBreakpoints(name);
+        let temp = HDXCommonConditionalBreakpoints(name);
         
         let isThere = name.search(/\d/);
         name = (isThere != -1) ? name.substring(0,isThere) : name;
@@ -499,7 +499,7 @@ var hdxDegreeAV = {
         let isThere = name.search(/\d/);
         name = (isThere != -1) ? name.substring(0,isThere) : name;
     
-        let answer = hasCommonConditonalBreakpoints(name);
+        let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
             return true;
         }
