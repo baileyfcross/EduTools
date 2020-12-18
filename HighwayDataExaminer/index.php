@@ -87,11 +87,11 @@ function hdx_load_file_entries() {
 			<option value = "large">Size (large)</option>		
 		</select>
 		<br>
-		Graph format:
+		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
 		<select id = "restrictOptions">
 			<option value = "collapsed">Collapsed (most likely you want this)</option>
-			<option value = "traveled">Traveled</option>
-			<option value = "simple">Simple</option>
+			<option value = "traveled">Traveled (include traveler info)</option>
+			<option value = "simple">Simple (straight line edges only)</option>
 			<option value = "all">All</option>		
 		</select>
 		<br>
