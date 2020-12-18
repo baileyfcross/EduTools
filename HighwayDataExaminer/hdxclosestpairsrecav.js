@@ -588,32 +588,32 @@ var hdxClosestPairsRecAV = {
         this.lineVisiting.addTo(map);   
         return this.lineVisiting
     },
-
+    
     drawLineMap(v1,v2) {
-
+	
         let visitingLine = [];
         let lonLine = (parseFloat(v2.lon) + parseFloat(v1.lon)) / 2;
         visitingLine[0] = [90, v1];
         visitingLine[1] = [-90, v2];
-
+	
         if (this.lineCount % 3 == 0) {
-        this.lineVisiting = L.polyline(visitingLine, {
-            color: visualSettings.visiting.color,
-            opacity: 0.6,
-            weight: 4
-        });
-    }
-    else {
-        this.lineVisiting = L.polyline(visitingLine, {
-            color: visualSettings.discovered.color,
-            opacity: 0.6,
-            weight: 4
-        });
-    }
+            this.lineVisiting = L.polyline(visitingLine, {
+		color: visualSettings.visiting.color,
+		opacity: 0.6,
+		weight: 4
+            });
+	}
+	else {
+            this.lineVisiting = L.polyline(visitingLine, {
+		color: visualSettings.discovered.color,
+		opacity: 0.6,
+		weight: 4
+            });
+	}
         //thisAV.lineStack.add(this.lineVisiting);
         this.lineVisiting.addTo(map);  
         this.lineCount ++; 
-        return this.lineVisiting
+        return this.lineVisiting;
     },
     
     computeDistance(v1, v2) {
@@ -723,10 +723,25 @@ var hdxClosestPairsRecAV = {
         addEntryToAVControlPanel("savedCheck", visualSettings.undiscovered);
     },
 
-    // remove UI modifications made for vertex closest/farthest pairs
+    // remove UI modifications made for vertex closest pairs
     cleanupUI() {
         waypoints = this.originalWaypoints;
         updateMap();
+
+	// clean up any polylines
+	if (this.lineVisiting != null) {
+	    this.lineVisiting.remove();
+	}
+	if (this.lineClosest != null) {
+	    this.lineClosest.remove();
+	}
+	if (this.lineFarthest != null) {
+	    this.lineFarthest.remove();
+	}
+	while (!this.lineStack.isEmpty()) {
+	    // remove from stack, returned result remove from map
+	    this.lineStack.remove().remove();
+	}
     },
     
     idOfAction(action) {
