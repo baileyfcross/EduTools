@@ -9,15 +9,7 @@
 // algorithm visualization color settings and other parameters
 var visualSettings = {
     // first, some used by many algorithms
-    reset: {
-      color: "#ffffff",
-        textColor: "black",
-        scale: 2,
-        name: "Vertices",
-        value: 0,
-        weight: 5,
-        opacity: .6
-    },
+    
     undiscovered: {
         color: "#202020",
         textColor: "#e0e0e0",
