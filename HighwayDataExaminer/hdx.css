@@ -140,14 +140,7 @@ tr.pseudocode {
     padding-left: 30px;
 }
 
-#loadDataPanel{
-    top: 100px;
-    max-width: 40%;
-    margin: auto;
-    background-color: white; 
-    z-index: 14000;
-    position: absolute;
-}
+
 
 #loadDataTable {
     border: 1px solid black;	
@@ -308,4 +301,39 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     max-width: 100%;
     padding: 5px;
 
+}
+
+button
+{
+    background-color: rgb(42, 198, 255);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding: 5px;
+    font-weight: 500;
+    margin: auto;
+}
+
+div
+{
+    border-radius: 10px;
+    margin: auto;
+}
+#loadDataPanel{
+    top: 100px;
+    max-width: 40%;
+    
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white; 
+    z-index: 14000;
+    position: absolute;
+    padding: 10px;
+}
+
+body
+{
+    text-align: center;
 }

@@ -68,10 +68,10 @@
 <script src="hdxkruskalav.js" type="text/javascript"></script>
 <script src="hdxdegreeav.js" type="text/javascript"></script>
 <script src="hdxdfsrecav.js" type="text/javascript"></script>
-<script src="hdxinstructions.js" type="text/javascript"></script>
+<!--<script src="hdxinstructions.js" type="text/javascript"></script>-->
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 
 <?php
@@ -182,41 +182,9 @@ ENDOFSTUFF;
 </div>
 <div id="map">
 </div>
-<div id="loadDataPanel">
-    <table id="loadDataTable" class="gratable">
-      <thead>
-	<tr><th>Load Data:</th></tr>
-      </thead>
-      <tbody>
-	<tr><td> Use this panel to load one of METAL's graphs right
-	    from METAL's database (Options 1 and 2), or to upload any
-	    data file in a format recognized by HDX from your computer
-	    (Option 3).
-	</td></tr>
-	<tr>
-	  <td>
-	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
-	    <div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
-	    </div>
-	    Once you have selected a graph from the list of suggestions, press Enter to load it.
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <div>
-	      <?php hdx_load_file_entries(); ?>
-	    </div>
-	  </td>
-	</tr>
-	
-	
-	<tr><td>
-	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
-	</td></tr>
-      </tbody>
-    </table>
+<div id="loadDataPanel" style="margin:auto">
+   
+	<button id="opt">Search for Graph</button><br>or<br><button id="opt">Upload File</button>
 </div>
 <div id="algorithmSelectionPanel" style="display=none;">
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
@@ -265,9 +233,9 @@ ENDOFSTUFF;
 </div>
   
 </div>
-<div id="datatable" draggable="false"  ondragstart="drag(event)">
+<!--<div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>
-    <table id="instructions">
+   <table id="instructions">
         <thead>
             <tr ><th id="instructionsHeader">Using METAL's Highway Data Examiner (HDX)</th></tr>
         </thead>
@@ -297,7 +265,7 @@ ENDOFSTUFF;
 		fixes.  Enjoy!<td>
             <tr>
         </tbody>
-    </table>
+    </table>-->
 </body>
 </html>
 <?php tmdb_close();?>
