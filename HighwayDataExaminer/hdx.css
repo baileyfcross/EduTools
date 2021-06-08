@@ -303,37 +303,91 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 
 }
 
-button
+button, #uploadLabel
 {
-    background-color: rgb(42, 198, 255);
+    background-color: rgb(30, 179, 238);
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 24px;
     border-radius: 10px;
     border-width: 0px;
     padding: 5px;
     font-weight: 500;
-    margin: auto;
+    margin: 10px;
+    color: white;
+    
 }
+
+#fileToLoad{
+    visibility: hidden;
+    content: 'Select some files';
+    display: inline-block;
+    background-color: aqua;
+    
+  }
+
+
+
 
 div
 {
     border-radius: 10px;
     margin: auto;
 }
-#loadDataPanel{
+#loadDataPanel, #about
+{
     top: 100px;
     max-width: 40%;
     
     display: inline;
     margin-left: auto;
     margin-right: auto;
-    background-color: white; 
+    background-color: rgb(47, 47, 47); 
     z-index: 14000;
     position: absolute;
-    padding: 10px;
+    padding: 30px;
+    
 }
 
-body
+
+
+#loadDataPanel p
 {
-    text-align: center;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    color: white;
+    max-width: 450px;
 }
+
+#intro
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    
+}
+
+h3
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    color: white;
+}
+
+#loadDataPanel.descr
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 6px;
+    color: white;
+}
+.descr a
+{
+    text-decoration: none;
+    color:rgb(30, 179, 238);
+}
+
+
+
+

@@ -225,6 +225,7 @@ function HDXStartFileselectorRead(filesel) {
     // first, retrieve the selected file (as a File object)
     // which must be done before we toggle the table to force
     // the pointbox to be displayed
+    console.log("Made it 2");
     let file = document.getElementById(filesel).files[0];
     hdxGlobals.loadingFile = file.name;
     
@@ -258,6 +259,7 @@ function HDXStartFileselectorRead(filesel) {
         reader.readAsText(file, "UTF-8");
         reader.onload = HDXFileLoadedCallback;
         //reader.onerror = fileLoadError;
+        console.log("Made it 3");
     }
 }
 
