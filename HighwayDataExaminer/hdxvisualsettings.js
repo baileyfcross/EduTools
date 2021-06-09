@@ -122,7 +122,7 @@ var visualSettings = {
         opacity: 0.6
     },
     averageCoord: {
-        color: "green",
+        color: "violet",
         textColor: "white",
         scale: 4,
         name: "averageCoord",

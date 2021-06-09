@@ -300,7 +300,7 @@ var hdxVertexExtremesSearchAV = {
 		// initial average coordinates setup
 		thisAV.latsum = parseFloat(waypoints[0].lat);
 		thisAV.lngsum = parseFloat(waypoints[0].lon);
-		if (thisAV.showavgcoord) {
+		if (thisAV.showAvgOfCoords) {
 		    thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum]);
 		    thisAV.avgMarker.addTo(map);
 		}
@@ -324,9 +324,9 @@ var hdxVertexExtremesSearchAV = {
                     );
                 }
 
-		if (thisAV.showavgcoord) {
+		if (thisAV.showAvgOfCoords) {
 		    updateAVControlEntry("avgcoord",
-					 "Average of coords so far: (" + thisAV.latsum + "," + thisAV.lngsum + ")");
+					 "Average of coords so far: (" + thisAV.latsum.toFixed(6) + "," + thisAV.lngsum.toFixed(6) + ")");
 		}
                 hdxAV.iterationDone = true;
                 hdxAV.nextAction = "forLoopTop";
@@ -385,7 +385,7 @@ var hdxVertexExtremesSearchAV = {
                         } while (thisAV.nextCategory < thisAV.categories.length &&
                                  !thisAV.categories[thisAV.nextCategory].include(thisAV));
                         if (thisAV.nextCategory == thisAV.categories.length) {
-			    if (thisAV.showavgcoord) {
+			    if (thisAV.showAvgOfCoords) {
 				hdxAV.nextAction = "updateAverages";
 			    }
 			    else {
@@ -471,7 +471,7 @@ var hdxVertexExtremesSearchAV = {
                 } while (thisAV.nextCategory < thisAV.categories.length &&
                          !thisAV.categories[thisAV.nextCategory].include(thisAV));
                 if (thisAV.nextCategory == thisAV.categories.length) {
-		    if (thisAV.showavgcoord) {
+		    if (thisAV.showAvgOfCoords) {
 			hdxAV.nextAction = "updateAverages";
 		    }
 		    else {
@@ -503,7 +503,7 @@ var hdxVertexExtremesSearchAV = {
                     } while (thisAV.nextCategory < thisAV.categories.length &&
                              !thisAV.categories[thisAV.nextCategory].include(thisAV));
                     if (thisAV.nextCategory == thisAV.categories.length) {
-			if (thisAV.showavgcoord) {
+			if (thisAV.showAvgOfCoords) {
 			    hdxAV.nextAction = "updateAverages";
 			}
 			else {
@@ -545,7 +545,7 @@ var hdxVertexExtremesSearchAV = {
                 } while (thisAV.nextCategory < thisAV.categories.length &&
                          !thisAV.categories[thisAV.nextCategory].include(thisAV));
                 if (thisAV.nextCategory == thisAV.categories.length) {
-		    if (thisAV.showavgcoord) {
+		    if (thisAV.showAvgOfCoords) {
 			hdxAV.nextAction = "updateAverages";
 		    }
 		    else {
@@ -575,7 +575,7 @@ var hdxVertexExtremesSearchAV = {
 		let avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
 		let avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
 		updateAVControlEntry("avgcoord",
-				     "Average of coords so far: (" + avglat + "," + avglng + ")");
+				     "Average of coords so far: (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
 		thisAV.avgMarker.setLatLng([avglat, avglng]);
                 hdxAV.nextAction = "forLoopBottom";
             },
@@ -715,7 +715,7 @@ var hdxVertexExtremesSearchAV = {
         this.firstlast = document.getElementById("firstlast").checked;
 
         // are we finding average coordinates?
-        this.showavgcoord = document.getElementById("showavgcoord").checked;
+        this.showAvgOfCoords = document.getElementById("showavgcoord").checked;
 
         // start the search by initializing with the value at pos 0
         updateMarkerAndTable(0, visualSettings.visiting, 40, false);
@@ -770,7 +770,7 @@ lastalpha &larr; 0<br />
             }
         }
 
-	if (this.showavgcoord) {
+	if (this.showAvgOfCoords) {
 	    this.code += `
 latsum &larr; v[0].lat,
 lngsum &larr; v[0].lng<br />
@@ -889,7 +889,7 @@ avg.lng &larr; lngsum<br />
         }
 
 	// code for tracking average
-	if (this.showavgcoord) {
+	if (this.showAvgOfCoords) {
 	    this.code += pcEntry(1, "latsum &larr; latsum + v[check].lat<br />&nbsp;&nbsp;lngsum &larr; lngsum + v[check].lng<br />&nbsp;&nbsp;avg.lat &larr; latsum / (check+1)<br />&nbsp;&nbsp;avg.lng &larr; lngsum / (check+1)",
 				 "updateAverages");
 	}
@@ -906,7 +906,7 @@ avg.lng &larr; lngsum<br />
             }
         }
 
-	if (this.showavgcoord) {
+	if (this.showAvgOfCoords) {
             addEntryToAVControlPanel("avgcoord", visualSettings.averageCoord);
 	}
     },
