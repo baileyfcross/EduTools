@@ -6,6 +6,7 @@
     bottom:0px;
     width: 100%;
     overflow:hidden;
+    filter: blur(6px);
 }
 
 #map * {

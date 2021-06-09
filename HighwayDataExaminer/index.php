@@ -42,6 +42,7 @@
     exit;
   }
 ?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
 <script src="tmlib/tmjsfuncs.js" type="text/javascript"></script>
 <script src="hdxjsfuncs.js" type="text/javascript"></script>
@@ -133,6 +134,24 @@ ENDOFSTUFF;
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
+
+<style>
+	.menubar {
+  		font-size: 10pt;
+  		font-style: normal;
+ 		font-family: sans-serif;
+  		text-align: center;
+  		position: relative;
+ 		padding-right: 8px;
+  		padding-bottom: 2px;
+  		margin-top: 0px;
+  		margin-bottom: 8px;
+  		height: auto;
+  		background: rgb(47, 47, 47);
+  		color: #ffffff;
+  		border: 3px solid rgb(47, 47, 47);
+}
+</style>
 
 <body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
 <p class="menubar">
@@ -231,20 +250,25 @@ ENDOFSTUFF;
     </table>-->
 
 	
-   <p id="intro">
-	   
-   </p>
+   
 
-   <p style="text-align: center">
+   <!--<p style="text-align: center">
 	   Search for a graph in our database
    </p>
 	
-	<button type="button" id="basic" class="opt">Basic Search</button><button type="button" class="opt">Advanced Search</button>
+	<button type="button" id="basic" class="opt">Basic Search</button>-->
+
+	<!--<div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+	      
+	    </div>-->
+	
+	<!--<button type="button" class="opt">Advanced Search</button>
 	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 24px;}">or</p><br>
+    font-size: 24px;}">or</p><br>-->
 	<!--<button type="button" class="opt">Upload File</button>-->
 
-	<label for="fileToLoad" id="uploadLabel">Upload File</label>
+	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
 
 	<br>
 	
@@ -260,7 +284,7 @@ ENDOFSTUFF;
 		<br>
 		<p class="descr">
 		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
-		</p>
+		</p>-->
 
 	
 
@@ -268,21 +292,118 @@ ENDOFSTUFF;
 
 
 	<script>
-		var basicSearch = document.getElementByID("basic");
+		
 
-		basicSearch.addEventListener("click", advancedMenu());
+		
 
-		/*function advancedMenu()
+
+		
+		function basicMenu()
 		{
-			var dataPanel = document.getElementByID("loadDataPanel");
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+			
+			var basic = document.createElement("div");
+
+			basic.setAttribute("id", "the-basics");
+
+			var box = document.createElement("input");
+
+			box.setAttribute("class", "typeahead");
+			box.setAttribute("type", "text");
+			box.setAttribute("id", "searchBox");
+			box.setAttribute("placeholder", "Pick a Graph");
+			
+			
 			
 
+			basic.appendChild(box);
+
+			dataPanel.appendChild(basic);
+
+			console.log("made it 10");
+
 			
-		}*/
+		}
+		function defaultMenu()
+		{
+			var mainbox = document.getElementById("loadDataPanel");
+
+			//clear it
+			mainbox.innerHTML = "";
+
+			var h3 = document.createElement("h3");
+			h3.innerHTML = "METAL HDX";
+			mainbox.appendChild(h3);
+
+			var intro = document.createElement("p");
+			intro.setAttribute("class", "descr");
+			intro.innerHTML = "Visualize common computer scicence algorithms using graphs based on real world maps.";
+			mainbox.appendChild(intro);
+
+
+			var instruct = document.createElement("p");
+			instruct.innerHTML = "Search for a graph in our database";
+
+			mainbox.appendChild(instruct);
+
+			var basic = document.createElement("button");
+			basic.setAttribute("class", "opt");
+			basic.innerHTML = "Basic Search";
+
+			mainbox.appendChild(basic);
+
+			basic.addEventListener("click", basicMenu);
+
+			var advanced = document.createElement("button");
+			advanced.setAttribute("class", "opt");
+			advanced.innerHTML = "Advanced Search";
+			mainbox.appendChild(advanced);
+
+			
+
+			var br = document.createElement("br");
+			mainbox.appendChild(br);
+
+			var or = document.createElement("p");
+			or.innerHTML = "or";
+
+			mainbox.appendChild(or);
+			mainbox.appendChild(br);
+
+			var uploadLabel = document.createElement("label");
+			uploadLabel.setAttribute("for", "fileToLoad");
+			uploadLabel.setAttribute("id", "uploadLabel");
+			uploadLabel.innerHTML = "Upload File";
+			mainbox.appendChild(uploadLabel);
+
+			var uploadIn = document.createElement("input");
+			uploadIn.setAttribute("id", "fileToLoad");
+			uploadIn.setAttribute("name", "fileToLoad");
+			uploadIn.setAttribute("type", "file");
+			uploadIn.setAttribute("value", "Start");
+			uploadIn.setAttribute("accept", ".tmg, .wpt, .pth, .nmp, .gra, .wpl");
+			uploadIn.setAttribute("onChange", "HDXStartFileselectorRead('fileToLoad')");
+
+			var bod = document.querySelector("body");
+
+			bod.appendChild(uploadIn);
+
+			var help = document.createElement("p");
+			help.setAttribute("class", "descr");
+			help.innerHTML = "Need help?  A tutorial can be found <a href='tutorial.html' target='_blank'>here</a>";
+			mainbox.appendChild(help);
+
+
+
+			
+		}
+		defaultMenu();
 		</script>
 </div>
 
-<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">
+<!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
