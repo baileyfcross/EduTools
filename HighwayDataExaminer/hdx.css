@@ -332,19 +332,20 @@ div
 {
     border-radius: 10px;
     margin: auto;
+    text-align: center;
 }
-#loadDataPanel, #about
+#loadDataPanel
 {
     top: 100px;
     max-width: 40%;
     
-    display: inline;
-    margin-left: auto;
-    margin-right: auto;
+    display: block;
     background-color: rgb(47, 47, 47); 
     z-index: 14000;
-    position: absolute;
+    position: relative;
     padding: 30px;
+    margin: auto;
+    max-width: 450px;   
     
 }
 
@@ -357,7 +358,9 @@ div
     padding: 0;
     margin: 0;
     color: white;
-    max-width: 450px;
+    
+    text-align: center;
+
 }
 
 #intro
@@ -374,19 +377,17 @@ h3
     padding: 0;
     margin: 0;
     color: white;
+    margin-top: 40px;
 }
 
-#loadDataPanel.descr
-{
-    font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 6px;
-    color: white;
-}
+
 .descr a
 {
     text-decoration: none;
     color:rgb(30, 179, 238);
 }
+
+
 
 
 

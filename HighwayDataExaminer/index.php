@@ -136,7 +136,7 @@ ENDOFSTUFF;
 
 <body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
 <p class="menubar">
-  HDX: <span id="startUp">To begin, select data to display using the Load Data panel at the upper left of the map</span>
+  HDX: <span id="startUp">To begin, select a graph to display.</span>
   <span id="filename"></span>
   <span id="status"></span>
   <span id="currentAlgorithm"></span>
@@ -235,7 +235,7 @@ ENDOFSTUFF;
 	   
    </p>
 
-   <p>
+   <p style="text-align: center">
 	   Search for a graph in our database
    </p>
 	
@@ -247,8 +247,7 @@ ENDOFSTUFF;
 	<label for="fileToLoad" id="uploadLabel">Upload File</label>
 
 	<br>
-	<br>
-	<br>
+	
 	<h3>
 			About METAL HDX
 		</h3>
