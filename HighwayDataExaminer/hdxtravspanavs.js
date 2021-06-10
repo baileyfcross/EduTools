@@ -186,21 +186,15 @@ var hdxTraversalsSpanningAVCommon = {
 
     // list of colors to fill in for completed components
     componentColors: [
-        "orange",
         "darkCyan",
-        "brown",
+        "darkOrchid",
         "crimson",
-        "lightCoral",
-        "moccasin",
-        "orchid",
         "sienna",
         "violet",
         "yellowGreen",
-        "gold",
         "aqua",
         "dodgerblue",
         "lawngreen",
-        "khaki",
         "lime",
         "firebrick",
         "indianred",

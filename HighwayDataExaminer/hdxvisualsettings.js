@@ -20,7 +20,7 @@ var visualSettings = {
         opacity: 0.6
     },
     visiting: {
-        color: "yellow",
+        color: "gold",
         textColor: "black",
         scale: 8,
         name: "visiting",
@@ -49,9 +49,9 @@ var visualSettings = {
         name: "searchFailed",
         value: 0
     },
-    discarded: {
-        color: "#a0a0a0",
-        textColor: "black",
+    discarded: { //discard on removal
+        color: "dimGrey",
+        textColor: "white",
         scale: 3,
         name: "discarded",
         value: 0,
@@ -61,7 +61,7 @@ var visualSettings = {
 
     // these are in graph traversals and Dijkstra's so far
     discardedOnDiscovery: {
-        color: "#f0a0a0",
+        color: "plum",
         textColor: "black",
         scale: 4,
         name: "discardedOnDiscovery",
@@ -70,16 +70,16 @@ var visualSettings = {
         opacity: 0.6
     },
     startVertex: {
-        color: "purple",
+        color: "darkviolet",
         textColor: "white",
-        scale: 6,
+        scale: 7,
         name: "startVertex",
         value: 0
     },
     endVertex: {
         color: "violet",
         textColor: "white",
-        scale: 6,
+        scale: 7,
         name: "endVertex",
         value: 0
     },
@@ -122,12 +122,12 @@ var visualSettings = {
         opacity: 0.6
     },
     spanningTree: {
-        color: "#0000a0",
+        color: "#0050f0",
         textColor: "white",
         scale: 4,
         name: "spanningTree",
         value: 0,
-        weight: 4,
+        weight: 5,
         opacity: 0.6
     },
     discovered: {
@@ -140,7 +140,7 @@ var visualSettings = {
         opacity: 0.6
     },
     hoverV: {
-        color: "#a0036b",
+        color: "fuchsia",
         textColor: "white",
         scale: 6,
         name: "hoverV",
