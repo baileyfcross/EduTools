@@ -591,7 +591,7 @@ var hdxVertexExtremesSearchAV = {
 		let avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
 		let avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
 		updateAVControlEntry("avgcoord",
-				     "Average of coords so far:<BR/> (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
+				     "Average of coordinates so far:<BR/> (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
 		thisAV.avgMarker.setLatLng([avglat, avglng]);
                 hdxAV.nextAction = "forLoopBottom";
             },
