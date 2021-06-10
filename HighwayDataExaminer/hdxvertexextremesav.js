@@ -72,6 +72,8 @@ var hdxVertexExtremesSearchAV = {
     // for average coordinates
     latsum: 0,
     lngsum: 0,
+    avglat: 0,
+    avglng: 0,
     avgMarker: null,
     
     // the categories for which we are finding our extremes,
@@ -588,11 +590,14 @@ var hdxVertexExtremesSearchAV = {
 		thisAV.latsum += parseFloat(waypoints[thisAV.nextToCheck].lat);
 		thisAV.lngsum += parseFloat(waypoints[thisAV.nextToCheck].lon);
 		// compute the new average of the waypoint locations so far
-		let avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
-		let avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
+		thisAV.avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
+		thisAV.avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
 		updateAVControlEntry("avgcoord",
-				     "Average of coordinates so far:<BR/> (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
-		thisAV.avgMarker.setLatLng([avglat, avglng]);
+				     "Average of coordinates so far:<BR/> (" + thisAV.avglat.toFixed(6) + "," + thisAV.avglng.toFixed(6) + ")");
+                    if (thisAV.showBB) {
+                        thisAV.directionalBoundingBox();
+                    }
+		thisAV.avgMarker.setLatLng([thisAV.avglat, thisAV.avglng]);
                 hdxAV.nextAction = "forLoopBottom";
             },
             logMessage: function(thisAV) {
@@ -661,10 +666,17 @@ var hdxVertexExtremesSearchAV = {
         let s = waypoints[this.categories[1].index].lat;
         let e = waypoints[this.categories[2].index].lon;
         let w = waypoints[this.categories[3].index].lon;
+        
         let nEnds = [[n,w],[n,e]];
         let sEnds = [[s,w],[s,e]];
         let eEnds = [[n,e],[s,e]];
         let wEnds = [[n,w],[s,w]];
+        let nsAvg;
+        let ewAvg;
+        if(this.showAvgOfCoords){
+            nsAvg = [[n,this.avglng],[s,this.avglng]];
+            ewAvg = [[this.avglat,e],[this.avglat,w]];
+        }
 
         // create or update as appropriate
         if (this.boundingPoly.length == 0) {
@@ -694,10 +706,32 @@ var hdxVertexExtremesSearchAV = {
                     color: this.categories[3].visualSettings.color,
                     opacity: 0.6,
                     weight: 3
-                })
+                }) 
             );
+            if(this.showAvgOfCoords){
+            
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                );
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                ); 
+            }
+        
             for (var i = 0; i < 4; i++) {
                 this.boundingPoly[i].addTo(map);
+            }
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].addTo(map);
+                this.boundingPoly[5].addTo(map);
             }
         }
         else {
@@ -705,6 +739,10 @@ var hdxVertexExtremesSearchAV = {
             this.boundingPoly[1].setLatLngs(sEnds);
             this.boundingPoly[2].setLatLngs(eEnds);
             this.boundingPoly[3].setLatLngs(wEnds);
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].setLatLngs(nsAvg);
+                this.boundingPoly[5].setLatLngs(ewAvg);
+            }
         }
     },
     
