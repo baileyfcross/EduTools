@@ -643,6 +643,7 @@ var hdxVertexExtremesSearchAV = {
                 updateAVControlEntry("visiting", "");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
+                
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
@@ -960,6 +961,9 @@ For Ties, Remember:<br />
             this.boundingPoly[i].remove();
         }
         this.boundingPoly = [];
+        if(this.showAvgOfCoords){
+            this.avgMarker.remove();
+        }
     },
     
     idOfAction(action) {
