@@ -144,13 +144,13 @@ tr.pseudocode {
     top: 100px;
     max-width: 40%;
     margin: auto;
-    background-color: white; 
+    background-color: white;
     z-index: 14000;
     position: absolute;
 }
 
 #loadDataTable {
-    border: 1px solid black;	
+    border: 1px solid black;
 }
 
 #searchBox {
@@ -160,7 +160,7 @@ tr.pseudocode {
 #algorithmSelectionPanel {
     top: 100px;
     margin: auto;
-    background-color: white; 
+    background-color: white;
     z-index: 12000;
     position: absolute;
     display: none;
@@ -196,7 +196,7 @@ tr.pseudocode {
     overflow: scroll;
 }
 
-/* centering and zindex together, based on example from 
+/* centering and zindex together, based on example from
 https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-positioned-element
 */
 
@@ -216,7 +216,7 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     z-index: inherit;
 }
 .data-title:after{
-        
+
     background-color: #00FF00;
     color: #111;
     font-size: 20px;
@@ -240,11 +240,11 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 }
 
 #instructions{
-    width: 40%; 
-    position: absolute; 
-    left: 45%; 
-    top: 100px; 
-    z-index: 9999; 
+    width: 40%;
+    position: absolute;
+    left: 45%;
+    top: 100px;
+    z-index: 9999;
     background-color: white;
     border: 1px solid black;
     border-collapse: separate;
@@ -308,4 +308,54 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     max-width: 100%;
     padding: 5px;
 
+}
+
+#the-basics {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+#the-basics #popup {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+#thebasics #popup::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+#the-basics .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }

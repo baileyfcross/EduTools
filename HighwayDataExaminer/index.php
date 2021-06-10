@@ -84,7 +84,7 @@ function hdx_load_file_entries() {
 		<select id = "orderOptions">
 			<option value = "alpha">Alphabetical</option>
 			<option value = "small">Size (small)</option>
-			<option value = "large">Size (large)</option>		
+			<option value = "large">Size (large)</option>
 		</select>
 		<br>
 		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
@@ -92,7 +92,7 @@ function hdx_load_file_entries() {
 			<option value = "collapsed">Collapsed (most likely you want this)</option>
 			<option value = "traveled">Traveled (include traveler info)</option>
 			<option value = "simple">Simple (straight line edges only)</option>
-			<option value = "all">All</option>		
+			<option value = "all">All</option>
 		</select>
 		<br>
 		Graph category:
@@ -110,13 +110,13 @@ ENDOFSTUFF;
 		<br>
 		Size from
 		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to 
+		to
 		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
 		vertices
 		<br>
 		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
 	  </td>
-	  </tr>	  
+	  </tr>
       <tr><td class="loadcollapse">
 	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
           <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
@@ -196,9 +196,10 @@ ENDOFSTUFF;
 	<tr>
 	  <td>
 	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
-	    <div id="the-basics">
+	    <div id="the-basics" onclick="popup()">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
+         <span id = "popup">Graph doesn't exist</span>
+
 	    </div>
 	    Once you have selected a graph from the list of suggestions, press Enter to load it.
 	  </td>
@@ -210,8 +211,8 @@ ENDOFSTUFF;
 	    </div>
 	  </td>
 	</tr>
-	
-	
+
+
 	<tr><td>
 	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
 	</td></tr>
@@ -236,12 +237,12 @@ ENDOFSTUFF;
 	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
 	  </select>
-	  
+
 	</td>
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
-	
+
       </tr>
       <tr>
 	<td>
@@ -263,7 +264,7 @@ ENDOFSTUFF;
       </tbody>
   </table>
 </div>
-  
+
 </div>
 <div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>

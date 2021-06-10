@@ -13,7 +13,7 @@
 /***********************************************************************/
 
 // we will fill these two lists
-var HDXGraphDescriptions = ['Choose A Graph']; 
+var HDXGraphDescriptions = ['Choose A Graph'];
 var HDXGraphs = {};
 
 // initialization code for HDX Graph search box
@@ -51,16 +51,16 @@ function HDXGraphSearchInit() {
 // providing a working example in which to work off of
 
 var HDXGraphSubstringMatcher = function(strs) {
-    
+
     return function findMatches(q, cb) {
         var matches, substringRegex;
-        
+
         // an array that will be populated with substring matches
         matches = [];
-        
+
         // regex used to determine if a string contains the substring `q`
         substrRegex = new RegExp(q, 'i');
-        
+
         // iterate through the pool of strings and for any string that
         // contains the substring `q`, add it to the `matches` array
         $.each(strs, function(i, str) {
@@ -68,7 +68,7 @@ var HDXGraphSubstringMatcher = function(strs) {
                 matches.push(str);
             }
         });
-        
+
         cb(matches);
     };
 };
@@ -79,13 +79,13 @@ $(document).ready(function() {
             hint: true,
             highlight: true,
             minLength: 1,
-            
+
         },
         {
             name: 'description',
             source: HDXGraphSubstringMatcher(HDXGraphDescriptions)
-        });     
-    
+        });
+
     // adapted from https://howtodoinjava.com/scripting/jquery/jquery-detect-if-enter-key-is-pressed/
     $("#searchBox").keypress(function(event) {
         var keycode = (event.keycode ? event.keycode : event.which);
@@ -96,7 +96,11 @@ $(document).ready(function() {
 	    }
 	    else {
 		// some user feedback would be good here
-		console.log("Invalid: " + input);
+    function popup() {
+      var popup = document.getElementById("popup");
+      popup.classList.toggle("show");
+    }
+    alert("Invalid: " + input);
 	    }
         }
     });
