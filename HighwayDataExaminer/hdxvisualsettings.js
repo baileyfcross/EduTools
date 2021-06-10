@@ -121,6 +121,15 @@ var visualSettings = {
         weight: 8,
         opacity: 0.6
     },
+    averageCoord: {
+        color: "violet",
+        textColor: "white",
+        scale: 4,
+        name: "averageCoord",
+        value: 0,
+        weight: 8,
+        opacity: 0.6
+    },
     spanningTree: {
         color: "#0050f0",
         textColor: "white",
