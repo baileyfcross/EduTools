@@ -301,7 +301,23 @@ var hdxVertexExtremesSearchAV = {
 		thisAV.latsum = parseFloat(waypoints[0].lat);
 		thisAV.lngsum = parseFloat(waypoints[0].lon);
 		if (thisAV.showAvgOfCoords) {
-		    thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum]);
+
+            let icon;
+            let avgOptions = {
+                iconShape: 'circle-dot',
+                iconSize: [5, 5],
+                iconAnchor: [5, 5],
+                borderWidth: 5,
+                borderColor: visualSettings.averageCoord.color
+                }
+
+            icon = L.BeautifyIcon.icon(avgOptions);
+
+            thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum],{
+                title: "Average Coordinate of Waypoints",
+                icon: icon
+            });
+        
 		    thisAV.avgMarker.addTo(map);
 		}
 		
@@ -575,7 +591,7 @@ var hdxVertexExtremesSearchAV = {
 		let avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
 		let avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
 		updateAVControlEntry("avgcoord",
-				     "Average of coords so far: (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
+				     "Average of coords so far:<BR/> (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
 		thisAV.avgMarker.setLatLng([avglat, avglng]);
                 hdxAV.nextAction = "forLoopBottom";
             },
