@@ -92,7 +92,7 @@ var hdxBFConvexHullAV = {
             value: 0
         },
         checkedNegative: {
-            color: "red",
+            color: "crimson",
             textColor: "white",
             scale: 6,
             name: "checkedNegative",
