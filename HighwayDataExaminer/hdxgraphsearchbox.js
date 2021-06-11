@@ -96,11 +96,7 @@ $(document).ready(function() {
 	    }
 	    else {
 		// some user feedback would be good here
-    function popup() {
-      var popup = document.getElementById("popup");
-      popup.classList.toggle("show");
-    }
-    alert("Invalid: " + input);
+    alert("Graph Doesn't Exist: " + input);
 	    }
         }
     });

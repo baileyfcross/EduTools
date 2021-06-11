@@ -196,10 +196,8 @@ ENDOFSTUFF;
 	<tr>
 	  <td>
 	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
-	    <div id="the-basics" onclick="popup()">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-         <span id = "popup">Graph doesn't exist</span>
-
+	    <div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph"><br />
 	    </div>
 	    Once you have selected a graph from the list of suggestions, press Enter to load it.
 	  </td>
