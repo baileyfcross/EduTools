@@ -225,7 +225,6 @@ function HDXStartFileselectorRead(filesel) {
     // first, retrieve the selected file (as a File object)
     // which must be done before we toggle the table to force
     // the pointbox to be displayed
-    console.log("Made it 2");
     let file = document.getElementById(filesel).files[0];
     hdxGlobals.loadingFile = file.name;
     
@@ -259,7 +258,6 @@ function HDXStartFileselectorRead(filesel) {
         reader.readAsText(file, "UTF-8");
         reader.onload = HDXFileLoadedCallback;
         //reader.onerror = fileLoadError;
-        console.log("Made it 3");
     }
 }
 
@@ -629,16 +627,13 @@ YT2 (60.849881,-135.203934) (60.844649,-135.187111) (60.830141,-135.187454) YT1_
 YT1,YT2 (60.79662,-135.170288) YT1/YT2@KatRd (60.788579,-135.166302)
 YT1,YT2 YT1/YT2@WannRd (60.772479,-135.15044)
 YT1,YT2 YT1/YT2@CenSt (60.759893,-135.141191)
-
 or
-
 START YT2@BorRd 60.862343 -135.196595
 YT2 YT2@TakHSRd 60.85705 -135.202029
 YT2 60.849881 -135.203934 60.844649 -135.187111 60.830141 -135.187454 YT1_N/YT2_N 60.810264 -135.205286
 YT1,YT2 60.79662 -135.170288 YT1/YT2@KatRd 60.788579 -135.166302
 YT1,YT2 YT1/YT2@WannRd 60.772479 -135.15044
 YT1,YT2 YT1/YT2@CenSt 60.759893 -135.141191
-
 */
 function parsePTHContents(fileContents) {
 

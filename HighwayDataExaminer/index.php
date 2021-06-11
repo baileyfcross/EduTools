@@ -475,11 +475,14 @@ ENDOFSTUFF;
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
+	<!--<div id="algorithmOptions">
+
+	</div>-->
 	
       </tr>
       <tr>
 	<td>
-	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
+	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
 	</td>
       </tr>
     </tbody>
