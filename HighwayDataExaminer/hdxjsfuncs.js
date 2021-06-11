@@ -701,14 +701,14 @@ function parseNMPContents(fileContents) {
             if (xline.length == 3 || xline.length == 4) {
                 waypoints[waypoints.length] = new Waypoint(xline[0], xline[1], xline[2], "", "");
                 if (xline.length == 3) {
-                    waypointColors[waypointColors.length] = "red";
+                    waypointColors[waypointColors.length] = "crimson";
                 }
                 else {
                     if (xline[3] == "FP" || xline[3] == "FPLI") {
-                        waypointColors[waypointColors.length] = "green";
+                        waypointColors[waypointColors.length] = "#00a000";
                     }
                     else { // must be "LI"
-                        waypointColors[waypointColors.length] = "yellow";
+                        waypointColors[waypointColors.length] = "gold";
                     }
                 }
             }
@@ -729,7 +729,7 @@ function parseNMPContents(fileContents) {
                                   waypoints[2*i+1].lat,
                                   waypoints[2*i+1].lon).toFixed(2);
         table += "<tr style=\"background-color:" + waypointColors[2*i] +
-            "\"><td><table class=\"nmptable2\"><thead /><tbody><tr><td>"
+            ";color:white\"><td><table class=\"nmptable2\"><thead /><tbody><tr><td>"
             + "<a onclick=\"javascript:labelClickHDX(" + 2*i + ");\">"
             + waypoints[2*i].label + "</a></td><td>("
             + waypoints[2*i].lat + ","

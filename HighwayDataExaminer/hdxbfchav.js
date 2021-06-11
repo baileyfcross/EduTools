@@ -81,49 +81,24 @@ var hdxBFConvexHullAV = {
     lookingFor: "UNKNOWN",
     
     visualSettings: {
-        hullv1: {
-            color: "Gold",
-            textColor: "black",
-            scale: 6,
-            name: "hullv1",
-            value: 0
-        },
-        hullv2: {
-            color: "Goldenrod",
-            textColor: "black",
-            scale: 6,
-            name: "hullv2",
-            value: 0
-        },
+        hullv1: visualSettings.startVertex,
+        hullv2: visualSettings.endVertex,
         hullvtest: visualSettings.visiting,
-        discardedv2: {
-            color: "green",
-            textColor: "black",
-            scale: 2,
-            name: "discardedv2",
-            value: 0
-        },
         checkedPositive: {
-            color: "green",
+            color: visualSettings.discovered.color,
             textColor: "white",
             scale: 6,
             name: "checkedPositive",
             value: 0
         },
         checkedNegative: {
-            color: "purple",
+            color: "red",
             textColor: "white",
             scale: 6,
             name: "checkedNegative",
             value: 0
         },
-        mismatch: {
-            color: "red",
-            textColor: "white",
-            scale: 6,
-            name: "mismatch",
-            value: 0
-        },
+        mismatch: visualSettings.searchFailed,
         hullComponent: visualSettings.spanningTree
     },
 
