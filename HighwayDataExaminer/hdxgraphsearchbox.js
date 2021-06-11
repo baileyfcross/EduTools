@@ -4,6 +4,7 @@
 // METAL Project
 //
 // Primary Author: Michael Dagostino
+//Additional Author: Bailey Cross
 // Maintenance edits: Jim Teresco
 
 /***********************************************************************/
@@ -96,18 +97,18 @@ $(document).ready(function() {
 	    }
 	    else {
 		//creates text under the graph search box saying that the graph doesn't exist
-    if(noGraphCounter == 1)
-    {
-      noGraphCounter = 0;
-      var deleteP = document.getElementById("noGraphFound");
-      deleteP.remove();
-    }
-    var noGraph = document.createElement('P');
-    noGraph.innerHTML = "Graph Not Found: " + input;
-    noGraph.style.color = 'red';
-    noGraph.id = 'noGraphFound';
-    document.getElementById('the-basics').appendChild(noGraph);
-    noGraphCounter += 1;
+          if(noGraphCounter == 1)
+          {
+            noGraphCounter = 0;
+            var deleteP = document.getElementById("noGraphFound");
+            deleteP.remove();
+          }
+          var noGraph = document.createElement('P');
+          noGraph.innerHTML = "Graph Not Found: " + input;
+          noGraph.style.color = 'red';
+          noGraph.id = 'noGraphFound';
+          document.getElementById('the-basics').appendChild(noGraph);
+          noGraphCounter += 1;
 	    }
         }
     });
