@@ -151,21 +151,9 @@ tr.pseudocode {
     width: 365px;
 }
 
-#algorithmSelectionPanel {
-    top: 100px;
-    margin: auto;
-    background-color: white; 
-    z-index: 12000;
-    position: absolute;
-    display: none;
-}
 
-#algorithmSelectionPanelTable {
-    border: 1px solid black;
-    left: 5px;
-    position: absolute;
-    z-index: 10000;
-}
+
+
 
 #selected {
     display: none;
@@ -316,6 +304,7 @@ button, #uploadLabel
     margin: 10px;
     color: white;
     
+    
 }
 
 #fileToLoad{
@@ -359,8 +348,9 @@ div
     padding: 0;
     margin: 0;
     color: white;
-    
+    display: block;
     text-align: center;
+    margin-top: 20px;
 
 }
 
@@ -374,11 +364,12 @@ div
 h3
 {
     font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 24px;
+    font-size: 36px;
     padding: 0;
     margin: 0;
     color: white;
-    margin-top: 40px;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 
@@ -388,8 +379,70 @@ h3
     color:rgb(30, 179, 238);
 }
 
+#back
+{
+    float: left;
+    margin-bottom: 30px;
+    margin-right: 500px;
+}
+#loadDataPanel #overview
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    color: white;
+    display: block;
+    text-align: center;
+    font-style: italic;
+}
+#loadDataPanel #or
+{
+    margin-bottom: 15px;
+    margin-top: 0;
+}
 
+#algorithmSelectionPanel {
+    top: 100px;
+    margin: auto;
+    
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    z-index: 12000;
+    position: absolute;
+    display: none;
+    border-radius: 10px;
+    text-align: center;
+    
+}
 
+#algorithmSelectionPanelTable {
+    border: none;
+    left: 5px;
+    position: relative;
+    z-index: 10000;
+    background-color: rgb(129, 91, 216); 
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+    
+}
 
+#algorithmSelectionPanelTable th
+{
+    font-size: 24px;
+    border: none;
+}
 
+#algorithmSelectionPanelTable td
+{
+    font-size: 16px;
+    border: none;
+}
+
+/*#the-basics
+{
+    z-index: 200000;
+}*/
 

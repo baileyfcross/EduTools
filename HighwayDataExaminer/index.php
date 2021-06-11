@@ -69,7 +69,7 @@
 <script src="hdxkruskalav.js" type="text/javascript"></script>
 <script src="hdxdegreeav.js" type="text/javascript"></script>
 <script src="hdxdfsrecav.js" type="text/javascript"></script>
-<!--<script src="hdxinstructions.js" type="text/javascript"></script>-->
+<script src="hdxinstructions.js" type="text/javascript"></script>
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
 <!--<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
@@ -261,7 +261,7 @@ ENDOFSTUFF;
 	<!--<div id="the-basics">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
 	      
-	    </div>-->
+</div>-->
 	
 	<!--<button type="button" class="opt">Advanced Search</button>
 	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
@@ -294,34 +294,70 @@ ENDOFSTUFF;
 	<script>
 		
 
-		
-
-
-		
-		function basicMenu()
-		{
-			var dataPanel = document.getElementById("loadDataPanel");
-
-			dataPanel.innerHTML = "";
-			
-			var basic = document.createElement("div");
-
-			basic.setAttribute("id", "the-basics");
-
 			var box = document.createElement("input");
 
 			box.setAttribute("class", "typeahead");
 			box.setAttribute("type", "text");
 			box.setAttribute("id", "searchBox");
 			box.setAttribute("placeholder", "Pick a Graph");
+			console.log("Current box:" + box);
+
+
+		
+		function basicMenu()
+		{
 			
-			
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+
 			
 
+			var back = document.createElement("button");
+			back.setAttribute("id", "back");
+			back.innerHTML = "Back";
+
+			dataPanel.appendChild(back);
+
+			back.addEventListener("click", defaultMenu);
+
+			var br = document.createElement("br");
+			dataPanel.appendChild(br);
+			dataPanel.appendChild(br);
+			dataPanel.appendChild(br);
+			
+
+			var instructions = document.createElement("p");
+			instructions.innerHTML = "Search for a graph to display";
+			dataPanel.appendChild(instructions);
+			
+			var basic = document.createElement("div");
+
+			basic.setAttribute("id", "the-basics");
+
+			
 			basic.appendChild(box);
-
+			console.log("Current box:" + box);
 			dataPanel.appendChild(basic);
 
+			var start = document.createElement("button");
+			start.setAttribute("id", "vis");
+			start.innerHTML = "Next";
+
+			dataPanel.appendChild(start);
+
+			
+
+			//start.addEventListener("click", defaultMenu);
+			
+		
+		/*	<div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+	      
+	    </div>*/
+
+			//HDXGraphSearchInit();
+			
 			console.log("made it 10");
 
 			
@@ -339,8 +375,12 @@ ENDOFSTUFF;
 
 			var intro = document.createElement("p");
 			intro.setAttribute("class", "descr");
-			intro.innerHTML = "Visualize common computer scicence algorithms using graphs based on real world maps.";
+			intro.setAttribute("id", "overview");
+			intro.innerHTML = "Visualize algorithms using graphs based on real world maps.";
 			mainbox.appendChild(intro);
+
+			var br = document.createElement("br");
+			mainbox.appendChild(br);
 
 
 			var instruct = document.createElement("p");
@@ -363,20 +403,23 @@ ENDOFSTUFF;
 
 			
 
-			var br = document.createElement("br");
+			
 			mainbox.appendChild(br);
 
 			var or = document.createElement("p");
+			or.setAttribute("id", "or")
 			or.innerHTML = "or";
 
 			mainbox.appendChild(or);
-			mainbox.appendChild(br);
+			
 
 			var uploadLabel = document.createElement("label");
 			uploadLabel.setAttribute("for", "fileToLoad");
 			uploadLabel.setAttribute("id", "uploadLabel");
 			uploadLabel.innerHTML = "Upload File";
 			mainbox.appendChild(uploadLabel);
+
+			mainbox.appendChild(br);
 
 			var uploadIn = document.createElement("input");
 			uploadIn.setAttribute("id", "fileToLoad");
@@ -389,6 +432,7 @@ ENDOFSTUFF;
 			var bod = document.querySelector("body");
 
 			bod.appendChild(uploadIn);
+			mainbox.appendChild(br);
 
 			var help = document.createElement("p");
 			help.setAttribute("class", "descr");
@@ -405,23 +449,27 @@ ENDOFSTUFF;
 
 <!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
+<!-- Select an Algorithm to Visualize:
+	 <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
+	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
+	 <!-- </select>
+	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">-->
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
-      <tr><th>Algorithm Visualization Selection and Options</th></tr>
+      <tr><th>Select an Algorithm to Visualize</th></tr>
     </thead>
     <tbody>
-      <tr><td><p>To perform an algorithm visualization on the data
+      <!--<tr><td><p>To perform an algorithm visualization on the data
 	  currently displayed, choose an algorithm and the options you
 	  would like to use, then press "Done".<br />  To explore the
 	  data on the map manually with no algorithm visualization,
 	  choose the "No Algorithm Visualization" option.</p>
-      </td></tr>
+      </td></tr>-->
       <tr>
 	<td>
-	  Select an Algorithm to Visualize:
-	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">
+	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
-	  </select>
+	 </select>
 	  
 	</td>
       </tr>
