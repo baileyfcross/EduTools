@@ -43,7 +43,7 @@ var visualSettings = {
         value: 0
     },
     searchFailed: {
-        color: "red",
+        color: "firebrick",
         textColor: "white",
         scale: 6,
         name: "searchFailed",
