@@ -4,6 +4,7 @@
 // METAL Project
 //
 // Primary Author: Michael Dagostino
+//Additional Author: Bailey Cross
 // Maintenance edits: Jim Teresco
 
 /***********************************************************************/
