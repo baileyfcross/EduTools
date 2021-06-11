@@ -72,7 +72,7 @@ var HDXGraphSubstringMatcher = function(strs) {
         cb(matches);
     };
 };
-
+var noGraphCounter = 0;
 $(document).ready(function() {
     $('#the-basics .typeahead').typeahead(
         {
@@ -95,8 +95,19 @@ $(document).ready(function() {
 		HDXReadFileFromWebServer(HDXGraphs[input]);
 	    }
 	    else {
-		// some user feedback would be good here
-    alert("Graph Doesn't Exist: " + input);
+		//creates text under the graph search box saying that the graph doesn't exist
+    if(noGraphCounter == 1)
+    {
+      noGraphCounter = 0;
+      var deleteP = document.getElementById("noGraphFound");
+      deleteP.remove();
+    }
+    var noGraph = document.createElement('P');
+    noGraph.innerHTML = "Graph Not Found: " + input;
+    noGraph.style.color = 'red';
+    noGraph.id = 'noGraphFound';
+    document.getElementById('the-basics').appendChild(noGraph);
+    noGraphCounter += 1;
 	    }
         }
     });
