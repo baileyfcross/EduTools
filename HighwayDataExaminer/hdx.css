@@ -7,10 +7,14 @@
     width: 100%;
     overflow:hidden;
     filter: blur(6px);
+    border-radius: 0;
+    
 }
 
 #map * {
     cursor:crosshair;
+    
+    
 }
 
 #selected {
@@ -322,7 +326,7 @@ div
 {
     border-radius: 10px;
     margin: auto;
-    text-align: center;
+    /*text-align: center;*/
 }
 #loadDataPanel
 {
@@ -336,6 +340,7 @@ div
     padding: 30px;
     margin: auto;
     max-width: 450px;   
+    text-align: center;
     
 }
 
