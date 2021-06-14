@@ -20,28 +20,36 @@
     2016-06-27 JDT  Code reorganization, page design updated based on TM
 -->
 <title>Highway Data Examiner</title>
-<?php
-  if (!file_exists("tmlib/tmphpfuncs.php")) {
-    echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmphpfuncs.php</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
-    exit;
-  }
-
- require "tmlib/tmphpfuncs.php";
-?>
+<!-- /lib/tmphpfuncs.php: common PHP functionality for Travel Mapping -->
+<!-- mysqli connecting to database TravelMapping on localhost -->
+<!-- /lib/tmphpfuncs.php END -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <link rel="stylesheet" href="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.css">
 <!-- bring in common JS libraries from TM for maps, etc. -->
-<?php tm_common_js(); ?>
+<!-- tm_common_js from tmphpfuncs.php START -->
+<!-- Map API functionality -->
+<script type="text/javascript">
+var here_map_id = "cVAkOyu3tNFJjheS1CSo";
+var here_map_code = "TSP0MYr4patEWMQiSciJvQ";
+var tf_map_key = "a01bf5477a474aeea8312a481dec2d8f";
+var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTNwbzN2YTc3YTl5OSJ9.rwWcKHerj5WKGMIPAq2prA";
+</script>
+  <link rel="stylesheet" href="/leaflet-1.5.1/leaflet.css" />
+  <script src="/leaflet-1.5.1/leaflet.js"></script>
+  <script src="/leaflet-1.5.1/leaflet-providers.js"></script>
+  <script type="text/javascript" src="https://maps.stamen.com/js/tile.stamen.js?v1.3.0"></script>
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <!-- TableSorter -->
+  <script src="/lib/jquery.tablesorter.min.js" type="text/javascript"></script>
+  <!-- clipboard.js -->
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script><!-- tm_common_js from tmphpfuncs.php END -->
 <script src="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.js"></script>
 <!-- load in needed JS functions -->
-<?php
-  if (!file_exists("tmlib/tmjsfuncs.js")) {
-    echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmpjsfuncs.js</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
-    exit;
-  }
-?>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
 <script src="tmlib/tmjsfuncs.js" type="text/javascript"></script>
 <script src="hdxjsfuncs.js" type="text/javascript"></script>
@@ -70,60 +78,10 @@
 <script src="hdxdfsrecav.js" type="text/javascript"></script>
 <script src="hdxinstructions.js" type="text/javascript"></script>
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<!--<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 
-<?php
-// function to generate the file load html
-function hdx_load_file_entries() {
-  echo <<<ENDOFSTUFF
-		<tr><td id="selects" class="loadcollapse">
-		<b>Option 2: </b>Search for a METAL graph by characteristics.<br />Select desired graph characteristics then press "Get Graph List" to see matching graphs.<br>
-		Sort criteria:
-		<select id = "orderOptions">
-			<option value = "alpha">Alphabetical</option>
-			<option value = "small">Size (small)</option>
-			<option value = "large">Size (large)</option>
-		</select>
-		<br>
-		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
-		<select id = "restrictOptions">
-			<option value = "collapsed">Collapsed (most likely you want this)</option>
-			<option value = "traveled">Traveled (include traveler info)</option>
-			<option value = "simple">Simple (straight line edges only)</option>
-			<option value = "all">All</option>
-		</select>
-		<br>
-		Graph category:
-		<select id = "categoryOptions">
-				<option value="all">All Graphs</option>
-ENDOFSTUFF;
-  $result = tmdb_query("SELECT * FROM graphTypes");
-
-  while ($row = $result->fetch_array()) {
-     echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
-  }
-  $result->free();
-  echo <<<ENDOFSTUFF
-		</select>
-		<br>
-		Size from
-		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to
-		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
-		vertices
-		<br>
-		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
-	  </td>
-	  </tr>
-      <tr><td class="loadcollapse">
-	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
-          <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
-      </td></tr>
-ENDOFSTUFF;
-}
-?>
 
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -134,9 +92,27 @@ ENDOFSTUFF;
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
 
+<style>
+	.menubar {
+  		font-size: 10pt;
+  		font-style: normal;
+ 		font-family: sans-serif;
+  		text-align: center;
+  		position: relative;
+ 		padding-right: 8px;
+  		padding-bottom: 2px;
+  		margin-top: 0px;
+  		margin-bottom: 8px;
+  		height: auto;
+  		background: rgb(47, 47, 47);
+  		color: #ffffff;
+  		border: 3px solid rgb(47, 47, 47);
+}
+</style>
+
 <body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
 <p class="menubar">
-  HDX: <span id="startUp">To begin, select data to display using the Load Data panel at the upper left of the map</span>
+  HDX: <span id="startUp">To begin, select a graph to display.</span>
   <span id="filename"></span>
   <span id="status"></span>
   <span id="currentAlgorithm"></span>
@@ -182,8 +158,20 @@ ENDOFSTUFF;
 </div>
 <div id="map">
 </div>
+<!--<div id="about">
+
+		<h3>
+			About METAL HDX
+		</h3>
+
+		<p>
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  Need help?  A tutorial can be found <a href="tutorial.html">here</a>
+		</p>
+
+
+</div>-->
 <div id="loadDataPanel">
-    <table id="loadDataTable" class="gratable">
+<!-- <table id="loadDataTable" class="gratable">
       <thead>
 	<tr><th>Load Data:</th></tr>
       </thead>
@@ -197,7 +185,8 @@ ENDOFSTUFF;
 	  <td>
 	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
 	    <div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph"><br />
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+
 	    </div>
 	    Once you have selected a graph from the list of suggestions, press Enter to load it.
 	  </td>
@@ -205,7 +194,7 @@ ENDOFSTUFF;
 	<tr>
 	  <td>
 	    <div>
-	      <?php hdx_load_file_entries(); ?>
+
 	    </div>
 	  </td>
 	</tr>
@@ -215,26 +204,229 @@ ENDOFSTUFF;
 	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
 	</td></tr>
       </tbody>
-    </table>
+    </table>-->
+
+
+
+
+   <!--<p style="text-align: center">
+	   Search for a graph in our database
+   </p>
+
+	<button type="button" id="basic" class="opt">Basic Search</button>-->
+
+	<!--<div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+
+</div>-->
+
+	<!--<button type="button" class="opt">Advanced Search</button>
+	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;}">or</p><br>-->
+	<!--<button type="button" class="opt">Upload File</button>-->
+
+	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
+
+	<br>
+
+	<h3>
+			About METAL HDX
+		</h3>
+
+		<p class="descr">
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.
+		</p>
+
+		<br>
+		<br>
+		<p class="descr">
+		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
+		</p>-->
+
+
+
+
+
+
+	<script>
+
+
+			var box = document.createElement("input");
+
+			box.class = "typeahead";
+			box.type = "text";
+			box.id = "searchBox";
+			box.placeholder = "Pick a Graph";
+			console.log("Current box:" + box);
+
+
+
+		function basicMenu()
+		{
+
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+
+
+
+			var back = document.createElement("button");
+			back.setAttribute("id", "back");
+			back.innerHTML = "Back";
+
+			dataPanel.appendChild(back);
+
+			back.addEventListener("click", defaultMenu);
+
+			var br = document.createElement("br");
+			dataPanel.appendChild(br);
+			dataPanel.appendChild(br);
+			dataPanel.appendChild(br);
+
+
+			var instructions = document.createElement("p");
+			instructions.innerHTML = "Search for a graph to display";
+			dataPanel.appendChild(instructions);
+
+			var basic = document.createElement("div");
+
+			basic.id = "the-basics";
+
+
+			basic.appendChild(box);
+			console.log("Current box:" + box);
+			dataPanel.appendChild(basic);
+
+			var start = document.createElement("button");
+			start.setAttribute("id", "vis");
+			start.innerHTML = "Next";
+
+			dataPanel.appendChild(start);
+
+
+
+			//start.addEventListener("click", defaultMenu);
+
+
+		/*	<div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+
+	    </div>*/
+
+			//HDXGraphSearchInit();
+
+			console.log("made it 10");
+
+
+		}
+		function defaultMenu()
+		{
+			var mainbox = document.getElementById("loadDataPanel");
+
+			//clear it
+			mainbox.innerHTML = "";
+
+			var h3 = document.createElement("h3");
+			h3.innerHTML = "METAL HDX";
+			mainbox.appendChild(h3);
+
+			var intro = document.createElement("p");
+			intro.setAttribute("class", "descr");
+			intro.setAttribute("id", "overview");
+			intro.innerHTML = "Visualize algorithms using graphs based on real world maps.";
+			mainbox.appendChild(intro);
+
+			var br = document.createElement("br");
+			mainbox.appendChild(br);
+
+
+			var instruct = document.createElement("p");
+			instruct.innerHTML = "Search for a graph in our database";
+
+			mainbox.appendChild(instruct);
+
+			var basic = document.createElement("button");
+			basic.setAttribute("class", "opt");
+			basic.innerHTML = "Basic Search";
+
+			mainbox.appendChild(basic);
+
+			basic.addEventListener("click", basicMenu);
+
+			var advanced = document.createElement("button");
+			advanced.setAttribute("class", "opt");
+			advanced.innerHTML = "Advanced Search";
+			mainbox.appendChild(advanced);
+
+
+
+
+			mainbox.appendChild(br);
+
+			var or = document.createElement("p");
+			or.setAttribute("id", "or")
+			or.innerHTML = "or";
+
+			mainbox.appendChild(or);
+
+
+			var uploadLabel = document.createElement("label");
+			uploadLabel.setAttribute("for", "fileToLoad");
+			uploadLabel.setAttribute("id", "uploadLabel");
+			uploadLabel.innerHTML = "Upload File";
+			mainbox.appendChild(uploadLabel);
+
+			mainbox.appendChild(br);
+
+			var uploadIn = document.createElement("input");
+			uploadIn.setAttribute("id", "fileToLoad");
+			uploadIn.setAttribute("name", "fileToLoad");
+			uploadIn.setAttribute("type", "file");
+			uploadIn.setAttribute("value", "Start");
+			uploadIn.setAttribute("accept", ".tmg, .wpt, .pth, .nmp, .gra, .wpl");
+			uploadIn.setAttribute("onChange", "HDXStartFileselectorRead('fileToLoad')");
+
+			var bod = document.querySelector("body");
+
+			bod.appendChild(uploadIn);
+			mainbox.appendChild(br);
+
+			var help = document.createElement("p");
+			help.setAttribute("class", "descr");
+			help.innerHTML = "Need help?  A tutorial can be found <a href='tutorial.html' target='_blank'>here</a>";
+			mainbox.appendChild(help);
+
+
+
+
+		}
+		defaultMenu();
+		</script>
 </div>
+
+<!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
+<!-- Select an Algorithm to Visualize:
+	 <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
+	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
+	 <!-- </select>
+	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">-->
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
-      <tr><th>Algorithm Visualization Selection and Options</th></tr>
+      <tr><th>Select an Algorithm to Visualize</th></tr>
     </thead>
     <tbody>
-      <tr><td><p>To perform an algorithm visualization on the data
+      <!--<tr><td><p>To perform an algorithm visualization on the data
 	  currently displayed, choose an algorithm and the options you
 	  would like to use, then press "Done".<br />  To explore the
 	  data on the map manually with no algorithm visualization,
 	  choose the "No Algorithm Visualization" option.</p>
-      </td></tr>
+      </td></tr>-->
       <tr>
 	<td>
-	  Select an Algorithm to Visualize:
-	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">
+	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
-	  </select>
+	 </select>
 
 	</td>
       </tr>
@@ -244,7 +436,7 @@ ENDOFSTUFF;
       </tr>
       <tr>
 	<td>
-	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
+	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
 	</td>
       </tr>
     </tbody>
@@ -266,7 +458,7 @@ ENDOFSTUFF;
 </div>
 <div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>
-    <table id="instructions">
+  <!-- <table id="instructions">
         <thead>
             <tr ><th id="instructionsHeader">Using METAL's Highway Data Examiner (HDX)</th></tr>
         </thead>
@@ -296,7 +488,6 @@ ENDOFSTUFF;
 		fixes.  Enjoy!<td>
             <tr>
         </tbody>
-    </table>
+    </table>-->
 </body>
 </html>
-<?php tmdb_close();?>
