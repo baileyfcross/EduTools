@@ -246,13 +246,12 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 
 
+</div>
 
-
-	<script>
+	<script id = "loadPanel">
 
 
 			var box = document.createElement("input");
-
 			box.class = "typeahead";
 			box.type = "text";
 			box.id = "searchBox";
@@ -268,38 +267,40 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 			dataPanel.innerHTML = "";
 
-
-
+      //Back button after the user clicks basic search
 			var back = document.createElement("button");
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
-
-			dataPanel.appendChild(back);
-
 			back.addEventListener("click", defaultMenu);
 
+
+      //spacing for the dataPanel
 			var br = document.createElement("br");
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 
 
+      //Instructions for the user when they click on the basic search button
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
 
-			var basic = document.createElement("div");
 
+      //the-basics div tag
+			var basic = document.createElement("div");
 			basic.id = "the-basics";
 
-
-			basic.appendChild(box);
-			console.log("Current box:" + box);
-			dataPanel.appendChild(basic);
-
-			var start = document.createElement("button");
+      //next button under the graph search box
+      var start = document.createElement("button");
 			start.setAttribute("id", "vis");
 			start.innerHTML = "Next";
+
+
+      //append all of the tags together
+			basic.appendChild(box);
+			dataPanel.appendChild(basic);
+      dataPanel.appendChild(back);
 
 			dataPanel.appendChild(start);
 
@@ -351,6 +352,7 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 			mainbox.appendChild(basic);
 
+      //event listener for the basic menu to go back
 			basic.addEventListener("click", basicMenu);
 
 			var advanced = document.createElement("button");
@@ -402,7 +404,6 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 		}
 		defaultMenu();
 		</script>
-</div>
 
 <!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
