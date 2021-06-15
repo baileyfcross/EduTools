@@ -32,12 +32,32 @@ var hdxQuadtreeAV = {
     avActions: [
         {
             label: "START",
-            comment: "creating bounding box that contains all points",
-            code: 
-            //other stuff needs to go here but at least the boundingBox should be generated from here
-            generateBoundingBox()
-            ,
+            comment: "creating bounding box that contains all waypoints",
+            code: function(thisAV){
+                //other stuff needs to go here but at least the boundingBox should be generated from here
+                thisAV.generateBoundingBox();
+            },
+            logMessage: function(thisAV){
+                return "Creating bounding box that contains all waypoints"
+            }
 
+
+        },
+        {
+            label: "cleanup",
+            comment: "cleanup and updates at the end of the visualization",
+            code: function(thisAV) {
+                hdxAV.algStat.innerHTML =
+                    "Done! Visited " + waypoints.length + " waypoints.";
+                updateAVControlEntry("undiscovered", "0 vertices not yet visited");
+                updateAVControlEntry("visiting", "");
+                hdxAV.nextAction = "DONE";
+                hdxAV.iterationDone = true;
+                
+            },
+            logMessage: function(thisAV) {
+                return "Cleanup and finalize visualization";
+            }
         }
     ],
 
@@ -55,8 +75,8 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="minPoints" min="3" max="' 
-        + (waypoints.length - 1)/2 + '" value="3">';
+        let newAO = 'Refinement threshold <input type="number" id="minPoints" min="1" max="' 
+        + (waypoints.length) + '" value="3">';
         hdxAV.algOptions.innerHTML = newAO;
         addEntryToAVControlPanel("totalChecked", visualSettings.visiting);
         addEntryToAVControlPanel("savedCheck", visualSettings.undiscovered); 
@@ -65,12 +85,18 @@ var hdxQuadtreeAV = {
     cleanupUI() {
         
     },
+
+    idOfAction(action) {
+	
+        return action.label;
+    },
+    //this function generates the bounding box that represents the universe of the quadtree
     generateBoundingBox(){
         let n = waypoints[0].lat;
         let s = waypoints[0].lat;
         let e = waypoints[0].lon;
         let w = waypoints[0].lon;
-        for(var i = 1; i < waypoints.length; i++);
+        for(var i = 1; i < waypoints.length; i++){
 
             if(waypoints[i].lat > n){
                 n = waypoints[i].lat;
@@ -79,10 +105,12 @@ var hdxQuadtreeAV = {
             }
             if(waypoints[i].lon > e){
                 e = waypoints[i].lon;
-            } else if (waypoints[i],lon < w){
+            } else if (waypoints[i].lon < w){
                 w = waypoints[i].lon;
             }
+        }
 
+        //creating the polylines for the bounding box
         let nEnds = [[n,w],[n,e]];
         let sEnds = [[s,w],[s,e]];
         let eEnds = [[n,e],[s,e]];
@@ -116,6 +144,10 @@ var hdxQuadtreeAV = {
                     weight: 3
                 }) 
             );
+
+            for (var i = 0; i < 4; i++) {
+                this.boundingPoly[i].addTo(map);
+            }
     }
 };
 
@@ -181,5 +213,13 @@ function Quadtree(latMin,latMax,lngMin,lngMax,refinement){
     }
     this.isLeaf = function(){
         return se == null;
+    }
+    this.add = function(waypoint){
+        if(isLeaf){
+            points.push(waypoint);
+            this.refineIfNeeded();
+        } else {
+            this.childThatContains(waypoint.lat,waypoint.lon).add(waypoint);
+        }
     }
 }
