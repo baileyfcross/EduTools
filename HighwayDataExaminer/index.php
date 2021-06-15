@@ -434,6 +434,7 @@ ENDOFSTUFF;
 			var sortP = document.createElement("p");
 			sortP.innerHTML = "Sort by";
 			container.appendChild(sortP);
+			container.innerHTML += "<br>";
 
 			var select = document.createElement("select");
 			select.setAttribute("id", "orderOptions");
@@ -454,12 +455,14 @@ ENDOFSTUFF;
 			select.appendChild(opt3);
 
 			container.appendChild(select);
+			container.innerHTML += "<br>";
 
-			dataPanel.appendChild(br);
+			
 
 			var formatP = document.createElement("p");
 			formatP.innerHTML = "Format";
 			container.appendChild(formatP);
+			container.innerHTML += "<br>";
 
 			var select2 = document.createElement("select");
 			select2.setAttribute("id", "restrictOptions");
@@ -485,11 +488,12 @@ ENDOFSTUFF;
 			select2.appendChild(optD);
 
 			container.appendChild(select2);
-			dataPanel.appendChild(br);
+			container.innerHTML += "<br>";
 
 			var categoryP = document.createElement("p");
 			categoryP.innerHTML = "Category";
 			container.appendChild(categoryP);
+			container.innerHTML += "<br>";
 
 			var select3 = document.createElement("select");
 			select3.setAttribute("id", "categoryOptions");
@@ -508,12 +512,14 @@ ENDOFSTUFF;
 			}
 
 			container.appendChild(select3);
-			dataPanel.appendChild(br);
+			container.innerHTML += "<br>";
 
 
 			var sizeP = document.createElement("p");
-			sizeP.innerHTML = "Size";
+			sizeP.innerHTML = "Vertices";
+			sizeP.setAttribute("id", "vert");
 			container.appendChild(sizeP);
+			container.innerHTML += "<br>";
 
 			var min = document.createElement("input");
 			min.setAttribute("type", "number");
@@ -525,6 +531,7 @@ ENDOFSTUFF;
 
 			var sizeP2 = document.createElement("p");
 			sizeP2.innerHTML = "to";
+			sizeP2.setAttribute("id", "to");
 			container.appendChild(sizeP2);
 
 			var max = document.createElement("input");
@@ -534,6 +541,7 @@ ENDOFSTUFF;
 			max.setAttribute("id", "maxVertices");
 			max.setAttribute("style", "width:5rem;");
 			container.appendChild(max);
+			container.innerHTML += "<br>";
 
 			
 			var getList = document.createElement("input");
@@ -542,6 +550,7 @@ ENDOFSTUFF;
 			getList.setAttribute("id", "getlist");
 			getList.setAttribute("onclick", "HDXFillGraphList(event)");
 			container.appendChild(getList);
+			container.innerHTML += "<br>";
 
 			dataPanel.appendChild(container);
 
