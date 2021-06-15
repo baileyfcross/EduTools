@@ -835,10 +835,10 @@ lastalpha &larr; 0<br />
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        hdxAV.algOptions.innerHTML = `
+        hdxAV.algOptions.innerHTML = `<div id="vex">
 <input id="boundingBox" type="checkbox" name="Show Bounding Box" checked />&nbsp;
 Show Extremes Bounding Box<br />
-For Ties, Remember:<br />
+&nbspFor Ties, Remember:<br />
 <select id="tieHandling">
 <option value="first" selected>First Leader Encountered</option>
 <option value="all">All Leaders</option>
@@ -846,7 +846,7 @@ For Ties, Remember:<br />
 <input id="longshort" type="checkbox" name="Find Longest/Shortest Labels" checked />
 &nbsp;Find Longest/Shortest Labels<br />
 <input id="firstlast" type="checkbox" name="Find First/Last Alphabetically" checked />
-&nbsp;Find First/Last Labels Alphabetically<br />
+&nbsp;Find First/Last Labels Alphabetically<br /></div>
 `;
 
     },

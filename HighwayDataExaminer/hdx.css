@@ -55,16 +55,7 @@
     height: 1px;
 }
 
-#datatable {
-    display: inline-block;
-    position: absolute;
-    overflow: scroll;
-    right:2%;
-    max-width: 30%;
-    max-height: 95%;
-    opacity: .95;
-    z-index:750; /* above leaflet tiles and overlays, below map tile selector */
-}
+
 
 #pseudoTable {
     position: absolute;
@@ -474,12 +465,7 @@ h3
     margin-top: 10px;
 }
 
-#algorithmSelectionPanelTable #algorithmOptions
-{
-    
-    text-align: left;
-    
-}
+
 h4
 {
     color: white;
@@ -583,7 +569,48 @@ input
     margin-top: 0;
 }
 
+#algorithmSelectionPanel
+{
+    text-align: center; 
+    margin: auto;
+}
 
+#vex
+{
+    margin: auto;
+    position: relative;
+    text-align: left;
+    display: inline-block;
+}
+
+#algorithmSelectionPanelTable #algorithmOptions
+{
+    
+    text-align: center;
+    margin: auto;
+    
+}
+
+#datatable {
+    display: inline-block;
+    position: absolute;
+    overflow: scroll;
+    right:2%;
+    max-width: 30%;
+    max-height: 95%;
+    opacity: .95;
+    z-index:750; /* above leaflet tiles and overlays, below map tile selector */
+    
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+#datatable td
+{
+    background-color: white;
+    border: 1px solid rgb(147, 147, 147);
+}
 
 
 /*#the-basics

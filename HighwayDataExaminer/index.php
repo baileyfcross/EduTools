@@ -388,7 +388,6 @@ ENDOFSTUFF;
 
 			
 
-			//start.addEventListener("click", defaultMenu);
 			
 		
 		/*	<div id="the-basics">
