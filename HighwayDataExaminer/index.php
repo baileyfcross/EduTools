@@ -21,12 +21,15 @@
 -->
 <title>Highway Data Examiner</title>
 <?php
+
   if (!file_exists("tmlib/tmphpfuncs.php")) {
     echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmphpfuncs.php</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
     exit;
   }
 
  require "tmlib/tmphpfuncs.php";
+
+  
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -41,6 +44,32 @@
     echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmpjsfuncs.js</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
     exit;
   }
+  
+?>
+
+<?php
+
+$result = tmdb_query("SELECT * FROM graphTypes");
+
+  echo '<script type="text/javascript">
+  		var categoryOptions = []; 
+		var labels = [];
+		';
+
+  while ($row = $result->fetch_array()) {
+
+     //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
+	 echo 'categoryOptions.push("'.$row['category'].'");';
+	 echo 'labels.push("'.$row['descr'].'");';
+
+
+	 
+	
+  }
+  echo 'console.log("made it 20");</script>';
+
+  $result->free();
+
 ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
@@ -102,9 +131,20 @@ function hdx_load_file_entries() {
 ENDOFSTUFF;
   $result = tmdb_query("SELECT * FROM graphTypes");
 
+  echo '<script type="text/javascript">var categoryOptions = [];';
+
   while ($row = $result->fetch_array()) {
-     echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
+
+     //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
+	 echo 
+
+	 		'categoryOptions.push('.$row['category']."\">".$row['descr'].');';
+
+	 
+	
   }
+  echo '</script>';
+
   $result->free();
   echo <<<ENDOFSTUFF
 		</select>
@@ -362,6 +402,171 @@ ENDOFSTUFF;
 
 			
 		}
+		
+		function advancedMenu()
+		{
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+
+			var br = document.createElement("br");
+			
+
+
+
+			
+
+			var back = document.createElement("button");
+			back.setAttribute("id", "back2");
+			back.innerHTML = "Back";
+
+			dataPanel.appendChild(back);
+
+			container = document.createElement("div");
+			container.setAttribute("id", "selects")
+
+			var title = document.createElement("h4");
+			title.innerHTML = "Advanced Search";
+			container.appendChild(title);
+
+			back.addEventListener("click", defaultMenu);
+
+			var sortP = document.createElement("p");
+			sortP.innerHTML = "Sort by";
+			container.appendChild(sortP);
+
+			var select = document.createElement("select");
+			select.setAttribute("id", "orderOptions");
+			
+			var opt1 = document.createElement("option");
+			opt1.setAttribute("value", "alpha");
+			opt1.innerHTML = "Alphabetical";
+			select.appendChild(opt1);
+
+			var opt2 = document.createElement("option");
+			opt2.setAttribute("value", "small");
+			opt2.innerHTML = "Smallest First";
+			select.appendChild(opt2);
+
+			var opt3 = document.createElement("option");
+			opt3.setAttribute("value", "large");
+			opt3.innerHTML = "Largest First";
+			select.appendChild(opt3);
+
+			container.appendChild(select);
+
+			dataPanel.appendChild(br);
+
+			var formatP = document.createElement("p");
+			formatP.innerHTML = "Format";
+			container.appendChild(formatP);
+
+			var select2 = document.createElement("select");
+			select2.setAttribute("id", "restrictOptions");
+
+			var optA = document.createElement("option");
+			optA.setAttribute("value", "collapsed");
+			optA.innerHTML = "Collapsed (standard format)";
+			select2.appendChild(optA);
+
+			var optB = document.createElement("option");
+			optB.setAttribute("value", "traveled");
+			optB.innerHTML = "Traveled (include traveler info)";
+			select2.appendChild(optB);
+
+			var optC = document.createElement("option");
+			optC.setAttribute("value", "simple");
+			optC.innerHTML = "Simple (straight line edges only)";
+			select2.appendChild(optC);
+
+			var optD = document.createElement("option");
+			optD.setAttribute("value", "all");
+			optD.innerHTML = "All";
+			select2.appendChild(optD);
+
+			container.appendChild(select2);
+			dataPanel.appendChild(br);
+
+			var categoryP = document.createElement("p");
+			categoryP.innerHTML = "Category";
+			container.appendChild(categoryP);
+
+			var select3 = document.createElement("select");
+			select3.setAttribute("id", "categoryOptions");
+
+			var optAll = document.createElement("option");
+			optAll.setAttribute("value", "all");
+			optAll.innerHTML = "All Graphs";
+			select3.appendChild(optAll);
+			
+
+			for (let i = 0; i < labels.length; i++)
+			{
+				let category = document.createElement("option");
+				category.innerHTML = labels[i];
+				select3.appendChild(category);
+			}
+
+			container.appendChild(select3);
+			dataPanel.appendChild(br);
+
+
+			var sizeP = document.createElement("p");
+			sizeP.innerHTML = "Size";
+			container.appendChild(sizeP);
+
+			var min = document.createElement("input");
+			min.setAttribute("type", "number");
+			min.setAttribute("min", "1");
+			min.setAttribute("value", "1");
+			min.setAttribute("id", "minVertices");
+			min.setAttribute("style", "width:5rem;");
+			container.appendChild(min);
+
+			var sizeP2 = document.createElement("p");
+			sizeP2.innerHTML = "to";
+			container.appendChild(sizeP2);
+
+			var max = document.createElement("input");
+			max.setAttribute("type", "number");
+			max.setAttribute("min", "1");
+			max.setAttribute("value", "2000");
+			max.setAttribute("id", "maxVertices");
+			max.setAttribute("style", "width:5rem;");
+			container.appendChild(max);
+
+			
+			var getList = document.createElement("input");
+			getList.setAttribute("type", "button");
+			getList.setAttribute("value", "Get Graph List");
+			getList.setAttribute("id", "getlist");
+			getList.setAttribute("onclick", "HDXFillGraphList(event)");
+			container.appendChild(getList);
+
+			dataPanel.appendChild(container);
+
+			
+
+
+
+
+			
+		/*
+		
+		Size from
+		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
+		to 
+		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
+		vertices
+		<br>
+		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
+		
+		
+		*/
+
+		}
+
+
 		function defaultMenu()
 		{
 			var mainbox = document.getElementById("loadDataPanel");
@@ -401,6 +606,7 @@ ENDOFSTUFF;
 			advanced.innerHTML = "Advanced Search";
 			mainbox.appendChild(advanced);
 
+			advanced.addEventListener("click", advancedMenu);
 			
 
 			
