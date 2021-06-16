@@ -74,7 +74,7 @@ var HDXGraphSubstringMatcher = function(strs) {
     };
 };
 var noGraphCounter = 0;
-$(document).ready( function() {
+$(document).ready(function() {
     $('#the-basics .typeahead').typeahead(
         {
             hint: true,

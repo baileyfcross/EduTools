@@ -250,22 +250,14 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 	<script id = "loadPanel">
 
-
-			var box = document.createElement("input");
-			box.class = "typeahead";
-			box.type = "text";
-			box.id = "searchBox";
-			box.placeholder = "Pick a Graph";
-			console.log("Current box:" + box);
-
-
-
 		function basicMenu()
 		{
 
-			var dataPanel = document.getElementById("loadDataPanel");
+      var basics = document.createElement("div");
+      basics.id = "the-basics";
+			var newdataPanel = document.getElementById("loadDataPanel");
 
-			dataPanel.innerHTML = "";
+			newdataPanel.innerHTML = "";
 
       //Back button after the user clicks basic search
 			var back = document.createElement("button");
@@ -273,23 +265,25 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 			back.innerHTML = "Back";
 			back.addEventListener("click", defaultMenu);
 
+      var box = document.createElement("input");
+			box.class = "typeahead";
+			box.type = "text";
+			box.id = "searchBox";
+			box.placeholder = "Pick a Graph";
+			console.log("Current box:" + box);
+
 
       //spacing for the dataPanel
 			var br = document.createElement("br");
-			dataPanel.appendChild(br);
-			dataPanel.appendChild(br);
-			dataPanel.appendChild(br);
+			newdataPanel.appendChild(br);
+			newdataPanel.appendChild(br);
+			newdataPanel.appendChild(br);
 
 
       //Instructions for the user when they click on the basic search button
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
-			dataPanel.appendChild(instructions);
-
-
-      //the-basics div tag
-			var basic = document.createElement("div");
-			basic.id = "the-basics";
+			newdataPanel.appendChild(instructions);
 
       //next button under the graph search box
       var start = document.createElement("button");
@@ -298,10 +292,10 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 
       //append all of the tags together
-			basic.appendChild(box);
-			dataPanel.appendChild(basic);
-      dataPanel.appendChild(back);
-			dataPanel.appendChild(start);
+			basics.appendChild(box);
+			newdataPanel.appendChild(basics);
+      newdataPanel.appendChild(back);
+			newdataPanel.appendChild(start);
 
 
 
@@ -351,7 +345,7 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 			mainbox.appendChild(basic);
 
-      //event listener for the basic menu to go back
+      //event listener for the basic menu
 			basic.addEventListener("click", basicMenu);
 
 			var advanced = document.createElement("button");
@@ -402,7 +396,7 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 
 		}
 		defaultMenu();
-		</script>
+	</script>
 
 <!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
