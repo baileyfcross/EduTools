@@ -9,7 +9,7 @@
     data.)
     Primary Author: Jim Teresco, Siena College, The College of Saint Rose
     Additional authors: Razie Fathi, Arjol Pengu, Maria Bamundo, Clarice Tarbay,
-        Michael Dagostino, Abdul Samad, Eric Sauer
+        Michael Dagostino, Abdul Samad, Eric Sauer, Spencer Moon
 
     (Pre-git) Modification History:
     2011-06-20 JDT  Initial implementation
@@ -100,8 +100,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="hdxdfsrecav.js" type="text/javascript"></script>
 <script src="hdxinstructions.js" type="text/javascript"></script>
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
-<!--<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 
 <?php
@@ -553,25 +553,6 @@ ENDOFSTUFF;
 
 			dataPanel.appendChild(container);
 
-			
-
-
-
-
-			
-		/*
-		
-		Size from
-		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to 
-		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
-		vertices
-		<br>
-		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
-		
-		
-		*/
-
 		}
 
 
@@ -589,7 +570,7 @@ ENDOFSTUFF;
 			var intro = document.createElement("p");
 			intro.setAttribute("class", "descr");
 			intro.setAttribute("id", "overview");
-			intro.innerHTML = "Visualize algorithms using graphs based on real world maps.";
+			intro.innerHTML = "Visualize algorithms using graphs based on real world map data.";
 			mainbox.appendChild(intro);
 
 			var br = document.createElement("br");
@@ -718,37 +699,6 @@ ENDOFSTUFF;
 </div>
 <div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>
-  <!-- <table id="instructions">
-        <thead>
-            <tr ><th id="instructionsHeader">Using METAL's Highway Data Examiner (HDX)</th></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="tabs" id="instructionTab1">Maps/Graphs</td>
-                <td class="tabs" id="instructionTab2">AV Control Panel</td>
-                <td class="tabs" id="instructionTab3">AV Status Panel</td>
-                <td class="tabs" id="instructionTab4">Code/Breakpoints</td>
-                <td class="tabs" id="instructionTab5">Credits</td>
-            </tr>
-            <tr>
-                <td id="instructionsBody">HDX's user interface is
-                intended to be self-explanatory, but some of its
-                features might not be obvious.  Select among the tabs
-                above to learn how to get the most out
-                of <a href="https://courses.teresco.org/metal/">METAL</a>
-                and HDX.  This panel will close automatically after
-                data is loaded into HDX using the panel to the left.<br />
-		  <b>What's New?</b><br />  The 2019 Summer Scholars
-		project at <a href="https://www.siena.edu">Siena
-		College</a> added new algorithms (Kruskal's algorithm,
-		a recursive depth-first traversal, a vertex degree
-		search) new options and features in existing
-		algorithms, support for conditional breakpoints, plus
-		many user interface improvements and general bug
-		fixes.  Enjoy!<td>
-            <tr>
-        </tbody>
-    </table>-->
 </body>
 </html>
 <?php tmdb_close();?>

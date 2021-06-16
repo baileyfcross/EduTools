@@ -598,19 +598,24 @@ input
     right:2%;
     max-width: 30%;
     max-height: 95%;
-    opacity: .95;
+    
+    opacity: 1;
     z-index:750; /* above leaflet tiles and overlays, below map tile selector */
     
-    font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 14px;
+    /*font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
     border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgb(147, 147, 147);*/
 }
 
-#datatable td
+/*#datatable td
 {
     background-color: white;
-    border: 1px solid rgb(147, 147, 147);
-}
+    
+    padding: 5px;
+    margin: 0;
+}*/
 
 
 /*#the-basics
