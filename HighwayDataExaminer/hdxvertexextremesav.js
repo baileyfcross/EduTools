@@ -69,6 +69,13 @@ var hdxVertexExtremesSearchAV = {
     // directionalBoundingBox function below
     boundingPoly: [],
 
+    // for average coordinates
+    latsum: 0,
+    lngsum: 0,
+    avglat: 0,
+    avglng: 0,
+    avgMarker: null,
+    
     // the categories for which we are finding our extremes,
     // with names for ids, labels to display, indicies of leader,
     // comparison function to determine if we have a new leader,
@@ -292,6 +299,30 @@ var hdxVertexExtremesSearchAV = {
                 thisAV.nextToCheck = 0;
                 thisAV.discarded = 0;
 
+		// initial average coordinates setup
+		thisAV.latsum = parseFloat(waypoints[0].lat);
+		thisAV.lngsum = parseFloat(waypoints[0].lon);
+		if (thisAV.showAvgOfCoords) {
+
+            let icon;
+            let avgOptions = {
+                iconShape: 'circle-dot',
+                iconSize: [5, 5],
+                iconAnchor: [5, 5],
+                borderWidth: 5,
+                borderColor: visualSettings.averageCoord.color
+                }
+
+            icon = L.BeautifyIcon.icon(avgOptions);
+
+            thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum],{
+                title: "Average Coordinate of Waypoints",
+                icon: icon
+            });
+        
+		    thisAV.avgMarker.addTo(map);
+		}
+		
                 updateAVControlEntry("undiscovered", waypoints.length + " vertices not yet visited");
                 updateAVControlEntry("visiting",
 				     "Visiting #0 " +  waypoints[0].label +
@@ -310,6 +341,11 @@ var hdxVertexExtremesSearchAV = {
                         thisAV.categories[i].leaderString(thisAV.categories[i])
                     );
                 }
+
+		if (thisAV.showAvgOfCoords) {
+		    updateAVControlEntry("avgcoord",
+					 "Average of coords so far: (" + thisAV.latsum.toFixed(6) + "," + thisAV.lngsum.toFixed(6) + ")");
+		}
                 hdxAV.iterationDone = true;
                 hdxAV.nextAction = "forLoopTop";
             },
@@ -367,7 +403,12 @@ var hdxVertexExtremesSearchAV = {
                         } while (thisAV.nextCategory < thisAV.categories.length &&
                                  !thisAV.categories[thisAV.nextCategory].include(thisAV));
                         if (thisAV.nextCategory == thisAV.categories.length) {
-                            hdxAV.nextAction = "forLoopBottom";
+			    if (thisAV.showAvgOfCoords) {
+				hdxAV.nextAction = "updateAverages";
+			    }
+			    else {
+				hdxAV.nextAction = "forLoopBottom";
+			    }
                         }
                         else {
                             hdxAV.nextAction = "checkNextCategory";
@@ -448,7 +489,12 @@ var hdxVertexExtremesSearchAV = {
                 } while (thisAV.nextCategory < thisAV.categories.length &&
                          !thisAV.categories[thisAV.nextCategory].include(thisAV));
                 if (thisAV.nextCategory == thisAV.categories.length) {
-                    hdxAV.nextAction = "forLoopBottom";
+		    if (thisAV.showAvgOfCoords) {
+			hdxAV.nextAction = "updateAverages";
+		    }
+		    else {
+			hdxAV.nextAction = "forLoopBottom";
+		    }
                 }
                 else {
                     hdxAV.nextAction = "checkNextCategory";
@@ -475,7 +521,12 @@ var hdxVertexExtremesSearchAV = {
                     } while (thisAV.nextCategory < thisAV.categories.length &&
                              !thisAV.categories[thisAV.nextCategory].include(thisAV));
                     if (thisAV.nextCategory == thisAV.categories.length) {
-                        hdxAV.nextAction = "forLoopBottom";
+			if (thisAV.showAvgOfCoords) {
+			    hdxAV.nextAction = "updateAverages";
+			}
+			else {
+			    hdxAV.nextAction = "forLoopBottom";
+			}
                     }
                     else {
                         hdxAV.nextAction = "checkNextCategory";
@@ -512,7 +563,12 @@ var hdxVertexExtremesSearchAV = {
                 } while (thisAV.nextCategory < thisAV.categories.length &&
                          !thisAV.categories[thisAV.nextCategory].include(thisAV));
                 if (thisAV.nextCategory == thisAV.categories.length) {
-                    hdxAV.nextAction = "forLoopBottom";
+		    if (thisAV.showAvgOfCoords) {
+			hdxAV.nextAction = "updateAverages";
+		    }
+		    else {
+			hdxAV.nextAction = "forLoopBottom";
+		    }
                 }
                 else {
                     hdxAV.nextAction = "checkNextCategory";
@@ -520,6 +576,32 @@ var hdxVertexExtremesSearchAV = {
             },
             logMessage: function(thisAV) {
                 return "New tie for " + thisAV.categories[thisAV.checkedCategory].label + " leader";
+            }
+        },
+
+        {
+            label: "updateAverages",
+            comment: "update average of point locations",
+            code: function(thisAV) {
+
+                highlightPseudocode(this.label, visualSettings.averageCoord);
+
+		// add this waypoint's coordinates to the sum
+		thisAV.latsum += parseFloat(waypoints[thisAV.nextToCheck].lat);
+		thisAV.lngsum += parseFloat(waypoints[thisAV.nextToCheck].lon);
+		// compute the new average of the waypoint locations so far
+		thisAV.avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
+		thisAV.avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
+		updateAVControlEntry("avgcoord",
+				     "Average of coordinates so far:<BR/> (" + thisAV.avglat.toFixed(6) + "," + thisAV.avglng.toFixed(6) + ")");
+                    if (thisAV.showBB) {
+                        thisAV.directionalBoundingBox();
+                    }
+		thisAV.avgMarker.setLatLng([thisAV.avglat, thisAV.avglng]);
+                hdxAV.nextAction = "forLoopBottom";
+            },
+            logMessage: function(thisAV) {
+                return "Update average of coordinates so far";
             }
         },
 
@@ -566,6 +648,7 @@ var hdxVertexExtremesSearchAV = {
                 updateAVControlEntry("visiting", "");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
+                
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
@@ -583,10 +666,17 @@ var hdxVertexExtremesSearchAV = {
         let s = waypoints[this.categories[1].index].lat;
         let e = waypoints[this.categories[2].index].lon;
         let w = waypoints[this.categories[3].index].lon;
+        
         let nEnds = [[n,w],[n,e]];
         let sEnds = [[s,w],[s,e]];
         let eEnds = [[n,e],[s,e]];
         let wEnds = [[n,w],[s,w]];
+        let nsAvg;
+        let ewAvg;
+        if(this.showAvgOfCoords){
+            nsAvg = [[n,this.avglng],[s,this.avglng]];
+            ewAvg = [[this.avglat,e],[this.avglat,w]];
+        }
 
         // create or update as appropriate
         if (this.boundingPoly.length == 0) {
@@ -616,10 +706,32 @@ var hdxVertexExtremesSearchAV = {
                     color: this.categories[3].visualSettings.color,
                     opacity: 0.6,
                     weight: 3
-                })
+                }) 
             );
+            if(this.showAvgOfCoords){
+            
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                );
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                ); 
+            }
+        
             for (var i = 0; i < 4; i++) {
                 this.boundingPoly[i].addTo(map);
+            }
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].addTo(map);
+                this.boundingPoly[5].addTo(map);
             }
         }
         else {
@@ -627,6 +739,10 @@ var hdxVertexExtremesSearchAV = {
             this.boundingPoly[1].setLatLngs(sEnds);
             this.boundingPoly[2].setLatLngs(eEnds);
             this.boundingPoly[3].setLatLngs(wEnds);
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].setLatLngs(nsAvg);
+                this.boundingPoly[5].setLatLngs(ewAvg);
+            }
         }
     },
     
@@ -652,6 +768,9 @@ var hdxVertexExtremesSearchAV = {
 
         // are we finding first/last labels alphabetically?
         this.firstlast = document.getElementById("firstlast").checked;
+
+        // are we finding average coordinates?
+        this.showAvgOfCoords = document.getElementById("showavgcoord").checked;
 
         // start the search by initializing with the value at pos 0
         updateMarkerAndTable(0, visualSettings.visiting, 40, false);
@@ -705,7 +824,16 @@ lastalpha &larr; 0<br />
 `;
             }
         }
-        
+
+	if (this.showAvgOfCoords) {
+	    this.code += `
+latsum &larr; v[0].lat,
+lngsum &larr; v[0].lng<br />
+avg.lat &larr; latsum,
+avg.lng &larr; lngsum<br />
+`;
+	}
+	
         this.code += '</td></tr>' +
             pcEntry(0, "for (check &larr; 1 to |V|-1)", "forLoopTop");
 
@@ -814,6 +942,12 @@ lastalpha &larr; 0<br />
                 this.code += pcEntry(2, "lastalpha.add(check)", "updateTieCategory7");
             }                    
         }
+
+	// code for tracking average
+	if (this.showAvgOfCoords) {
+	    this.code += pcEntry(1, "latsum &larr; latsum + v[check].lat<br />&nbsp;&nbsp;lngsum &larr; lngsum + v[check].lng<br />&nbsp;&nbsp;avg.lat &larr; latsum / (check+1)<br />&nbsp;&nbsp;avg.lng &larr; lngsum / (check+1)",
+				 "updateAverages");
+	}
         
         this.code += "</table>";
         
@@ -826,6 +960,10 @@ lastalpha &larr; 0<br />
                                          this.categories[i].visualSettings);
             }
         }
+
+	if (this.showAvgOfCoords) {
+            addEntryToAVControlPanel("avgcoord", visualSettings.averageCoord);
+	}
     },
 
     // set up UI for the start of this algorithm
@@ -846,7 +984,10 @@ Show Extremes Bounding Box<br />
 <input id="longshort" type="checkbox" name="Find Longest/Shortest Labels" checked />
 &nbsp;Find Longest/Shortest Labels<br />
 <input id="firstlast" type="checkbox" name="Find First/Last Alphabetically" checked />
-&nbsp;Find First/Last Labels Alphabetically<br /></div>
+&nbsp;Find First/Last Labels Alphabetically<br />
+<input id="showavgcoord" type="checkbox" name="Show Average Coordinate" />
+&nbsp;Show Average Coordinate<br />
+</div>
 `;
 
     },
@@ -859,6 +1000,9 @@ Show Extremes Bounding Box<br />
             this.boundingPoly[i].remove();
         }
         this.boundingPoly = [];
+        if(this.showAvgOfCoords){
+            this.avgMarker.remove();
+        }
     },
     
     idOfAction(action) {
