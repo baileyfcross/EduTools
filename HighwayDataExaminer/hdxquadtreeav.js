@@ -35,7 +35,11 @@ var hdxQuadtreeAV = {
             comment: "creating bounding box that contains all waypoints",
             code: function(thisAV){
                 //other stuff needs to go here but at least the boundingBox should be generated from here
+                thisAV.boundingPoly = [];
                 thisAV.generateBoundingBox();
+
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "cleanup";
             },
             logMessage: function(thisAV){
                 return "Creating bounding box that contains all waypoints"
@@ -64,10 +68,15 @@ var hdxQuadtreeAV = {
     code: "TBD",
     
     prepToStart() {
-    },
-    
-    nextStep() {
+        hdxAV.algStat.innerHTML = "Initializing";
+        let lineCount = 0;
+        updateMap();
+        initWaypointsAndConnections(true, false, visualSettings.undiscovered);
+        this.Stack = new HDXLinear(hdxLinearTypes.STACK,
+            "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
+            "Stack");
 
+        this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">qt &larr; new Quadtree(minLat,maxLat,minLng,maxLng,refinement)</td></tr>';
     },
 
     setupUI() {
@@ -83,7 +92,11 @@ var hdxQuadtreeAV = {
     },
 
     cleanupUI() {
-        
+        //remove all the polylines made by the bounding box and the quadtree
+        for (var i = 0; i < this.boundingPoly.length; i++) {
+            this.boundingPoly[i].remove();
+        }
+        this.boundingPoly = [];
     },
 
     idOfAction(action) {
@@ -118,28 +131,28 @@ var hdxQuadtreeAV = {
 
             this.boundingPoly.push(
                 L.polyline(nEnds, {
-                    color: hdxVertexExtremesSearchAV.categories[0].visualSettings.color,
+                    color: visualSettings.undiscovered.color,
                     opacity: 0.6,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(sEnds, {
-                    color: hdxVertexExtremesSearchAV.categories[1].visualSettings.color,
+                    color: visualSettings.undiscovered.color,
                     opacity: 0.6,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(eEnds, {
-                    color: hdxVertexExtremesSearchAV.categories[2].visualSettings.color,
+                    color: visualSettings.undiscovered.color,
                     opacity: 0.6,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(wEnds, {
-                    color: hdxVertexExtremesSearchAV.categories[3].visualSettings.color,
+                    color: visualSettings.undiscovered.color,
                     opacity: 0.6,
                     weight: 3
                 }) 
@@ -152,13 +165,13 @@ var hdxQuadtreeAV = {
 };
 
 //Quadtree object constructor
-function Quadtree(latMin,latMax,lngMin,lngMax,refinement){
-    this.latMax = latMax;
-    this.lngMax = lngMax;
-    this.latMin = latMin;
-    this.lngMin = lngMin;
-    this.midLat = (latMax + latMin) / 2;
-    this.midLng = (lngMax + lngMin) / 2;
+function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
+    this.maxLat = maxLat;
+    this.maxLng = maxLng;
+    this.minLat = minLat;
+    this.minLng = minLng;
+    this.midLat = (maxLat + minLat) / 2;
+    this.midLng = (maxLng + minLng) / 2;
     this.nw = null;
     this.ne = null;
     this.sw = null;
@@ -172,10 +185,12 @@ function Quadtree(latMin,latMax,lngMin,lngMax,refinement){
 
     this.refineIfNeeded = function() {
         if (points.length > refinement){
-            this.sw = Quadtree(latMin, midLat, lngMin, midLng, refinement);
-            this.nw = Quadtree(midLat, latMax, lngMin, midLng, refinement);
-            this.se = Quadtree(latMin, midLat, midLng, lngMax, refinement);
-            this.ne = Quadtree(midLat, latMax, midLng, lngMax, refinement);
+           
+            this.nw = Quadtree(midLat, maxLat, minLng, midLng, refinement);
+            this.ne = Quadtree(midLat, maxLat, midLng, maxLng, refinement);
+            this.sw = Quadtree(minLat, midLat, minLng, midLng, refinement);
+            this.se = Quadtree(minLat, midLat, midLng, maxLng, refinement);
+
             for(var i = 0; i < points.length; i++){
                 childThatContains(points[i].lat,points[i],points[i].lon).push(points[i]);
             }

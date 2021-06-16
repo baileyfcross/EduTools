@@ -101,7 +101,7 @@ var hdxVertexExtremesSearchAV = {
             leaderString: extremePointLeaderString,
 
             visualSettings: {
-                color: "#000080",
+                color: "#0050f0",
                 textColor: "white",
                 scale: 6,
                 name: "northLeader",
