@@ -973,10 +973,10 @@ avg.lng &larr; lngsum<br />
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        hdxAV.algOptions.innerHTML = `
+        hdxAV.algOptions.innerHTML = `<div id="vex">
 <input id="boundingBox" type="checkbox" name="Show Bounding Box" checked />&nbsp;
 Show Extremes Bounding Box<br />
-For Ties, Remember:<br />
+&nbspFor Ties, Remember:<br />
 <select id="tieHandling">
 <option value="first" selected>First Leader Encountered</option>
 <option value="all">All Leaders</option>
@@ -987,6 +987,7 @@ For Ties, Remember:<br />
 &nbsp;Find First/Last Labels Alphabetically<br />
 <input id="showavgcoord" type="checkbox" name="Show Average Coordinate" />
 &nbsp;Show Average Coordinate<br />
+</div>
 `;
 
     },

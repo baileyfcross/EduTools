@@ -226,6 +226,7 @@ function loadDataOptionsPressed() {
     // in all cases, we hide the top panel, show the load panel
     hideTopControlPanel();
     showLoadDataPanel();
+    
     //deleteVariableSelector();
 }
 
@@ -280,6 +281,7 @@ function showTopControlPanel() {
         av4.style.display = "";
         av4button.value = "Select AV";
         showMarkers.style.display = "";
+        document.getElementById("datatablesCheckbox").checked = false;
         break;
 
     default:
@@ -295,11 +297,12 @@ function showTopControlPanel() {
         document.getElementById("speedChanger").selectedIndex = 5;
         speedChanged();
         document.getElementById("pseudoCheckbox").checked = true;
-        document.getElementById("datatablesCheckbox").checked = true;
+        document.getElementById("datatablesCheckbox").checked = false;
         break;
     }
     
     document.getElementById("topControlPanel").style.display="table";
+    showHideDatatables();
 }
 
 function hideTopControlPanel() {
@@ -313,11 +316,16 @@ function showLoadDataPanel() {
     
     document.getElementById("loadDataPanel").style.display = "table";
     document.getElementById("hideLoadDataPanel").disabled=false;
+    document.getElementById("map").style.filter = "blur(6px)";
+    
+
 }
 
 function hideLoadDataPanel() {
 
     document.getElementById("loadDataPanel").style.display ="none";
+    datatable.style.display = "none";
+
 }
 
 // the algorithm selection panel, where an algorithm is selected
@@ -330,6 +338,8 @@ function hideAlgorithmSelectionPanel() {
 function showAlgorithmSelectionPanel() {
 
     document.getElementById("algorithmSelectionPanel").style.display="table";
+    document.getElementById("map").style.filter = "none";
+    
 }
 
 // the algorithm status panel, including messages, code, data, and
