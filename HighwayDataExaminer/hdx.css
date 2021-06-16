@@ -177,14 +177,7 @@ tr.pseudocode {
 https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-positioned-element
 */
 
-#topControlPanel {
-    background-color: white;
-    position: absolute;
-    top: 25px;
-    left: 150px;
-    z-index: 11000;
-    display: none;
-}
+
 
 .data-title:hover:after{
     opacity: 1;
@@ -616,6 +609,62 @@ input
     padding: 5px;
     margin: 0;
 }*/
+
+#topControlPanel {
+    background-color: rgb(47, 47, 47);
+    padding: 10px;
+    position: absolute;
+    top: 25px;
+    left: 150px;
+    z-index: 11000;
+    display: none;
+    margin-top: 10px;
+}
+
+#topControlPanel #topControlPanelTable select
+{
+    border-radius: 10px;
+    padding: 5px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    
+}
+
+#topControlPanelTable td input:checked
+{
+    color:rgb(30, 179, 238);
+    border-radius: 20px;
+} 
+
+#topControlPanelTable td
+{
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    /*background-color:rgb(129, 91, 216)*/
+
+}
+#topControlPanel p
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+#check
+{
+    text-align: left;
+}
+#topControlPanelTable td #check input
+{
+    text-align: left;
+    color: red;
+}
 
 
 /*#the-basics

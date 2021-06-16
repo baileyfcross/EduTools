@@ -248,13 +248,14 @@ function showHideDatatables() {
 
 // top control panel (algorithm controls, reset/load buttons)
 function showTopControlPanel() {
+    document.getElementById("map").style.filter = "none";
 
     let av1 = document.getElementById("topControlPanelAV1");
     let av2 = document.getElementById("topControlPanelAV2");
     let av3 = document.getElementById("topControlPanelAV3");
-    let av4 = document.getElementById("topControlPanelAV4");
+   // let av4 = document.getElementById("topControlPanelAV4");
     let av4button = document.getElementById("resetButton");
-    let showMarkers = document.getElementById("topControlPanelShowMarkers");
+    //let showMarkers = document.getElementById("topControlPanelShowMarkers");
     
     // show only the relevant components given the current
     // state of HDX
@@ -267,8 +268,8 @@ function showTopControlPanel() {
         av1.style.display = "none";
         av2.style.display = "none";
         av3.style.display = "none";
-        av4.style.display = "none";
-        showMarkers.style.display = "";
+        //av4.style.display = "none";
+       // showMarkers.style.display = "";
         break;
 
     case hdxStates.GRAPH_LOADED:
@@ -278,9 +279,9 @@ function showTopControlPanel() {
         av1.style.display = "none";
         av2.style.display = "none";
         av3.style.display = "none";
-        av4.style.display = "";
+       // av4.style.display = "";
         av4button.value = "Select AV";
-        showMarkers.style.display = "";
+      //  showMarkers.style.display = "";
         document.getElementById("datatablesCheckbox").checked = false;
         break;
 
@@ -291,9 +292,9 @@ function showTopControlPanel() {
         av1.style.display = "";
         av2.style.display = "";
         av3.style.display = "";
-        av4.style.display = "";
+       // av4.style.display = "";
         av4button.value = "Reset AV";
-        showMarkers.style.display = "none";
+      //  showMarkers.style.display = "none";
         document.getElementById("speedChanger").selectedIndex = 5;
         speedChanged();
         document.getElementById("pseudoCheckbox").checked = true;
@@ -347,6 +348,7 @@ function showAlgorithmSelectionPanel() {
 function showAVStatusPanel() {
 
     document.getElementById("avStatusPanel").style.display="block";
+    
 }
 
 function hideAVStatusPanel() {
