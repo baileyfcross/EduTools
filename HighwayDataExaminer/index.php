@@ -301,7 +301,6 @@ var mapbox_token = "OLDMAPBOX:pk.eyJ1IjoidGVyZXNjb2oiLCJhIjoiY2ppM3ZsZmI2MDJqaTN
 			basic.appendChild(box);
 			dataPanel.appendChild(basic);
       dataPanel.appendChild(back);
-
 			dataPanel.appendChild(start);
 
 
