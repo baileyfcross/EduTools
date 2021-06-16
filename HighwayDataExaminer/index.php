@@ -29,7 +29,7 @@
 
  require "tmlib/tmphpfuncs.php";
 
-  
+
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -44,7 +44,7 @@
     echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmpjsfuncs.js</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
     exit;
   }
-  
+
 ?>
 
 <?php
@@ -52,7 +52,7 @@
 $result = tmdb_query("SELECT * FROM graphTypes");
 
   echo '<script type="text/javascript">
-  		var categoryOptions = []; 
+  		var categoryOptions = [];
 		var labels = [];
 		';
 
@@ -63,8 +63,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	 echo 'labels.push("'.$row['descr'].'");';
 
 
-	 
-	
+
+
   }
   echo 'console.log("made it 20");</script>';
 
@@ -136,12 +136,12 @@ ENDOFSTUFF;
   while ($row = $result->fetch_array()) {
 
      //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
-	 echo 
+	 echo
 
 	 		'categoryOptions.push('.$row['category']."\">".$row['descr'].');';
 
-	 
-	
+
+
   }
   echo '</script>';
 
@@ -246,7 +246,7 @@ ENDOFSTUFF;
 		<h3>
 			About METAL HDX
 		</h3>
-		
+
 		<p>
 			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  Need help?  A tutorial can be found <a href="tutorial.html">here</a>
 		</p>
@@ -276,7 +276,7 @@ ENDOFSTUFF;
 	<tr>
 	  <td>
 	    <div>
-		
+
 	    </div>
 	  </td>
 	</tr>
@@ -288,20 +288,20 @@ ENDOFSTUFF;
       </tbody>
     </table>-->
 
-	
-   
+
+
 
    <!--<p style="text-align: center">
 	   Search for a graph in our database
    </p>
-	
+
 	<button type="button" id="basic" class="opt">Basic Search</button>-->
 
 	<!--<div id="the-basics">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
+
 </div>-->
-	
+
 	<!--<button type="button" class="opt">Advanced Search</button>
 	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 24px;}">or</p><br>-->
@@ -310,13 +310,13 @@ ENDOFSTUFF;
 	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
 
 	<br>
-	
+
 	<h3>
 			About METAL HDX
 		</h3>
-		
+
 		<p class="descr">
-			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.
 		</p>
 
 		<br>
@@ -324,14 +324,8 @@ ENDOFSTUFF;
 		<p class="descr">
 		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
 		</p>-->
-
-	
-
-
-
-
 	<script>
-		
+
 
 			var box = document.createElement("input");
 
@@ -342,15 +336,15 @@ ENDOFSTUFF;
 			console.log("Current box:" + box);
 
 
-		
+
 		function basicMenu()
 		{
-			
+
 			var dataPanel = document.getElementById("loadDataPanel");
 
 			dataPanel.innerHTML = "";
 
-			
+
 
 			var back = document.createElement("button");
 			back.setAttribute("id", "back");
@@ -364,17 +358,17 @@ ENDOFSTUFF;
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
-			
+
 
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
-			
+
 			var basic = document.createElement("div");
 
 			basic.setAttribute("id", "the-basics");
 
-			
+
 			basic.appendChild(box);
 			console.log("Current box:" + box);
 			dataPanel.appendChild(basic);
@@ -385,22 +379,22 @@ ENDOFSTUFF;
 
 			dataPanel.appendChild(start);
 
-			
 
-			
-		
+
+
+
 		/*	<div id="the-basics">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
+
 	    </div>*/
 
 			//HDXGraphSearchInit();
-			
+
 			console.log("made it 10");
 
-			
+
 		}
-		
+
 		function advancedMenu()
 		{
 			var dataPanel = document.getElementById("loadDataPanel");
@@ -408,11 +402,11 @@ ENDOFSTUFF;
 			dataPanel.innerHTML = "";
 
 			var br = document.createElement("br");
-			
 
 
 
-			
+
+
 
 			var back = document.createElement("button");
 			back.setAttribute("id", "back2");
@@ -436,7 +430,7 @@ ENDOFSTUFF;
 
 			var select = document.createElement("select");
 			select.setAttribute("id", "orderOptions");
-			
+
 			var opt1 = document.createElement("option");
 			opt1.setAttribute("value", "alpha");
 			opt1.innerHTML = "Alphabetical";
@@ -455,7 +449,7 @@ ENDOFSTUFF;
 			container.appendChild(select);
 			container.innerHTML += "<br>";
 
-			
+
 
 			var formatP = document.createElement("p");
 			formatP.innerHTML = "Format";
@@ -500,7 +494,7 @@ ENDOFSTUFF;
 			optAll.setAttribute("value", "all");
 			optAll.innerHTML = "All Graphs";
 			select3.appendChild(optAll);
-			
+
 
 			for (let i = 0; i < labels.length; i++)
 			{
@@ -541,7 +535,7 @@ ENDOFSTUFF;
 			container.appendChild(max);
 			container.innerHTML += "<br>";
 
-			
+
 			var getList = document.createElement("input");
 			getList.setAttribute("type", "button");
 			getList.setAttribute("value", "Get Graph List");
@@ -595,9 +589,9 @@ ENDOFSTUFF;
 			mainbox.appendChild(advanced);
 
 			advanced.addEventListener("click", advancedMenu);
-			
 
-			
+
+
 			mainbox.appendChild(br);
 
 			var or = document.createElement("p");
@@ -605,7 +599,7 @@ ENDOFSTUFF;
 			or.innerHTML = "or";
 
 			mainbox.appendChild(or);
-			
+
 
 			var uploadLabel = document.createElement("label");
 			uploadLabel.setAttribute("for", "fileToLoad");
@@ -635,7 +629,7 @@ ENDOFSTUFF;
 
 
 
-			
+
 		}
 		defaultMenu();
 		</script>
@@ -668,7 +662,7 @@ ENDOFSTUFF;
 
 =======
 	 </select>
-	  
+
 >>>>>>> 161062564ee3b2652056a43e5193539d1ab7c8f8
 	</td>
       </tr>
@@ -680,7 +674,7 @@ ENDOFSTUFF;
 	<!--<div id="algorithmOptions">
 
 	</div>-->
-	
+
 >>>>>>> 161062564ee3b2652056a43e5193539d1ab7c8f8
       </tr>
       <tr>
