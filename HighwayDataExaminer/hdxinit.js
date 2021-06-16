@@ -15,7 +15,8 @@ function HDXInit() {
     loadmap();
 
     // graph selector data initialization
-    HDXGraphSearchInit();
+    //HDXGraphSearchInit();
+    
 
     // HDX AV initialization (could delay?)
     hdxAV.initOnLoad();
