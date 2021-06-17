@@ -29,7 +29,7 @@
 
  require "tmlib/tmphpfuncs.php";
 
-  
+
 ?>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -44,7 +44,7 @@
     echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmpjsfuncs.js</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
     exit;
   }
-  
+
 ?>
 
 <?php
@@ -52,7 +52,7 @@
 $result = tmdb_query("SELECT * FROM graphTypes");
 
   echo '<script type="text/javascript">
-  		var categoryOptions = []; 
+  		var categoryOptions = [];
 		var labels = [];
 		';
 
@@ -63,8 +63,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	 echo 'labels.push("'.$row['descr'].'");';
 
 
-	 
-	
+
+
   }
   echo 'console.log("made it 20");</script>';
 
@@ -114,7 +114,7 @@ function hdx_load_file_entries() {
 		<select id = "orderOptions">
 			<option value = "alpha">Alphabetical</option>
 			<option value = "small">Size (small)</option>
-			<option value = "large">Size (large)</option>		
+			<option value = "large">Size (large)</option>
 		</select>
 		<br>
 		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
@@ -122,7 +122,7 @@ function hdx_load_file_entries() {
 			<option value = "collapsed">Collapsed (most likely you want this)</option>
 			<option value = "traveled">Traveled (include traveler info)</option>
 			<option value = "simple">Simple (straight line edges only)</option>
-			<option value = "all">All</option>		
+			<option value = "all">All</option>
 		</select>
 		<br>
 		Graph category:
@@ -136,12 +136,12 @@ ENDOFSTUFF;
   while ($row = $result->fetch_array()) {
 
      //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
-	 echo 
+	 echo
 
 	 		'categoryOptions.push('.$row['category']."\">".$row['descr'].');';
 
-	 
-	
+
+
   }
   echo '</script>';
 
@@ -151,13 +151,13 @@ ENDOFSTUFF;
 		<br>
 		Size from
 		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to 
+		to
 		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
 		vertices
 		<br>
 		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
 	  </td>
-	  </tr>	  
+	  </tr>
       <tr><td class="loadcollapse">
 	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
           <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
@@ -246,7 +246,7 @@ ENDOFSTUFF;
 		<h3>
 			About METAL HDX
 		</h3>
-		
+
 		<p>
 			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  Need help?  A tutorial can be found <a href="tutorial.html">here</a>
 		</p>
@@ -268,8 +268,7 @@ ENDOFSTUFF;
 	  <td>
 	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
 	    <div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph"><br />
 	    </div>
 	    Once you have selected a graph from the list of suggestions, press Enter to load it.
 	  </td>
@@ -277,32 +276,32 @@ ENDOFSTUFF;
 	<tr>
 	  <td>
 	    <div>
-		
+
 	    </div>
 	  </td>
 	</tr>
-	
-	
+
+
 	<tr><td>
 	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
 	</td></tr>
       </tbody>
     </table>-->
 
-	
-   
+
+
 
    <!--<p style="text-align: center">
 	   Search for a graph in our database
    </p>
-	
+
 	<button type="button" id="basic" class="opt">Basic Search</button>-->
 
 	<!--<div id="the-basics">
 	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
+
 </div>-->
-	
+
 	<!--<button type="button" class="opt">Advanced Search</button>
 	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 24px;}">or</p><br>-->
@@ -311,13 +310,13 @@ ENDOFSTUFF;
 	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
 
 	<br>
-	
+
 	<h3>
 			About METAL HDX
 		</h3>
-		
+
 		<p class="descr">
-			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.
 		</p>
 
 		<br>
@@ -325,83 +324,61 @@ ENDOFSTUFF;
 		<p class="descr">
 		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
 		</p>-->
-
-	
-
-
-
-
 	<script>
-		
 
-			var box = document.createElement("input");
+		function basicMenu()
+		{
 
+      //Calls the Fucntions for the Graph Search box to Initiate
+      HDXGraphSearchInit();
+      HDXGraphBoxStart();
+
+      //Creates and sets the attributes pf our search bar
+      var box = document.createElement("input");
 			box.setAttribute("class", "typeahead");
 			box.setAttribute("type", "text");
 			box.setAttribute("id", "searchBox");
 			box.setAttribute("placeholder", "Pick a Graph");
-			console.log("Current box:" + box);
 
-
-		
-		function basicMenu()
-		{
-			
+      //Datapanel to contain all of the elements
 			var dataPanel = document.getElementById("loadDataPanel");
-
 			dataPanel.innerHTML = "";
 
-			
-
+      //Back Button
 			var back = document.createElement("button");
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
-
 			dataPanel.appendChild(back);
-
 			back.addEventListener("click", defaultMenu);
 
+      //Spacing on the panel
 			var br = document.createElement("br");
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
-			
 
+
+      //Instructions for the Grpah Search Box
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
-			
+
+      //Container for the input element
 			var basic = document.createElement("div");
-
 			basic.setAttribute("id", "the-basics");
-
-			
 			basic.appendChild(box);
-			console.log("Current box:" + box);
+
+      //puts the basic variable with the child box into the dataPanel
 			dataPanel.appendChild(basic);
 
+      //makes the next button
 			var start = document.createElement("button");
 			start.setAttribute("id", "vis");
 			start.innerHTML = "Next";
-
 			dataPanel.appendChild(start);
 
-			
-
-			
-		
-		/*	<div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-	      
-	    </div>*/
-
-			//HDXGraphSearchInit();
-			
-			console.log("made it 10");
-
-			
 		}
-		
+
 		function advancedMenu()
 		{
 			var dataPanel = document.getElementById("loadDataPanel");
@@ -409,11 +386,6 @@ ENDOFSTUFF;
 			dataPanel.innerHTML = "";
 
 			var br = document.createElement("br");
-			
-
-
-
-			
 
 			var back = document.createElement("button");
 			back.setAttribute("id", "back2");
@@ -437,7 +409,7 @@ ENDOFSTUFF;
 
 			var select = document.createElement("select");
 			select.setAttribute("id", "orderOptions");
-			
+
 			var opt1 = document.createElement("option");
 			opt1.setAttribute("value", "alpha");
 			opt1.innerHTML = "Alphabetical";
@@ -456,7 +428,7 @@ ENDOFSTUFF;
 			container.appendChild(select);
 			container.innerHTML += "<br>";
 
-			
+
 
 			var formatP = document.createElement("p");
 			formatP.innerHTML = "Format";
@@ -501,7 +473,7 @@ ENDOFSTUFF;
 			optAll.setAttribute("value", "all");
 			optAll.innerHTML = "All Graphs";
 			select3.appendChild(optAll);
-			
+
 
 			for (let i = 0; i < labels.length; i++)
 			{
@@ -542,7 +514,7 @@ ENDOFSTUFF;
 			container.appendChild(max);
 			container.innerHTML += "<br>";
 
-			
+
 			var getList = document.createElement("input");
 			getList.setAttribute("type", "button");
 			getList.setAttribute("value", "Get Graph List");
@@ -582,13 +554,13 @@ ENDOFSTUFF;
 
 			mainbox.appendChild(instruct);
 
-			var basic = document.createElement("button");
-			basic.setAttribute("class", "opt");
-			basic.innerHTML = "Basic Search";
+			var basicSearch = document.createElement("button");
+			basicSearch.setAttribute("class", "opt");
+			basicSearch.innerHTML = "Basic Search";
 
-			mainbox.appendChild(basic);
+			mainbox.appendChild(basicSearch);
 
-			basic.addEventListener("click", basicMenu);
+			basicSearch.addEventListener("click", basicMenu);
 
 			var advanced = document.createElement("button");
 			advanced.setAttribute("class", "opt");
@@ -596,9 +568,9 @@ ENDOFSTUFF;
 			mainbox.appendChild(advanced);
 
 			advanced.addEventListener("click", advancedMenu);
-			
 
-			
+
+
 			mainbox.appendChild(br);
 
 			var or = document.createElement("p");
@@ -606,7 +578,7 @@ ENDOFSTUFF;
 			or.innerHTML = "or";
 
 			mainbox.appendChild(or);
-			
+
 
 			var uploadLabel = document.createElement("label");
 			uploadLabel.setAttribute("for", "fileToLoad");
@@ -636,7 +608,7 @@ ENDOFSTUFF;
 
 
 
-			
+
 		}
 		defaultMenu();
 		</script>
@@ -665,15 +637,17 @@ ENDOFSTUFF;
 	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
 	 </select>
-	  
+
 	</td>
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
+
+
 	<!--<div id="algorithmOptions">
 
 	</div>-->
-	
+
       </tr>
       <tr>
 	<td>
@@ -695,7 +669,7 @@ ENDOFSTUFF;
       </tbody>
   </table>
 </div>
-  
+
 </div>
 <div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>
