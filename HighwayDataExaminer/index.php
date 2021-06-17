@@ -349,6 +349,7 @@ ENDOFSTUFF;
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
 			dataPanel.appendChild(back);
+      back.addEventListener("click", HDXGraphSearchCleanup());
 			back.addEventListener("click", defaultMenu);
 
       //Spacing on the panel
