@@ -4,7 +4,7 @@
 // METAL Project
 //
 // Primary Author: Michael Dagostino
-//Additional Author: Bailey Cross
+// Additional Author: Bailey Cross
 // Maintenance edits: Jim Teresco
 
 /***********************************************************************/
@@ -50,7 +50,8 @@ function HDXGraphSearchInit() {
 // http://twitter.github.io/typeahead.js/examples/ The Basics also
 // thanks to https://codepen.io/jonvadillo/details/NrGWEX for
 // providing a working example in which to work off of
-
+// Made this code block a function because the new UI wasn't calling it
+function HDXGraphBoxStart(){
 var HDXGraphSubstringMatcher = function(strs) {
 
     return function findMatches(q, cb) {
@@ -73,7 +74,10 @@ var HDXGraphSubstringMatcher = function(strs) {
         cb(matches);
     };
 };
+// Counter for the User Feedback of an Invalid Graph
 var noGraphCounter = 0;
+
+//jQuery asking if the DOM is in a ready state for our changes to commence
 $(document).ready(function() {
     $('#the-basics .typeahead').typeahead(
         {
@@ -96,7 +100,7 @@ $(document).ready(function() {
 		HDXReadFileFromWebServer(HDXGraphs[input]);
 	    }
 	    else {
-		//creates text under the graph search box saying that the graph doesn't exist
+		      //creates text under the graph search box saying that the graph doesn't exist
           if(noGraphCounter == 1)
           {
             noGraphCounter = 0;
@@ -109,7 +113,7 @@ $(document).ready(function() {
           noGraph.id = 'noGraphFound';
           document.getElementById('the-basics').appendChild(noGraph);
           noGraphCounter += 1;
-	    }
+	         }
         }
     });
-});
+})};

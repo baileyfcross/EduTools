@@ -326,72 +326,56 @@ ENDOFSTUFF;
 		</p>-->
 	<script>
 
+		function basicMenu()
+		{
 
-			var box = document.createElement("input");
+      //Calls the Fucntions for the Graph Search box to Initiate
+      HDXGraphSearchInit();
+      HDXGraphBoxStart();
 
+      //Creates and sets the attributes pf our search bar
+      var box = document.createElement("input");
 			box.setAttribute("class", "typeahead");
 			box.setAttribute("type", "text");
 			box.setAttribute("id", "searchBox");
 			box.setAttribute("placeholder", "Pick a Graph");
-			console.log("Current box:" + box);
 
-
-
-		function basicMenu()
-		{
-
+      //Datapanel to contain all of the elements
 			var dataPanel = document.getElementById("loadDataPanel");
-
 			dataPanel.innerHTML = "";
 
-
-
+      //Back Button
 			var back = document.createElement("button");
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
-
 			dataPanel.appendChild(back);
-
 			back.addEventListener("click", defaultMenu);
 
+      //Spacing on the panel
 			var br = document.createElement("br");
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 			dataPanel.appendChild(br);
 
 
+      //Instructions for the Grpah Search Box
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
 
+      //Container for the input element
 			var basic = document.createElement("div");
-
 			basic.setAttribute("id", "the-basics");
-
-
 			basic.appendChild(box);
-			console.log("Current box:" + box);
+
+      //puts the basic variable with the child box into the dataPanel
 			dataPanel.appendChild(basic);
 
+      //makes the next button
 			var start = document.createElement("button");
 			start.setAttribute("id", "vis");
 			start.innerHTML = "Next";
-
 			dataPanel.appendChild(start);
-
-
-
-
-
-		/*	<div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-
-	    </div>*/
-
-			//HDXGraphSearchInit();
-
-			console.log("made it 10");
-
 
 		}
 
@@ -402,11 +386,6 @@ ENDOFSTUFF;
 			dataPanel.innerHTML = "";
 
 			var br = document.createElement("br");
-
-
-
-
-
 
 			var back = document.createElement("button");
 			back.setAttribute("id", "back2");
@@ -575,13 +554,13 @@ ENDOFSTUFF;
 
 			mainbox.appendChild(instruct);
 
-			var basic = document.createElement("button");
-			basic.setAttribute("class", "opt");
-			basic.innerHTML = "Basic Search";
+			var basicSearch = document.createElement("button");
+			basicSearch.setAttribute("class", "opt");
+			basicSearch.innerHTML = "Basic Search";
 
-			mainbox.appendChild(basic);
+			mainbox.appendChild(basicSearch);
 
-			basic.addEventListener("click", basicMenu);
+			basicSearch.addEventListener("click", basicMenu);
 
 			var advanced = document.createElement("button");
 			advanced.setAttribute("class", "opt");
@@ -657,25 +636,18 @@ ENDOFSTUFF;
 	<td>
 	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
-<<<<<<< HEAD
-	  </select>
-
-=======
 	 </select>
 
->>>>>>> 161062564ee3b2652056a43e5193539d1ab7c8f8
 	</td>
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
-<<<<<<< HEAD
 
-=======
+
 	<!--<div id="algorithmOptions">
 
 	</div>-->
 
->>>>>>> 161062564ee3b2652056a43e5193539d1ab7c8f8
       </tr>
       <tr>
 	<td>
