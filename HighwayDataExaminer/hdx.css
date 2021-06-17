@@ -8,13 +8,13 @@
     overflow:hidden;
     filter: blur(6px);
     border-radius: 0;
-    
+
 }
 
 #map * {
     cursor:crosshair;
-    
-    
+
+
 }
 
 #selected {
@@ -136,18 +136,33 @@ tr.pseudocode {
     padding-left: 30px;
 }
 
+#loadDataPanel{
+    top: 100px;
+    max-width: 40%;
+    margin: auto;
+    background-color: white;
+    z-index: 14000;
+    position: absolute;
+}
 
 
 #loadDataTable {
-    border: 1px solid black;	
+    border: 1px solid black;
 }
 
 #searchBox {
-    width: 365px;
+    width: 400px;
+
 }
 
-
-
+#algorithmSelectionPanel {
+    top: 100px;
+    margin: auto;
+    background-color: white;
+    z-index: 12000;
+    position: absolute;
+    display: none;
+}
 
 
 #selected {
@@ -173,7 +188,7 @@ tr.pseudocode {
     overflow: scroll;
 }
 
-/* centering and zindex together, based on example from 
+/* centering and zindex together, based on example from
 https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-positioned-element
 */
 
@@ -193,7 +208,7 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     z-index: inherit;
 }
 .data-title:after{
-        
+
     background-color: #00FF00;
     color: #111;
     font-size: 20px;
@@ -217,11 +232,11 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 }
 
 #instructions{
-    width: 40%; 
-    position: absolute; 
-    left: 45%; 
-    top: 100px; 
-    z-index: 9999; 
+    width: 40%;
+    position: absolute;
+    left: 45%;
+    top: 100px;
+    z-index: 9999;
     background-color: white;
     border: 1px solid black;
     border-collapse: separate;
@@ -298,8 +313,8 @@ button, #uploadLabel
     font-weight: 500;
     margin: 10px;
     color: white;
-    
-    
+
+
 }
 
 #fileToLoad{
@@ -307,7 +322,7 @@ button, #uploadLabel
     content: 'Select some files';
     display: inline-block;
     background-color: aqua;
-    
+
   }
 
 
@@ -323,16 +338,16 @@ div
 {
     top: 100px;
     max-width: 40%;
-    
+
     display: block;
-    background-color: rgb(47, 47, 47); 
+    background-color: rgb(47, 47, 47);
     z-index: 14000;
     position: relative;
     padding: 30px;
     margin: auto;
-    max-width: 450px;   
+    max-width: 450px;
     text-align: center;
-    
+
 }
 
 
@@ -354,7 +369,7 @@ div
 {
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
-    
+
 }
 
 h3
@@ -408,7 +423,7 @@ h3
 #algorithmSelectionPanel {
     top: 100px;
     margin: auto;
-    
+
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 24px;
     z-index: 12000;
@@ -416,7 +431,7 @@ h3
     display: none;
     border-radius: 10px;
     text-align: center;
-    
+
 }
 
 #algorithmSelectionPanelTable {
@@ -424,12 +439,12 @@ h3
     left: 5px;
     position: relative;
     z-index: 10000;
-    background-color: rgb(129, 91, 216); 
+    background-color: rgb(129, 91, 216);
     color: white;
     border-radius: 10px;
     font-size: 14px;
     padding: 10px;
-    
+
 }
 
 #algorithmSelectionPanelTable th
@@ -443,7 +458,7 @@ h3
     font-size: 16px;
     border: none;
     text-align: center
-    
+
 }
 
 #algorithmSelectionPanelTable td select
@@ -474,7 +489,7 @@ h4
     text-align: center;
     margin-top: 50px;
     margin-bottom: 15px;
-    
+
 
 }
 
@@ -483,16 +498,16 @@ h4
     margin-top: 0;
     padding: 0;
     display: inline;
-    
+
 
 }
 
-#loadDataPanel div#selects 
+#loadDataPanel div#selects
 {
-   
+
     text-align: center;
-    
-    
+
+
 
 }
 
@@ -529,7 +544,7 @@ h4
     padding: 5px;
     text-align: center;
     margin-top: 0;
-    
+
 
 }
 
@@ -545,8 +560,8 @@ h4
     margin-top: 30px;
     color: white;
     margin-bottom: 6px;
-    
-    
+
+
 }
 #loadDataPanel #selects
 {
@@ -556,22 +571,18 @@ h4
 #loadDataPanel #selects #vert
 {
     margin-bottom: 0;
-    
+
 }
 #loadDataPanel #selects #to
 {
     margin-top: 0;
     font-size: 16px;
-    
-}
-input
-{
-    margin-top: 0;
+
 }
 
 #algorithmSelectionPanel
 {
-    text-align: center; 
+    text-align: center;
     margin: auto;
 }
 
@@ -585,10 +596,10 @@ input
 
 #algorithmSelectionPanelTable #algorithmOptions
 {
-    
+
     text-align: center;
     margin: auto;
-    
+
 }
 
 #datatable {
@@ -598,10 +609,10 @@ input
     right:2%;
     max-width: 30%;
     max-height: 95%;
-    
+
     opacity: 1;
     z-index:750; /* above leaflet tiles and overlays, below map tile selector */
-    
+
     /*font-family: Arial, Helvetica, sans-serif;
     font-size: 12px;
     border-radius: 10px;
@@ -612,7 +623,7 @@ input
 /*#datatable td
 {
     background-color: white;
-    
+
     padding: 5px;
     margin: 0;
 }*/
@@ -622,4 +633,3 @@ input
 {
     z-index: 200000;
 }*/
-
