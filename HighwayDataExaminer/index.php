@@ -188,12 +188,39 @@ ENDOFSTUFF;
   <span id="currentAlgorithm"></span>
 	</div>
 <div id="topControlPanel">
+	<p>
+		Control Panel
+	</p>
+<!--<button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+<select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+	  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
   <table id="topControlPanelTable">
     <tbody>
       <tr>
 	<td id="topControlPanelAV1">
 	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
-	  </td><td id="topControlPanelAV2">
+	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />
+	  </td>
+	  </td><!--<td id="topControlPanelAV4">
+	  </td>-->
+</tr>
+<tr>
+	  <td id="topControlPanelAV2">
 	  <select id="speedChanger" onchange="speedChanged()">
 	    <option value="0">Run To Completion</option>
         <option value="0">Jump To Breakpoint</option>
