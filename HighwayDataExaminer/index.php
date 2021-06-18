@@ -9,7 +9,7 @@
     data.)
     Primary Author: Jim Teresco, Siena College, The College of Saint Rose
     Additional authors: Razie Fathi, Arjol Pengu, Maria Bamundo, Clarice Tarbay,
-        Michael Dagostino, Abdul Samad, Eric Sauer
+        Michael Dagostino, Abdul Samad, Eric Sauer, Spencer Moon
 
     (Pre-git) Modification History:
     2011-06-20 JDT  Initial implementation
@@ -100,8 +100,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="hdxdfsrecav.js" type="text/javascript"></script>
 <script src="hdxinstructions.js" type="text/javascript"></script>
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
-<!--<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+<link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 
 <?php
@@ -176,30 +176,17 @@ ENDOFSTUFF;
 </head>
 
 <style>
-	.menubar {
-  		font-size: 10pt;
-  		font-style: normal;
- 		font-family: sans-serif;
-  		text-align: center;
-  		position: relative;
- 		padding-right: 8px;
-  		padding-bottom: 2px;
-  		margin-top: 0px;
-  		margin-bottom: 8px;
-  		height: auto;
-  		background: rgb(47, 47, 47);
-  		color: #ffffff;
-  		border: 3px solid rgb(47, 47, 47);
-}
+	
 </style>
 
-<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
-<p class="menubar">
-  HDX: <span id="startUp">To begin, select a graph to display.</span>
-  <span id="filename"></span>
+<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)">
+<div class="menubar">
+	<div id="info">
+  <span id="startUp">To begin, select a graph to display.</span>
+  <span id="filename"></span><br>
   <span id="status"></span>
   <span id="currentAlgorithm"></span>
-</p>
+	</div>
 <div id="topControlPanel">
   <table id="topControlPanelTable">
     <tbody>
@@ -220,25 +207,107 @@ ENDOFSTUFF;
 	    <option value="1000">Painfully slow</option>
 	    <option value="-1">Step</option>
 	  </select>
-	  </td><td id="topControlPanelAV3">
-	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	  </td><td >
+		  <div id="topControlPanelAV3">
+		  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+		  </div>
+	  	  
+	</td>
 	  </td><td id="topControlPanelAV4">
 	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />
 	<!-- if any more AV-specific entries are added, they need to
 	     be dealt with in showTopControlPanel() -->
-	<td>
+	<!--<td>
 	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
 	</td>
 	<td>
 	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
-	</td>
-	<td id="topControlPanelShowMarkers">
-          <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
-	</td>
+	</td>-->
+	<!--<td id="topControlPanelShowMarkers">
+          <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+	</td>-->
       </tr>
     </tbody>
   </table>
 </div>
+</div>
+<!--<div id="topControlPanel">
+	<p>
+		Control Panel
+	</p>-->
+<!--<button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+<select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+	  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	  <!--<table id="topControlPanelTable">
+    <tbody>
+      <tr>
+	<td id="topControlPanelAV1">
+	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+	  <input id="resetButton" type="button" value="Reset" onclick="resetPressed();cleanupBreakpoints()" />
+	  </td>
+	  </td>--><!--<td id="topControlPanelAV4">
+	  </td>-->
+	  <!--</tr>
+<tr>
+	  <td id="topControlPanelAV2">
+	  <select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  </td>
+</tr>
+<tr>
+	<td id="topControlPanelAV3">
+	  <div id="check">
+			<input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+			<input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+			<input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
+	  </div>
+</tr>
+<tr>
+--><!-- if any more AV-specific entries are added, they need to
+	     be dealt with in showTopControlPanel() -->
+
+	  <!--<input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>-->
+
+	
+	 <!-- <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>-->
+	
+	<!--<td id="topControlPanelShowMarkers">-->
+        <!--  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	<!--</td>-->
+     <!-- </tr>
+    </tbody>
+  </table>
+</div>-->
 <div id="map">
 </div>
 <!--<div id="about">
@@ -553,25 +622,6 @@ ENDOFSTUFF;
 
 			dataPanel.appendChild(container);
 
-			
-
-
-
-
-			
-		/*
-		
-		Size from
-		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to 
-		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
-		vertices
-		<br>
-		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
-		
-		
-		*/
-
 		}
 
 
@@ -589,7 +639,7 @@ ENDOFSTUFF;
 			var intro = document.createElement("p");
 			intro.setAttribute("class", "descr");
 			intro.setAttribute("id", "overview");
-			intro.innerHTML = "Visualize algorithms using graphs based on real world maps.";
+			intro.innerHTML = "Visualize algorithms using graphs based on real world map data.";
 			mainbox.appendChild(intro);
 
 			var br = document.createElement("br");
@@ -718,37 +768,6 @@ ENDOFSTUFF;
 </div>
 <div id="datatable" draggable="false"  ondragstart="drag(event)">
 </div>
-  <!-- <table id="instructions">
-        <thead>
-            <tr ><th id="instructionsHeader">Using METAL's Highway Data Examiner (HDX)</th></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="tabs" id="instructionTab1">Maps/Graphs</td>
-                <td class="tabs" id="instructionTab2">AV Control Panel</td>
-                <td class="tabs" id="instructionTab3">AV Status Panel</td>
-                <td class="tabs" id="instructionTab4">Code/Breakpoints</td>
-                <td class="tabs" id="instructionTab5">Credits</td>
-            </tr>
-            <tr>
-                <td id="instructionsBody">HDX's user interface is
-                intended to be self-explanatory, but some of its
-                features might not be obvious.  Select among the tabs
-                above to learn how to get the most out
-                of <a href="https://courses.teresco.org/metal/">METAL</a>
-                and HDX.  This panel will close automatically after
-                data is loaded into HDX using the panel to the left.<br />
-		  <b>What's New?</b><br />  The 2019 Summer Scholars
-		project at <a href="https://www.siena.edu">Siena
-		College</a> added new algorithms (Kruskal's algorithm,
-		a recursive depth-first traversal, a vertex degree
-		search) new options and features in existing
-		algorithms, support for conditional breakpoints, plus
-		many user interface improvements and general bug
-		fixes.  Enjoy!<td>
-            <tr>
-        </tbody>
-    </table>-->
 </body>
 </html>
 <?php tmdb_close();?>

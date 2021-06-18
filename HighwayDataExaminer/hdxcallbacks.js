@@ -6,6 +6,8 @@
 // Primary Author: Jim Teresco
 //
 
+
+
 // speedChanger dropdown callback
 function speedChanged() {
 
@@ -230,6 +232,8 @@ function loadDataOptionsPressed() {
     //deleteVariableSelector();
 }
 
+
+
 // event handler for "Show Data Tables" checkbox
 function showHideDatatables() {
 
@@ -243,18 +247,35 @@ function showHideDatatables() {
     }
 }
 
+//Ensures that map is resized properly when window is resized
+window.addEventListener('resize', fixSize);
+function fixSize()
+{
+    document.getElementById("map").style.width = (window.innerWidth - 362) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - 100) + "px";
+}
+
 // Functions to show or hide panels that are displayed only
 // in certain modes of HDX operation
 
 // top control panel (algorithm controls, reset/load buttons)
 function showTopControlPanel() {
+    document.getElementById("map").style.filter = "none";
+    document.getElementById("map").style.borderRadius = "10px";
+    document.getElementById("map").style.top = "60px";
+    document.getElementById("map").style.width = (window.innerWidth - 362) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - 100) + "px";
+    document.getElementById("map").style.left = "320px";
+    
+    //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
+
 
     let av1 = document.getElementById("topControlPanelAV1");
     let av2 = document.getElementById("topControlPanelAV2");
     let av3 = document.getElementById("topControlPanelAV3");
-    let av4 = document.getElementById("topControlPanelAV4");
+   // let av4 = document.getElementById("topControlPanelAV4");
     let av4button = document.getElementById("resetButton");
-    let showMarkers = document.getElementById("topControlPanelShowMarkers");
+    //let showMarkers = document.getElementById("topControlPanelShowMarkers");
     
     // show only the relevant components given the current
     // state of HDX
@@ -267,8 +288,8 @@ function showTopControlPanel() {
         av1.style.display = "none";
         av2.style.display = "none";
         av3.style.display = "none";
-        av4.style.display = "none";
-        showMarkers.style.display = "";
+        //av4.style.display = "none";
+       // showMarkers.style.display = "";
         break;
 
     case hdxStates.GRAPH_LOADED:
@@ -278,9 +299,9 @@ function showTopControlPanel() {
         av1.style.display = "none";
         av2.style.display = "none";
         av3.style.display = "none";
-        av4.style.display = "";
+       // av4.style.display = "";
         av4button.value = "Select AV";
-        showMarkers.style.display = "";
+      //  showMarkers.style.display = "";
         document.getElementById("datatablesCheckbox").checked = false;
         break;
 
@@ -291,9 +312,9 @@ function showTopControlPanel() {
         av1.style.display = "";
         av2.style.display = "";
         av3.style.display = "";
-        av4.style.display = "";
-        av4button.value = "Reset AV";
-        showMarkers.style.display = "none";
+       // av4.style.display = "";
+        av4button.value = "Reset";
+      //  showMarkers.style.display = "none";
         document.getElementById("speedChanger").selectedIndex = 5;
         speedChanged();
         document.getElementById("pseudoCheckbox").checked = true;
@@ -347,6 +368,9 @@ function showAlgorithmSelectionPanel() {
 function showAVStatusPanel() {
 
     document.getElementById("avStatusPanel").style.display="block";
+    document.getElementById("avStatusPanel").style.left = "20px";
+    document.getElementById("avStatusPanel").style.top = "79px"
+    
 }
 
 function hideAVStatusPanel() {
