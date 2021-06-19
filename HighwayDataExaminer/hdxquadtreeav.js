@@ -12,6 +12,19 @@ var hdxQuadtreeAV = {
     value: "quadtree",
     name: "Quadtree Construction",
     description: "Construct a quadtree by inserting all waypoints and refining as needed.",
+    //this is used to determine the universe of our quadtree
+    n: 0,
+    e: 0,
+    w: 0,
+    s: 0,
+
+    quadtreeVList: [],
+    numVQuadtree: 0,
+    // this to work like the call stack in recursive dfs so we can track exactly what quadtree
+    // is adding what point so we can better demonstrate the recursive nature of quadtrees
+    prevQuadtree: null,
+    currentQuadtree: null,
+    callStack: [],
 
     //show which waypoint is being added
     nextToCheck: 0,
@@ -34,19 +47,277 @@ var hdxQuadtreeAV = {
             label: "START",
             comment: "creating bounding box that contains all waypoints",
             code: function(thisAV){
+                quadtreeVList = [];
+                
+                currentQuadtree = Quadtree()
+
                 //other stuff needs to go here but at least the boundingBox should be generated from here
                 thisAV.boundingPoly = [];
                 thisAV.generateBoundingBox();
 
+
                 hdxAV.iterationDone = true;
-                hdxAV.nextAction = "cleanup";
+                hdxAV.nextAction = "topForLoop";
             },
             logMessage: function(thisAV){
                 return "Creating bounding box that contains all waypoints"
             }
 
+        },
+
+        {
+            label: "topForLoop",
+            comment: "",
+            code: function(thisAV){
+                hdxAV.iterationDone = true;
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
 
         },
+
+        {
+            label: "topAddPoint",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "bottomAddPoint",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "isLeaf",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "pushPoint",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "ifRefine",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "makeChildren",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "topRefLoop",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "loopFindChild",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "loopChildAdd",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "pointsNull",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "notLeafFindChild",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "notLeafChildAdd",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "bottomFindChild",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "findChildLat",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "topFindChildLng",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "bottomFindChildLng",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "returnSW",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "returnSE",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "returnNW",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
+        {
+            label: "returnNE",
+            comment: "",
+            code: function(thisAV){
+
+            },
+            logMessage: function(thisAV){
+                return "";
+            }
+
+        },
+
         {
             label: "cleanup",
             comment: "cleanup and updates at the end of the visualization",
@@ -76,7 +347,72 @@ var hdxQuadtreeAV = {
             "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
             "Stack");
 
-        this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">qt &larr; new Quadtree(minLat,maxLat,minLng,maxLng,refinement)</td></tr>';
+        //pseudocode for the start state    
+        this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
+        this.code += `qt &larr; new Quadtree(minLat,maxLat,minLng,maxLng,refinement)<br />`;
+        this.code += `qt.points &larr; []<br />`
+        this.code += `qt.nw, qt.ne, qt.sw, qt.se <- null<br />`;
+
+        //pseudocode for the top loop
+        this.code += '</td></tr>' +
+            pcEntry(0,'for(check &larr; 0 to |V| - 1)',"topForLoop");
+        this.code += '</td></tr>' +
+            pcEntry(1,'qt.add(v[check])',"topAddPoint");
+
+        //pseudocode for add function
+        this.code += '</td></tr>' +
+            pcEntry(0,'add(vertex)',"bottomAddPoint");
+        this.code += '</td></tr>' +
+            pcEntry(1,'(ifLeaf())',"isLeaf");
+        this.code += '</td></tr>' +
+            pcEntry(2,'qt.points.push[vertex]',"pushPoint");
+        this.code += '</td></tr>' +
+            pcEntry(3,'if(qt.points.length >= refinement)',"ifRefine");
+        this.code += '</td></tr>' +
+            pcEntry(4,'midLat &larr; (maxLat + minLat) / 2<br />' +
+                pcIndent(8) + 'midLng &larr; (maxLng + minLng) / 2<br />' +
+                pcIndent(8) + 'qt.nw &larr; new Quadtree(midLat,maxLat,minLng,midLng,refinement)<br />' +
+                pcIndent(8) + 'qt.ne &larr; new Quadtree(midLat,maxLat,midLng,maxLng,refinement)<br />' +
+                pcIndent(8) + 'qt.sw &larr; new Quadtree(minLat,midLat minLng,midLng,refinement)<br />' +
+                pcIndent(8) + 'qt.se &larr; new Quadtree(minLat,midLat,midLng,maxLng,refinement)',"makeChildren");
+        this.code += '</td></tr>' +
+            pcEntry(4,'for(i &larr; 0 to qt.points.length',"toRefLoop");
+        this.code += '</td></tr>' +
+            pcEntry(5,'c &larr; childThatContains(qt.points[i])',"loopFindChild");
+        this.code += '</td></tr>' +
+            pcEntry(5,'c.add()',"loopChildAdd");
+        this.code += '</td></tr>' +
+            pcEntry(4,'qt.points &larr; []',"pointsNull");
+        this.code += '</td></tr>' + 
+            pcEntry(3,'else',"");
+        this.code += '</td></tr>' +
+            pcEntry(4,'c &larr; childThatContains(qt.points[i])',"notLeafFindChild");
+        this.code += '</td></tr>' +
+            pcEntry(4,'c.add()',"notLeafChildAdd");
+
+        //pseudocode for childThatContains
+        this.code += '</td></tr>' +
+            pcEntry(0,'childThatContains(vertex)',"bottomFindChild");
+        this.code += '</td></tr>' +
+            pcEntry(1,'if(vertex.lat < midLat)',"topChildAt");
+        this.code += '</td></tr>' +
+            pcEntry(2,'if(vertex.lng < midLng)',"topFindChildLng");
+        this.code += '</td></tr>' +
+            pcEntry(3,'return sw',"returnSW");
+        this.code += '</td></tr>' + 
+            pcEntry(2,'else',"");
+        this.code += '</td></tr>' +
+            pcEntry(3,'return se',"returnSE");
+        this.code += '</td></tr>' +
+            pcEntry(1,'else',"");
+        this.code += '</td></tr>' +
+            pcEntry(2,'if(vertex.lng < midLng)',"bottomFindChildLng");
+        this.code += '</td></tr>' +
+            pcEntry(3,'return nw',"returnNW");
+        this.code += '</td></tr>' +
+            pcEntry(2,'else',"");
+        this.code += '</td></tr>' +
+            pcEntry(3,'return ne',"returnNE");
     },
 
     setupUI() {
@@ -105,29 +441,29 @@ var hdxQuadtreeAV = {
     },
     //this function generates the bounding box that represents the universe of the quadtree
     generateBoundingBox(){
-        let n = waypoints[0].lat;
-        let s = waypoints[0].lat;
-        let e = waypoints[0].lon;
-        let w = waypoints[0].lon;
+        this.n = waypoints[0].lat;
+        this.s = waypoints[0].lat;
+        this.e = waypoints[0].lon;
+        this.w = waypoints[0].lon;
         for(var i = 1; i < waypoints.length; i++){
 
-            if(waypoints[i].lat > n){
-                n = waypoints[i].lat;
-            } else if (waypoints[i].lat < s){
-                s = waypoints[i].lat;
+            if(waypoints[i].lat > this.n){
+                this.n = waypoints[i].lat;
+            } else if (waypoints[i].lat < this.s){
+                this.s = waypoints[i].lat;
             }
-            if(waypoints[i].lon > e){
-                e = waypoints[i].lon;
-            } else if (waypoints[i].lon < w){
-                w = waypoints[i].lon;
+            if(waypoints[i].lon > this.e){
+                this.e = waypoints[i].lon;
+            } else if (waypoints[i].lon < this.w){
+                this.w = waypoints[i].lon;
             }
         }
 
         //creating the polylines for the bounding box
-        let nEnds = [[n,w],[n,e]];
-        let sEnds = [[s,w],[s,e]];
-        let eEnds = [[n,e],[s,e]];
-        let wEnds = [[n,w],[s,w]];
+        let nEnds = [[this.n,this.w],[this.n,this.e]];
+        let sEnds = [[this.s,this.w],[this.s,this.e]];
+        let eEnds = [[this.n,this.e],[this.s,this.e]];
+        let wEnds = [[this.n,this.w],[this.s,this.w]];
 
             this.boundingPoly.push(
                 L.polyline(nEnds, {
@@ -161,8 +497,12 @@ var hdxQuadtreeAV = {
             for (var i = 0; i < 4; i++) {
                 this.boundingPoly[i].addTo(map);
             }
+    },
+    updateAVControlEntry(){
+
     }
 };
+
 
 //Quadtree object constructor
 function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
@@ -206,7 +546,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             }
         }
         else {
-            if (lng < midlng) {
+            if (lng < midLng) {
             return nw;
             }
             else {
