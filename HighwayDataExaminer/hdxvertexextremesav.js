@@ -72,6 +72,8 @@ var hdxVertexExtremesSearchAV = {
     // for average coordinates
     latsum: 0,
     lngsum: 0,
+    avglat: 0,
+    avglng: 0,
     avgMarker: null,
     
     // the categories for which we are finding our extremes,
@@ -301,7 +303,23 @@ var hdxVertexExtremesSearchAV = {
 		thisAV.latsum = parseFloat(waypoints[0].lat);
 		thisAV.lngsum = parseFloat(waypoints[0].lon);
 		if (thisAV.showAvgOfCoords) {
-		    thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum]);
+
+            let icon;
+            let avgOptions = {
+                iconShape: 'circle-dot',
+                iconSize: [5, 5],
+                iconAnchor: [5, 5],
+                borderWidth: 5,
+                borderColor: visualSettings.averageCoord.color
+                }
+
+            icon = L.BeautifyIcon.icon(avgOptions);
+
+            thisAV.avgMarker = L.marker([thisAV.latsum, thisAV.lngsum],{
+                title: "Average Coordinate of Waypoints",
+                icon: icon
+            });
+        
 		    thisAV.avgMarker.addTo(map);
 		}
 		
@@ -572,11 +590,14 @@ var hdxVertexExtremesSearchAV = {
 		thisAV.latsum += parseFloat(waypoints[thisAV.nextToCheck].lat);
 		thisAV.lngsum += parseFloat(waypoints[thisAV.nextToCheck].lon);
 		// compute the new average of the waypoint locations so far
-		let avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
-		let avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
+		thisAV.avglat = thisAV.latsum / (thisAV.nextToCheck + 1);
+		thisAV.avglng = thisAV.lngsum / (thisAV.nextToCheck + 1);
 		updateAVControlEntry("avgcoord",
-				     "Average of coords so far: (" + avglat.toFixed(6) + "," + avglng.toFixed(6) + ")");
-		thisAV.avgMarker.setLatLng([avglat, avglng]);
+				     "Average of coordinates so far:<BR/> (" + thisAV.avglat.toFixed(6) + "," + thisAV.avglng.toFixed(6) + ")");
+                    if (thisAV.showBB) {
+                        thisAV.directionalBoundingBox();
+                    }
+		thisAV.avgMarker.setLatLng([thisAV.avglat, thisAV.avglng]);
                 hdxAV.nextAction = "forLoopBottom";
             },
             logMessage: function(thisAV) {
@@ -627,6 +648,7 @@ var hdxVertexExtremesSearchAV = {
                 updateAVControlEntry("visiting", "");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
+                
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
@@ -644,10 +666,17 @@ var hdxVertexExtremesSearchAV = {
         let s = waypoints[this.categories[1].index].lat;
         let e = waypoints[this.categories[2].index].lon;
         let w = waypoints[this.categories[3].index].lon;
+        
         let nEnds = [[n,w],[n,e]];
         let sEnds = [[s,w],[s,e]];
         let eEnds = [[n,e],[s,e]];
         let wEnds = [[n,w],[s,w]];
+        let nsAvg;
+        let ewAvg;
+        if(this.showAvgOfCoords){
+            nsAvg = [[n,this.avglng],[s,this.avglng]];
+            ewAvg = [[this.avglat,e],[this.avglat,w]];
+        }
 
         // create or update as appropriate
         if (this.boundingPoly.length == 0) {
@@ -677,10 +706,32 @@ var hdxVertexExtremesSearchAV = {
                     color: this.categories[3].visualSettings.color,
                     opacity: 0.6,
                     weight: 3
-                })
+                }) 
             );
+            if(this.showAvgOfCoords){
+            
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                );
+                this.boundingPoly.push(
+                    L.polyline(nsAvg, {
+                        color: visualSettings.averageCoord.color,
+                        opacity: 0.6,
+                        weight: 3
+                    }) 
+                ); 
+            }
+        
             for (var i = 0; i < 4; i++) {
                 this.boundingPoly[i].addTo(map);
+            }
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].addTo(map);
+                this.boundingPoly[5].addTo(map);
             }
         }
         else {
@@ -688,6 +739,10 @@ var hdxVertexExtremesSearchAV = {
             this.boundingPoly[1].setLatLngs(sEnds);
             this.boundingPoly[2].setLatLngs(eEnds);
             this.boundingPoly[3].setLatLngs(wEnds);
+            if(this.showAvgOfCoords){
+                this.boundingPoly[4].setLatLngs(nsAvg);
+                this.boundingPoly[5].setLatLngs(ewAvg);
+            }
         }
     },
     
@@ -918,10 +973,10 @@ avg.lng &larr; lngsum<br />
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        hdxAV.algOptions.innerHTML = `
+        hdxAV.algOptions.innerHTML = `<div id="vex">
 <input id="boundingBox" type="checkbox" name="Show Bounding Box" checked />&nbsp;
 Show Extremes Bounding Box<br />
-For Ties, Remember:<br />
+&nbspFor Ties, Remember:<br />
 <select id="tieHandling">
 <option value="first" selected>First Leader Encountered</option>
 <option value="all">All Leaders</option>
@@ -932,6 +987,7 @@ For Ties, Remember:<br />
 &nbsp;Find First/Last Labels Alphabetically<br />
 <input id="showavgcoord" type="checkbox" name="Show Average Coordinate" />
 &nbsp;Show Average Coordinate<br />
+</div>
 `;
 
     },
@@ -944,6 +1000,9 @@ For Ties, Remember:<br />
             this.boundingPoly[i].remove();
         }
         this.boundingPoly = [];
+        if(this.showAvgOfCoords){
+            this.avgMarker.remove();
+        }
     },
     
     idOfAction(action) {

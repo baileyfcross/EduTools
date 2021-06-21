@@ -2,14 +2,54 @@
 
 #map {
     position: absolute;
-    top: 25px;
+    /*top: 72px;*/
+    top: 0px;
     bottom:0px;
     width: 100%;
+    right: 0px;
     overflow:hidden;
+    filter: blur(6px);
+    border-radius: 0;
+    
+}
+
+#avStatusPanel {
+    margin: 0;
+    top: 79px;
+    z-index: 11000;
+    background-color: blue;
+    position: absolute;
+    left: 20px;
+    overflow: scroll;
+    
+    width: 300px;
+    max-height: calc(100vh - 125px);
+    opacity: .95;
+    display: none;
+
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: white;
+
+    
+
+}
+
+#avStatusTable {
+    border: none;
+    width: 100%;
+    overflow: scroll;
 }
 
 #map * {
     cursor:crosshair;
+    
+    
+}
+
+html
+{
+    background-color: rgb(47, 47, 47);
 }
 
 #selected {
@@ -50,16 +90,7 @@
     height: 1px;
 }
 
-#datatable {
-    display: inline-block;
-    position: absolute;
-    overflow: scroll;
-    right:2%;
-    max-width: 30%;
-    max-height: 95%;
-    opacity: .95;
-    z-index:750; /* above leaflet tiles and overlays, below map tile selector */
-}
+
 
 #pseudoTable {
     position: absolute;
@@ -140,6 +171,7 @@ tr.pseudocode {
     padding-left: 30px;
 }
 
+<<<<<<< HEAD
 #loadDataPanel{
     top: 100px;
     max-width: 40%;
@@ -148,6 +180,9 @@ tr.pseudocode {
     z-index: 14000;
     position: absolute;
 }
+=======
+
+>>>>>>> 4a9b7fc9c89442e77ee9919e67de56d4b3ca5d6a
 
 #loadDataTable {
     border: 1px solid black;
@@ -157,6 +192,7 @@ tr.pseudocode {
     width: 365px;
 }
 
+<<<<<<< HEAD
 #algorithmSelectionPanel {
     top: 100px;
     margin: auto;
@@ -165,49 +201,25 @@ tr.pseudocode {
     position: absolute;
     display: none;
 }
+=======
+>>>>>>> 4a9b7fc9c89442e77ee9919e67de56d4b3ca5d6a
 
-#algorithmSelectionPanelTable {
-    border: 1px solid black;
-    left: 5px;
-    position: absolute;
-    z-index: 10000;
-}
+
+
 
 #selected {
     display: none;
 }
 
-#avStatusPanel {
-    margin:auto;
-    top: 100px;
-    z-index: 10000;
-    background-color: blue;
-    position: absolute;
-    overflow: scroll;
-    width: 30%;
-    max-height: calc(100vh - 125px);
-    opacity: .95;
-    display: none;
-}
 
-#avStatusTable {
-    border: 1px solid black;
-    width: 100%;
-    overflow: scroll;
-}
+
+
 
 /* centering and zindex together, based on example from
 https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-positioned-element
 */
 
-#topControlPanel {
-    background-color: white;
-    position: absolute;
-    top: 25px;
-    left: 150px;
-    z-index: 11000;
-    display: none;
-}
+
 
 .data-title:hover:after{
     opacity: 1;
@@ -309,3 +321,495 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     padding: 5px;
 
 }
+
+button, #uploadLabel
+{
+    background-color: rgb(30, 179, 238);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding: 5px;
+    font-weight: 500;
+    margin: 10px;
+    color: white;
+    
+    
+}
+
+#fileToLoad{
+    visibility: hidden;
+    content: 'Select some files';
+    display: inline-block;
+    background-color: aqua;
+    
+  }
+
+
+
+
+div
+{
+    border-radius: 10px;
+    margin: auto;
+    /*text-align: center;*/
+}
+#loadDataPanel
+{
+    top: 100px;
+    max-width: 40%;
+    
+    display: block;
+    background-color: rgb(47, 47, 47); 
+    z-index: 14000;
+    position: relative;
+    padding: 30px;
+    margin: auto;
+    max-width: 450px;   
+    text-align: center;
+    
+}
+
+
+
+#loadDataPanel p
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+    color: white;
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+#intro
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    
+}
+
+h3
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    padding: 0;
+    margin: 0;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+
+.descr a
+{
+    text-decoration: none;
+    color:rgb(30, 179, 238);
+}
+
+#back
+{
+    float: left;
+    margin-bottom: 30px;
+    margin-right: 500px;
+}
+
+#back2
+{
+    float: left;
+    margin-bottom: 0;
+    margin-right: 500px;
+}
+#loadDataPanel #overview
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+    color: white;
+    display: block;
+    text-align: center;
+    font-style: italic;
+}
+#loadDataPanel #or
+{
+    margin-bottom: 15px;
+    margin-top: 0;
+}
+
+#algorithmSelectionPanel {
+    top: 100px;
+    margin: auto;
+    
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    z-index: 12000;
+    position: relative;
+    display: none;
+    border-radius: 10px;
+    text-align: center;
+    
+}
+
+#algorithmSelectionPanelTable {
+    border: none;
+    /*left: 5px;*/
+    position: relative;
+    z-index: 10000;
+    background-color: rgb(129, 91, 216); 
+    color: white;
+    border-radius: 10px;
+    font-size: 14px;
+    padding: 10px;
+    
+}
+
+#algorithmSelectionPanelTable th
+{
+    font-size: 24px;
+    border: none;
+}
+
+#algorithmSelectionPanelTable td
+{
+    font-size: 16px;
+    border: none;
+    text-align: center
+    
+}
+
+#algorithmSelectionPanelTable td select
+{
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+#algorithmSelectionPanelTable td input
+{
+    border-radius: 10px;
+    color: rgb(129, 91, 216);
+    background-color: white;
+    font-size: 20px;
+    border: 4px solid rgb(159, 133, 219);
+    font-weight: bold;
+    position: relative;
+    margin-top: 10px;
+}
+
+
+h4
+{
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 15px;
+    
+
+}
+
+#loadDataPanel #selects p
+{
+    margin-top: 0;
+    padding: 0;
+    display: inline;
+    
+
+}
+
+#loadDataPanel div#selects 
+{
+   
+    text-align: center;
+    
+    
+
+}
+
+#loadDataPanel #selects select
+{
+    margin: auto;
+    margin-bottom: 25px;
+    margin-top: 0;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+#loadDataPanel #selects select#graphList
+{
+
+    text-align: left;
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+
+#loadDataPanel #selects #minVertices, #loadDataPanel #selects #maxVertices
+{
+    border-radius: 10px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: none;
+    font-size: 14px;
+    padding: 5px;
+    text-align: center;
+    margin-top: 0;
+    
+
+}
+
+#loadDataPanel #selects #getlist
+{
+    background-color: rgb(30, 179, 238);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding: 5px;
+    font-weight: 500;
+    margin-top: 30px;
+    color: white;
+    margin-bottom: 6px;
+    
+    
+}
+#loadDataPanel #selects
+{
+    text-align: left;
+}
+
+#loadDataPanel #selects #vert
+{
+    margin-bottom: 0;
+    
+}
+#loadDataPanel #selects #to
+{
+    margin-top: 0;
+    font-size: 16px;
+    
+}
+input
+{
+    margin-top: 0;
+}
+
+#algorithmSelectionPanel
+{
+    text-align: center; 
+    margin: auto;
+}
+
+#vex
+{
+    margin: auto;
+    position: relative;
+    text-align: left;
+    display: inline-block;
+}
+
+#algorithmSelectionPanelTable #algorithmOptions
+{
+    
+    text-align: center;
+    margin: auto;
+    
+}
+
+#datatable {
+    display: inline-block;
+    position: absolute;
+    overflow: scroll;
+    right:2%;
+    max-width: 30%;
+    max-height: 95%;
+    
+    opacity: 1;
+    z-index:750; /* above leaflet tiles and overlays, below map tile selector */
+    
+    /*font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgb(147, 147, 147);*/
+}
+
+/*#datatable td
+{
+    background-color: white;
+    
+    padding: 5px;
+    margin: 0;
+}*/
+
+#topControlPanel {
+    background-color: rgb(47, 47, 47);
+    padding: 0;
+    position: relative;
+    z-index: 11000;
+    display: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    /*margin-left: 50px;*/
+}
+#topControlPanelTable
+{
+    position: relative;
+    margin: 0;
+    /*text-align: left;*/
+}
+
+#topControlPanel #topControlPanelTable select
+{
+    border-radius: 10px;
+    padding: 5px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    
+}
+
+
+#topControlPanelTable td
+{
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    /*background-color:rgb(129, 91, 216)*/
+
+}
+
+#topControlPanelTable td *
+{
+    
+}
+#topControlPanel p
+{
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+#check
+{
+    text-align: left;
+}
+
+
+
+
+#startPauseButton
+{
+    background-color: rgb(30, 179, 238);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding: 5px;
+    font-weight: 500;
+    color: white;
+}
+#resetButton
+{
+    background-color: rgb(255, 68, 78);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    border-radius: 10px;
+    border-width: 0px;
+    padding: 5px;
+    font-weight: 500;
+    color: white;
+    margin-left: 15px;
+    
+}
+
+div.menubar > *
+{
+    
+    float: right;
+    
+}
+
+div.menubar 
+{
+    background-color: rgb(47, 47, 47);
+    /*background-color: hotpink;*/
+    z-index: 0;
+    min-height: 50px;
+    border-radius: 0;
+    border: none;
+}
+#info span
+{
+    
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    color: white;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#startPauseButton, #resetButton
+{
+    margin: 0px 15px;
+    
+}
+
+#topControlPanelTable #topControlPanelAV3 
+{
+    text-align: left;
+}
+
+#topControlPanelTable td select
+{
+    margin-top: 3px;
+    margin-right: 15px;
+}
+
+#topControlPanelTable #topControlPanelAV3
+{
+    margin-top: 3px;
+    
+}
+
+#info
+{
+    text-align: center;
+}
+.menubar {
+    font-size: 10pt;
+    font-style: normal;
+   font-family: sans-serif;
+    text-align: center;
+    position: relative;
+   padding-right: 8px;
+    padding-bottom: 2px;
+    margin-top: 0px;
+    margin-bottom: 8px;
+    height: auto;
+    background-color: rgb(47, 47, 47);
+    color: #ffffff;
+    border: none;
+}
+
+
+
+/*#the-basics
+{
+    z-index: 200000;
+}*/
+
