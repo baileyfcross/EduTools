@@ -22,9 +22,11 @@ var hdxQuadtreeAV = {
     numVQuadtree: 0,
     // this to work like the call stack in recursive dfs so we can track exactly what quadtree
     // is adding what point so we can better demonstrate the recursive nature of quadtrees
-    prevQuadtree: null,
     currentQuadtree: null,
+    // this is used to return to the specific location in the pseudocode when necessary
     callStack: [],
+    //this is used to find what specific quadtree a point is being added to
+    qtStack: [],
 
     //show which waypoint is being added
     nextToCheck: 0,
@@ -34,6 +36,10 @@ var hdxQuadtreeAV = {
     numEmptyQuads: 0,
     //refinement threshold, should be deterimined with a fill in box before the av runs
     refinement: 3,
+    //loop common variable for the refinement loop
+    refLCV: 0,
+    //remaining waypoints to be added to the tree
+    numVUndiscovered: waypoints.length,
 
     // list of polylines showing the universe bounds
     // and divisions between quadtrees, updated by
@@ -47,13 +53,14 @@ var hdxQuadtreeAV = {
             label: "START",
             comment: "creating bounding box that contains all waypoints",
             code: function(thisAV){
-                quadtreeVList = [];
+                thisAV.quadtreeVList = [];
+                thisAV.refinement = document.getElementById("refinement").value;
                 
-                currentQuadtree = Quadtree()
 
                 //other stuff needs to go here but at least the boundingBox should be generated from here
                 thisAV.boundingPoly = [];
                 thisAV.generateBoundingBox();
+                thisAV.currentQuadtree = Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
 
 
                 hdxAV.iterationDone = true;
@@ -69,7 +76,14 @@ var hdxQuadtreeAV = {
             label: "topForLoop",
             comment: "",
             code: function(thisAV){
+
+
                 hdxAV.iterationDone = true;
+                if(thisAV.numVUndiscovered > 0){
+                    hdxAV.nextAction = "topAddPoint";
+                } else {
+                    hdxAV.nextAction = "cleanup";
+                }
 
             },
             logMessage: function(thisAV){
@@ -83,6 +97,10 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "bottomAddPoint";
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -95,6 +113,10 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "isLeaf";
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -106,6 +128,15 @@ var hdxQuadtreeAV = {
             label: "isLeaf",
             comment: "",
             code: function(thisAV){
+                
+
+                hdx.iterationDone = true;
+
+                if(thisAV.currentQuadtree.isLeaf()){
+                    hdxAV.nextAction = "pushPoint";
+                }  else {
+                    hdxAV.nextAction = "notLeafFindChild";
+                }
 
             },
             logMessage: function(thisAV){
@@ -119,6 +150,9 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "ifRefine";
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -131,6 +165,12 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                hdxAV.iterationDone  = true;
+                if(thisAV.currentQuadtree.points.length < thisAV.refinement){
+                    hdxAV.nextAction = "topForLoop";
+                } else {
+                    hdxAV.nextAction = "makeChildren";
+                }
             },
             logMessage: function(thisAV){
                 return "";
@@ -142,6 +182,9 @@ var hdxQuadtreeAV = {
             label: "makeChildren",
             comment: "",
             code: function(thisAV){
+
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "topRefLoop";
 
             },
             logMessage: function(thisAV){
@@ -155,6 +198,13 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                hdxAV.iterationDone = true;
+                if(thisAV.refLCV < thisAV.refinement){
+                    hdxAV.nextAction = "loopFindChild";
+                } else {
+                    hdxAV.nextAction = "pointsNull";
+                }
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -167,6 +217,9 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                //something needs to be pushed onto the call stack so we know where to return to after
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "bottomFindChild";
             },
             logMessage: function(thisAV){
                 return "";
@@ -178,6 +231,9 @@ var hdxQuadtreeAV = {
             label: "loopChildAdd",
             comment: "",
             code: function(thisAV){
+
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "bottomAddPoint";
 
             },
             logMessage: function(thisAV){
@@ -227,6 +283,9 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                hdxAV.iterationDone = true;
+                hdxAV.nextAction = "findChildLat";
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -238,6 +297,15 @@ var hdxQuadtreeAV = {
             label: "findChildLat",
             comment: "",
             code: function(thisAV){
+
+                hdxAV.iterationDone = true;
+                if(thisAV.currentQuadtree.points[thisAV.refLCV].lat < thisAV.currentQuadtree.midLat){
+
+                    hdxAV.nextAction = "topFindChildLng";
+                } else {
+                    
+                    hdx.nextAction = "bottomFindChildLng";
+                }
 
             },
             logMessage: function(thisAV){
@@ -251,6 +319,15 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
 
+                hdxAV.iterationDone = true;
+                if(thisAV.currentQuadtree.points[thisAV.refLCV].lon < thisAV.currentQuadtree.midLng){
+
+                    hdxAV.nextAction = "returnSW";
+                } else {
+
+                    hdxAv.nextAction = "returnSE";
+                }
+
             },
             logMessage: function(thisAV){
                 return "";
@@ -262,6 +339,15 @@ var hdxQuadtreeAV = {
             label: "bottomFindChildLng",
             comment: "",
             code: function(thisAV){
+
+                hdxAV.iterationDone = true;
+                if(thisAV.currentQuadtree.points[thisAV.refLCV].lon < thisAV.currentQuadtree.midLng){
+
+                    hdxAV.nextAction = "returnNW";
+                } else {
+
+                    hdxAv.nextAction = "returnNE";
+                }
 
             },
             logMessage: function(thisAV){
@@ -420,11 +506,13 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="minPoints" min="1" max="' 
+        let newAO = 'Refinement threshold <input type="number" id="refinement" min="1" max="' 
         + (waypoints.length) + '" value="3">';
         hdxAV.algOptions.innerHTML = newAO;
         addEntryToAVControlPanel("totalChecked", visualSettings.visiting);
-        addEntryToAVControlPanel("savedCheck", visualSettings.undiscovered); 
+        addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
+        addEntryToAVControlPanel("numLeaves",visualSettings.searchFailed);
+        //this is important to add later because then we need to decide what exactly we need to show
     },
 
     cleanupUI() {
@@ -499,8 +587,17 @@ var hdxQuadtreeAV = {
             }
     },
     updateAVControlEntry(){
+    },
 
+    setConditionalBreakpoints(name) {
+        return name;
+    },
+
+    hasConditionalBreakpoints(name){
+        return false;
     }
+
+
 };
 
 
