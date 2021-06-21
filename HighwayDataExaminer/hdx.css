@@ -21,7 +21,7 @@
     position: absolute;
     left: 20px;
     overflow: scroll;
-    
+
     width: 300px;
     max-height: calc(100vh - 125px);
     opacity: .95;
@@ -31,7 +31,7 @@
     font-size: 14px;
     color: white;
 
-    
+
 
 }
 
@@ -171,10 +171,6 @@ tr.pseudocode {
     padding-left: 30px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> master
 #loadDataPanel{
     top: 100px;
     max-width: 40%;
@@ -183,27 +179,15 @@ tr.pseudocode {
     z-index: 14000;
     position: absolute;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a9b7fc9c89442e77ee9919e67de56d4b3ca5d6a
-=======
-
->>>>>>> master
 
 #loadDataTable {
     border: 1px solid black;
 }
 
 #searchBox {
-    width: 400px;
-
+    width: 365px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> master
 #algorithmSelectionPanel {
     top: 100px;
     margin: auto;
@@ -212,13 +196,8 @@ tr.pseudocode {
     position: absolute;
     display: none;
 }
-<<<<<<< HEAD
-=======
->>>>>>> 4a9b7fc9c89442e77ee9919e67de56d4b3ca5d6a
 
 
-=======
->>>>>>> master
 
 
 #selected {
@@ -613,6 +592,10 @@ h4
     font-size: 16px;
 
 }
+input
+{
+    margin-top: 0;
+}
 
 #algorithmSelectionPanel
 {
@@ -685,7 +668,7 @@ h4
     padding: 5px;
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
-    
+
 }
 
 
@@ -701,7 +684,7 @@ h4
 
 #topControlPanelTable td *
 {
-    
+
 }
 #topControlPanel p
 {
@@ -744,17 +727,17 @@ h4
     font-weight: 500;
     color: white;
     margin-left: 15px;
-    
+
 }
 
 div.menubar > *
 {
-    
+
     float: right;
-    
+
 }
 
-div.menubar 
+div.menubar
 {
     background-color: rgb(47, 47, 47);
     /*background-color: hotpink;*/
@@ -765,7 +748,7 @@ div.menubar
 }
 #info span
 {
-    
+
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 20px;
     color: white;
@@ -776,10 +759,10 @@ div.menubar
 #startPauseButton, #resetButton
 {
     margin: 0px 15px;
-    
+
 }
 
-#topControlPanelTable #topControlPanelAV3 
+#topControlPanelTable #topControlPanelAV3
 {
     text-align: left;
 }
@@ -793,7 +776,7 @@ div.menubar
 #topControlPanelTable #topControlPanelAV3
 {
     margin-top: 3px;
-    
+
 }
 
 #info
