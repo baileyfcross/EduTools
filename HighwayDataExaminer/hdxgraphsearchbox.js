@@ -17,6 +17,10 @@
 var HDXGraphDescriptions = ['Choose A Graph'];
 var HDXGraphs = {};
 
+function HDXGraphSearchCleanup() {
+    HDXGraphDescriptions = ['Choose A Graph'];
+    var HDXGraphs = {};
+}
 // initialization code for HDX Graph search box
 function HDXGraphSearchInit() {
 
