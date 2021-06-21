@@ -57,7 +57,7 @@ var hdxQuadtreeAV = {
                 updateAVControlEntry("visiting", "");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
-                
+
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
@@ -66,7 +66,7 @@ var hdxQuadtreeAV = {
     ],
 
     code: "TBD",
-    
+
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
         let lineCount = 0;
@@ -84,11 +84,11 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="minPoints" min="1" max="' 
+        let newAO = 'Refinement threshold <input type="number" id="minPoints" min="1" max="'
         + (waypoints.length) + '" value="3">';
         hdxAV.algOptions.innerHTML = newAO;
         addEntryToAVControlPanel("totalChecked", visualSettings.visiting);
-        addEntryToAVControlPanel("savedCheck", visualSettings.undiscovered); 
+        addEntryToAVControlPanel("savedCheck", visualSettings.undiscovered);
     },
 
     cleanupUI() {
@@ -100,7 +100,7 @@ var hdxQuadtreeAV = {
     },
 
     idOfAction(action) {
-	
+
         return action.label;
     },
     //this function generates the bounding box that represents the universe of the quadtree
@@ -155,7 +155,7 @@ var hdxQuadtreeAV = {
                     color: visualSettings.undiscovered.color,
                     opacity: 0.6,
                     weight: 3
-                }) 
+                })
             );
 
             for (var i = 0; i < 4; i++) {
@@ -176,7 +176,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.ne = null;
     this.sw = null;
     this.se = null;
-    
+
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
 
@@ -185,7 +185,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
 
     this.refineIfNeeded = function() {
         if (points.length > refinement){
-           
+
             this.nw = Quadtree(midLat, maxLat, minLng, midLng, refinement);
             this.ne = Quadtree(midLat, maxLat, midLng, maxLng, refinement);
             this.sw = Quadtree(minLat, midLat, minLng, midLng, refinement);
@@ -222,7 +222,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                 }
             }
             return null;
-        } 
+        }
         //if not a leaf return the quadtree that would contain this point
         return childThatContains(lat,lng).get(lat,lng);
     }
