@@ -245,19 +245,34 @@ function showHideDatatables() {
     else {
         datatable.style.display = "none";
     }
+    fixSize();
 }
 
-var statusLeft = 450;  //Width of status panel
+var statusLeft = 400;  //Width of status panel
 var sep = 20;  //Seperation between panels
 var bord = 2;  //Border thickness
+var left = statusLeft + sep + 7;
+var dtWidth = 350;  //Width of datatable
 
 //Ensures that map is resized properly when window is resized
 window.addEventListener('resize', fixSize);
 function fixSize()
 {
-    document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + 2)) + "px";
-    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
-    document.getElementById("avStatusPanel").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
+    var checked = document.getElementById("datatablesCheckbox").checked;
+    if (checked)
+    {
+    
+        document.getElementById("map").style.left = (left + dtWidth - 12) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth) + 6) + "px";
+    }
+    else
+    {
+        document.getElementById("map").style.left = left + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + 6)) + "px";
+        
+    }
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 12) + "px";
+    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - (sep * 5) + 12) + "px";
     
 }
 
@@ -266,14 +281,30 @@ function fixSize()
 
 // top control panel (algorithm controls, reset/load buttons)
 function showTopControlPanel() {
-    var left = statusLeft + sep + 7;
+    
+    var checked = document.getElementById("datatablesCheckbox").checked;
+
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
     document.getElementById("map").style.top = "50px";
-    document.getElementById("map").style.width = (window.innerWidth - left - (2 * sep)) + "px";
-    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
-    document.getElementById("avStatusPanel").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
-    document.getElementById("map").style.left = left + "px";
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 12) + "px";
+    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - (sep * 5) + 12) + "px";
+    
+    if (checked)
+    {
+        document.getElementById("datatable").style.left = statusLeft + (2 * sep) + "px";
+        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 5) + 12) + "px";
+        document.getElementById("map").style.left = (left + dtWidth - 12) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth) + 6) + "px";
+    }
+    else
+    {
+        document.getElementById("map").style.left = left + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + 6)) + "px";
+    }
+
+   
+
     
     //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
 
@@ -377,7 +408,7 @@ function showAVStatusPanel() {
 
     document.getElementById("avStatusPanel").style.display="block";
     document.getElementById("avStatusPanel").style.left = "20px";
-    document.getElementById("avStatusPanel").style.top = "68px"
+    document.getElementById("avStatusPanel").style.top = "67px"
     
 }
 
