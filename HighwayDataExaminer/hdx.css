@@ -9,27 +9,29 @@
     right: 0px;
     overflow:hidden;
     filter: blur(6px);
-    border-radius: 0;
+    border-radius: 10px;
+    border: 2px solid white;
     
 }
 
 #avStatusPanel {
     margin: 0;
-    top: 79px;
+    top: 68px;
     z-index: 11000;
-    background-color: blue;
+    background-color: rgb(30,173,229);
     position: absolute;
     left: 20px;
     overflow: scroll;
     
-    width: 300px;
-    max-height: calc(100vh - 125px);
-    opacity: .95;
+    width: 450px;
+    /*max-height: calc(100vh - 125px);*/
+    opacity: 1.0;
     display: none;
 
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: white;
+    border: 2px solid white;
 
     
 
@@ -39,6 +41,39 @@
     border: none;
     width: 100%;
     overflow: scroll;
+    background-color: rgb(30,173,229);
+    
+}
+
+#avStatusTable th
+{
+    border: none;
+    font-size: 24px;
+    color: white;
+    font-weight: normal;
+}
+
+#avStatusTable td:not(.codeRow *)
+{
+    border: 5px solid rgb(30,173,229);
+    border-radius: 10px;
+    padding: 5px;
+    
+}
+
+#avStatusTable td#pseudo
+{
+    border: none;
+    margin: 0;
+    padding-top: 0;
+}
+
+
+#algorithmStatus
+{
+    padding: 10px;
+    height: 25px;
+    color: white;
 }
 
 #map * {
@@ -126,13 +161,20 @@ table.dataTable tbody td {
 table.pseudocode {
     font-size: 9pt;
     font-family: "Courier New", Courier, monospace;
-    border: none;
+    border: 1px solid black;
     border-spacing: 0px;
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     color: black;
+   
+}
+
+#START td.pseudocode
+{
+    border: 1px solid black;
+    border-radius: 0;
 }
 
 td.pseudocode {
@@ -146,6 +188,12 @@ tr.pseudocode {
     border-collapse: collapse;
     padding-top: 0;
 }
+/*tr.codeRow td
+{
+    color:rgb(129, 91, 216);
+    border: none;
+}*/
+
 
 .highlight {
     background-color: yellow;
@@ -701,6 +749,11 @@ input
     font-weight: 500;
     color: white;
 }
+
+#topControlPanelAV1 #startPauseButton, #topControlPanelAV4 #resetButton
+{
+    margin-top: 2px;
+}
 #resetButton
 {
     background-color: rgb(255, 68, 78);
@@ -715,7 +768,7 @@ input
     
 }
 
-div.menubar > *
+div.menubar > *:not(#title)
 {
     
     float: right;
@@ -784,10 +837,40 @@ div.menubar
     border: none;
 }
 
-
-
-/*#the-basics
+#pscode, #pscode *
 {
-    z-index: 200000;
-}*/
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    
+}
+tr#pscode
+{
+    height: 20px;
+}
+tr#pscode td#pscoded
+{
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#title p#titleh1
+{
+    float: left;
+    max-width: 200px;
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    margin: 10px;
+
+}
+#title
+{
+    text-align: left;
+}
+
+
 

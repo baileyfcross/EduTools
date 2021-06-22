@@ -233,7 +233,13 @@ ENDOFSTUFF;
       </tr>
     </tbody>
   </table>
+  
 </div>
+<div id="title">
+		<p id = "titleh1">
+			METAL HDX
+</p>
+  </div>
 </div>
 <!--<div id="topControlPanel">
 	<p>
@@ -757,6 +763,7 @@ ENDOFSTUFF;
     <thead><tr><th>Algorithm Visualization Status</th></tr><thead>
       <tbody id="algorithmVars">
 	<tr><td id="algorithmStatus"></td></tr>
+	<tr id = "pscode"><td id = "pscoded">Pseudocode</td></tr>
 	<tr><td id="pseudo">
 	    <span id="pseudoText" style="display:none;">Select an algorithm to view pseudocode.</span>
 	  </td>

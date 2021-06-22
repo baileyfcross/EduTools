@@ -247,12 +247,18 @@ function showHideDatatables() {
     }
 }
 
+var statusLeft = 450;  //Width of status panel
+var sep = 20;  //Seperation between panels
+var bord = 2;  //Border thickness
+
 //Ensures that map is resized properly when window is resized
 window.addEventListener('resize', fixSize);
 function fixSize()
 {
-    document.getElementById("map").style.width = (window.innerWidth - 362) + "px";
-    document.getElementById("map").style.height = (window.innerHeight - 100) + "px";
+    document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + 2)) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
+    document.getElementById("avStatusPanel").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
+    
 }
 
 // Functions to show or hide panels that are displayed only
@@ -260,12 +266,14 @@ function fixSize()
 
 // top control panel (algorithm controls, reset/load buttons)
 function showTopControlPanel() {
+    var left = statusLeft + sep + 7;
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
-    document.getElementById("map").style.top = "60px";
-    document.getElementById("map").style.width = (window.innerWidth - 362) + "px";
-    document.getElementById("map").style.height = (window.innerHeight - 100) + "px";
-    document.getElementById("map").style.left = "320px";
+    document.getElementById("map").style.top = "50px";
+    document.getElementById("map").style.width = (window.innerWidth - left - (2 * sep)) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
+    document.getElementById("avStatusPanel").style.height = (window.innerHeight - (sep * 5) + 10) + "px";
+    document.getElementById("map").style.left = left + "px";
     
     //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
 
@@ -369,7 +377,7 @@ function showAVStatusPanel() {
 
     document.getElementById("avStatusPanel").style.display="block";
     document.getElementById("avStatusPanel").style.left = "20px";
-    document.getElementById("avStatusPanel").style.top = "79px"
+    document.getElementById("avStatusPanel").style.top = "68px"
     
 }
 
