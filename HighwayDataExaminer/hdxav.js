@@ -345,7 +345,7 @@ var hdxAV = {
                 
         // undo any previous highlighting
         unhighlightPseudocode();
-        //console.log("ACTION: " + hdxAV.nextAction);
+        console.log("ACTION: " + hdxAV.nextAction);
         
         // execute the JS to continue the AV
         currentAction.code(thisAV);
