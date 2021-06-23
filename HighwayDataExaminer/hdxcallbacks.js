@@ -262,7 +262,7 @@ function fixSize()
     if (checked)
     {
     
-        document.getElementById("map").style.left = (left + dtWidth - 6) + "px";
+        document.getElementById("map").style.left = (left + dtWidth - 6) + "px"; 
         document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth)) + "px";
         
     }
