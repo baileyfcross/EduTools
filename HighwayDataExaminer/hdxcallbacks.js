@@ -262,8 +262,9 @@ function fixSize()
     if (checked)
     {
     
-        document.getElementById("map").style.left = (left + dtWidth - 12) + "px";
-        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth) + 6) + "px";
+        document.getElementById("map").style.left = (left + dtWidth - 6) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth)) + "px";
+        
     }
     else
     {
@@ -294,8 +295,8 @@ function showTopControlPanel() {
     {
         document.getElementById("datatable").style.left = statusLeft + (2 * sep) + "px";
         document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 5) + 12) + "px";
-        document.getElementById("map").style.left = (left + dtWidth - 12) + "px";
-        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth) + 6) + "px";
+        document.getElementById("map").style.left = (left + dtWidth - 6) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth)) + "px";
     }
     else
     {
