@@ -28,7 +28,9 @@ var hdxQuadtreeAV = {
     //into either, leaves without refinement, leaves from refinement, or a parent
     currentVertex: null,
 
-    // this is used to return to the specific location in the pseudocode for recursive calls, notably add
+    //this is used to return to the specific location in the pseudocode/state machine for recursive calls, notably add
+    //as such there is no special function mechanism that allows this to happen. All we are doing is pushing
+    //the state we are going to next after a call is made
     callStack: [],
 
     //used to track the parents of quadtrees, primarily used alongside the childThatContains calls
@@ -43,6 +45,9 @@ var hdxQuadtreeAV = {
     //default refinement threshold for the quadtree, deterimined with an i/o box before the av runs
     refinement: 3,
     //index for the refinement loop
+    //the reason why this does not have to be saved on a stack is because when we are adding points
+    //we do not care about previous add calls other than to get us into the correct quadtree
+    //as such, the only time we need to reset this variable is when children are created
     refI: -1,
     //remaining waypoints to be added to the tree
     numVUndiscovered: waypoints.length,
@@ -347,7 +352,7 @@ var hdxQuadtreeAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
 
                 thisAV.callStack.push("topForLoop");
-                
+
                 hdxAV.nextAction = "bottomAddPoint";
                 hdxAV.iterationDone = true;
 
