@@ -39,9 +39,9 @@ var hdxQuadtreeAV = {
     //loop variable that tracks which point is currently being added to the base quadtre
     nextToCheck: 0,
     //# leaf quadrants so far
-    numLeafQuads: 0,
-    // # empty quadtrees
-    numEmptyQuads: 0,
+    numLeaves: 1,
+    //depth of the quadtree
+    maxDepth: 0,
     //default refinement threshold for the quadtree, deterimined with an i/o box before the av runs
     refinement: 3,
     //index for the refinement loop
@@ -69,14 +69,18 @@ var hdxQuadtreeAV = {
 
                 thisAV.nextToCheck = -1;
 
-                thisAV.numLeafQuads = 0;
+                thisAV.numLeaves = 1;
+
+                thisAV.maxDepth = 0;
 
                 thisAV.callStack = [];
 
                 thisAV.qtStack = [];
 
                 thisAV.refI = -1; 
+
                 thisAV.numVUndiscovered = waypoints.length;
+                updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
 
 
                 //other stuff needs to go here but at least the boundingBox should be generated from here
@@ -102,16 +106,21 @@ var hdxQuadtreeAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
 
-                hdxAV.iterationDone = true;
+              
                 thisAV.currentQuadtree = thisAV.baseQuadtree;
                 thisAV.qtStack = [];
                 thisAV.nextToCheck++;
-                thisAV.currentVertex = waypoints[thisAV.nextToCheck];
+                
                 if(thisAV.nextToCheck < waypoints.length){
+                    waypoints[thisAV.nextToCheck].num = thisAV.nextToCheck;
+                    thisAV.currentVertex = waypoints[thisAV.nextToCheck];
                     updateMarkerAndTable(thisAV.nextToCheck, visualSettings.visiting,
                         30, false);
-                    thisAV.currentVertex.num = thisAV.nextToCheck;
+                    updateAVControlEntry("visiting","Visiting: #" + thisAV.currentVertex.num + " " + thisAV.currentVertex.label);
                     thisAV.numVUndiscovered--;
+                    updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
+                    updateAVControlEntry("numLeaves","Number of leaf quadtrees: " + thisAV.numLeaves);
+                    updateAVControlEntry("maxDepth","Depth of the quadtree: " + thisAV.maxDepth);
                     thisAV.qtStack.push(thisAV.currentQuadtree);
                     hdxAV.nextAction = "topAddPoint";
                 } else {
@@ -132,8 +141,6 @@ var hdxQuadtreeAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
 
                 thisAV.callStack.push("topForLoop");
-
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "bottomAddPoint";
 
             },
@@ -148,8 +155,6 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-                
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "isLeaf";
 
             },
@@ -164,8 +169,6 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-
-                hdxAV.iterationDone = true;
 
                 if(thisAV.currentQuadtree.isLeaf()){
                     hdxAV.nextAction = "pushPoint";
@@ -185,10 +188,9 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
+                updateMarkerAndTable(thisAV.currentVertex.num,visualSettings.spanningTree,30,false);
 
                 thisAV.currentQuadtree.points.push(thisAV.currentVertex);
-
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "ifRefine";
 
             },
@@ -203,16 +205,16 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-
-                hdxAV.iterationDone  = true;
                 if(thisAV.currentQuadtree.points.length < thisAV.refinement){
-                    updateMarkerAndTable(thisAV.nextToCheck, visualSettings.spanningTree,
-                        30, false);
                         
                     thisAV.currentQuadtree = thisAV.qtStack.pop();
                         
                     hdxAV.nextAction = thisAV.callStack.pop();
                 } else {
+                    for(var i = 0; i < thisAV.currentQuadtree.points.length; i++){
+                        updateMarkerAndTable(thisAV.currentQuadtree.points[i].num,visualSettings.discovered,
+                            31,false);
+                    }
                     hdxAV.nextAction = "makeChildren";
                 }
             },
@@ -234,13 +236,17 @@ var hdxQuadtreeAV = {
                 //this method call adds new polylines to the map to represent the creation of new quadtree children
                 //and that the refinement process has begun
                 thisAV.addNewPolylines();
+                thisAV.numLeaves += 3
+                updateAVControlEntry("numLeaves","Number of leaf quadtrees: " + thisAV.numLeaves);
+                if(thisAV.maxDepth < thisAV.qtStack.length){
+                    thisAV.maxDepth = thisAV.qtStack.length;
+                    updateAVControlEntry("maxDepth","Depth of the quadtree: " + thisAV.maxDepth);
+                }
 
                 //this will overwrite existing polylines
                 for(let i = 0; i < thisAV.boundingPoly; i++){
                     thisAV.boundingPoly[i].addTo(map);
                 }
-
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "topRefLoop";
 
             },
@@ -255,6 +261,8 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
+                
+                
                 thisAV.refI++;
                 thisAV.currentVertex = thisAV.currentQuadtree.points[thisAV.refI];
 
@@ -265,6 +273,8 @@ var hdxQuadtreeAV = {
                 hdxAV.iterationDone = true;
                 if(thisAV.refI < thisAV.refinement){
                     hdxAV.nextAction = "loopFindChild";
+                    updateMarkerAndTable(thisAV.currentVertex.num,visualSettings.visiting,30,false);
+                    updateAVControlEntry("visiting","Visiting: #" + thisAV.currentVertex.num + " " + thisAV.currentVertex.label);
                 } else {
                     hdxAV.nextAction = "pointsNull";
                 }
@@ -284,7 +294,6 @@ var hdxQuadtreeAV = {
 
                 thisAV.callStack.push("loopChildAdd");
                 
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "bottomFindChild";
             },
             logMessage: function(thisAV){
@@ -300,8 +309,6 @@ var hdxQuadtreeAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
 
                 thisAV.callStack.push("topRefLoop");
-
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "bottomAddPoint";
 
             },
@@ -321,7 +328,6 @@ var hdxQuadtreeAV = {
                 thisAV.currentQuadtree.points = null;
 
                 hdxAV.nextAction = "topForLoop";
-                hdxAV.iterationDone = true;
             },
             logMessage: function(thisAV){
                 return "Setting the points array of the parent quadtree to null";
@@ -354,7 +360,6 @@ var hdxQuadtreeAV = {
                 thisAV.callStack.push("topForLoop");
 
                 hdxAV.nextAction = "bottomAddPoint";
-                hdxAV.iterationDone = true;
 
             },
             logMessage: function(thisAV){
@@ -369,7 +374,6 @@ var hdxQuadtreeAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
 
-                hdxAV.iterationDone = true;
                 hdxAV.nextAction = "findChildLat";
 
             },
@@ -384,8 +388,6 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-
-                hdxAV.iterationDone = true;
                 if(thisAV.currentVertex.lat < thisAV.currentQuadtree.midLat){
 
                     hdxAV.nextAction = "topFindChildLng";
@@ -406,8 +408,6 @@ var hdxQuadtreeAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-
-                hdxAV.iterationDone = true;
                 if(thisAV.currentVertex.lon < thisAV.currentQuadtree.midLng){
 
                     hdxAV.nextAction = "returnSW";
@@ -429,7 +429,6 @@ var hdxQuadtreeAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
 
-                hdxAV.iterationDone = true;
                 if(thisAV.currentVertex.lon < thisAV.currentQuadtree.midLng){
 
                     hdxAV.nextAction = "returnNW";
@@ -527,7 +526,7 @@ var hdxQuadtreeAV = {
                 hdxAV.algStat.innerHTML =
                     "Done! Visited " + waypoints.length + " waypoints.";
                 //updateAVControlEntry("undiscovered", "0 vertices not yet visited");
-                //updateAVControlEntry("visiting", "");
+                updateAVControlEntry("visiting","");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
                 
@@ -624,9 +623,10 @@ var hdxQuadtreeAV = {
         + (waypoints.length) + '" value="3">';
         hdxAV.algOptions.innerHTML = newAO;
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
-        addEntryToAVControlPanel("totalChecked", visualSettings.visiting);
-        addEntryToAVControlPanel("numLeaves",visualSettings.searchFailed);
-        //this is important to add later because then we need to decide what exactly we need to show
+        addEntryToAVControlPanel("visiting",visualSettings.visiting)
+        addEntryToAVControlPanel("numLeaves",visualSettings.discovered);
+        addEntryToAVControlPanel("maxDepth",visualSettings.searchFailed);
+       
     },
 
     cleanupUI() {
@@ -757,11 +757,8 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
 
     this.refineIfNeeded = function() {
         if (points.length > refinement){
-           
-            this.nw = Quadtree(midLat, maxLat, minLng, midLng, refinement);
-            this.ne = Quadtree(midLat, maxLat, midLng, maxLng, refinement);
-            this.sw = Quadtree(minLat, midLat, minLng, midLng, refinement);
-            this.se = Quadtree(minLat, midLat, midLng, maxLng, refinement);
+
+           makeChildren();
 
             for(var i = 0; i < points.length; i++){
                 childThatContains(points[i].lat,points[i],points[i].lon).push(points[i]);
