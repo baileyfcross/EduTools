@@ -12,55 +12,62 @@ var hdxQuadtreeAV = {
     value: "quadtree",
     name: "Quadtree Construction",
     description: "Construct a quadtree by inserting all waypoints and refining as needed.",
-    //this is used to determine the universe of our quadtree
+    //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
     w: 0,
     s: 0,
-
-    quadtreeVList: [],
-    numVQuadtree: 0,
-    // this to work like the call stack in recursive dfs so we can track exactly what quadtree
-    // is adding what point so we can better demonstrate the recursive nature of quadtrees
+    
+    //currentQuadtree is used to track which child of the quadtree we are adding the waypoint to
     currentQuadtree: null,
+
+    //baseQuadtree is used to return back to the original universe-wide quadtree after we are fis
     baseQuadtree: null,
+
+    //used to keep track of which point is being added, which is important because points can be added 
+    //into either, leaves without refinement, leaves from refinement, or a parent
     currentVertex: null,
-    // this is used to return to the specific location in the pseudocode when necessary
+
+    // this is used to return to the specific location in the pseudocode for recursive calls, notably add
     callStack: [],
-    //this is used to find what specific quadtree a point is being added to
+
+    //used to track the parents of quadtrees, primarily used alongside the childThatContains calls
     qtStack: [],
 
-    //show which waypoint is being added
+    //loop variable that tracks which point is currently being added to the base quadtre
     nextToCheck: 0,
     //# leaf quadrants so far
     numLeafQuads: 0,
     // # empty quadtrees
     numEmptyQuads: 0,
-    //refinement threshold, should be deterimined with a fill in box before the av runs
+    //default refinement threshold for the quadtree, deterimined with an i/o box before the av runs
     refinement: 3,
-    //loop common variable for the refinement loop
+    //index for the refinement loop
     refI: -1,
     //remaining waypoints to be added to the tree
     numVUndiscovered: waypoints.length,
 
     // list of polylines showing the universe bounds
-    // and divisions between quadtrees, updated by
-    // directionalBoundingBox function below
+    // and divisions representing quadtrees, updated by
+    // directionalBoundingBox and addNewPolylines functions below
     boundingPoly: [],
-
-    quadtree: null,
 
     avActions: [
         {
             label: "START",
-            comment: "creating bounding box that contains all waypoints",
+            comment: "creates bounding box and initializes fields",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
-                thisAV.quadtreeVList = [];
+                //this gets the specific value for the refinement threshold for the quadtree
+                //from the user in the window before they press visualize
                 thisAV.refinement = document.getElementById("refinement").value;
+
                 thisAV.nextToCheck = -1;
+
                 thisAV.numLeafQuads = 0;
+
                 thisAV.callStack = [];
+
                 thisAV.qtStack = [];
 
                 thisAV.refI = -1; 
@@ -70,18 +77,10 @@ var hdxQuadtreeAV = {
                 //other stuff needs to go here but at least the boundingBox should be generated from here
                 thisAV.boundingPoly = [];
                 thisAV.generateBoundingBox();
-                console.log(thisAV.s);
-                console.log(thisAV.n);
-                console.log(thisAV.e);
-                console.log(thisAV.w);
 
                 thisAV.baseQuadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
                 thisAV.currentQuadtree = thisAV.baseQuadtree;
                 thisAV.currentVertex = null;
-
-                console.log((parseFloat(thisAV.s) + parseFloat(thisAV.n)) / 2);
-                console.log(thisAV.currentQuadtree.midLat);
-
 
                 hdxAV.iterationDone = true;
                 hdxAV.nextAction = "topForLoop";
@@ -94,7 +93,7 @@ var hdxQuadtreeAV = {
 
         {
             label: "topForLoop",
-            comment: "",
+            comment: "main for loop that iterates over all waypoints to add each to the quadtree",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
 
@@ -103,6 +102,7 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack = [];
                 thisAV.nextToCheck++;
                 thisAV.currentVertex = waypoints[thisAV.nextToCheck];
+                thisAV.currentVertex.num = nextToCheck;
                 if(thisAV.nextToCheck < waypoints.length){
                     updateMarkerAndTable(thisAV.nextToCheck, visualSettings.visiting,
                         30, false);
@@ -133,7 +133,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "Adding vertex " + thisAV.nextToCheck + " to quadtree";
+                return "Adding vertex #" + thisAV.nextToCheck + ": " + waypoints[thisAV.nextToCheck].label + "to quadtree";
             }
 
         },
@@ -182,14 +182,13 @@ var hdxQuadtreeAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
 
                 thisAV.currentQuadtree.points.push(thisAV.currentVertex);
-                console.log(thisAV.currentQuadtree.points);
 
                 hdxAV.iterationDone = true;
                 hdxAV.nextAction = "ifRefine";
 
             },
             logMessage: function(thisAV){
-                return "Adding vertex #" + thisAV.nextToCheck + " " + waypoints[thisAV.nextToCheck].label + " to points";
+                return "Adding vertex #" + thisAV.nextToCheck + " to this quadtree's points array";
             }
 
         },
@@ -224,17 +223,12 @@ var hdxQuadtreeAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
                 
-                console.log(thisAV.currentQuadtree);
                 thisAV.refI = -1;
-
-                //thisAV.currentQuadtree.nw = new Quadtree(thisAV.currentQuadtree.midLat,  thisAV.currentQuadtree.maxLat,  thisAV.currentQuadtree.minLng,  thisAV.currentQuadtree.midLng, thisAV.refinement);
-                //thisAV.currentQuadtree.ne = new Quadtree(thisAV.currentQuadtree.midLat,  thisAV.currentQuadtree.maxLat,  thisAV.currentQuadtree.midLng,  thisAV.currentQuadtree.maxLng, thisAV.refinement);
-                //thisAV.currentQuadtree.sw = new Quadtree(thisAV.currentQuadtree.minLat,  thisAV.currentQuadtree.midLat,  thisAV.currentQuadtree.minLng,  thisAV.currentQuadtree.midLng, thisAV.refinement);
-                //thisAV.currentQuadtree.se = new Quadtree(thisAV.currentQuadtree.minLat,  thisAV.currentQuadtree.midLat,  thisAV.currentQuadtree.midLng,  thisAV.currentQuadtree.maxLng, thisAV.refinement);
+                //this calls a function of the quadtree object that creates the quadtree children
                 thisAV.currentQuadtree.makeChildren();
+                //this method call adds new polylines to the map to represent the creation of new quadtree children
+                //and that the refinement process has begun
                 thisAV.addNewPolylines();
-
-                console.log(thisAV.currentQuadtree);
 
                 //this will overwrite existing polylines
                 for(let i = 0; i < thisAV.boundingPoly; i++){
@@ -290,7 +284,7 @@ var hdxQuadtreeAV = {
                 hdxAV.nextAction = "bottomFindChild";
             },
             logMessage: function(thisAV){
-                return "";
+                return "Finding the which child vertex #" + thisAV.currentVertex.num + " belongs to";
             }
 
         },
@@ -308,7 +302,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Adding vertex #" + thisAV.currentVertex.num + " to new child quadtree";
             }
 
         },
@@ -326,7 +320,7 @@ var hdxQuadtreeAV = {
                 hdxAV.iterationDone = true;
             },
             logMessage: function(thisAV){
-                return "";
+                return "Setting the points array of the parent quadtree to null";
             }
 
         },
@@ -358,7 +352,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Finding the which child vertex #" + thisAV.currentVertex.num + " belongs to";
             }
 
         },
@@ -374,7 +368,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Adding vertex #" + thisAV.currentVertex.num + " to child quadtree";;
             }
 
         },
@@ -396,7 +390,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Checking if vertex #" + thisAV.currentVertex.num + " is in the north or south of the quadtree"
             }
 
         },
@@ -418,7 +412,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Checking if vertex #" + thisAV.currentVertex.num + " is in the southwest or southeast of the quadtree";
             }
 
         },
@@ -440,7 +434,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Checking if vertex #" + thisAV.currentVertex.num + " is in the northwest or northeast of the quadtree";
             }
 
         },
@@ -458,7 +452,7 @@ var hdxQuadtreeAV = {
                 hdxAV.nextAction = thisAV.callStack.pop();
             },
             logMessage: function(thisAV){
-                return "";
+                return "Returning that vertex #" + thisAV.currentVertex.num +  " is in the southwest of the quadtree";
             }
 
         },
@@ -477,7 +471,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Returning that vertex #" + thisAV.currentVertex.num +  " is in the southeast of the quadtree";;
             }
 
         },
@@ -496,7 +490,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Returning that vertex #" + thisAV.currentVertex.num +  " is in the northwest of the quadtree";
             }
 
         },
@@ -515,7 +509,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Returning that vertex #" + thisAV.currentVertex.num +  " is in the northeast of the quadtree";
             }
 
         },
@@ -537,8 +531,6 @@ var hdxQuadtreeAV = {
             }
         }
     ],
-
-    code: "TBD",
     
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
@@ -572,11 +564,11 @@ var hdxQuadtreeAV = {
             pcEntry(2,'if(qt.points.length >= refinement)',"ifRefine");
         this.code += '</td></tr>' +
             pcEntry(3,'midLat &larr; (maxLat + minLat) / 2<br />' +
-                pcIndent(8) + 'midLng &larr; (maxLng + minLng) / 2<br />' +
-                pcIndent(8) + 'qt.nw &larr; new Quadtree(midLat,maxLat,minLng,midLng,refinement)<br />' +
-                pcIndent(8) + 'qt.ne &larr; new Quadtree(midLat,maxLat,midLng,maxLng,refinement)<br />' +
-                pcIndent(8) + 'qt.sw &larr; new Quadtree(minLat,midLat minLng,midLng,refinement)<br />' +
-                pcIndent(8) + 'qt.se &larr; new Quadtree(minLat,midLat,midLng,maxLng,refinement)',"makeChildren");
+                pcIndent(6) + 'midLng &larr; (maxLng + minLng) / 2<br />' +
+                pcIndent(6) + 'qt.nw &larr; new Quadtree(midLat,maxLat,minLng,midLng,refinement)<br />' +
+                pcIndent(6) + 'qt.ne &larr; new Quadtree(midLat,maxLat,midLng,maxLng,refinement)<br />' +
+                pcIndent(6) + 'qt.sw &larr; new Quadtree(minLat,midLat minLng,midLng,refinement)<br />' +
+                pcIndent(6) + 'qt.se &larr; new Quadtree(minLat,midLat,midLng,maxLng,refinement)',"makeChildren");
         this.code += '</td></tr>' +
             pcEntry(3,'for(i &larr; 0 to qt.points.length)',"topRefLoop");
         this.code += '</td></tr>' +
