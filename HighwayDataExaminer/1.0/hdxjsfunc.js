@@ -192,6 +192,8 @@ function errorHandler(evt) {
 //
 function parseTMGContents(fileContents) {
 
+	console.log("Made it to ptc");
+
     var lines = fileContents.replace(/\r\n/g,"\n").split('\n');
     var header = lines[0].split(' ');
     if (header[0] != "TMG") {

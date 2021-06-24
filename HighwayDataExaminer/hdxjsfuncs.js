@@ -512,9 +512,9 @@ function parseTMGContents(fileContents) {
             ' &harr; ' + edgeInfo[1] + ':&nbsp;'
             + waypoints[newEdge.v2].label;
         var subst = '<td style ="word-break:break-all;">'
-            + edgeInfo[0] + ':&nbsp;' + (waypoints[newEdge.v1].label).substring(0,5) +
-            ' &harr; ' + edgeInfo[1] + ':&nbsp;'
-            + (waypoints[newEdge.v2].label).substring(0,5) + '</td>';
+            + edgeInfo[0] + '&nbsp;'  +
+            ' &harr;&nbsp; ' + edgeInfo[1] + '&nbsp;'
+             + '</td>';
         
         eTable += '<tr custom-title = "' + test + '"' + 'onmouseover="hoverE(event,'+i+')" onmouseout="hoverEndE(event,'+i+')" onclick="connectionClick({ connIndex: '+i+'})" id="connection' + i + '" class="v_' + firstNode + '_' + secondNode + '"><td id = "connectname" style ="word-break:break-all;" >' + i + '</td>';
         
