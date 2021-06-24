@@ -102,11 +102,11 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack = [];
                 thisAV.nextToCheck++;
                 thisAV.currentVertex = waypoints[thisAV.nextToCheck];
-                thisAV.currentVertex.num = nextToCheck;
                 if(thisAV.nextToCheck < waypoints.length){
                     updateMarkerAndTable(thisAV.nextToCheck, visualSettings.visiting,
                         30, false);
-                    thisAV.numVUndiscovered++;
+                    thisAV.currentVertex.num = thisAV.nextToCheck;
+                    thisAV.numVUndiscovered--;
                     thisAV.qtStack.push(thisAV.currentQuadtree);
                     hdxAV.nextAction = "topAddPoint";
                 } else {
@@ -133,7 +133,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "Adding vertex #" + thisAV.nextToCheck + ": " + waypoints[thisAV.nextToCheck].label + "to quadtree";
+                return "Adding vertex #" + thisAV.nextToCheck + ": " + waypoints[thisAV.nextToCheck].label + " to quadtree";
             }
 
         },
@@ -149,7 +149,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "Calling method that adds vertex " + thisAV.nextToCheck + " to quadtree";
+                return "Calling method that adds vertex #"+ thisAV.nextToCheck + " to quadtree";
             }
 
         },
@@ -277,7 +277,6 @@ var hdxQuadtreeAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
 
-                //something needs to be pushed onto the call stack so we know where to return to after
                 thisAV.callStack.push("loopChildAdd");
                 
                 hdxAV.iterationDone = true;
@@ -336,7 +335,7 @@ var hdxQuadtreeAV = {
 
             },
             logMessage: function(thisAV){
-                return "";
+                return "Finding the which child vertex #" + thisAV.currentVertex.num + " belongs to";
             }
 
         },
@@ -348,7 +347,9 @@ var hdxQuadtreeAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
 
                 thisAV.callStack.push("topForLoop");
+                
                 hdxAV.nextAction = "bottomAddPoint";
+                hdxAV.iterationDone = true;
 
             },
             logMessage: function(thisAV){
