@@ -158,5 +158,12 @@ var visualSettings = {
     pseudocodeDefault: {
         color: "white",
         textColor: "black"
+    },
+    highlightBounding: {
+        color: "red",
+        textColor: "black",
+        name: "highlightBounding",
+        weight: 4,
+        opacity: 0.7
     }
 };
