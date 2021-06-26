@@ -23,5 +23,16 @@ var hdxOrderingAV = {
             }
 
         }
-    ]
+    ],
+    
+    prepToStart() {
+    },
+    
+    nextStep() {
+
+    },
+
+    setupUI() {},
+
+    cleanupUI() {}
 }
