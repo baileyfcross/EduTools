@@ -384,6 +384,7 @@ var hdxAV = {
         // better visibility for results
         document.getElementById("pseudoCheckbox").checked = false;
         document.getElementById("pseudoText").style.display = "none";
+        document.getElementById("pscode").style.display = "none";
             
         hdxAV.setStatus(hdxStates.AV_COMPLETE);
         HDXAddCustomTitles();

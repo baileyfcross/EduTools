@@ -215,8 +215,7 @@ ENDOFSTUFF;
 		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
 		  </div>
 	  	  
-	</td>
-	  </td><td id="topControlPanelAV4">
+	</td><td id="topControlPanelAV4">
 	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />
 	<!-- if any more AV-specific entries are added, they need to
 	     be dealt with in showTopControlPanel() -->
@@ -425,7 +424,7 @@ ENDOFSTUFF;
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
 			dataPanel.appendChild(back);
-      back.addEventListener("click", HDXGraphSearchCleanup());
+      		back.addEventListener("click", HDXGraphSearchCleanup());
 			back.addEventListener("click", defaultMenu);
 
       //Spacing on the panel
@@ -449,10 +448,11 @@ ENDOFSTUFF;
 			dataPanel.appendChild(basic);
 
       //makes the next button
-			var start = document.createElement("button");
-			start.setAttribute("id", "vis");
-			start.innerHTML = "Next";
-			dataPanel.appendChild(start);
+			var next = document.createElement("button");
+			next.setAttribute("id", "next");
+			next.innerHTML = "Next";
+			next.addEventListener("click", nextPressed);
+			dataPanel.appendChild(next);
 
 		}
 
@@ -604,6 +604,21 @@ ENDOFSTUFF;
 
 		}
 
+		function loadingMenu()
+		{
+			console.log("made it loading");
+
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+
+			var loading = document.createElement("p");
+			loading.setAttribute("id", "loading");
+			loading.innerHTML = "Loading...";
+
+			dataPanel.appendChild(loading);
+		}
+
 
 		function defaultMenu()
 		{
@@ -739,9 +754,11 @@ ENDOFSTUFF;
     <thead><tr><th>Algorithm Visualization Status</th></tr><thead>
       <tbody id="algorithmVars">
 	<tr><td id="algorithmStatus"></td></tr>
-	<tr id = "pscode"><td id = "pscoded">Pseudocode</td></tr>
+	
 	<tr><td id="pseudo">
+		<p id = "pscode" style="display:none;">Pseudocode</p>
 	    <span id="pseudoText" style="display:none;">Select an algorithm to view pseudocode.</span>
+		
 	  </td>
 	</tr>
       </tbody>
