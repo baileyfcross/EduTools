@@ -357,7 +357,7 @@ var hdxAV = {
         // hover over the current action, this shows the last 5 messages
         //hdxAV.algStat.innerHTML = currentAction.logMessage(thisAV);
 
-        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV).replace(/ /g,"&nbsp;"));
+        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV));
         if (hdxAV.logMessageArr.length == 8) {
              hdxAV.logMessageArr.splice(0, 1);
         }

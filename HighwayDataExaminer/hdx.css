@@ -81,8 +81,24 @@
 #algorithmStatus
 {
     padding: 10px;
-    height: 25px;
+    width: 200px;
+    display: block;
     color: white;
+    min-height: 40px;
+    
+}
+
+#algorithmStatus span
+{
+    width: 380px;
+    display: inline-block;
+    
+    
+}
+
+#discoveredAVCPEntry
+{
+    max-width: 39px;
 }
 
 #map * {

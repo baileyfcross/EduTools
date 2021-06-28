@@ -35,6 +35,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <link rel="stylesheet" href="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.css">
+
+<link rel="icon" type="image/png" href="MetalBetaLogo2Small.png">
 <!-- bring in common JS libraries from TM for maps, etc. -->
 <?php tm_common_js(); ?>
 <script src="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.js"></script>
