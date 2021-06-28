@@ -36,8 +36,8 @@ var hdxQuadtreeAV = {
     //used to track the parents of quadtrees, primarily used alongside the childThatContains calls
     qtStack: [],
 
-    //loop variable that tracks which point is currently being added to the base quadtre
-    nextToCheck: 0,
+    //loop variable that tracks which point is currently being added to the base quadtree
+    nextToCheck: -1,
     //# leaf quadrants so far
     numLeaves: 1,
     //depth of the quadtree
