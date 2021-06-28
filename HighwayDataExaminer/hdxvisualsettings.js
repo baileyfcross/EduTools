@@ -9,12 +9,12 @@
 // algorithm visualization color settings and other parameters
 var visualSettings = {
     // first, some used by many algorithms
-    
+
     undiscovered: {
         color: "#202020",
         textColor: "#e0e0e0",
         scale: 4,
-        name: "undiscovered", 
+        name: "undiscovered",
         value: 0,
         weight: 5,
         opacity: 0.6
@@ -165,5 +165,10 @@ var visualSettings = {
         name: "highlightBounding",
         weight: 4,
         opacity: 0.7
+    },
+    quadtree: {
+        color: "pink",
+        textColor: "black"
+
     }
 };

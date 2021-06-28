@@ -102,6 +102,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
 <script src="hdxquadtreeav.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<script src="https://d3js.org/d3.v7.min.js" type = "text/javascript"></script>
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
 

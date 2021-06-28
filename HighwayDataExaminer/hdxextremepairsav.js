@@ -13,7 +13,7 @@ var hdxExtremePairsAV = {
     value: "closestpairs",
     name: "Waypoint Closest/Farthest Pairs",
     description: "Search for the closest/farthest pair of waypoints (vertices).",
-    
+
     // state variables for closest pairs search
     // loop indices
     v1: 0,
@@ -59,7 +59,7 @@ var hdxExtremePairsAV = {
             value: 0
         }
     },
-    
+
     // the actions that make up this algorithm
     avActions: [
         {
@@ -67,7 +67,7 @@ var hdxExtremePairsAV = {
             comment: "initialize closest pair variables",
             code: function(thisAV) {
                 highlightPseudocode(this.label, visualSettings.visiting);
-                
+
                 updateAVControlEntry("closeLeader", "no leader yet, d<sub>closest</sub> = &infin;");
                 updateAVControlEntry("farLeader", "no leader yet, d<sub>farthest</sub> = 0");
 
@@ -146,7 +146,7 @@ var hdxExtremePairsAV = {
             label: "computeDistance",
             comment: "compute distance of current candidate pair",
             code: function(thisAV) {
-                highlightPseudocode(this.label, visualSettings.visiting);       
+                highlightPseudocode(this.label, visualSettings.visiting);
                 thisAV.d_this = convertToCurrentUnits(
 		    distanceInMiles(waypoints[thisAV.v1].lat,
                                     waypoints[thisAV.v1].lon,
@@ -164,7 +164,7 @@ var hdxExtremePairsAV = {
             label: "checkCloseLeader",
             comment: "check if current candidate pair is the new closest pair",
             code: function(thisAV) {
-                highlightPseudocode(this.label, visualSettings.visiting);       
+                highlightPseudocode(this.label, visualSettings.visiting);
                 if (thisAV.d_this < thisAV.d_closest) {
                     hdxAV.nextAction = "newCloseLeader";
                 }
@@ -211,7 +211,7 @@ var hdxExtremePairsAV = {
                 thisAV.closest = [ thisAV.v1, thisAV.v2 ];
                 thisAV.d_closest = thisAV.d_this;
 
-                updateAVControlEntry("closeLeader", "Closest: [" + 
+                updateAVControlEntry("closeLeader", "Closest: [" +
                                      thisAV.v1 + "," + thisAV.v2 + "], d<sub>closest</sub>: " + thisAV.d_closest.toFixed(3));
                 updateMarkerAndTable(thisAV.v1, visualSettings.leader,
                                      40, false);
@@ -228,7 +228,7 @@ var hdxExtremePairsAV = {
             label: "checkFarLeader",
             comment: "check if current candidate pair is the new farthest pair",
             code: function(thisAV) {
-                highlightPseudocode(this.label, visualSettings.visiting);       
+                highlightPseudocode(this.label, visualSettings.visiting);
                 if (thisAV.d_this > thisAV.d_farthest) {
                     hdxAV.nextAction = "newFarLeader";
                 }
@@ -275,7 +275,7 @@ var hdxExtremePairsAV = {
                 thisAV.farthest = [ thisAV.v1, thisAV.v2 ];
                 thisAV.d_farthest = thisAV.d_this;
 
-                updateAVControlEntry("farLeader", "Farthest: [" + 
+                updateAVControlEntry("farLeader", "Farthest: [" +
                                      thisAV.v1 + "," + thisAV.v2 + "], d<sub>farthest</sub>: " + thisAV.d_farthest.toFixed(3));
                 updateMarkerAndTable(thisAV.v1, visualSettings.leader2,
                                      40, false);
@@ -295,7 +295,7 @@ var hdxExtremePairsAV = {
 
                 // undisplay the visiting segment
                 thisAV.removeLineVisiting();
-                
+
                 // if the current v2 isn't part of the current closest pair
                 // or current farthest pair, discard it
                 if (thisAV.v2 == thisAV.closest[0] ||
@@ -383,7 +383,7 @@ var hdxExtremePairsAV = {
                     updateMarkerAndTable(waypoints.length - 1,
                                          visualSettings.discarded, 15, true);
                 }
-                
+
                 updateAVControlEntry("v1visiting", "");
                 updateAVControlEntry("v2visiting", "");
                 updateAVControlEntry("checkingDistance", "");
@@ -408,9 +408,9 @@ var hdxExtremePairsAV = {
             opacity: 0.6,
             weight: 4
         });
-        this.lineVisiting.addTo(map);   
+        this.lineVisiting.addTo(map);
     },
-    
+
     // function to remove the visiting polyline
     removeLineVisiting() {
 
@@ -431,7 +431,7 @@ var hdxExtremePairsAV = {
                 opacity: 0.6,
                 weight: 4
             });
-            this.lineClosest.addTo(map);        
+            this.lineClosest.addTo(map);
         }
         else {
             this.lineClosest.setLatLngs(closestLine);
@@ -449,7 +449,7 @@ var hdxExtremePairsAV = {
                 opacity: 0.6,
                 weight: 4
             });
-            this.lineFarthest.addTo(map);       
+            this.lineFarthest.addTo(map);
         }
         else {
             this.lineFarthest.setLatLngs(farthestLine);
@@ -490,8 +490,8 @@ var hdxExtremePairsAV = {
         addEntryToAVControlPanel("closeLeader", visualSettings.leader);
         addEntryToAVControlPanel("farLeader", visualSettings.leader2);
     },
-        
-        
+
+
     // remove UI modifications made for vertex closest/farthest pairs
     cleanupUI() {
 
@@ -502,13 +502,13 @@ var hdxExtremePairsAV = {
             this.lineFarthest.remove();
         }
     },
-    
+
     idOfAction(action) {
         return action.label;
     },
-    
+
     setConditionalBreakpoints(name) {
-	
+
         let max = waypoints.length-1;
         let temp = HDXCommonConditionalBreakpoints(name);
         if (temp != "No innerHTML") {
@@ -530,7 +530,7 @@ var hdxExtremePairsAV = {
     },
 
     hasConditonalBreakpoints(name) {
-	
+
         let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
             return true;
