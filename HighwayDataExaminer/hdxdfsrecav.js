@@ -239,7 +239,7 @@ var hdxDFSRecAV = {
                 hdxAV.nextAction = "recursiveCallTop"                
             },
             logMessage: function(thisAV) {
-                return "call recursion on vertex #" + thisAV.visiting;
+                return "Call recursion on vertex #" + thisAV.visiting;
             }
         },
         {
