@@ -51,6 +51,8 @@ function showHidePseudocode() {
     hdxAV.traceActions = document.getElementById("pseudoCheckbox").checked;
     document.getElementById("pseudoText").style.display =
         (hdxAV.traceActions ? "" : "none");
+        document.getElementById("pscode").style.display =
+        (hdxAV.traceActions ? "" : "none");
 }
 
 // generic event handler for start/pause/resume button
@@ -253,13 +255,37 @@ var sep = 10;  //Seperation between panels
 var bord = 2;  //Border thickness
 var left = statusLeft + sep + (3 * bord);
 var dtWidth;  //Width of datatable
+var firstLoad = true;
+var titleScreen = true;
 
 //Ensures that map is resized properly when window is resized.
 window.addEventListener('resize', fixSize);
 function fixSize()
 {
     var checked = document.getElementById("datatablesCheckbox").checked;
-    if (checked && hdxAV.currentAV.value != "NONE")  //Datatables checked and an algorithm is selected
+    if (titleScreen)
+    {
+    
+    }
+    else if (checked && hdxAV.currentAV == null)
+    {
+        if (firstLoad)
+        {
+            document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
+            document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
+            
+        }
+        else
+        {
+
+        }
+    }
+    else if (!checked && hdxAV.currentAV == null)
+    {
+        document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
+    }
+    else if (checked && hdxAV.currentAV.value != "NONE")  //Datatables checked and an algorithm is selected
     {
     
         dtWidth = document.getElementById("datatable").clientWidth;
@@ -289,8 +315,11 @@ function fixSize()
         document.getElementById("map").style.width = (window.innerWidth - (2 * sep) - 4) + "px";
     }
 
+    if (!titleScreen)
+    {
     document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 71) + "px";
     document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 71) + "px";
+    }
     
     
 }
@@ -301,26 +330,15 @@ function fixSize()
 // top control panel (algorithm controls, reset/load buttons)
 function showTopControlPanel() {
     
-    var checked = document.getElementById("datatablesCheckbox").checked;
 
+    firstLoad = false;
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
     document.getElementById("map").style.top = "67px";
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 73) + "px";
     
-    if (checked)
-    {
-        document.getElementById("datatable").style.left = statusLeft + (2 * sep) + "px";
-        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 5) + 12) + "px";
-        document.getElementById("map").style.left = (left + dtWidth - 6) + "px";
-        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + dtWidth)) + "px";
-    }
-    else
-    {
-        document.getElementById("map").style.left = left + "px";
-        document.getElementById("map").style.width = (window.innerWidth - (statusLeft + (3 * sep) + 6)) + "px";
-    }
+    fixSize();
 
    
 
@@ -418,8 +436,15 @@ function showAlgorithmSelectionPanel() {
 
     document.getElementById("algorithmSelectionPanel").style.display="table";
     document.getElementById("map").style.filter = "none";
+    document.getElementById("map").style.borderRadius = "10px";
+    document.getElementById("map").style.top = "67px";
+    document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
+    document.getElementById("topControlPanelAV3").style.display = "";
+    titleScreen = false;
+    fixSize();
     
 }
+
 
 // the algorithm status panel, including messages, code, data, and
 // other information showing the status of an AV

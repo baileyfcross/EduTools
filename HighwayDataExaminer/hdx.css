@@ -43,6 +43,8 @@
     width: 100%;
     overflow: scroll;
     background-color: rgb(30,173,229);
+    border-collapse: separate;
+    border-spacing: 10px;
  
 }
 
@@ -54,9 +56,14 @@
     font-weight: normal;
 }
 
+.codeRow
+{
+    border-spacing: 0;
+}
+
 #avStatusTable td:not(.codeRow *)
 {
-    border: 5px solid rgb(30,173,229);
+    border: none;
     border-radius: 10px;
     padding: 5px;
     
@@ -67,6 +74,7 @@
     border: none;
     margin: 0;
     padding-top: 0;
+    border-spacing: 0;
 }
 
 
@@ -383,7 +391,7 @@ div
 }
 #loadDataPanel
 {
-    top: 100px;
+    top: 50px;
     max-width: 40%;
     
     display: block;
@@ -468,13 +476,17 @@ h3
 }
 
 #algorithmSelectionPanel {
-    top: 100px;
-    margin: auto;
+
+    text-align: center; 
+    margin: 0;
+    padding: 0;
     
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 24px;
     z-index: 12000;
-    position: relative;
+    position: absolute;
+    left: 0px;
+    top: 0px;
     display: none;
     border-radius: 10px;
     text-align: center;
@@ -482,9 +494,15 @@ h3
 }
 
 #algorithmSelectionPanelTable {
-    border: none;
+    margin: 0;
+    top: 67px;
+    position: absolute;
+    left: 10px;
+    overflow: scroll;
+    
+    width: 404px;
+    border: 2px solid white;
     /*left: 5px;*/
-    position: relative;
     z-index: 10000;
     background-color: rgb(129, 91, 216); 
     color: white;
@@ -631,11 +649,7 @@ input
     margin-top: 0;
 }
 
-#algorithmSelectionPanel
-{
-    text-align: center; 
-    margin: auto;
-}
+
 
 #vex
 {
@@ -855,24 +869,17 @@ div.menubar
     border: none;
 }
 
-#pscode, #pscode *
-{
-    color: white;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-weight: 500;
-    
-}
-tr#pscode
-{
-    height: 20px;
-}
-tr#pscode td#pscoded
+
+p#pscode 
 {
     border: none;
     padding: 0;
     margin: 0;
+    height: 20px;
+    color: white;
+    text-align: center;
+    font-weight: 500;
+   
 }
 
 #title p#titleh1
@@ -889,6 +896,62 @@ tr#pscode td#pscoded
 {
     text-align: left;
 }
+
+input#searchBox
+{
+    
+    background-color: white;
+  
+    border: none;
+    
+}
+input.typeahead.tt-hint
+{
+    display: none;
+}
+.twitter-typeahead
+{
+    background-color: white;
+    border-radius: 10px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    padding: 5px;
+    margin-top: 4px;
+
+}
+
+div.tt-menu.tt-open
+{
+    width: 96.75%;
+    text-align: left;
+}
+
+#next
+{
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+#noGraphFound
+{
+    color: rgb(255, 148, 153);
+}
+
+#loadDataPanel p#loading
+{
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 36px;
+    font-weight: 500;
+    margin-top: 25px;
+    margin-bottom: 25px;
+
+}
+
+input.typeahead.tt-input
+{
+    padding-left: 2px;
+}
+
+
 
 
 
