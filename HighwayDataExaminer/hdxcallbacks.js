@@ -277,7 +277,8 @@ function fixSize()
         }
         else
         {
-
+            document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
+            document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
         }
     }
     else if (!checked && hdxAV.currentAV == null)
@@ -300,17 +301,25 @@ function fixSize()
     }
     else if (!checked && hdxAV.currentAV.value != "NONE") //Datatables not checked and an algorithm is selected
     {
+        
         document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
         document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
         
     }
     else if (checked && hdxAV.currentAV.value == "NONE") //Datatables checked and no algorithm selected
     {
-
+        
+        dtWidth = document.getElementById("datatable").clientWidth;
+        var left2 = dtWidth + sep + (3 * bord);
+        
+        document.getElementById("datatable").style.left = sep + "px";
+        document.getElementById("map").style.left =  (left2 + (1 * sep) + (-1 * bord)) + "px"
+        document.getElementById("map").style.width = (window.innerWidth - (left2 + (2 * sep) + (1 * bord))) + "px";
     }
     else //Datatables not checked and no algorithm selected
     {
 
+        
         document.getElementById("map").style.left = sep + "px";
         document.getElementById("map").style.width = (window.innerWidth - (2 * sep) - 4) + "px";
     }
@@ -374,7 +383,7 @@ function showTopControlPanel() {
         // selected
         av1.style.display = "none";
         av2.style.display = "none";
-        av3.style.display = "none";
+        //av3.style.display = "none";
        // av4.style.display = "";
         av4button.value = "Select AV";
       //  showMarkers.style.display = "";
@@ -440,8 +449,13 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("map").style.top = "67px";
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("topControlPanelAV3").style.display = "";
+    //document.getElementById("currentAlgorithm").innerHTML = "";
+    document.getElementById("datatable").style.display = "none";
     titleScreen = false;
+    hdxAV.currentAV = null;
     fixSize();
+    algorithmSelectionChanged();
+    
     
 }
 

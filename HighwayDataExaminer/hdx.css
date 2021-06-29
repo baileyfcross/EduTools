@@ -45,6 +45,7 @@
     background-color: rgb(30,173,229);
     border-collapse: separate;
     border-spacing: 10px;
+    max-width: 400px;
  
 }
 
@@ -98,8 +99,70 @@
 
 #discoveredAVCPEntry
 {
-    max-width: 39px;
+    max-width: 300px;
+    overflow: scroll;
+    
 }
+
+#discoveredAVCPEntry span
+{
+    text-align: right;
+}
+
+#discoveredAVCPEntry table
+{
+    
+    border-collapse: separate;
+    border-spacing: 10px;
+
+}
+
+#discoveredAVCPEntry table tbody tr td
+{
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    font-size: 12px;
+    border: 2px solid black;
+    
+}
+
+#discoveredAVCPEntry table tbody tr td#dotdotdot
+{
+    background-color: #00a000;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 0;
+    margin: 0;
+    
+}
+
+
+#foundAVCPEntry table.gratable
+{
+    background-color: #0050f0;
+    border-collapse: separate;
+    border-spacing: 10px;
+    border: none;
+    max-width: 380px;
+}
+
+#foundAVCPEntry table.gratable td
+{
+    background-color: white;
+    font-size: 12px;
+}
+
+#foundAVCPEntry table.gratable th
+{
+    font-size: 14px;
+    font-weight: 500;
+}
+
+
+
+
 
 #map * {
     cursor:crosshair;

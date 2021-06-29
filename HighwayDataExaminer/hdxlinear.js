@@ -72,18 +72,13 @@ function HDXLinear(type, displayName) {
 
         this.docElement = dE;
         this.elementHTMLCallback = eC;
-        let t = this.displayName + ' (size <span id="HDXLinear' +
-            this.idNum + 'Span">'+ this.items.length +
-            '</span>, max <span id="HDXLinear' + this.idNum +
-            'Mspan">' + this.maxSize +
-            '</span>, avg <span id="HDXLinear' + this.idNum +
-            'Aspan">' + 0 +
-            '</span>)&nbsp;&nbsp;&nbsp;<input id="HDXLinear' +
-            this.idNum + 'Limit" type="checkbox" checked /> ' +
-            ' limit display to <input id="HDXLinear' + this.idNum +
-            'LimitVal" type="number" value="'+ value +'" min="1" max="1000000" ' +
-            'size="3" style="width: 3em" /> entries' +
-            '<br /><table><tbody id="HDXLinear' + this.idNum + 'TBody">' +
+        let t = this.displayName + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size = <span id="HDXLinear' +
+        this.idNum + 'Span">'+ this.items.length +
+        '</span>; max = <span id="HDXLinear' + this.idNum +
+        'Mspan">' + this.maxSize +
+        '</span>; avg = <span id="HDXLinear' + this.idNum +
+        'Aspan">' + 0 +
+        '</span> <table><tbody id="HDXLinear' + this.idNum + 'TBody">' +
             '</tbody></table>';
         this.docElement.innerHTML = t;
         this.lengthSpan = document.getElementById("HDXLinear" + this.idNum + "Span");
@@ -91,7 +86,7 @@ function HDXLinear(type, displayName) {
         this.avgSizeSpan = document.getElementById("HDXLinear" + this.idNum + "Aspan");
         this.tbody = document.getElementById("HDXLinear" + this.idNum + "TBody");
         this.limitCheck = document.getElementById("HDXLinear" + this.idNum + "Limit");
-        this.limit = document.getElementById("HDXLinear" + this.idNum + "LimitVal");
+        this.limit = 4;
         this.redraw();
     };
     
@@ -171,18 +166,18 @@ function HDXLinear(type, displayName) {
         if (this.docElement != null) {
             this.lengthSpan.innerHTML = this.items.length;
             this.maxSizeSpan.innerHTML = this.maxSize;
-	    this.cumulativeSize += this.items.length;
+	        this.cumulativeSize += this.items.length;
 	    this.numRedraws++;
             this.avgSizeSpan.innerHTML =
-                parseFloat(1.0*this.cumulativeSize/this.numRedraws).toFixed(1);
+               parseFloat(1.0*this.cumulativeSize/this.numRedraws).toFixed(1);
             let t = "<tr>";
             if (this.type == hdxLinearTypes.CALL_STACK) {
                 t = "";
             }
-            let maxDisplay = Number.MAX_VALUE;
-            if (this.limitCheck.checked) {
-                maxDisplay = this.limit.value;
-            }
+            
+            
+            let maxDisplay = 4;
+            
             if (maxDisplay >= this.items.length) {
                 if (this.type == hdxLinearTypes.CALL_STACK) {
                     for (let i = this.items.length - 1; i >= 0; i--) {
@@ -201,7 +196,7 @@ function HDXLinear(type, displayName) {
                 if (this.type == hdxLinearTypes.STACK ||
                     this.type == hdxLinearTypes.RANDOM) {
                     // first a placeholder entry
-                    t += "<td>...</td>";
+                    t += "<td id='dotdotdot'>...</td>";
                     for (let i = this.items.length - maxDisplay;
                          i < this.items.length; i++) {
                         t += "<td>" + this.elementHTMLCallback(this.items[i], this) + "</td>";
@@ -216,7 +211,7 @@ function HDXLinear(type, displayName) {
                         t += "<td>" + this.elementHTMLCallback(this.items[i], this) + "</td>";
                     }
                     // next a placeholder entry
-                    t += "<td>...</td>";
+                    t += "<td id='dotdotdot'>...</td>";
                     // half of the displayable elements from the end
                     for (let i = this.items.length -
                              (maxDisplay - firstChunk);
