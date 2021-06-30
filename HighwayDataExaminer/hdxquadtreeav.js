@@ -229,7 +229,7 @@ var hdxQuadtreeAV = {
                 }
             },
             logMessage: function(thisAV){
-                return "Checking if our quadtree leaf has more vertices than the refinement threshold";
+                return "Checking if quadtree leaf has more vertices than the refinement";
             }
 
         },

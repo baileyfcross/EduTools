@@ -42,6 +42,23 @@ var visualSettings = {
         name: "leader",
         value: 0
     },
+    //not used by everything, but this is a placeholder in case things need to be made universal in the future
+    v1: {
+        color: "darkRed",
+        textColor: "white",
+        scale: 6,
+        name: "v1",
+        value: 0
+    },
+    //same as v1
+    v2: {
+        color: "red",
+        textColor: "white",
+        scale: 6,
+        name: "v2",
+        value: 0
+    },
+
     searchFailed: {
         color: "firebrick",
         textColor: "white",
@@ -161,7 +178,7 @@ var visualSettings = {
     },
     highlightBounding: {
         color: "red",
-        textColor: "black",
+        textColor: "white",
         name: "highlightBounding",
         weight: 4,
         opacity: 0.7
