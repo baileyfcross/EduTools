@@ -111,6 +111,7 @@ var hdxOrderingAV = {
             label: "topForLoop",
             comment: "",
             code: function(thisAV){
+
                 highlightPseudocode(this.label, visualSettings.visiting);
                 thisAV.nextToCheck++;
 
@@ -124,6 +125,7 @@ var hdxOrderingAV = {
                         30, false);
 
                     hdxAV.nextAction = "addEdge";
+
                 } else {
                     hdxAV.nextAction = "cleanup";
                 }
@@ -169,6 +171,7 @@ var hdxOrderingAV = {
                 return "Cleanup and finalize visualization";
             }
         }
+
 
         
     ],
@@ -232,7 +235,6 @@ var hdxOrderingAV = {
 	
         return action.label;
     },
-
     //this was copied directly over from hdxextremepairsav with some slight modifications
     drawLineVisiting() {
 
@@ -249,6 +251,7 @@ var hdxOrderingAV = {
         for(var i = 0; i < this.polyLines.length; i++){
             this.polyLines[i].addTo(map);
         }  
+
     },
 
     inverseHilbert(n,x,y){
