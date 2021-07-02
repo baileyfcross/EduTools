@@ -44,15 +44,15 @@ var visualSettings = {
     },
     //not used by everything, but this is a placeholder in case things need to be made universal in the future
     v1: {
-        color: "darkRed",
-        textColor: "white",
+        color: "gold",
+        textColor: "black",
         scale: 6,
         name: "v1",
         value: 0
     },
     //same as v1
     v2: {
-        color: "red",
+        color: "goldenrod",
         textColor: "white",
         scale: 6,
         name: "v2",
@@ -73,7 +73,7 @@ var visualSettings = {
         name: "discarded",
         value: 0,
         weight: 5,
-        opacity: 0.5
+        opacity: 0.6
     },
 
     // these are in graph traversals and Dijkstra's so far
