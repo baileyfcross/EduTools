@@ -232,7 +232,7 @@ function HDXStartFileselectorRead(filesel) {
     let datatable = document.getElementById("datatable");
     datatable.style.display = "";
     let checkbox = document.getElementById("datatablesCheckbox");
-    checkbox.selected = true;
+    checkbox.selected = false;
 
     if (file) {
         //DBG.write("file: " + file.name);
@@ -382,8 +382,8 @@ function HDXProcessFileContents(fileContents) {
         pointboxContents = parseGRAContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
-        document.getElementById('filename').innerHTML =
-	    hdxGlobals.loadingFile + " (Highway Graph File)";
+        document.getElementById('filename').innerHTML = "Graph: " + hdxGlobals.loadingFile;
+        console.log(hdxGlobals);
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
 	// if the "noav" QS parameter is specified, we skip over the
@@ -444,7 +444,7 @@ function parseTMGContents(fileContents) {
     
     summaryInfo += ".</th></tr></table>";
     
-    var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3">Waypoints</th></tr><tr><th>#</th><th scope="col">Coordinates</th><th scope="col">Waypoint Name</th></tr></thead><tbody>';
+    var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="wp">Waypoints</th></tr><tr><th class="dtHeader">#</th><th scope="col" class="dtHeader">Coordinates</th><th scope="col" class="dtHeader">Waypoint Name</th></tr></thead><tbody>';
     
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
