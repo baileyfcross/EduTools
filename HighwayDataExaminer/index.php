@@ -186,9 +186,8 @@ ENDOFSTUFF;
 <div class="menubar">
 	<div id="info">
   <span id="startUp">To begin, select a graph to display.</span>
-  <span id="filename"></span><br>
-  <span id="status"></span>
-  <span id="currentAlgorithm"></span>
+  <span id="filename"></span><button id="newGraph">New Graph</button><br>
+  <span id="currentAlgorithm"></span><button id="newAlg">New Algorithm</button>
 	</div>
 <div id="topControlPanel">
   <table id="topControlPanelTable">
@@ -427,7 +426,14 @@ ENDOFSTUFF;
 			back.innerHTML = "Back";
 			dataPanel.appendChild(back);
       		back.addEventListener("click", HDXGraphSearchCleanup());
-			back.addEventListener("click", defaultMenu);
+			if (titleScreen)
+			{
+				back.addEventListener("click", defaultMenu);
+			}
+			else
+			{
+				back.addEventListener("click", newGraphMenu);
+			}
 
       //Spacing on the panel
 			var br = document.createElement("br");
@@ -479,7 +485,14 @@ ENDOFSTUFF;
 			title.innerHTML = "Advanced Search";
 			container.appendChild(title);
 
-			back.addEventListener("click", defaultMenu);
+			if (titleScreen)
+			{
+				back.addEventListener("click", defaultMenu);
+			}
+			else
+			{
+				back.addEventListener("click", newGraphMenu);
+			}
 
 			var sortP = document.createElement("p");
 			sortP.innerHTML = "Sort by";
@@ -594,13 +607,22 @@ ENDOFSTUFF;
 			container.innerHTML += "<br>";
 
 
+			var back = document.createElement("button");
+			back.setAttribute("id", "back2");
+			back.innerHTML = "Back";
+
+			/*var getList = document.createElement("button");
+			getList.innerHTML = "Get Graph List";
+			getList.setAttribute("id", "getlist");
+			getList.addEventListener("click", HDXFillGraphList(event));
+			container.appendChild(getList);*/
+			
 			var getList = document.createElement("input");
 			getList.setAttribute("type", "button");
 			getList.setAttribute("value", "Get Graph List");
 			getList.setAttribute("id", "getlist");
 			getList.setAttribute("onclick", "HDXFillGraphList(event)");
 			container.appendChild(getList);
-			container.innerHTML += "<br>";
 
 			dataPanel.appendChild(container);
 
@@ -619,6 +641,76 @@ ENDOFSTUFF;
 			loading.innerHTML = "Loading...";
 
 			dataPanel.appendChild(loading);
+		}
+
+		function newGraphMenu()
+		{
+			var mainbox = document.getElementById("loadDataPanel");
+			console.log("made it 12345");
+
+			//clear it
+			mainbox.innerHTML = "";
+
+			var br = document.createElement("br");
+
+			var cancel = document.createElement("button");
+			cancel.setAttribute("id", "cancel");
+			cancel.innerHTML = "Cancel";
+			cancel.addEventListener("click", hideLoadDataPanel)
+			mainbox.appendChild(cancel);
+
+
+			var instruct = document.createElement("p");
+			instruct.innerHTML = "Search for a graph in our database";
+
+			mainbox.appendChild(instruct);
+
+			var basicSearch = document.createElement("button");
+			basicSearch.setAttribute("class", "opt");
+			basicSearch.innerHTML = "Basic Search";
+
+			mainbox.appendChild(basicSearch);
+
+			basicSearch.addEventListener("click", basicMenu);
+
+			var advanced = document.createElement("button");
+			advanced.setAttribute("class", "opt");
+			advanced.innerHTML = "Advanced Search";
+			mainbox.appendChild(advanced);
+
+			advanced.addEventListener("click", advancedMenu);
+
+
+
+			mainbox.appendChild(br);
+
+			var or = document.createElement("p");
+			or.setAttribute("id", "or")
+			or.innerHTML = "or";
+
+			mainbox.appendChild(or);
+
+
+			var uploadLabel = document.createElement("label");
+			uploadLabel.setAttribute("for", "fileToLoad");
+			uploadLabel.setAttribute("id", "uploadLabel");
+			uploadLabel.innerHTML = "Upload File";
+			mainbox.appendChild(uploadLabel);
+
+			mainbox.appendChild(br);
+
+			var uploadIn = document.createElement("input");
+			uploadIn.setAttribute("id", "fileToLoad");
+			uploadIn.setAttribute("name", "fileToLoad");
+			uploadIn.setAttribute("type", "file");
+			uploadIn.setAttribute("value", "Start");
+			uploadIn.setAttribute("accept", ".tmg, .wpt, .pth, .nmp, .gra, .wpl");
+			uploadIn.setAttribute("onChange", "HDXStartFileselectorRead('fileToLoad')");
+
+			var bod = document.querySelector("body");
+
+			bod.appendChild(uploadIn);
+			mainbox.style.display = "";
 		}
 
 
@@ -743,6 +835,14 @@ ENDOFSTUFF;
 	</div>-->
 
       </tr>
+	  <tr>
+		  <td>
+			  <p id = "algDescription">
+
+				Insert description here.
+				</p>
+		  </td>
+	  </tr>
       <tr>
 	<td>
 	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">

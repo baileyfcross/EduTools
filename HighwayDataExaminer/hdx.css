@@ -13,13 +13,14 @@
     border: 2px solid white;
     margin: 0;
     
+    
 }
 
 #avStatusPanel {
     margin: 0;
     top: 68px;
     z-index: 11000;
-    background-color: rgb(30,173,229);
+    /*background-color: rgb(30,173,229);*/
     position: absolute;
     left: 10px;
     overflow: scroll;
@@ -33,6 +34,8 @@
     font-size: 14px;
     color: white;
     border: 2px solid white;
+    
+    /*text-shadow: 1.15px 1.15px 2px black;*/
 
     
 
@@ -42,7 +45,7 @@
     border: none;
     width: 100%;
     overflow: scroll;
-    background-color: rgb(30,173,229);
+    background-color: rgb(47,47,47);
     border-collapse: separate;
     border-spacing: 10px;
     max-width: 400px;
@@ -54,7 +57,8 @@
     border: none;
     font-size: 24px;
     color: white;
-    font-weight: normal;
+    font-weight: 500;
+    text-shadow: 4px 4px 3px black;
 }
 
 .codeRow
@@ -62,11 +66,12 @@
     border-spacing: 0;
 }
 
-#avStatusTable td:not(.codeRow *)
+#avStatusTable td:not(.codeRow *, .pseudocode)
 {
     border: none;
     border-radius: 10px;
     padding: 5px;
+    box-shadow: 5px 5px 3px black;
     
 }
 
@@ -76,16 +81,18 @@
     margin: 0;
     padding-top: 0;
     border-spacing: 0;
+    background-color: rgb(30, 179, 238);
 }
 
 
-#algorithmStatus
+#avStatusTable #algorithmStatus
 {
     padding: 10px;
     width: 200px;
     display: block;
     color: white;
     min-height: 40px;
+    box-shadow: none;
     
 }
 
@@ -258,6 +265,9 @@ table.pseudocode {
     color: black;
    
 }
+
+
+
 
 #START td.pseudocode
 {
@@ -447,9 +457,63 @@ button, #uploadLabel
     font-weight: 500;
     margin: 10px;
     color: white;
+    box-shadow: 10px 10px 20px black;
+    text-shadow: 1.15px 1.15px 2px black;
+
+  
+
+    
     
     
 }
+
+#loadDataPanel h3
+{
+    /*text-shadow: 5px 5px 5px black;*/
+}
+.opt:hover, #uploadLabel:hover
+{
+    padding: 8px;
+    margin: 5px;
+    border: 2px solid white;
+}
+
+#back:hover, #cancel:hover
+{
+    border: 2px solid white;
+    margin: 8px;
+    margin-right: 500px;
+    margin-bottom: 28px;
+    
+}
+
+#back2:hover
+{
+    border: 2px solid white;
+    margin: 8px;
+    margin-right: 500px;
+    margin-bottom: 0;
+    
+}
+
+#next:hover
+{
+    border: 2px solid white;
+    margin-top: 23px;
+    margin-bottom: 0;
+    
+}
+
+#loadDataPanel #selects #getlist:hover
+{
+    border: 2px solid white;
+    margin-top: 28px;
+    margin-bottom: 4px;
+    margin-right: 8px;
+    margin-left: 8px;
+    
+}
+
 
 #fileToLoad{
     visibility: hidden;
@@ -481,6 +545,7 @@ div
     margin: auto;
     max-width: 450px;   
     text-align: center;
+    box-shadow: 12px 12px 20px rgb(103, 103, 103);
     
 }
 
@@ -524,7 +589,7 @@ h3
     color:rgb(30, 179, 238);
 }
 
-#back
+#back, #cancel
 {
     float: left;
     margin-bottom: 30px;
@@ -534,8 +599,13 @@ h3
 #back2
 {
     float: left;
-    margin-bottom: 0;
+    margin-bottom: 2px;
     margin-right: 500px;
+}
+
+#cancel
+{
+    background-color: rgb(255, 68, 78);
 }
 #loadDataPanel #overview
 {
@@ -624,6 +694,18 @@ h3
     margin-top: 10px;
 }
 
+p#algDescription
+{
+    font-size: 14px;
+    margin: 15px;
+    font-style: italic;
+}
+
+#algorithmSelectionPanelTable td input#algOptionsDone
+{
+    margin-top: 0;
+}
+
 
 h4
 {
@@ -633,7 +715,6 @@ h4
     text-align: center;
     margin-top: 50px;
     margin-bottom: 15px;
-    
 
 }
 
@@ -704,6 +785,13 @@ h4
     margin-top: 30px;
     color: white;
     margin-bottom: 6px;
+    text-align: left;
+    margin-left: 0;
+    text-shadow: 1.15px 1.15px 2px black;
+    box-shadow: 10px 10px 20px black;
+    margin-right: 10px;
+    margin-left: 10px;
+    border: none;
     
     
 }
@@ -787,6 +875,18 @@ input
     text-align: center;
 
 }
+
+#datatable td
+{
+    box-shadow: 5px 5px 3px black;
+}
+
+#datatable th.dtHeader
+{
+    text-shadow: 3px 3px 2px black;
+}
+
+
 
 
 #topControlPanel {
@@ -876,6 +976,8 @@ input
     font-weight: 500;
     color: white;
     margin-left: 15px;
+    box-shadow: 10px 10px 20px black;
+    text-shadow: 1.15px 1.15px 2px black;
     
 }
 
@@ -899,10 +1001,26 @@ div.menubar
 {
     
     font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 12px;
     color: white;
     display: inline-block;
-    margin-top: 5px;
+    margin-top: 0;
+    font-weight: 500;
+}
+
+#newGraph
+{
+    font-size: 12px;
+    margin: 5px 10px;
+    text-shadow: 0.8px 0.8px 1.5px black;
+}
+
+#newAlg
+{
+    font-size: 12px;
+    margin: 0 10px;
+    background-color: rgb(129, 91, 216);
+    text-shadow: 0.8px 0.8px 1.5px black;
 }
 
 #startPauseButton, #resetButton
@@ -1007,7 +1125,7 @@ div.tt-menu.tt-open
 #next
 {
     margin-top: 25px;
-    margin-bottom: 0;
+    margin-bottom: 2px;
 }
 #noGraphFound
 {
