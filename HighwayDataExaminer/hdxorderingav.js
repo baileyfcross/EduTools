@@ -27,13 +27,15 @@ var hdxOrderingAV = {
 
     //loop variable that tracks which point is currently being added to graph
     nextToCheck: -1,
-    sortedWaypoints: [],
+    //rainbow object that returns the color for the polylines
+    rainbowGradiant: new Rainbow(),
     
     //used to keep track of all the polylines added to the map
     polyLines: [],
 
     originalWaypoints: [],
     //fhc: fixedHilbertCurve(),
+    numVUndiscovered: waypoints.length,
 
     avActions: [
         {
@@ -43,9 +45,16 @@ var hdxOrderingAV = {
                 highlightPseudocode(this.label, visualSettings.visiting);
                 thisAV.nextToCheck = -1;
                 thisAV.polyLines = [];
+
                 thisAV.originalWaypoints = waypoints.slice();
+                numVUndiscovered = waypoints.length,
+
                 thisAV.xCoord = 0;
                 thisAV.yCoord = 0;
+                
+                thisAV.rainbowGradiant = new Rainbow();
+                thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
+                thisAV.rainbowGradiant.setSpectrum('ff0000','ffa000','00ff00','00ffff','0000ff','c700ff');
                 //let fhc = fixedHilbertCurve();
 
 
@@ -53,46 +62,30 @@ var hdxOrderingAV = {
                 thisAV.refinement = document.getElementById("refinement").value;
 
                 hdxAV.nextAction = "topForLoop";
-                for(var i = 0; i < waypoints.length; i++){
-                    waypoints[i].num = i;
-                    console.log(thisAV.option);
-                    switch(thisAV.option){
-                        case "byLat":
-                            waypoints[i].value = waypoints[i].lat;
-                            console.log(waypoints[i].value);
-                            break;
-                        case "byLng":
-                            waypoints[i].value = waypoints[i].lon;
-                            console.log(waypoints[i].value);
-                            break;
-                        case "rand":
-                            waypoints[i].value = Math.random();
-                            console.log(waypoints[i].value);
-                            break;
-                        /* case "fixedHilbert":
-                            
-                            waypoints[i].value = thisAV.inverseHilbert(
-                                Math.pow(2,thisAV.refinement),waypoints[i].lon * Math.pow(10,6),waypoints[i].lat * Math.pow(10,6));
-                            console.log(waypoints[i].value);
-                            break; */
-                        /*case "fixedGrey":
-                            console.log(waypoints[i].value);
-                            waypoints[i].value = thisAV.inverseGrey(Math.pow(thisAV.refinement,2),waypoints[i].lon,waypoints[i].lat);
-                            break;
-                            */
-                            
-                        default:
-                            waypoints[i].value = 0;
-                    }
+                switch(thisAV.option){
+                    default:
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                        }
+                    break;
                 }
+
                 switch(thisAV.option){
                     case "byLat":
+                        waypoints.sort(function(a, b){return a.lat - b.lat});
+                        break;
                     case "byLng":
+                        waypoints.sort(function(a, b){return a.lon - b.lon});
+                        break;
                     case "rand":
+                        waypoints.sort(function(a, b){return Math.random() * 2 - 1});
+                        break;
                     case "fixedHilbert":
                     //case "fixedGrey":
                         waypoints.sort(function(a, b){return a.value - b.value});
                         break;
+                    case "default":
+                        waypoints.sort(function(a,b){return a.num - b.num});
                     default:
                         break;
                 };
@@ -125,6 +118,9 @@ var hdxOrderingAV = {
                         30, false);
 
                     hdxAV.nextAction = "addEdge";
+                    updateAVControlEntry("undiscovered", )
+                    updateAVControlEntry("v1","v1: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
+                    updateAVControlEntry("v2","v2: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
 
                 } else {
                     hdxAV.nextAction = "cleanup";
@@ -144,8 +140,20 @@ var hdxOrderingAV = {
             comment: "",
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
+                let color = {
+                    color: "#" + thisAV.rainbowGradiant.colorAt(
+                        thisAV.nextToCheck),
+                        textColor: "white",
+                        scale: 6,
+                        name: "color",
+                        value: 0,
+                        opacity: 0.8
+                    }
+                console.log(color);
+                updateMarkerAndTable(thisAV.v1, color, 30, false);
+                updateMarkerAndTable(thisAV.v2, color, 30, false);
 
-
+ 
                 thisAV.drawLineVisiting();
                 hdxAV.nextAction = "topForLoop"
 
@@ -165,6 +173,9 @@ var hdxOrderingAV = {
                 "Done! Visited " + waypoints.length + " waypoints.";
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
+
+                updateAVControlEntry("v1","");
+                updateAVControlEntry("v2","");
         
             },
             logMessage: function(thisAV) {
@@ -210,6 +221,8 @@ var hdxOrderingAV = {
         <option value="byLat">By Latitude</option>
         <option value="byLng">By Longitude</option>
         <option value="rand">Random</option>
+        <option value="default">Default</option>
+
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
         <!--option value="fixedHilbert">Fixed Hilbert Curve</option-->
         </select>`;
@@ -218,6 +231,12 @@ var hdxOrderingAV = {
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
+
+        addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
+        addEntryToAVControlPanel("v1",visualSettings.v1);
+        addEntryToAVControlPanel("v2", visualSettings.v2);
+
+
         let refSelector = document.getElementById("refinement");
         refSelector.disabled = true;
     },
@@ -243,7 +262,8 @@ var hdxOrderingAV = {
         visitingLine[1] = [waypoints[this.nextToCheck + 1].lat, waypoints[this.nextToCheck + 1].lon];
         this.polyLines.push(
             L.polyline(visitingLine, {
-            color: visualSettings.visiting.spanningTree,
+            color: "#" + this.rainbowGradiant.colorAt(
+               this.nextToCheck),
             opacity: 0.6,
             weight: 4
             })
@@ -353,3 +373,7 @@ Order: <select id="traversalOrdering">
 <option value="morton">Morton/Z Order</option>
 <option value="hilbert">Hilbert Curve Order</option>
 </select>`; */
+
+// waypoints[i].value = thisAV.inverseHilbert(
+//     Math.pow(2,thisAV.refinement),waypoints[i].lon * Math.pow(10,6),waypoints[i].lat * Math.pow(10,6));
+// console.log(waypoints[i].value);
