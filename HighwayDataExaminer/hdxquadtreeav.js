@@ -36,8 +36,8 @@ var hdxQuadtreeAV = {
     //used to track the parents of quadtrees, primarily used alongside the childThatContains calls
     qtStack: [],
 
-    //loop variable that tracks which point is currently being added to the base quadtre
-    nextToCheck: 0,
+    //loop variable that tracks which point is currently being added to the base quadtree
+    nextToCheck: -1,
     //# leaf quadrants so far
     numLeaves: 1,
     //depth of the quadtree
@@ -56,6 +56,10 @@ var hdxQuadtreeAV = {
     // and divisions representing quadtrees, updated by
     // directionalBoundingBox and addNewPolylines functions below
     boundingPoly: [],
+
+    //list of polyline used to represent the universe of the current quadtree, which is reset and changed whenever
+    //the current quadtree is changed
+    highlightPoly: [],
 
     avActions: [
         {
@@ -122,6 +126,7 @@ var hdxQuadtreeAV = {
                     updateAVControlEntry("numLeaves","Number of leaf quadtrees: " + thisAV.numLeaves);
                     updateAVControlEntry("maxDepth","Depth of the quadtree: " + thisAV.maxDepth);
                     thisAV.qtStack.push(thisAV.currentQuadtree);
+                    thisAV.highlightBoundingBox();
                     hdxAV.nextAction = "topAddPoint";
                 } else {
                     hdxAV.nextAction = "cleanup";
@@ -179,6 +184,10 @@ var hdxQuadtreeAV = {
             },
             logMessage: function(thisAV){
                 return "Checking if the current quadtree is a leaf";
+            },
+
+            currentVariable: function(thisAV) {
+                return thisAV.currentQuadtree.isLeaf();
             }
 
         },
@@ -208,6 +217,7 @@ var hdxQuadtreeAV = {
                 if(thisAV.currentQuadtree.points.length < thisAV.refinement){
                         
                     thisAV.currentQuadtree = thisAV.qtStack.pop();
+                    thisAV.highlightBoundingBox();
                         
                     hdxAV.nextAction = thisAV.callStack.pop();
                 } else {
@@ -453,6 +463,8 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack.push(thisAV.currentQuadtree);
                 //children should be made by this point, if not there is a big problem
                 thisAV.currentQuadtree = thisAV.currentQuadtree.sw;
+                thisAV.highlightBoundingBox();
+               
           
                 hdxAV.nextAction = thisAV.callStack.pop();
             },
@@ -471,6 +483,7 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack.push(thisAV.currentQuadtree);
 
                 thisAV.currentQuadtree = thisAV.currentQuadtree.se;
+                thisAV.highlightBoundingBox();
 
                 hdxAV.nextAction = thisAV.callStack.pop();
 
@@ -490,6 +503,7 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack.push(thisAV.currentQuadtree);
                 
                 thisAV.currentQuadtree = thisAV.currentQuadtree.nw;
+                thisAV.highlightBoundingBox();
                
                 hdxAV.nextAction = thisAV.callStack.pop();
 
@@ -509,6 +523,7 @@ var hdxQuadtreeAV = {
                 thisAV.qtStack.push(thisAV.currentQuadtree);
 
                 thisAV.currentQuadtree = thisAV.currentQuadtree.ne;
+                thisAV.highlightBoundingBox();
               
                 hdxAV.nextAction = thisAV.callStack.pop();
 
@@ -529,6 +544,9 @@ var hdxQuadtreeAV = {
                 updateAVControlEntry("visiting","");
                 hdxAV.nextAction = "DONE";
                 hdxAV.iterationDone = true;
+                for (var i = 0; i < thisAV.highlightPoly.length; i++) {
+                    thisAV.highlightPoly[i].remove();
+                }
                 
             },
             logMessage: function(thisAV) {
@@ -625,7 +643,7 @@ var hdxQuadtreeAV = {
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
         addEntryToAVControlPanel("visiting",visualSettings.visiting)
         addEntryToAVControlPanel("numLeaves",visualSettings.discovered);
-        addEntryToAVControlPanel("maxDepth",visualSettings.searchFailed);
+        addEntryToAVControlPanel("maxDepth",visualSettings.highlightBounding);
        
     },
 
@@ -634,7 +652,11 @@ var hdxQuadtreeAV = {
         for (var i = 0; i < this.boundingPoly.length; i++) {
             this.boundingPoly[i].remove();
         }
+        for(var i = 0; i < this.highlightPoly.length; i++){
+            this.highlightPoly[i].remove();
+        }
         this.boundingPoly = [];
+        this.highlightPoly = [];
     },
 
     idOfAction(action) {
@@ -670,28 +692,28 @@ var hdxQuadtreeAV = {
             this.boundingPoly.push(
                 L.polyline(nEnds, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(sEnds, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(eEnds, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(wEnds, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 }) 
             );
@@ -708,14 +730,14 @@ var hdxQuadtreeAV = {
             this.boundingPoly.push(
                 L.polyline(nsEdge, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 })
             );
             this.boundingPoly.push(
                 L.polyline(ewEdge, {
                     color: visualSettings.undiscovered.color,
-                    opacity: 0.6,
+                    opacity: 0.7,
                     weight: 3
                 })
             );
@@ -724,13 +746,75 @@ var hdxQuadtreeAV = {
         }
     },
 
+    highlightBoundingBox(){
+        console.log("test");
+        for (var i = 0; i < this.highlightPoly.length; i++) {
+            this.highlightPoly[i].remove();
+        }
+        this.highlightPoly = [];
+       
+        let n = this.currentQuadtree.maxLat;
+        let s = this.currentQuadtree.minLat;
+        let e = this.currentQuadtree.maxLng;
+        let w = this.currentQuadtree.minLng;
+
+        let nEnds = [[n,w],[n,e]];
+        let sEnds = [[s,w],[s,e]];
+        let eEnds = [[n,e],[s,e]];
+        let wEnds = [[n,w],[s,w]];
+
+        this.highlightPoly.push(
+            L.polyline(nEnds, visualSettings.highlightBounding)
+        );
+        this.highlightPoly.push(
+            L.polyline(sEnds, visualSettings.highlightBounding)
+        );
+        this.highlightPoly.push(
+            L.polyline(eEnds, visualSettings.highlightBounding)
+        );
+        this.highlightPoly.push(
+            L.polyline(wEnds, visualSettings.highlightBounding) 
+        );
+
+        for (var i = 0; i < this.highlightPoly.length; i++) {
+            this.highlightPoly[i].addTo(map);
+        }
+
+    },
+
     setConditionalBreakpoints(name) {
-        return name;
+        let max = waypoints.length-1;
+        let temp = HDXCommonConditionalBreakpoints(name);
+        if (temp != "No innerHTML") {
+            return temp;
+        }
+            switch (name) {
+            case "isLeaf":
+                html = createInnerHTMLChoice("boolean","isLeaf",
+                                             "current quadtree is a leaf",
+                                             "current quadtree is not a leaf");
+
+            case "topFindChildLng":
+                html = createInnerHTMLChoice("boolean","topFindChildLng",
+                                             "current vertex is in the south of the quadtree",
+                                             "current vertex is in the north of the quadtree");
+            }
+        return "No innerHTML";
     },
 
     hasConditionalBreakpoints(name){
+        let answer = HDXHasCommonConditonalBreakpoints(name);
+        if (answer) {
+            return true;
+        }
+        else {
+            switch (name) {
+            case "isLeaf":
+                return true;
+            }
+        }
         return false;
-    },
+    }
 
 
 };
