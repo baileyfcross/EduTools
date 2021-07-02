@@ -633,6 +633,8 @@ var hdxQuadtreeAV = {
     },
 
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = "Blah.";
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
@@ -842,12 +844,12 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.points = [];
 
     this.refineIfNeeded = function() {
-        if (points.length > refinement){
+        if (this.points.length > this.refinement){
 
-           makeChildren();
+           this.makeChildren();
 
-            for(var i = 0; i < points.length; i++){
-                childThatContains(points[i].lat,points[i],points[i].lon).push(points[i]);
+            for(var i = 0; i < this.points.length; i++){
+                this.childThatContains(this.points[i].lat,this.points[i],this.points[i].lon).add(this.points[i]);
             }
         }
     }
@@ -864,8 +866,8 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         return [[this.midLat,this.minLng],[this.midLat,this.maxLng]]
     }
     this.childThatContains = function(lat,lng){
-        if (lat < midLat) {
-            if (lng < midLng) {
+        if (lat < this.midLat) {
+            if (lng < this.midLng) {
             return this.sw;
             }
             else {
@@ -873,7 +875,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             }
         }
         else {
-            if (lng < midLng) {
+            if (lng < this.midLng) {
             return this.nw;
             }
             else {
@@ -882,16 +884,16 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         }
     }
     this.get = function(lat,lng){
-        if(isLeaf()){
+        if(this.isLeaf()){
             for(var i = 0; i < points.length; i++){
                 if(this.points[i].lat == lat && points[i].lon == lng){
-                    return points[i];
+                    return this.points[i];
                 }
             }
             return null;
         } 
         //if not a leaf return the quadtree that would contain this point
-        return childThatContains(lat,lng).get(lat,lng);
+        return this.childThatContains(lat,lng).get(lat,lng);
     }
     this.isLeaf = function(){
         return this.se == null;
@@ -905,25 +907,25 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         }
     }
 
-    iterator() = function(){
+    this.iterator = function(){
         if(this.isLeaf()){
             this.inArray = true;
-            return points;
+            return this.points;
         } else {
             this.inArray = false;
             return new QuadtreeIterator(this);
         }
     }
     //QuadtreeIterator object constructor
-    function QuadtreeIterator(){
+    function QuadtreeIterator(tree){
         this.childIterators = [];
         this.current = 0;
         //this puts the children in Morton/Z curve order
         this.childIterators.push(tree.se.iterator());
         this.childIterators.push(tree.sw.iterator());
-        this.chileIterators.push(tree.nw.iterator());
+        this.childIterators.push(tree.nw.iterator());
         this.childIterators.push(tree.ne.iterator());
-        advanceOverEmptyIterators();
+        this.advanceOverEmptyIterators();
 
         this.advanceOverEmptyIterators = function(){
             while (this.current < 4 && !this.childIterators[current].hasNext()) {
@@ -935,10 +937,25 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             return this.current < 4;
         }
         this.next = function(){
-            let answer = childIterators[current].next();
-	        advanceOverEmptyIterators();
+            let answer = this.childIterators[current].next();
+	        this.advanceOverEmptyIterators();
 	        return answer;
         }
 
+    }
+}
+
+mortonOrder = function(tree,array){
+    if(tree.isLeaf()){
+        for(p in tree.points){
+            if(p != null){
+                array.push(p);
+            }
+        }
+    } else {
+        mortonOrder(tree.nw,array);
+        mortonOrder(tree.ne,array);
+        mortonOrder(tree.sw,array);
+        mortonOrder(tree.se,array);
     }
 }

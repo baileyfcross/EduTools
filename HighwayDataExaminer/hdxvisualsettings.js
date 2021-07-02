@@ -53,7 +53,7 @@ var visualSettings = {
     //same as v1
     v2: {
         color: "goldenrod",
-        textColor: "white",
+        textColor: "black",
         scale: 6,
         name: "v2",
         value: 0

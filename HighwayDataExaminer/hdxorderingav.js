@@ -37,6 +37,8 @@ var hdxOrderingAV = {
     //fhc: fixedHilbertCurve(),
     numVUndiscovered: waypoints.length,
 
+    mortonQT: null,
+
     avActions: [
         {
             label: "START",
@@ -51,18 +53,28 @@ var hdxOrderingAV = {
 
                 thisAV.xCoord = 0;
                 thisAV.yCoord = 0;
-                
+
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
-                thisAV.rainbowGradiant.setSpectrum('ff0000','ffa000','00ff00','00ffff','0000ff','c700ff');
+                thisAV.rainbowGradiant.setSpectrum('ff0000','ffc000','00ff00','00ffff','0000ff','c700ff');
                 //let fhc = fixedHilbertCurve();
 
+                updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
 
                 hdxAV.nextAction = "topForLoop";
                 switch(thisAV.option){
+                    case "morton":
+                        thisAV.findExtremePoints();
+                        thisAV.mortonQT = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.mortonQT.add(waypoints[i]);
+                        }
+                        waypoints = [];
+                        mortonOrder(thisAV.mortonQT,waypoints);
                     default:
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
@@ -84,14 +96,13 @@ var hdxOrderingAV = {
                     //case "fixedGrey":
                         waypoints.sort(function(a, b){return a.value - b.value});
                         break;
+                    case "morton":
+                        break;
                     case "default":
                         waypoints.sort(function(a,b){return a.num - b.num});
                     default:
                         break;
                 };
-                for(var i = 0; i < waypoints.length; i++){
-                    console.log(waypoints[i].value);
-                }
 
             },
             logMessage: function(thisAV){
@@ -118,7 +129,9 @@ var hdxOrderingAV = {
                         30, false);
 
                     hdxAV.nextAction = "addEdge";
-                    updateAVControlEntry("undiscovered", )
+
+                    numVUndiscovered--;
+                    updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                     updateAVControlEntry("v1","v1: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
                     updateAVControlEntry("v2","v2: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
 
@@ -149,7 +162,6 @@ var hdxOrderingAV = {
                         value: 0,
                         opacity: 0.8
                     }
-                console.log(color);
                 updateMarkerAndTable(thisAV.v1, color, 30, false);
                 updateMarkerAndTable(thisAV.v2, color, 30, false);
 
@@ -172,11 +184,11 @@ var hdxOrderingAV = {
                 hdxAV.algStat.innerHTML =
                 "Done! Visited " + waypoints.length + " waypoints.";
                 hdxAV.nextAction = "DONE";
-                hdxAV.iterationDone = true;
-
+                updateAVControlEntry("undiscovered","0 vertices not yet visited");
                 updateAVControlEntry("v1","");
                 updateAVControlEntry("v2","");
         
+                hdxAV.iterationDone = true;
             },
             logMessage: function(thisAV) {
                 return "Cleanup and finalize visualization";
@@ -221,6 +233,7 @@ var hdxOrderingAV = {
         <option value="byLat">By Latitude</option>
         <option value="byLng">By Longitude</option>
         <option value="rand">Random</option>
+        <option value="morton">Morton/Z Curve</option>
         <option value="default">Default</option>
 
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
@@ -314,6 +327,26 @@ var hdxOrderingAV = {
     hasConditionalBreakpoints(name){
         return false;
     },
+
+    findExtremePoints(){
+        this.n = parseFloat(waypoints[0].lat);
+        this.s = parseFloat(waypoints[0].lat);
+        this.e = parseFloat(waypoints[0].lon);
+        this.w = parseFloat(waypoints[0].lon);
+        for(var i = 1; i < waypoints.length; i++){
+
+            if(waypoints[i].lat > this.n){
+                this.n = parseFloat(waypoints[i].lat);
+            } else if (waypoints[i].lat < this.s){
+                this.s = parseFloat(waypoints[i].lat);
+            }
+            if(waypoints[i].lon > this.e){
+                this.e = parseFloat(waypoints[i].lon);
+            } else if (waypoints[i].lon < this.w){
+                this.w = parseFloat(waypoints[i].lon);
+            }
+        }
+    }
 };
 
 function refinementChanged(){
