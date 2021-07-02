@@ -639,6 +639,7 @@ var hdxQuadtreeAV = {
         hdxAV.logMessageArr.push("Setting up");
         let newAO = 'Refinement threshold <input type="number" id="refinement" min="1" max="' 
         + (waypoints.length) + '" value="3">';
+
         hdxAV.algOptions.innerHTML = newAO;
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
         addEntryToAVControlPanel("visiting",visualSettings.visiting)
@@ -832,6 +833,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.ne = null;
     this.sw = null;
     this.se = null;
+    this.inArray = false;
     
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
@@ -901,5 +903,42 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         } else {
             this.childThatContains(waypoint.lat,waypoint.lon).add(waypoint);
         }
+    }
+
+    iterator() = function(){
+        if(this.isLeaf()){
+            this.inArray = true;
+            return points;
+        } else {
+            this.inArray = false;
+            return new QuadtreeIterator(this);
+        }
+    }
+    //QuadtreeIterator object constructor
+    function QuadtreeIterator(){
+        this.childIterators = [];
+        this.current = 0;
+        //this puts the children in Morton/Z curve order
+        this.childIterators.push(tree.se.iterator());
+        this.childIterators.push(tree.sw.iterator());
+        this.chileIterators.push(tree.nw.iterator());
+        this.childIterators.push(tree.ne.iterator());
+        advanceOverEmptyIterators();
+
+        this.advanceOverEmptyIterators = function(){
+            while (this.current < 4 && !this.childIterators[current].hasNext()) {
+                this.current++;
+            }
+        }
+
+        this.hasNext = function(){
+            return this.current < 4;
+        }
+        this.next = function(){
+            let answer = childIterators[current].next();
+	        advanceOverEmptyIterators();
+	        return answer;
+        }
+
     }
 }
