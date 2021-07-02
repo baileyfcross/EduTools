@@ -34,6 +34,8 @@ function Rainbow()
 		}
 	}
 
+	this.setColors = this.setColours;
+
 	this.setSpectrum = function () 
 	{
 		setColours(arguments);
