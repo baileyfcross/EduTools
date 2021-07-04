@@ -9,7 +9,7 @@
 var hdxOrderingAV = {
     value: "ordering",
     name: "Traversal Orderings",
-    decription: "Visualize different ways of ordering vertices in a 2D space.",
+    description: "Visualize different ways of ordering vertices in a 2D space.",
 
     //used to track the num of the two verticies we are drawing an edge between
     v1: 0,
@@ -75,6 +75,9 @@ var hdxOrderingAV = {
                         }
                         waypoints = [];
                         mortonOrder(thisAV.mortonQT,waypoints);
+                        for(p in waypoints){
+                            console.log(p.num + " " + p.label);
+                        }
                     default:
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
@@ -222,6 +225,8 @@ var hdxOrderingAV = {
 
     },
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];

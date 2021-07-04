@@ -11,7 +11,7 @@ var hdxQuadtreeAV = {
     // entries for list of AVs
     value: "quadtree",
     name: "Quadtree Construction",
-    description: "Construct a quadtree by inserting all waypoints and refining as needed.",
+    description: "Construct a quadtree by inserting all waypoints (vertices) and refining as needed.",
     //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
@@ -634,7 +634,7 @@ var hdxQuadtreeAV = {
 
     setupUI() {
         var algDescription = document.getElementById("algDescription");
-        algDescription.innerHTML = "Blah.";
+        algDescription.innerHTML = this.description;
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];

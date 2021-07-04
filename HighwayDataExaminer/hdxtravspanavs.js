@@ -70,6 +70,7 @@ function displayLDVItem(item, ldv) {
 
 
 var hdxTraversalsSpanningAVCommon = {
+    description: "Traverse the vertices and edges of a graph in a wide assortment of ways",
 
     //keeps track of LDV length
     counter: 0,
@@ -1072,6 +1073,8 @@ var hdxTraversalsSpanningAVCommon = {
 
     // set up common UI components for traversals/spanning trees
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
