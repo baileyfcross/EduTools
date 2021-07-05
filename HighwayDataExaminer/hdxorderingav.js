@@ -73,11 +73,8 @@ var hdxOrderingAV = {
                             waypoints[i].num = i;
                             thisAV.mortonQT.add(waypoints[i]);
                         }
-                        waypoints = [];
-                        mortonOrder(thisAV.mortonQT,waypoints);
-                        for(p in waypoints){
-                            console.log(p.num + " " + p.label);
-                        }
+                        thisAV.mortonQT.mortonOrder();
+                        break;
                     default:
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
@@ -100,6 +97,7 @@ var hdxOrderingAV = {
                         waypoints.sort(function(a, b){return a.value - b.value});
                         break;
                     case "morton":
+                        waypoints.sort(function(a, b){return a.value - b.value});   
                         break;
                     case "default":
                         waypoints.sort(function(a,b){return a.num - b.num});
@@ -358,7 +356,7 @@ function refinementChanged(){
     let selector = document.getElementById("traversalOrdering");
     let refSelector = document.getElementById("refinement");
     switch(selector.options[selector.selectedIndex].value){
-        case "fixedHilbert":
+        case "morton":
         //case "fixedGrey":
             refSelector.disabled = false;
             break;

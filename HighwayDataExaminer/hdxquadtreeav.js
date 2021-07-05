@@ -639,7 +639,7 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="1" max="' 
+        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="' 
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
@@ -784,7 +784,7 @@ var hdxQuadtreeAV = {
         }
 
     },
-
+    //note this is currently not working
     setConditionalBreakpoints(name) {
         let max = waypoints.length-1;
         let temp = HDXCommonConditionalBreakpoints(name);
@@ -804,7 +804,7 @@ var hdxQuadtreeAV = {
             }
         return "No innerHTML";
     },
-
+    //note this is currently not working
     hasConditionalBreakpoints(name){
         let answer = HDXHasCommonConditonalBreakpoints(name);
         if (answer) {
@@ -822,7 +822,7 @@ var hdxQuadtreeAV = {
 
 };
 
-
+let k = 0;
 //Quadtree object constructor
 function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.maxLat = maxLat;
@@ -834,9 +834,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.nw = null;
     this.ne = null;
     this.sw = null;
-    this.se = null;
-    this.inArray = false;
-    
+    this.se = null;    
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
 
@@ -851,6 +849,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             for(var i = 0; i < this.points.length; i++){
                 this.childThatContains(this.points[i].lat,this.points[i],this.points[i].lon).add(this.points[i]);
             }
+            this.points = [];
         }
     }
     this.makeChildren = function() {
@@ -906,56 +905,20 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.childThatContains(waypoint.lat,waypoint.lon).add(waypoint);
         }
     }
-
-    this.iterator = function(){
+    this.mortonOrder = function(){
         if(this.isLeaf()){
-            this.inArray = true;
-            return this.points;
+            for(let i = 0; i < this.points.length; i++){
+                console.log(this.points[i]);
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
         } else {
-            this.inArray = false;
-            return new QuadtreeIterator(this);
+            this.nw.mortonOrder();
+            this.ne.mortonOrder();
+            this.sw.mortonOrder();
+            this.se.mortonOrder();
         }
-    }
-    //QuadtreeIterator object constructor
-    function QuadtreeIterator(tree){
-        this.childIterators = [];
-        this.current = 0;
-        //this puts the children in Morton/Z curve order
-        this.childIterators.push(tree.se.iterator());
-        this.childIterators.push(tree.sw.iterator());
-        this.childIterators.push(tree.nw.iterator());
-        this.childIterators.push(tree.ne.iterator());
-        this.advanceOverEmptyIterators();
-
-        this.advanceOverEmptyIterators = function(){
-            while (this.current < 4 && !this.childIterators[current].hasNext()) {
-                this.current++;
-            }
-        }
-
-        this.hasNext = function(){
-            return this.current < 4;
-        }
-        this.next = function(){
-            let answer = this.childIterators[current].next();
-	        this.advanceOverEmptyIterators();
-	        return answer;
-        }
-
-    }
-}
-
-mortonOrder = function(tree,array){
-    if(tree.isLeaf()){
-        for(p in tree.points){
-            if(p != null){
-                array.push(p);
-            }
-        }
-    } else {
-        mortonOrder(tree.nw,array);
-        mortonOrder(tree.ne,array);
-        mortonOrder(tree.sw,array);
-        mortonOrder(tree.se,array);
     }
 }
