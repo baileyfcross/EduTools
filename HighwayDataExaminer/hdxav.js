@@ -120,6 +120,7 @@ var hdxAV = {
         this.avList.push(hdxBFConvexHullAV);
         this.avList.push(hdxClosestPairsRecAV);
         this.avList.push(hdxQuadtreeAV);
+        this.avList.push(hdxOrderingAV);
         
         // populate the algorithm selection select with options
         // from the avList

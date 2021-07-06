@@ -28,7 +28,10 @@ var hdxNoAV = {
         alert("Please select an algorithm first.");
     },
 
-    setupUI() {},
+    setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
+    },
 
     cleanupUI() {}
 };

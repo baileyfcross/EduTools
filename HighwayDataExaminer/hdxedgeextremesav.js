@@ -335,6 +335,8 @@ var hdxEdgeExtremesSearchAV = {
         
     // set up UI for the start of edge search
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
 
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";

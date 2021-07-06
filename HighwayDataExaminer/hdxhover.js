@@ -24,7 +24,7 @@ function hoverV(i, bool) {
         hdxHover.vicon = markers[i].options.icon;
         hdxHover.vcolor = document.getElementById("waypoint"+i).style.backgroundColor;
         hdxHover.vtext = document.getElementById("waypoint"+i).style.color;
-        updateMarkerAndTable(i, visualSettings.hoverV, 0, false);
+        updateMarkerAndTable(i, visualSettings.hoverV, 40, false);
     }
 }
 
