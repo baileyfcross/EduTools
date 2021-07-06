@@ -842,12 +842,12 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.points = [];
 
     this.refineIfNeeded = function() {
-        if (this.points.length > this.refinement){
+        if (this.points.length == this.refinement){
 
            this.makeChildren();
 
             for(var i = 0; i < this.points.length; i++){
-                this.childThatContains(this.points[i].lat,this.points[i],this.points[i].lon).add(this.points[i]);
+                this.childThatContains(this.points[i].lat,this.points[i].lon).add(this.points[i]);
             }
             this.points = [];
         }
@@ -905,6 +905,43 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.childThatContains(waypoint.lat,waypoint.lon).add(waypoint);
         }
     }
+    //this version take an array parameter
+    this.mortonOrderPoly = function(boundingPoly){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                console.log(this.points[i]);
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            console.log("poly");
+           
+                let nsEdge = this.makeNSedge();
+                let ewEdge = this.makeEWedge();
+                        
+                    boundingPoly.push(
+                        L.polyline(nsEdge, {
+                            color: visualSettings.undiscovered.color,
+                            opacity: 0.7,
+                            weight: 3
+                        })
+                    );
+                    boundingPoly.push(
+                        L.polyline(ewEdge, {
+                            color: visualSettings.undiscovered.color,
+                            opacity: 0.7,
+                            weight: 3
+                        })
+                    )
+            this.nw.mortonOrderPoly(boundingPoly);
+            this.ne.mortonOrderPoly(boundingPoly);
+            this.sw.mortonOrderPoly(boundingPoly);
+            this.se.mortonOrderPoly(boundingPoly);
+        }
+    }
+    //this version does not require an array parameter
     this.mortonOrder = function(){
         if(this.isLeaf()){
             for(let i = 0; i < this.points.length; i++){
@@ -921,4 +958,4 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.se.mortonOrder();
         }
     }
-}
+};

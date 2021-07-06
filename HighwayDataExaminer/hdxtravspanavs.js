@@ -70,7 +70,6 @@ function displayLDVItem(item, ldv) {
 
 
 var hdxTraversalsSpanningAVCommon = {
-    description: "Traverse the vertices and edges of a graph in a wide assortment of ways",
 
     //keeps track of LDV length
     counter: 0,

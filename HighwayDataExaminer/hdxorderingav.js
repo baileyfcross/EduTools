@@ -18,6 +18,11 @@ var hdxOrderingAV = {
     //used to help calculate Hilbert Curve Order
     xCoord: 0,
     yCoord: 0,
+    //used to help calculate the dimensions of the quadtree
+    n: 0,
+    s: 0,
+    e: 0,
+    w: 0,
 
     //default refinement threshold for the quadtree used by the morton order
     //deterimined with an i/o box before the av runs
@@ -46,7 +51,9 @@ var hdxOrderingAV = {
             code: function(thisAV){
                 highlightPseudocode(this.label, visualSettings.visiting);
                 thisAV.nextToCheck = -1;
+                //this contains the edges for the traversal
                 thisAV.polyLines = [];
+                thisAV.boundingPoly = [];
 
                 thisAV.originalWaypoints = waypoints.slice();
                 numVUndiscovered = waypoints.length,
@@ -63,7 +70,11 @@ var hdxOrderingAV = {
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
+                thisAV.showBB = document.getElementById("boundingBox").checked;
 
+                if(thisAV.showBB){
+                    thisAV.generateBoundingBox();
+                }
                 hdxAV.nextAction = "topForLoop";
                 switch(thisAV.option){
                     case "morton":
@@ -73,7 +84,15 @@ var hdxOrderingAV = {
                             waypoints[i].num = i;
                             thisAV.mortonQT.add(waypoints[i]);
                         }
-                        thisAV.mortonQT.mortonOrder();
+                        if(thisAV.showBB){
+                            thisAV.mortonQT.mortonOrderPoly(thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                                console.log("adding");
+                            }
+                        } else {
+                            thisAV.mortonQT.mortonOrder();
+                        }
                         break;
                     default:
                         for(var i = 0; i < waypoints.length; i++){
@@ -246,6 +265,9 @@ var hdxOrderingAV = {
         newAO += '<br />Refinement/Iteration<input type="number" id="refinement" min="1" max="' 
         + (waypoints.length) + '" value="3">';
 
+        newAO += `<br /><input id="boundingBox" type="checkbox" name="Show Bounding Box"/>&nbsp;
+        Show Bounding Box<br />`
+
         hdxAV.algOptions.innerHTML = newAO;
 
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
@@ -262,7 +284,11 @@ var hdxOrderingAV = {
         for(var i = 0; i < this.polyLines.length; i++){
             this.polyLines[i].remove();
         }
+        for (var i = 0; i < this.boundingPoly.length; i++) {
+            this.boundingPoly[i].remove();
+        }
         this.polyLines = [];
+        this.boundingPoly = [];
 
     },
 
@@ -349,7 +375,65 @@ var hdxOrderingAV = {
                 this.w = parseFloat(waypoints[i].lon);
             }
         }
-    }
+    },
+    generateBoundingBox(){
+        this.n = parseFloat(waypoints[0].lat);
+        this.s = parseFloat(waypoints[0].lat);
+        this.e = parseFloat(waypoints[0].lon);
+        this.w = parseFloat(waypoints[0].lon);
+        for(var i = 1; i < waypoints.length; i++){
+
+            if(waypoints[i].lat > this.n){
+                this.n = parseFloat(waypoints[i].lat);
+            } else if (waypoints[i].lat < this.s){
+                this.s = parseFloat(waypoints[i].lat);
+            }
+            if(waypoints[i].lon > this.e){
+                this.e = parseFloat(waypoints[i].lon);
+            } else if (waypoints[i].lon < this.w){
+                this.w = parseFloat(waypoints[i].lon);
+            }
+        }
+
+        //creating the polylines for the bounding box
+        let nEnds = [[this.n,this.w],[this.n,this.e]];
+        let sEnds = [[this.s,this.w],[this.s,this.e]];
+        let eEnds = [[this.n,this.e],[this.s,this.e]];
+        let wEnds = [[this.n,this.w],[this.s,this.w]];
+
+            this.boundingPoly.push(
+                L.polyline(nEnds, {
+                    color: visualSettings.undiscovered.color,
+                    opacity: 0.7,
+                    weight: 3
+                })
+            );
+            this.boundingPoly.push(
+                L.polyline(sEnds, {
+                    color: visualSettings.undiscovered.color,
+                    opacity: 0.7,
+                    weight: 3
+                })
+            );
+            this.boundingPoly.push(
+                L.polyline(eEnds, {
+                    color: visualSettings.undiscovered.color,
+                    opacity: 0.7,
+                    weight: 3
+                })
+            );
+            this.boundingPoly.push(
+                L.polyline(wEnds, {
+                    color: visualSettings.undiscovered.color,
+                    opacity: 0.7,
+                    weight: 3
+                }) 
+            );
+
+            for (var i = 0; i < 4; i++) {
+                this.boundingPoly[i].addTo(map);
+            }
+    },
 };
 
 function refinementChanged(){
