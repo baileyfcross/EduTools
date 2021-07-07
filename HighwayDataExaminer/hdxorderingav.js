@@ -44,6 +44,8 @@ var hdxOrderingAV = {
 
     quadtree: null,
 
+    lengthEdges: 0,
+
     avActions: [
         {
             label: "START",
@@ -58,8 +60,7 @@ var hdxOrderingAV = {
                 thisAV.originalWaypoints = waypoints.slice();
                 numVUndiscovered = waypoints.length,
 
-                thisAV.xCoord = 0;
-                thisAV.yCoord = 0;
+                thisAV.lengthEdges = 0;
 
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
@@ -67,6 +68,7 @@ var hdxOrderingAV = {
                 //let fhc = fixedHilbertCurve();
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
+                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(6) + " mi");
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
@@ -306,6 +308,7 @@ var hdxOrderingAV = {
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
         addEntryToAVControlPanel("v1",visualSettings.v1);
         addEntryToAVControlPanel("v2", visualSettings.v2);
+        addEntryToAVControlPanel("totalLength",visualSettings.discovered)
 
 
         let refSelector = document.getElementById("refinement");
@@ -335,6 +338,15 @@ var hdxOrderingAV = {
         let visitingLine = [];
         visitingLine[0] = [waypoints[this.nextToCheck].lat, waypoints[this.nextToCheck].lon];
         visitingLine[1] = [waypoints[this.nextToCheck + 1].lat, waypoints[this.nextToCheck + 1].lon];
+
+        this.lengthEdges += convertToCurrentUnits(
+		    distanceInMiles(waypoints[this.nextToCheck].lat,
+                                    waypoints[this.nextToCheck].lon,
+                                    waypoints[this.nextToCheck + 1].lat,
+                                    waypoints[this.nextToCheck + 1].lon));
+
+        updateAVControlEntry("totalLength","Total length of edges so far: " + this.lengthEdges.toFixed(6) + " mi");
+        
         this.polyLines.push(
             L.polyline(visitingLine, {
             color: "#" + this.rainbowGradiant.colorAt(
