@@ -398,6 +398,8 @@ var hdxDFSRecAV = {
     },
         
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
 
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
