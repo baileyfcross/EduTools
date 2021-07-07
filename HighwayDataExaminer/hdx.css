@@ -1,26 +1,5 @@
 /* CSS for the METAL Highway Data Examiner */
 
-#PokemonIsFun
-{
-    color:#0de4a0;
-}
-
-#Mario
-{
-    color: #56e440;
-}
-
-#Luigi
-{
-    color: #e4e43d;
-}
-
-#XD
-{
-    color: #f0245b;
-}
-
-
 #map {
     position: absolute;
     /*top: 72px;*/

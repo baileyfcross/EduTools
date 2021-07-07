@@ -80,7 +80,7 @@ function startPausePressed() {
         hdxAV.maxExecCount = 0;
 
         showHidePseudocode();
-        document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
+        //document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
 
         // get the simulation going, always start with the "START"
         // action, then do it
