@@ -49,7 +49,32 @@ print("TMG 1.0 collapsed")
 print(str(verts) + " " + str(edges))
 
 # write our vertices, tracking the edges we'll need (if any) as we go
+edgelist = []
 for latnum in range(len(lats)):
     for lonnum in range(len(lons)):
+        vertnum = latnum * len(lats) + lonnum
         print(str(latnum) + "/" + str(lonnum) + " " + str(lats[latnum]) +
               " " + str(lons[lonnum]))
+        if args.complete_graph:
+            # add edge to all not-yet created vertices
+            # rest of this row
+            for tolon in range(lonnum+1, len(lons)):
+                tovertnum = latnum * len(lats) + tolon
+                edgelist.append(str(vertnum) + " " + str(tovertnum) + " EDGE")
+            # remaining rows
+            for tolat in range(latnum+1, len(lats)):
+                for tolon in range(len(lons)):
+                    tovertnum = tolat * len(lats) + tolon
+                    edgelist.append(str(vertnum) + " " + str(tovertnum) + " EDGE")
+        elif not args.points_only:
+            # add edges to neighbors when we are not the last
+            # in row or column
+            if lonnum < (len(lons) - 1):
+                # there's a neighbor on this row that will be created next
+                edgelist.append(str(vertnum) + " " + str(vertnum+1) + " EDGE")
+            if latnum < (len(lats) - 1):
+                # there's a neigbor on the next row that will be created
+                edgelist.append(str(vertnum) + " " + str(vertnum + len(lons)) + " EDGE")
+
+for edge in edgelist:
+    print(edge)
