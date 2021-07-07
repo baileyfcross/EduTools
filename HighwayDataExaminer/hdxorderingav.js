@@ -68,7 +68,7 @@ var hdxOrderingAV = {
                 //let fhc = fixedHilbertCurve();
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
-                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(6) + " mi");
+                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " mi");
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
@@ -365,7 +365,7 @@ var hdxOrderingAV = {
                                     waypoints[this.nextToCheck + 1].lat,
                                     waypoints[this.nextToCheck + 1].lon));
 
-        updateAVControlEntry("totalLength","Total length of edges so far: " + this.lengthEdges.toFixed(6) + " mi");
+        updateAVControlEntry("totalLength","Total length of edges so far: " + this.lengthEdges.toFixed(2) + " mi");
         
         this.polyLines.push(
             L.polyline(visitingLine, {
