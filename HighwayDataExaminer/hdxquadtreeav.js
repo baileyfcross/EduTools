@@ -1163,5 +1163,76 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                 this.ne.hilbertOrderPoly(7,boundingPoly);
         }
     }
+    this.greyOrder = function(orientation){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.greyOrder(0);
+                    this.sw.greyOrder(1);
+                    this.se.greyOrder(1);
+                    this.ne.greyOrder(0);
+                    break;
+                //case 1 is equivalent to the orientation being a ∩
+                case 1:
+                    this.se.greyOrder(1);
+                    this.ne.greyOrder(0);
+                    this.nw.greyOrder(0);
+                    this.sw.greyOrder(1);
+                    break;
+            }
+        }
+    }
+    this.greyOrderPoly = function(orientation,boundingPoly){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            let nsEdge = this.makeNSedge();
+            let ewEdge = this.makeEWedge();
+                    
+                boundingPoly.push(
+                    L.polyline(nsEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                );
+                boundingPoly.push(
+                    L.polyline(ewEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                )
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.greyOrderPoly(0,boundingPoly);
+                    this.sw.greyOrderPoly(1,boundingPoly);
+                    this.se.greyOrderPoly(1,boundingPoly);
+                    this.ne.greyOrderPoly(0,boundingPoly);
+                    break;
+                //case 1 is equivalent to the orientation being a ∩
+                case 1:
+                    this.se.greyOrderPoly(1,boundingPoly);
+                    this.ne.greyOrderPoly(0,boundingPoly);
+                    this.nw.greyOrderPoly(0,boundingPoly);
+                    this.sw.greyOrderPoly(1,boundingPoly);
+                    break;
+            }
+        }
+    }
     
 };
