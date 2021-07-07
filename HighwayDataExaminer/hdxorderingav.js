@@ -104,10 +104,27 @@ var hdxOrderingAV = {
                             thisAV.quadtree.hilbertOrderPoly(0,thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.hilbertOrder(0);
+                        }
+                        break;
+                    case "moore":
+                        thisAV.findExtremePoints();
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.quadtree.add(waypoints[i]);
+                            console.log("adding");
+                        }
+                        if(thisAV.showBB){
+                            thisAV.quadtree.mooreOrderPoly(thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                                console.log("adding");
+                            }
+                        } else {
+                            thisAV.quadtree.mooreOrder();
                         }
                         break;
 
@@ -129,9 +146,7 @@ var hdxOrderingAV = {
                         waypoints.sort(function(a, b){return Math.random() * 2 - 1});
                         break;
                     case "hilbert":
-                    //case "fixedGrey":
-                        waypoints.sort(function(a, b){return a.value - b.value});
-                        break;
+                    case "moore":
                     case "morton":
                         waypoints.sort(function(a, b){return a.value - b.value});   
                         break;
@@ -274,6 +289,7 @@ var hdxOrderingAV = {
         <option value="rand">Random</option>
         <option value="morton">Morton/Z Curve</option>
         <option value="hilbert">Hilbert Curve</option>
+        <option value="moore">Moore Curve</option>
         <option value="default">Default</option>
 
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
