@@ -280,7 +280,7 @@ var hdxOrderingAV = {
         </select>`;
 
         newAO += '<br />Refinement Threshold<input type="number" id="refinement" min="2" max="' 
-        + (waypoints.length) + '" value="3">';
+        + (waypoints.length) + '" value="2">';
 
         newAO += `<br /><input id="boundingBox" type="checkbox" name="Show Bounding Box"/>&nbsp;
         Show Bounding Box<br />`
