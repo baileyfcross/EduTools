@@ -382,8 +382,7 @@ function HDXProcessFileContents(fileContents) {
         pointboxContents = parseGRAContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
-        document.getElementById('filename').innerHTML = "Graph: " + hdxGlobals.loadingFile;
-        console.log(hdxGlobals);
+        document.getElementById('filename').innerHTML = hdxGlobals.loadingFile;
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
 	// if the "noav" QS parameter is specified, we skip over the
