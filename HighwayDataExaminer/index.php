@@ -180,11 +180,10 @@ ENDOFSTUFF;
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
 
-<style>
-	
-</style>
-
 <body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)">
+<div id="sizeError">
+	Window must be enlarged
+</div>
 <div class="menubar">
 	<div id="info">
   <span id="startUp">To begin, select a graph to display.</span>
@@ -247,7 +246,7 @@ ENDOFSTUFF;
   
 </div>
 <div id="title">
-		<p id = "titleh1">
+		<p id = "metalTitle">
 			METAL HDX
 </p>
   </div>

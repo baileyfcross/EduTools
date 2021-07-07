@@ -6,8 +6,6 @@
 // Primary Author: Jim Teresco
 //
 
-
-
 // speedChanger dropdown callback
 function speedChanged() {
 
@@ -264,6 +262,13 @@ var titleScreen = true;
 window.addEventListener('resize', fixSize);
 function fixSize()
 {
+
+    console.log("window: " + window.innerWidth);
+    if (window.innerWidth < 930)
+    {
+        window.resizeTo(930, 500);
+        console.log("made it 40");
+    }
     var checked = document.getElementById("datatablesCheckbox").checked;
     if (titleScreen)
     {
@@ -340,6 +345,7 @@ function showTopControlPanel() {
     document.getElementById("currentAlgorithm").style.marginTop = "0";
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
+    document.getElementById("metalTitle").style.display = "";
     
     
     fixSize();
@@ -459,6 +465,7 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("filename").style.fontSize = "21px";
     document.getElementById("currentAlgorithm").style.display = "none";
     document.getElementById("topControlPanel").style.display = "none";
+    document.getElementById("metalTitle").style.display = "block";
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;
