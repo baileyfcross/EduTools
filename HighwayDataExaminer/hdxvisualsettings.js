@@ -12,7 +12,7 @@ var visualSettings = {
     
     undiscovered: {
         color: "#202020",
-        textColor: "#e0e0e0",
+        textColor: "#ffffff",
         scale: 4,
         name: "undiscovered", 
         value: 0,
@@ -20,8 +20,8 @@ var visualSettings = {
         opacity: 0.6
     },
     visiting: {
-        color: "gold",
-        textColor: "black",
+        color: "rgb(255, 57, 57)",
+        textColor: "white",
         scale: 8,
         name: "visiting",
         value: 0,
@@ -86,7 +86,7 @@ var visualSettings = {
 
     // both vertex and edge search
     shortLabelLeader: {
-        color: "#654321",
+        color: "rgb(30,173,229)",
         textColor: "white",
         scale: 6,
         name: "shortLabelLeader",
@@ -95,7 +95,7 @@ var visualSettings = {
         opacity: 0.6
     },
     longLabelLeader: {
-        color: "#006400",
+        color: "#56e440",
         textColor: "white",
         scale: 6,
         name: "longLabelLeader",
@@ -104,7 +104,7 @@ var visualSettings = {
         opacity: 0.6
     },
     firstLabelLeader: {
-        color: "#876543",
+        color: "#e4e43d",
         textColor: "white",
         scale: 6,
         name: "firstLabelLeader",
@@ -113,7 +113,7 @@ var visualSettings = {
         opacity: 0.6
     },
     lastLabelLeader: {
-        color: "#00B400",
+        color: "#f0245b",
         textColor: "white",
         scale: 6,
         name: "lastLabelLeader",

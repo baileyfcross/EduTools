@@ -1,5 +1,26 @@
 /* CSS for the METAL Highway Data Examiner */
 
+#PokemonIsFun
+{
+    color:#0de4a0;
+}
+
+#Mario
+{
+    color: #56e440;
+}
+
+#Luigi
+{
+    color: #e4e43d;
+}
+
+#XD
+{
+    color: #f0245b;
+}
+
+
 #map {
     position: absolute;
     /*top: 72px;*/
@@ -12,8 +33,6 @@
     border-radius: 10px;
     border: 2px solid white;
     margin: 0;
-    
-    
 }
 
 #avStatusPanel {
@@ -961,7 +980,7 @@ input
     color: white;
 }
 
-#topControlPanelAV1 #startPauseButton, #topControlPanelAV4 #resetButton
+#topControlPanelAV1 #startPauseButton
 {
     margin-top: 2px;
 }
@@ -1003,7 +1022,6 @@ div.menubar
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 12px;
     color: white;
-    display: inline-block;
     margin-top: 0;
     font-weight: 500;
 }
@@ -1013,6 +1031,7 @@ div.menubar
     font-size: 12px;
     margin: 5px 10px;
     text-shadow: 0.8px 0.8px 1.5px black;
+    width: 94px;
 }
 
 #newAlg
@@ -1021,6 +1040,12 @@ div.menubar
     margin: 0 10px;
     background-color: rgb(129, 91, 216);
     text-shadow: 0.8px 0.8px 1.5px black;
+    width: 94px;
+}
+
+#currentAlgorithm
+{
+    display: none;
 }
 
 #startPauseButton, #resetButton
@@ -1048,7 +1073,7 @@ div.menubar
 
 #info
 {
-    text-align: center;
+    text-align: left;
 }
 .menubar {
     font-size: 10pt;

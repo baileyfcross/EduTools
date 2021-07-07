@@ -186,8 +186,8 @@ ENDOFSTUFF;
 <div class="menubar">
 	<div id="info">
   <span id="startUp">To begin, select a graph to display.</span>
-  <span id="filename"></span><button id="newGraph">New Graph</button><br>
-  <span id="currentAlgorithm"></span><button id="newAlg">New Algorithm</button>
+  <button id="newGraph">New Graph</button><span id="filename"></span><br>
+  <button id="newAlg">New Algorithm</button><span id="currentAlgorithm"></span>
 	</div>
 <div id="topControlPanel">
   <table id="topControlPanelTable">
@@ -199,14 +199,22 @@ ENDOFSTUFF;
 	  <select id="speedChanger" onchange="speedChanged()">
 	    <option value="0">Run To Completion</option>
         <option value="0">Jump To Breakpoint</option>
-	    <option value="1">Fastest possible</option>
+	    <option value="1">Max Speed</option>
+		
+		<!--<option value="50">Fast</option>
+		
 	    <option value="5">Extremely fast</option>
 	    <option value="20">Very fast</option>
-	    <option value="50" selected>Fast</option>
+	    
 	    <option value="100">Medium speed</option>
 	    <option value="250">Pretty slow</option>
 	    <option value="500">Slow</option>
-	    <option value="1000">Painfully slow</option>
+	    <option value="1000">Painfully slow</option>-->
+		
+		<option value="40">Presto</option>
+		<option value="75" selected>Allegro</option>
+		<option value="175">Moderato</option>
+		<option value="1500">Largo</option>
 	    <option value="-1">Step</option>
 	  </select>
 	  </td><td >
@@ -216,8 +224,8 @@ ENDOFSTUFF;
 		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
 		  </div>
 	  	  
-	</td><td id="topControlPanelAV4">
-	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />
+	</td><!--<td id="topControlPanelAV4">
+	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />-->
 	<!-- if any more AV-specific entries are added, they need to
 	     be dealt with in showTopControlPanel() -->
 	<!--<td>
