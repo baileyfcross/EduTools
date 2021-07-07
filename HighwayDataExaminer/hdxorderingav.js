@@ -129,6 +129,24 @@ var hdxOrderingAV = {
                             thisAV.quadtree.mooreOrder();
                         }
                         break;
+                    case "grey":
+                        thisAV.findExtremePoints();
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.quadtree.add(waypoints[i]);
+                            console.log("adding");
+                        }
+                        if(thisAV.showBB){
+                            thisAV.quadtree.greyOrderPoly(0,thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                                console.log("adding");
+                            }
+                        } else {
+                            thisAV.quadtree.greyOrder(0);
+                        }
+                        break;
 
                     default:
                         for(var i = 0; i < waypoints.length; i++){
@@ -150,6 +168,7 @@ var hdxOrderingAV = {
                     case "hilbert":
                     case "moore":
                     case "morton":
+                    case "grey":
                         waypoints.sort(function(a, b){return a.value - b.value});   
                         break;
                     case "default":
@@ -292,6 +311,7 @@ var hdxOrderingAV = {
         <option value="morton">Morton/Z Curve</option>
         <option value="hilbert">Hilbert Curve</option>
         <option value="moore">Moore Curve</option>
+        <option value="grey">Grey Code</option>
         <option value="default">Default</option>
 
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
