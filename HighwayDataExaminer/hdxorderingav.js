@@ -42,7 +42,7 @@ var hdxOrderingAV = {
     //fhc: fixedHilbertCurve(),
     numVUndiscovered: waypoints.length,
 
-    mortonQT: null,
+    quadtree: null,
 
     avActions: [
         {
@@ -79,21 +79,55 @@ var hdxOrderingAV = {
                 switch(thisAV.option){
                     case "morton":
                         thisAV.findExtremePoints();
-                        thisAV.mortonQT = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
-                            thisAV.mortonQT.add(waypoints[i]);
+                            thisAV.quadtree.add(waypoints[i]);
                         }
                         if(thisAV.showBB){
-                            thisAV.mortonQT.mortonOrderPoly(thisAV.boundingPoly);
+                            thisAV.quadtree.mortonOrderPoly(thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                            }
+                        } else {
+                            thisAV.quadtree.mortonOrder();
+                        }
+                        break;
+                    case "hilbert":
+                        thisAV.findExtremePoints();
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.quadtree.add(waypoints[i]);
+                        }
+                        if(thisAV.showBB){
+                            thisAV.quadtree.hilbertOrderPoly(0,thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                            }
+                        } else {
+                            thisAV.quadtree.hilbertOrder(0);
+                        }
+                        break;
+                    case "moore":
+                        thisAV.findExtremePoints();
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.quadtree.add(waypoints[i]);
+                            console.log("adding");
+                        }
+                        if(thisAV.showBB){
+                            thisAV.quadtree.mooreOrderPoly(thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
                                 console.log("adding");
                             }
                         } else {
-                            thisAV.mortonQT.mortonOrder();
+                            thisAV.quadtree.mooreOrder();
                         }
                         break;
+
                     default:
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
@@ -111,10 +145,8 @@ var hdxOrderingAV = {
                     case "rand":
                         waypoints.sort(function(a, b){return Math.random() * 2 - 1});
                         break;
-                    case "fixedHilbert":
-                    //case "fixedGrey":
-                        waypoints.sort(function(a, b){return a.value - b.value});
-                        break;
+                    case "hilbert":
+                    case "moore":
                     case "morton":
                         waypoints.sort(function(a, b){return a.value - b.value});   
                         break;
@@ -256,14 +288,15 @@ var hdxOrderingAV = {
         <option value="byLng">By Longitude</option>
         <option value="rand">Random</option>
         <option value="morton">Morton/Z Curve</option>
+        <option value="hilbert">Hilbert Curve</option>
+        <option value="moore">Moore Curve</option>
         <option value="default">Default</option>
 
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
-        <!--option value="fixedHilbert">Fixed Hilbert Curve</option-->
         </select>`;
 
-        newAO += '<br />Refinement/Iteration<input type="number" id="refinement" min="1" max="' 
-        + (waypoints.length) + '" value="3">';
+        newAO += '<br />Refinement Threshold<input type="number" id="refinement" min="2" max="' 
+        + (waypoints.length) + '" value="2">';
 
         newAO += `<br /><input id="boundingBox" type="checkbox" name="Show Bounding Box"/>&nbsp;
         Show Bounding Box<br />`
@@ -314,40 +347,6 @@ var hdxOrderingAV = {
             this.polyLines[i].addTo(map);
         }  
 
-    },
-
-    inverseHilbert(n,x,y){
-        let rx, ry, s, d = 0;
-        for(s = n/2; s > 0; s = s/2){
-           // console.log(s);
-            //this calculates the orientation of the section
-            //of the Hilbert curve
-            rx = (x & s) > 0;
-           // console.log(rx);
-            ry = (y & s) > 0;
-            //console.log(ry);
-            //this is what actually calculates the double value
-            d += s * s * ((3 * rx) ^ ry);
-            //console.log(d);
-            this.xCoord = x;
-            this.yCorrd = y;
-            this.rotate(n,rx,ry);
-        }
-        return d;
-    },
-
-    rotate(n, rx, ry) {
-        if (ry == 0) {
-            if (rx == 1) {
-                this.xCoord = n-1 - this.xCoord;
-                this.yCoord = n-1 - this.yCoord;
-            }
-    
-            //Swap x and y
-            let t  = this.xCoord;
-            this.xCoord = this.yCoord;
-            this.yCoord = t;
-        }
     },
 
     setConditionalBreakpoints(name) {
@@ -441,7 +440,7 @@ function refinementChanged(){
     let refSelector = document.getElementById("refinement");
     switch(selector.options[selector.selectedIndex].value){
         case "morton":
-        //case "fixedGrey":
+        case "hilbert":
             refSelector.disabled = false;
             break;
         default:
@@ -450,50 +449,3 @@ function refinementChanged(){
     }
         
 };
-
-/* function fixedHilbertCurve(){
-
-    this.pointToDist = function(n,x,y){
-        let rx, ry, s, d = 0;
-        for(s = n/2; s > 0; s /= 2){
-            //this calculates the orientation of the section
-            //of the Hilbert curve
-            rx = (x & s) > 0;
-            ry = (y & s) > 0;
-            //this is what actually calculates the double value
-            d += s * s * ((3 * rx) ^ ry);
-            this.x = x;
-            this.y = y;
-            this.rotate(n,rx,ry);
-        }
-        return d;
-    }
-
-    this.rotate = function(n, rx, ry) {
-        if (ry == 0) {
-            if (rx == 1) {
-                this.x = n-1 - this.x;
-                this.y = n-1 - this.y;
-            }
-    
-            //Swap x and y
-            let t  = this.x;
-            this.x = this.y;
-            this.y = t;
-        }
-    }
-} */
-
-
-/* hdxOrderingAV.extraAlgOptions = `<br />
-Order: <select id="traversalOrdering">
-<option value="byLat">Order by Latitude</option>
-<option value="byLng">Order by Longitude</option>
-<option value="rand">Random Order</option>
-<option value="morton">Morton/Z Order</option>
-<option value="hilbert">Hilbert Curve Order</option>
-</select>`; */
-
-// waypoints[i].value = thisAV.inverseHilbert(
-//     Math.pow(2,thisAV.refinement),waypoints[i].lon * Math.pow(10,6),waypoints[i].lat * Math.pow(10,6));
-// console.log(waypoints[i].value);
