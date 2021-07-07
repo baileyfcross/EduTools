@@ -168,8 +168,18 @@ var hdxAV = {
 
         // Run to Completion option
         if (hdxAV.delay == 0 && hdxAV.speedName == "Run To Completion") {
+	    let startTime = Date.now();
             while (hdxAV.nextAction != "DONE") {
-                hdxAV.oneIteration(thisAV);
+		// every one second, yield instead so the UI can
+		// refresh and button presses can be processed, allowing
+		// some feedback to the user that progress is being made
+		// and very importantly allowing the Pause button to
+		// work during run to completion.
+		if (Date.now() - startTime > 1000) {
+		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
+		    return;
+		}
+		hdxAV.oneIteration(thisAV);
             }
             hdxAV.avDone();
             return;
@@ -177,7 +187,14 @@ var hdxAV = {
 	
         // Jump To Breakpoint
         if (hdxAV.delay == 0) {
+	    let startTime = Date.now();
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
+		// as above every one second, yield so the UI can
+		// refresh and button presses can be processed
+		if (Date.now() - startTime > 1000) {
+		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
+		    return;
+		}
                 hdxAV.oneIteration(thisAV);
             }
 	    // AV completely done?

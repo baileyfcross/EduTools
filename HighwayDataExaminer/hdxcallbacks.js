@@ -12,6 +12,7 @@
 function speedChanged() {
 
     var speedChanger = document.getElementById("speedChanger");
+    console.log("Selected Index: " + speedChanger.selectedIndex);
     let temp = speedChanger.options[speedChanger.selectedIndex];
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
@@ -79,6 +80,7 @@ function startPausePressed() {
         hdxAV.maxExecCount = 0;
 
         showHidePseudocode();
+        //document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
 
         // get the simulation going, always start with the "START"
         // action, then do it
@@ -153,8 +155,7 @@ function algorithmSelectionChanged() {
         }
     }
 
-    document.getElementById("currentAlgorithm").innerHTML =
-        "Algorithm: " + hdxAV.currentAV.name;
+    document.getElementById("currentAlgorithm").innerHTML = hdxAV.currentAV.name;
 
     // call its function to set up its status and options
     hdxAV.currentAV.setupUI();
@@ -307,8 +308,8 @@ function fixSize()
     {
 
         
-        document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
-        document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
+        document.getElementById("map").style.left = ((1 * sep) + (0 * bord)) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - ((2 * sep) + (2 * bord))) + "px";
     }
 
     if (!titleScreen)
@@ -337,6 +338,8 @@ function showTopControlPanel() {
     document.getElementById("newAlg").style.display = "";
     document.getElementById("filename").style.marginTop = "0";
     document.getElementById("currentAlgorithm").style.marginTop = "0";
+    document.getElementById("filename").style.fontSize = "12px";
+    document.getElementById("currentAlgorithm").style.display = "inline";
     
     
     fixSize();
@@ -351,7 +354,7 @@ function showTopControlPanel() {
     let av2 = document.getElementById("topControlPanelAV2");
     let av3 = document.getElementById("topControlPanelAV3");
    // let av4 = document.getElementById("topControlPanelAV4");
-    let av4button = document.getElementById("resetButton");
+    //let av4button = document.getElementById("resetButton");
     //let showMarkers = document.getElementById("topControlPanelShowMarkers");
     
     // show only the relevant components given the current
@@ -375,9 +378,12 @@ function showTopControlPanel() {
         // selected
         av1.style.display = "none";
         av2.style.display = "none";
+        document.getElementById("newGraph").addEventListener("click", newGraphMenu);
+        document.getElementById("newAlg").addEventListener("click", resetPressed);
+        document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints);
         //av3.style.display = "none";
        // av4.style.display = "";
-        av4button.value = "Select AV";
+       // av4button.value = "Select AV";
       //  showMarkers.style.display = "";
         document.getElementById("datatablesCheckbox").checked = false;
         break;
@@ -390,9 +396,9 @@ function showTopControlPanel() {
         av2.style.display = "";
         av3.style.display = "";
        // av4.style.display = "";
-        av4button.value = "Reset";
+        //av4button.value = "Reset";
       //  showMarkers.style.display = "none";
-        document.getElementById("speedChanger").selectedIndex = 5;
+        //document.getElementById("speedChanger").selectedIndex = 5;
         speedChanged();
         document.getElementById("pseudoCheckbox").checked = true;
         document.getElementById("datatablesCheckbox").checked = false;
@@ -450,6 +456,9 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("newAlg").style.display = "none";
     document.getElementById("filename").style.marginTop = "12px";
     document.getElementById("currentAlgorithm").style.marginTop = "12px";
+    document.getElementById("filename").style.fontSize = "21px";
+    document.getElementById("currentAlgorithm").style.display = "none";
+    document.getElementById("topControlPanel").style.display = "none";
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;
@@ -489,9 +498,10 @@ function HDXFillGraphList(e) {
     var orderSel = document.getElementById("orderOptions").value;
     var resSel = document.getElementById("restrictOptions").value;
     var cateSel = document.getElementById("categoryOptions").value;
-    var min = document.getElementById("minVertices").value;
-    var max = document.getElementById("maxVertices").value;
+    var min = parseInt(document.getElementById("minVertices").value);
+    var max = parseInt(document.getElementById("maxVertices").value);
     if (max < 0 || min < 0 || min > max) {
+        console.log("Out of range.  min: " + min + " max: " + max);
         return;
     }
     if ($("#graphList").length != 0) {
