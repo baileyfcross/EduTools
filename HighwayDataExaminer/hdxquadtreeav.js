@@ -750,7 +750,6 @@ var hdxQuadtreeAV = {
     },
 
     highlightBoundingBox(){
-        console.log("test");
         for (var i = 0; i < this.highlightPoly.length; i++) {
             this.highlightPoly[i].remove();
         }
@@ -909,14 +908,12 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.mortonOrderPoly = function(boundingPoly){
         if(this.isLeaf()){
             for(let i = 0; i < this.points.length; i++){
-                console.log(this.points[i]);
                 if(this.points[i] != null){
                     this.points[i].value = k;
                     k++;
                  }
             }
         } else {
-            console.log("poly");
            
                 let nsEdge = this.makeNSedge();
                 let ewEdge = this.makeEWedge();
@@ -945,7 +942,6 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.mortonOrder = function(){
         if(this.isLeaf()){
             for(let i = 0; i < this.points.length; i++){
-                console.log(this.points[i]);
                 if(this.points[i] != null){
                     this.points[i].value = k;
                     k++;
@@ -956,6 +952,110 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.ne.mortonOrder();
             this.sw.mortonOrder();
             this.se.mortonOrder();
+        }
+    }
+
+    this.hilbertOrder = function(orientation){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.hilbertOrder(3);
+                    this.sw.hilbertOrder(0);
+                    this.se.hilbertOrder(0);
+                    this.ne.hilbertOrder(1);
+                    break;
+                //case 1 is equivalent to the orientation being a c
+                case 1:
+                    this.se.hilbertOrder(2);
+                    this.sw.hilbertOrder(1);
+                    this.nw.hilbertOrder(1);
+                    this.ne.hilbertOrder(0);
+                    
+                    break;
+                //case 2 is equivalent to the orientation being ∩
+                case 2:
+                    this.se.hilbertOrder(1);
+                    this.ne.hilbertOrder(2);
+                    this.nw.hilbertOrder(2);
+                    this.sw.hilbertOrder(3);
+                    break;
+                //case 3 is equivalent to the orientation being ɔ
+                case 3:
+                    this.nw.hilbertOrder(0);
+                    this.ne.hilbertOrder(3);
+                    this.se.hilbertOrder(3);
+                    this.sw.hilbertOrder(2);
+                    break;
+            }
+        }
+    }
+
+    this.hilbertOrderPoly = function(orientation,boundingPoly){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            let nsEdge = this.makeNSedge();
+            let ewEdge = this.makeEWedge();
+                    
+                boundingPoly.push(
+                    L.polyline(nsEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                );
+                boundingPoly.push(
+                    L.polyline(ewEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                )
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.hilbertOrderPoly(3,boundingPoly);
+                    this.sw.hilbertOrderPoly(0,boundingPoly);
+                    this.se.hilbertOrderPoly(0,boundingPoly);
+                    this.ne.hilbertOrderPoly(1,boundingPoly);
+                    break;
+                //case 1 is equivalent to the orientation being a c
+                case 1:
+                    this.se.hilbertOrderPoly(2,boundingPoly);
+                    this.sw.hilbertOrderPoly(1,boundingPoly);
+                    this.nw.hilbertOrderPoly(1,boundingPoly);
+                    this.ne.hilbertOrderPoly(0,boundingPoly);
+                    
+                    break;
+                //case 2 is equivalent to the orientation being ∩
+                case 2:
+                    this.se.hilbertOrderPoly(1,boundingPoly);
+                    this.ne.hilbertOrderPoly(2,boundingPoly);
+                    this.nw.hilbertOrderPoly(2,boundingPoly);
+                    this.sw.hilbertOrderPoly(3,boundingPoly);
+                    break;
+                //case 3 is equivalent to the orientation being ɔ
+                case 3:
+                    this.nw.hilbertOrderPoly(0,boundingPoly);
+                    this.ne.hilbertOrderPoly(3,boundingPoly);
+                    this.se.hilbertOrderPoly(3,boundingPoly);
+                    this.sw.hilbertOrderPoly(2,boundingPoly);
+                    break;
+            }
         }
     }
 };
