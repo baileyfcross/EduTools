@@ -120,6 +120,7 @@ var hdxAV = {
         this.avList.push(hdxBFConvexHullAV);
         this.avList.push(hdxClosestPairsRecAV);
         this.avList.push(hdxQuadtreeAV);
+        this.avList.push(hdxOrderingAV);
         
         // populate the algorithm selection select with options
         // from the avList
@@ -167,8 +168,18 @@ var hdxAV = {
 
         // Run to Completion option
         if (hdxAV.delay == 0 && hdxAV.speedName == "Run To Completion") {
+	    let startTime = Date.now();
             while (hdxAV.nextAction != "DONE") {
-                hdxAV.oneIteration(thisAV);
+		// every one second, yield instead so the UI can
+		// refresh and button presses can be processed, allowing
+		// some feedback to the user that progress is being made
+		// and very importantly allowing the Pause button to
+		// work during run to completion.
+		if (Date.now() - startTime > 1000) {
+		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
+		    return;
+		}
+		hdxAV.oneIteration(thisAV);
             }
             hdxAV.avDone();
             return;
@@ -176,7 +187,14 @@ var hdxAV = {
 	
         // Jump To Breakpoint
         if (hdxAV.delay == 0) {
+	    let startTime = Date.now();
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
+		// as above every one second, yield so the UI can
+		// refresh and button presses can be processed
+		if (Date.now() - startTime > 1000) {
+		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
+		    return;
+		}
                 hdxAV.oneIteration(thisAV);
             }
 	    // AV completely done?
@@ -357,7 +375,7 @@ var hdxAV = {
         // hover over the current action, this shows the last 5 messages
         //hdxAV.algStat.innerHTML = currentAction.logMessage(thisAV);
 
-        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV).replace(/ /g,"&nbsp;"));
+        hdxAV.logMessageArr.push(currentAction.logMessage(thisAV));
         if (hdxAV.logMessageArr.length == 8) {
              hdxAV.logMessageArr.splice(0, 1);
         }
@@ -384,6 +402,7 @@ var hdxAV = {
         // better visibility for results
         document.getElementById("pseudoCheckbox").checked = false;
         document.getElementById("pseudoText").style.display = "none";
+        document.getElementById("pscode").style.display = "none";
             
         hdxAV.setStatus(hdxStates.AV_COMPLETE);
         HDXAddCustomTitles();

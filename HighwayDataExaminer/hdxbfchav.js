@@ -672,6 +672,8 @@ var hdxBFConvexHullAV = {
         //if (waypoints.length > 100) {
         //    alert("This is an O(n^3) algorithm in the worst case, so you might wish to choose a smaller graph.");
         //}
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];

@@ -232,7 +232,7 @@ function HDXStartFileselectorRead(filesel) {
     let datatable = document.getElementById("datatable");
     datatable.style.display = "";
     let checkbox = document.getElementById("datatablesCheckbox");
-    checkbox.selected = true;
+    checkbox.selected = false;
 
     if (file) {
         //DBG.write("file: " + file.name);
@@ -382,8 +382,7 @@ function HDXProcessFileContents(fileContents) {
         pointboxContents = parseGRAContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
-        document.getElementById('filename').innerHTML =
-	    hdxGlobals.loadingFile + " (Highway Graph File)";
+        document.getElementById('filename').innerHTML = hdxGlobals.loadingFile;
         document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
 	// if the "noav" QS parameter is specified, we skip over the
@@ -444,7 +443,7 @@ function parseTMGContents(fileContents) {
     
     summaryInfo += ".</th></tr></table>";
     
-    var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3">Waypoints</th></tr><tr><th>#</th><th scope="col">Coordinates</th><th scope="col">Waypoint Name</th></tr></thead><tbody>';
+    var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="wp">Waypoints</th></tr><tr><th class="dtHeader">#</th><th scope="col" class="dtHeader">Coordinates</th><th scope="col" class="dtHeader">Waypoint Name</th></tr></thead><tbody>';
     
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
@@ -512,9 +511,9 @@ function parseTMGContents(fileContents) {
             ' &harr; ' + edgeInfo[1] + ':&nbsp;'
             + waypoints[newEdge.v2].label;
         var subst = '<td style ="word-break:break-all;">'
-            + edgeInfo[0] + ':&nbsp;' + (waypoints[newEdge.v1].label).substring(0,5) +
-            ' &harr; ' + edgeInfo[1] + ':&nbsp;'
-            + (waypoints[newEdge.v2].label).substring(0,5) + '</td>';
+            + edgeInfo[0] + '&nbsp;'  +
+            ' &harr;&nbsp; ' + edgeInfo[1] + '&nbsp;'
+             + '</td>';
         
         eTable += '<tr custom-title = "' + test + '"' + 'onmouseover="hoverE(event,'+i+')" onmouseout="hoverEndE(event,'+i+')" onclick="connectionClick({ connIndex: '+i+'})" id="connection' + i + '" class="v_' + firstNode + '_' + secondNode + '"><td id = "connectname" style ="word-break:break-all;" >' + i + '</td>';
         

@@ -12,7 +12,7 @@ var visualSettings = {
     
     undiscovered: {
         color: "#202020",
-        textColor: "#e0e0e0",
+        textColor: "#ffffff",
         scale: 4,
         name: "undiscovered", 
         value: 0,
@@ -20,8 +20,8 @@ var visualSettings = {
         opacity: 0.6
     },
     visiting: {
-        color: "gold",
-        textColor: "black",
+        color: "rgb(255, 57, 57)",
+        textColor: "white",
         scale: 8,
         name: "visiting",
         value: 0,
@@ -42,6 +42,23 @@ var visualSettings = {
         name: "leader",
         value: 0
     },
+    //not used by everything, but this is a placeholder in case things need to be made universal in the future
+    v1: {
+        color: "gold",
+        textColor: "black",
+        scale: 6,
+        name: "v1",
+        value: 0
+    },
+    //same as v1
+    v2: {
+        color: "goldenrod",
+        textColor: "black",
+        scale: 6,
+        name: "v2",
+        value: 0
+    },
+
     searchFailed: {
         color: "firebrick",
         textColor: "white",
@@ -56,7 +73,7 @@ var visualSettings = {
         name: "discarded",
         value: 0,
         weight: 5,
-        opacity: 0.5
+        opacity: 0.6
     },
 
     // these are in graph traversals and Dijkstra's so far
@@ -86,7 +103,7 @@ var visualSettings = {
 
     // both vertex and edge search
     shortLabelLeader: {
-        color: "#654321",
+        color: "rgb(30,173,229)",
         textColor: "white",
         scale: 6,
         name: "shortLabelLeader",
@@ -95,7 +112,7 @@ var visualSettings = {
         opacity: 0.6
     },
     longLabelLeader: {
-        color: "#006400",
+        color: "#56e440",
         textColor: "white",
         scale: 6,
         name: "longLabelLeader",
@@ -104,7 +121,7 @@ var visualSettings = {
         opacity: 0.6
     },
     firstLabelLeader: {
-        color: "#876543",
+        color: "#e4e43d",
         textColor: "white",
         scale: 6,
         name: "firstLabelLeader",
@@ -113,7 +130,7 @@ var visualSettings = {
         opacity: 0.6
     },
     lastLabelLeader: {
-        color: "#00B400",
+        color: "#f0245b",
         textColor: "white",
         scale: 6,
         name: "lastLabelLeader",
@@ -161,7 +178,7 @@ var visualSettings = {
     },
     highlightBounding: {
         color: "red",
-        textColor: "black",
+        textColor: "white",
         name: "highlightBounding",
         weight: 4,
         opacity: 0.7

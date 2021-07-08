@@ -35,6 +35,8 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
 <link rel="stylesheet" href="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.css">
+
+<link rel="icon" type="image/png" href="MetalBetaLogoSmall.png">
 <!-- bring in common JS libraries from TM for maps, etc. -->
 <?php tm_common_js(); ?>
 <script src="/leaflet/BeautifyMarker/leaflet-beautify-marker-icon.js"></script>
@@ -101,6 +103,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="hdxinstructions.js" type="text/javascript"></script>
 <script src="hdxclosestpairsrecav.js" type="text/javascript"></script>
 <script src="hdxquadtreeav.js" type="text/javascript"></script>
+<script src="rainbowvis.js" type="text/javascript"></script>
+<script src="hdxorderingav.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
 <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
 
@@ -177,30 +181,16 @@ ENDOFSTUFF;
 </head>
 
 <style>
-	.menubar {
-  		font-size: 10pt;
-  		font-style: normal;
- 		font-family: sans-serif;
-  		text-align: center;
-  		position: relative;
- 		padding-right: 8px;
-  		padding-bottom: 2px;
-  		margin-top: 0px;
-  		margin-bottom: 8px;
-  		height: auto;
-  		background: rgb(47, 47, 47);
-  		color: #ffffff;
-  		border: 3px solid rgb(47, 47, 47);
-}
+	
 </style>
 
-<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)">
-<p class="menubar">
-  HDX: <span id="startUp">To begin, select a graph to display.</span>
-  <span id="filename"></span>
-  <span id="status"></span>
-  <span id="currentAlgorithm"></span>
-</p>
+<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)">
+<div class="menubar">
+	<div id="info">
+  <span id="startUp">To begin, select a graph to display.</span>
+  <button id="newGraph">New Graph</button><span id="filename"></span><br>
+  <button id="newAlg">New Algorithm</button><span id="currentAlgorithm"></span>
+	</div>
 <div id="topControlPanel">
   <table id="topControlPanelTable">
     <tbody>
@@ -208,6 +198,94 @@ ENDOFSTUFF;
 	<td id="topControlPanelAV1">
 	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
 	  </td><td id="topControlPanelAV2">
+	  <select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Max Speed</option>
+		
+		<!--<option value="50">Fast</option>
+		
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>-->
+		
+		<option value="40">Presto</option>
+		<option value="75" selected>Allegro</option>
+		<option value="175">Moderato</option>
+		<option value="1500">Largo</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  </td><td >
+		  <div id="topControlPanelAV3">
+		  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+		  </div>
+	  	  
+	</td><!--<td id="topControlPanelAV4">
+	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />-->
+	<!-- if any more AV-specific entries are added, they need to
+	     be dealt with in showTopControlPanel() -->
+	<!--<td>
+	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	</td>
+	<td>
+	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+	</td>-->
+	<!--<td id="topControlPanelShowMarkers">
+          <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+	</td>-->
+      </tr>
+    </tbody>
+  </table>
+  
+</div>
+<div id="title">
+		<p id = "titleh1">
+			METAL HDX
+</p>
+  </div>
+</div>
+<!--<div id="topControlPanel">
+	<p>
+		Control Panel
+	</p>-->
+<!--<button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+<select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+	  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	  <!--<table id="topControlPanelTable">
+    <tbody>
+      <tr>
+	<td id="topControlPanelAV1">
+	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+	  <input id="resetButton" type="button" value="Reset" onclick="resetPressed();cleanupBreakpoints()" />
+	  </td>
+	  </td>--><!--<td id="topControlPanelAV4">
+	  </td>-->
+	  <!--</tr>
+<tr>
+	  <td id="topControlPanelAV2">
 	  <select id="speedChanger" onchange="speedChanged()">
 	    <option value="0">Run To Completion</option>
         <option value="0">Jump To Breakpoint</option>
@@ -221,25 +299,32 @@ ENDOFSTUFF;
 	    <option value="1000">Painfully slow</option>
 	    <option value="-1">Step</option>
 	  </select>
-	  </td><td id="topControlPanelAV3">
-	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-	  </td><td id="topControlPanelAV4">
-	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />
-	<!-- if any more AV-specific entries are added, they need to
+	  </td>
+</tr>
+<tr>
+	<td id="topControlPanelAV3">
+	  <div id="check">
+			<input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+			<input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+			<input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
+	  </div>
+</tr>
+<tr>
+--><!-- if any more AV-specific entries are added, they need to
 	     be dealt with in showTopControlPanel() -->
-	<td>
-	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
-	</td>
-	<td>
-	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
-	</td>
-	<td id="topControlPanelShowMarkers">
-          <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
-	</td>
-      </tr>
+
+	  <!--<input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>-->
+
+	
+	 <!-- <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>-->
+	
+	<!--<td id="topControlPanelShowMarkers">-->
+        <!--  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	<!--</td>-->
+     <!-- </tr>
     </tbody>
   </table>
-</div>
+</div>-->
 <div id="map">
 </div>
 <!--<div id="about">
@@ -350,8 +435,15 @@ ENDOFSTUFF;
 			back.setAttribute("id", "back");
 			back.innerHTML = "Back";
 			dataPanel.appendChild(back);
-      back.addEventListener("click", HDXGraphSearchCleanup());
-			back.addEventListener("click", defaultMenu);
+      		back.addEventListener("click", HDXGraphSearchCleanup());
+			if (titleScreen)
+			{
+				back.addEventListener("click", defaultMenu);
+			}
+			else
+			{
+				back.addEventListener("click", newGraphMenu);
+			}
 
       //Spacing on the panel
 			var br = document.createElement("br");
@@ -374,10 +466,11 @@ ENDOFSTUFF;
 			dataPanel.appendChild(basic);
 
       //makes the next button
-			var start = document.createElement("button");
-			start.setAttribute("id", "vis");
-			start.innerHTML = "Next";
-			dataPanel.appendChild(start);
+			var next = document.createElement("button");
+			next.setAttribute("id", "next");
+			next.innerHTML = "Next";
+			next.addEventListener("click", nextPressed);
+			dataPanel.appendChild(next);
 
 		}
 
@@ -402,7 +495,14 @@ ENDOFSTUFF;
 			title.innerHTML = "Advanced Search";
 			container.appendChild(title);
 
-			back.addEventListener("click", defaultMenu);
+			if (titleScreen)
+			{
+				back.addEventListener("click", defaultMenu);
+			}
+			else
+			{
+				back.addEventListener("click", newGraphMenu);
+			}
 
 			var sortP = document.createElement("p");
 			sortP.innerHTML = "Sort by";
@@ -517,16 +617,110 @@ ENDOFSTUFF;
 			container.innerHTML += "<br>";
 
 
+			var back = document.createElement("button");
+			back.setAttribute("id", "back2");
+			back.innerHTML = "Back";
+
+			/*var getList = document.createElement("button");
+			getList.innerHTML = "Get Graph List";
+			getList.setAttribute("id", "getlist");
+			getList.addEventListener("click", HDXFillGraphList(event));
+			container.appendChild(getList);*/
+			
 			var getList = document.createElement("input");
 			getList.setAttribute("type", "button");
 			getList.setAttribute("value", "Get Graph List");
 			getList.setAttribute("id", "getlist");
 			getList.setAttribute("onclick", "HDXFillGraphList(event)");
 			container.appendChild(getList);
-			container.innerHTML += "<br>";
 
 			dataPanel.appendChild(container);
 
+		}
+
+		function loadingMenu()
+		{
+			console.log("made it loading");
+
+			var dataPanel = document.getElementById("loadDataPanel");
+
+			dataPanel.innerHTML = "";
+
+			var loading = document.createElement("p");
+			loading.setAttribute("id", "loading");
+			loading.innerHTML = "Loading...";
+
+			dataPanel.appendChild(loading);
+		}
+
+		function newGraphMenu()
+		{
+			var mainbox = document.getElementById("loadDataPanel");
+			console.log("made it 12345");
+
+			//clear it
+			mainbox.innerHTML = "";
+
+			var br = document.createElement("br");
+
+			var cancel = document.createElement("button");
+			cancel.setAttribute("id", "cancel");
+			cancel.innerHTML = "Cancel";
+			cancel.addEventListener("click", hideLoadDataPanel)
+			mainbox.appendChild(cancel);
+
+
+			var instruct = document.createElement("p");
+			instruct.innerHTML = "Search for a graph in our database";
+
+			mainbox.appendChild(instruct);
+
+			var basicSearch = document.createElement("button");
+			basicSearch.setAttribute("class", "opt");
+			basicSearch.innerHTML = "Basic Search";
+
+			mainbox.appendChild(basicSearch);
+
+			basicSearch.addEventListener("click", basicMenu);
+
+			var advanced = document.createElement("button");
+			advanced.setAttribute("class", "opt");
+			advanced.innerHTML = "Advanced Search";
+			mainbox.appendChild(advanced);
+
+			advanced.addEventListener("click", advancedMenu);
+
+
+
+			mainbox.appendChild(br);
+
+			var or = document.createElement("p");
+			or.setAttribute("id", "or")
+			or.innerHTML = "or";
+
+			mainbox.appendChild(or);
+
+
+			var uploadLabel = document.createElement("label");
+			uploadLabel.setAttribute("for", "fileToLoad");
+			uploadLabel.setAttribute("id", "uploadLabel");
+			uploadLabel.innerHTML = "Upload File";
+			mainbox.appendChild(uploadLabel);
+
+			mainbox.appendChild(br);
+
+			var uploadIn = document.createElement("input");
+			uploadIn.setAttribute("id", "fileToLoad");
+			uploadIn.setAttribute("name", "fileToLoad");
+			uploadIn.setAttribute("type", "file");
+			uploadIn.setAttribute("value", "Start");
+			uploadIn.setAttribute("accept", ".tmg, .wpt, .pth, .nmp, .gra, .wpl");
+			uploadIn.setAttribute("onChange", "HDXStartFileselectorRead('fileToLoad')");
+
+			var bod = document.querySelector("body");
+
+			bod.appendChild(uploadIn);
+			mainbox.style.display = "";
 		}
 
 
@@ -651,6 +845,14 @@ ENDOFSTUFF;
 	</div>-->
 
       </tr>
+	  <tr>
+		  <td>
+			  <p id = "algDescription">
+
+				Insert description here.
+				</p>
+		  </td>
+	  </tr>
       <tr>
 	<td>
 	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
@@ -664,8 +866,11 @@ ENDOFSTUFF;
     <thead><tr><th>Algorithm Visualization Status</th></tr><thead>
       <tbody id="algorithmVars">
 	<tr><td id="algorithmStatus"></td></tr>
+	
 	<tr><td id="pseudo">
+		<p id = "pscode" style="display:none;">Pseudocode</p>
 	    <span id="pseudoText" style="display:none;">Select an algorithm to view pseudocode.</span>
+		
 	  </td>
 	</tr>
       </tbody>
