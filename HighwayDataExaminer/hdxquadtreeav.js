@@ -640,7 +640,7 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="' 
+        let newAO = 'Refinement Threshold <input type="number" id="refinement" min="2" max="' 
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
