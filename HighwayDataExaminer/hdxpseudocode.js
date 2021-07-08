@@ -116,9 +116,10 @@ function addStop() {
                 hdxAV.currentBreakpoint = "";
                 breakpointCheckerDisplay();
                 hdxAV.useVariableForBreakpoint = false;
-                document.getElementById("useBreakpointVariable").checked = false;
+                //document.getElementById("useBreakpointVariable").checked = false;
             }
             else {
+                hdxAV.useVariableForBreakpoint = true;
                 labelInnerHTML(target.getAttribute("variableValue"));
                 codeRowHighlight();
                 breakpointHighlight();
@@ -191,15 +192,18 @@ function createVariableSelector() {
     
     let divBreakpoint = document.createElement("div");
     let divBreakpoint1 = document.createElement("div");
+    let cbp = document.createElement("p");
+    cbp.innerHTML = "Conditional Breakpoint";
+    cbp.setAttribute("id", "cbp");
     //let divBreakpoint2 = document.createElement("div");
-    let checkbox = document.createElement("input");
+    /*let checkbox = document.createElement("input");
     
     checkbox.type = "checkbox";
     checkbox.id = "useBreakpointVariable";
     checkbox.onclick = function() {
 	hdxAV.useVariableForBreakpoint = !hdxAV.useVariableForBreakpoint;
     }
-    checkbox.style.backgroundColor = "Red";
+    checkbox.style.backgroundColor = "Red";*/
     
     let breakpointID = document.createAttribute("id");
     let breakpoint1ID = document.createAttribute("id");
@@ -223,7 +227,8 @@ function createVariableSelector() {
     //divBreakpoint2.style.backgroundColor = "Red";
     
     // append the smaller divs to the bigger one
-    divBreakpoint.appendChild(checkbox);
+    //divBreakpoint.appendChild(checkbox);
+    divBreakpoint.appendChild(cbp);
     divBreakpoint.appendChild(divBreakpoint1);
     //divBreakpoint.appendChild(divBreakpoint2);
     
@@ -234,6 +239,7 @@ function createVariableSelector() {
     setDefaultVariableSelectorLocation();
     showHideBreakpointVariableSelector();
     divBreakpoint.style.display = "none";    
+    hdxAV.useVariableForBreakpoint = true;
 }
 
 // Sets the popout back to where it should be. Used to avoid 
@@ -260,16 +266,16 @@ function setDefaultVariableSelectorLocation() {
 function breakpointCheckerDisplay() {
     
     let element = document.getElementById("breakpointVariableSelector");
-    let checkbox = document.getElementById("useBreakpointVariable");
+    //let checkbox = document.getElementById("useBreakpointVariable");
     if (hdxAV.currentBreakpoint == "") {
         element.style.display = "none";
-        checkbox.checked = false;
-        checkbox.style.display = "none";
+        //checkbox.checked = false;
+        //checkbox.style.display = "none";
     }
     else {
         element.style.display = "block";
-        checkbox.checked = true;
-        checkbox.style.display = "none";
+        //checkbox.checked = false;
+        //checkbox.style.display = "none";
     }
     setDefaultVariableSelectorLocation();
 }
@@ -280,13 +286,13 @@ function labelInnerHTML(text) {
 
     let element = document.getElementById("breakpointText");
     element.innerHTML = text;
-    let checkbox = document.getElementById("useBreakpointVariable");
+    //let checkbox = document.getElementById("useBreakpointVariable");
     if (hasInnerHTML(hdxAV.currentBreakpoint)) {
-        checkbox.style.display = "block";
+       // checkbox.style.display = "block";
     }
     else {
-        checkbox.style.display = "none";
-        checkbox.checked = false;
+        //checkbox.style.display = "none";
+       // checkbox.checked = false;
         hdxAV.useVariableForBreakpoint = false;
     }
 }
@@ -325,7 +331,7 @@ function createInnerHTMLChoice(choice, id, firstText, secondText) {
 
     switch (choice) {
     case "boolean":
-        html = 'Stop when this is equal to: <br \><select name="quantity" id="';
+        html = 'Stop when: <br><select name="quantity" id="';
         html+= id + '"><option value="true">' + firstText + '</option>';
         html+= '<option value="false">' + secondText + '</option></select>';
         return html;   

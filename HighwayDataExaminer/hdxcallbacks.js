@@ -256,7 +256,7 @@ function showHideDatatables() {
     else {
         datatable.style.display = "none";
     }
-    fixSize();
+    resizePanels();
 }
 
 var statusLeft = 400;  //Width of status panel
@@ -268,8 +268,8 @@ var firstLoad = true;
 var titleScreen = true;
 
 //Ensures that map is resized properly when window is resized.
-window.addEventListener('resize', fixSize);
-function fixSize()
+window.addEventListener('resize', resizePanels);
+function resizePanels()
 {
 
     console.log("window: " + window.innerWidth);
@@ -357,7 +357,7 @@ function showTopControlPanel() {
     document.getElementById("metalTitle").style.display = "";
     
     
-    fixSize();
+    resizePanels();
 
    
 
@@ -478,7 +478,7 @@ function showAlgorithmSelectionPanel() {
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;
-    fixSize();
+    resizePanels();
     algorithmSelectionChanged();
     
     

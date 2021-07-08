@@ -263,6 +263,7 @@ table.pseudocode {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 5px;
     background-color: white;
     color: black;
    
@@ -395,7 +396,6 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     z-index: 9999;
     top: 100px;
     left: 191px;
-    background-color: white;
     max-width: 300px;
     font-family: Avenir, Arial, Helvetica, sans-serif;
 }
@@ -411,6 +411,17 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     width: 90%;
     position: relative;
     float: left;
+    color: white;
+    font-size: 10pt;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+#cbp
+{
+    color: white;
+    font-weight: 600;
+    text-align: center;
 }
 
 #useBreakpointVariable{
@@ -1076,11 +1087,11 @@ p#pscode
 {
     border: none;
     padding: 0;
-    margin: 0;
+    margin: 5px 0 0 0;
     height: 20px;
     color: white;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
    
 }
 
