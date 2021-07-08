@@ -393,11 +393,11 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 
 #breakpointVariableSelector {
     z-index: 9999;
-    position: fixed;
     top: 100px;
     left: 191px;
     background-color: white;
     max-width: 300px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
 }
 
 #showBreakpointVariable {

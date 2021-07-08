@@ -165,7 +165,7 @@ function cleanupBreakpoints() {
 //Enables the clickable function and window resize change for the selector
 function showHideBreakpointVariableSelector() {
 
-    let element = document.getElementById("showBreakpointVariable");
+    /*let element = document.getElementById("showBreakpointVariable");
     element.addEventListener("click", function(event) {
         let target = event.target;
         let avPanel = document.getElementById("avStatusPanel");
@@ -182,7 +182,7 @@ function showHideBreakpointVariableSelector() {
             hdxAV.breakpointVariableHidden = true;
         }
     }, false);
-    window.addEventListener("resize", setDefaultVariableSelectorLocation, false);
+    window.addEventListener("resize", setDefaultVariableSelectorLocation, false);*/
 }
 
 // JS implementation to create the html for the selector. This allows for
@@ -191,7 +191,7 @@ function createVariableSelector() {
     
     let divBreakpoint = document.createElement("div");
     let divBreakpoint1 = document.createElement("div");
-    let divBreakpoint2 = document.createElement("div");
+    //let divBreakpoint2 = document.createElement("div");
     let checkbox = document.createElement("input");
     
     checkbox.type = "checkbox";
@@ -203,15 +203,15 @@ function createVariableSelector() {
     
     let breakpointID = document.createAttribute("id");
     let breakpoint1ID = document.createAttribute("id");
-    let breakpoint2ID = document.createAttribute("id");
+    //let breakpoint2ID = document.createAttribute("id");
     
     breakpointID.value = "breakpointVariableSelector";
     breakpoint1ID.value = "breakpointText";
-    breakpoint2ID.value = "showBreakpointVariable";
+    //breakpoint2ID.value = "showBreakpointVariable";
     
     divBreakpoint.setAttributeNode(breakpointID);
     divBreakpoint1.setAttributeNode(breakpoint1ID);
-    divBreakpoint2.setAttributeNode(breakpoint2ID);
+    //divBreakpoint2.setAttributeNode(breakpoint2ID);
     
     let breakpointClass = document.createAttribute("class");
     breakpointClass.value = "border border-primary rounded";
@@ -219,16 +219,17 @@ function createVariableSelector() {
     
     // This is where the variable selector goes
     divBreakpoint1.innerHTML = "This is where the innerHTML goes";
-    divBreakpoint2.innerHTML = "-->";
-    divBreakpoint2.style.backgroundColor = "Red";
+    //divBreakpoint2.innerHTML = "-->";
+    //divBreakpoint2.style.backgroundColor = "Red";
     
     // append the smaller divs to the bigger one
     divBreakpoint.appendChild(checkbox);
     divBreakpoint.appendChild(divBreakpoint1);
-    divBreakpoint.appendChild(divBreakpoint2);
+    //divBreakpoint.appendChild(divBreakpoint2);
     
     // Set the main div under the document body
-    document.body.appendChild(divBreakpoint);
+    let pcPanel = document.getElementById("pseudo");
+    pcPanel.appendChild(divBreakpoint);
     // Set the default position, add click on/window resize events and hide it
     setDefaultVariableSelectorLocation();
     showHideBreakpointVariableSelector();
@@ -259,11 +260,16 @@ function setDefaultVariableSelectorLocation() {
 function breakpointCheckerDisplay() {
     
     let element = document.getElementById("breakpointVariableSelector");
+    let checkbox = document.getElementById("useBreakpointVariable");
     if (hdxAV.currentBreakpoint == "") {
         element.style.display = "none";
+        checkbox.checked = false;
+        checkbox.style.display = "none";
     }
     else {
         element.style.display = "block";
+        checkbox.checked = true;
+        checkbox.style.display = "none";
     }
     setDefaultVariableSelectorLocation();
 }
