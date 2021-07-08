@@ -3,7 +3,7 @@
 //
 // METAL Project
 //
-// Primary Authors: Jim Teresco
+// Primary Authors: Luke Jennings
 //
 
 var hdxQuadtreeAV = {
