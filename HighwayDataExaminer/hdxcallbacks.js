@@ -14,6 +14,15 @@ function speedChanged() {
     let temp = speedChanger.options[speedChanger.selectedIndex];
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
+
+    if (speedChanger.selectedIndex < 6)
+    {
+        document.getElementById("algorithmStatus").style.display = "none";
+    }
+    else
+    {
+        document.getElementById("algorithmStatus").style.display = "";
+    }
 }
 
 

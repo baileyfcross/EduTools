@@ -983,9 +983,9 @@ Show Extremes Bounding Box<br />
 <option value="first" selected>First Leader Encountered</option>
 <option value="all">All Leaders</option>
 </select><br />
-<input id="longshort" type="checkbox" name="Find Longest/Shortest Labels" checked />
+<input id="longshort" type="checkbox" name="Find Longest/Shortest Labels" />
 &nbsp;Find Longest/Shortest Labels<br />
-<input id="firstlast" type="checkbox" name="Find First/Last Alphabetically" checked />
+<input id="firstlast" type="checkbox" name="Find First/Last Alphabetically" />
 &nbsp;Find First/Last Labels Alphabetically<br />
 <input id="showavgcoord" type="checkbox" name="Show Average Coordinate" />
 &nbsp;Show Average Coordinate<br />
