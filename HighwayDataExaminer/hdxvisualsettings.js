@@ -20,8 +20,8 @@ var visualSettings = {
         opacity: 0.6
     },
     visiting: {
-        color: "rgb(255, 57, 57)",
-        textColor: "white",
+        color: "gold",
+        textColor: "black",
         scale: 8,
         name: "visiting",
         value: 0,

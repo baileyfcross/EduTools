@@ -12,7 +12,8 @@ var hdxClosestPairsRecAV = {
     // entries for list of AVs
     value: "closestpairs-recursive",
     name: "Vertex Closest Pairs Recursive",
-    description: "Search for the closest pair of vertices (waypoints) using recursive divide and conquer.",
+    description: "Search for the closest pair of vertices (waypoints) using recursive divide and conquer." +
+    "<br />NOTE: This algorithm visualization has known bugs. Refresh webpage for consistent results.",
     
     // state variables for closest pairs search
     minPoints: 3,

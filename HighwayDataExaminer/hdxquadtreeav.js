@@ -11,7 +11,8 @@ var hdxQuadtreeAV = {
     // entries for list of AVs
     value: "quadtree",
     name: "Quadtree Construction",
-    description: "Construct a quadtree by inserting all waypoints (vertices) and refining as needed.",
+    description: "Construct a quadtree by inserting vertices (waypoints) and refining into smaller quadtrees." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
     //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
@@ -1156,7 +1157,6 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                     weight: 3
                 })
             );
-                console.log("0");
                 this.nw.hilbertOrderPoly(5,boundingPoly);
                 this.sw.hilbertOrderPoly(5,boundingPoly);
                 this.se.hilbertOrderPoly(7,boundingPoly);
