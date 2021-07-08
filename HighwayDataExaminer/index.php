@@ -452,7 +452,7 @@ ENDOFSTUFF;
 			dataPanel.appendChild(br);
 
 
-      //Instructions for the Grpah Search Box
+      //Instructions for the Graph Search Box
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
