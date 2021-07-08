@@ -473,6 +473,8 @@ function refinementChanged(){
     switch(selector.options[selector.selectedIndex].value){
         case "morton":
         case "hilbert":
+        case "moore":
+        case "grey":
             refSelector.disabled = false;
             break;
         default:

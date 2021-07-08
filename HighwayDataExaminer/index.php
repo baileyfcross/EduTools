@@ -213,10 +213,10 @@ ENDOFSTUFF;
 	    <option value="500">Slow</option>
 	    <option value="1000">Painfully slow</option>-->
 		
-		<option value="40">Presto</option>
-		<option value="75" selected>Allegro</option>
-		<option value="175">Moderato</option>
-		<option value="1500">Largo</option>
+		<option value="40">Very Fast</option>
+		<option value="75" selected>Fast</option>
+		<option value="175">Medium</option>
+		<option value="1500">Slow</option>
 	    <option value="-1">Step</option>
 	  </select>
 	  </td><td >
