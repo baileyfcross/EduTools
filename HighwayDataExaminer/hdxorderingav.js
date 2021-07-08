@@ -9,15 +9,12 @@
 var hdxOrderingAV = {
     value: "ordering",
     name: "Traversal Orderings",
-    description: "Visualize different ways of ordering vertices in a 2D space.",
+    description: "Visualize different ways of ordering vertices (waypoints) in a 2D space." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
 
     //used to track the num of the two verticies we are drawing an edge between
     v1: 0,
     v2: 0,
-
-    //used to help calculate Hilbert Curve Order
-    xCoord: 0,
-    yCoord: 0,
     //used to help calculate the dimensions of the quadtree
     n: 0,
     s: 0,
@@ -26,7 +23,7 @@ var hdxOrderingAV = {
 
     //default refinement threshold for the quadtree used by the morton order
     //deterimined with an i/o box before the av runs
-    refinement: 3,
+    refinement: 2,
 
     supportRefinement: false,
 
@@ -37,6 +34,8 @@ var hdxOrderingAV = {
     
     //used to keep track of all the polylines added to the map
     polyLines: [],
+    //used for the polylines of the bounding box
+    boundingPoly: [],
 
     originalWaypoints: [],
     //fhc: fixedHilbertCurve(),
@@ -65,7 +64,6 @@ var hdxOrderingAV = {
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
                 thisAV.rainbowGradiant.setSpectrum('ff0000','ffc000','00ff00','00ffff','0000ff','c700ff');
-                //let fhc = fixedHilbertCurve();
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                 updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " mi");
@@ -117,13 +115,11 @@ var hdxOrderingAV = {
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
                             thisAV.quadtree.add(waypoints[i]);
-                            console.log("adding");
                         }
                         if(thisAV.showBB){
                             thisAV.quadtree.mooreOrderPoly(thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.mooreOrder();
@@ -135,13 +131,11 @@ var hdxOrderingAV = {
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
                             thisAV.quadtree.add(waypoints[i]);
-                            console.log("adding");
                         }
                         if(thisAV.showBB){
                             thisAV.quadtree.greyOrderPoly(0,thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.greyOrder(0);
