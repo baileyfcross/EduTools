@@ -14,6 +14,10 @@
     margin: 0;
 }
 
+.leaflet-control-scale-line {
+    border-radius: 0;
+}
+
 #avStatusPanel {
     margin: 0;
     top: 68px;
@@ -465,10 +469,6 @@ button, #uploadLabel
     
 }
 
-#loadDataPanel h3
-{
-    /*text-shadow: 5px 5px 5px black;*/
-}
 .opt:hover, #uploadLabel:hover
 {
     padding: 8px;
@@ -543,7 +543,7 @@ div
     margin: auto;
     max-width: 450px;   
     text-align: center;
-    box-shadow: 12px 12px 20px rgb(103, 103, 103);
+    box-shadow: 5px 5px 20px black;
     
 }
 
