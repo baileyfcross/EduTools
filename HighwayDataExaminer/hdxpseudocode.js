@@ -120,6 +120,16 @@ function addStop() {
             }
             else {
                 hdxAV.useVariableForBreakpoint = true;
+                //if (document.getElementById("breakpointText").innerHTML != "No innerHTML")
+                
+                hdxAV.setStatus(hdxStates.AV_PAUSED);
+                if (hdxAV.delay == -1) {
+                    hdxAV.startPause.innerHTML = "Next Step";
+                }
+                else {
+                    hdxAV.startPause.innerHTML = "Resume";
+                }
+                
                 labelInnerHTML(target.getAttribute("variableValue"));
                 codeRowHighlight();
                 breakpointHighlight();
