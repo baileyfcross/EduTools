@@ -46,9 +46,11 @@
     echo "<h1 style='color: red'>Could not find file <tt>".__DIR__."/tmlib/tmpjsfuncs.js</tt> on server.  <tt>".__DIR__."/tmlib</tt> should contain or be a link to a directory that contains a Travel Mapping <tt>lib</tt> directory.</h1>";
     exit;
   }
+
 ?>
 
 <?php
+
 $result = tmdb_query("SELECT * FROM graphTypes");
 
   echo '<script type="text/javascript">
@@ -62,10 +64,14 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	 echo 'categoryOptions.push("'.$row['category'].'");';
 	 echo 'labels.push("'.$row['descr'].'");';
 
+
+
+
   }
-  echo '</script>';
+  echo 'console.log("made it 20");</script>';
 
   $result->free();
+
 ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.11.1/typeahead.jquery.min.js"></script>
@@ -100,6 +106,71 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="rainbowvis.js" type="text/javascript"></script>
 <script src="hdxorderingav.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
+
+
+<?php
+// function to generate the file load html
+function hdx_load_file_entries() {
+  echo <<<ENDOFSTUFF
+		<tr><td id="selects" class="loadcollapse">
+		<b>Option 2: </b>Search for a METAL graph by characteristics.<br />Select desired graph characteristics then press "Get Graph List" to see matching graphs.<br>
+		Sort criteria:
+		<select id = "orderOptions">
+			<option value = "alpha">Alphabetical</option>
+			<option value = "small">Size (small)</option>
+			<option value = "large">Size (large)</option>
+		</select>
+		<br>
+		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
+		<select id = "restrictOptions">
+			<option value = "collapsed">Collapsed (most likely you want this)</option>
+			<option value = "traveled">Traveled (include traveler info)</option>
+			<option value = "simple">Simple (straight line edges only)</option>
+			<option value = "all">All</option>
+		</select>
+		<br>
+		Graph category:
+		<select id = "categoryOptions">
+				<option value="all">All Graphs</option>
+ENDOFSTUFF;
+  $result = tmdb_query("SELECT * FROM graphTypes");
+
+  echo '<script type="text/javascript">var categoryOptions = [];';
+
+  while ($row = $result->fetch_array()) {
+
+     //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
+	 echo
+
+	 		'categoryOptions.push('.$row['category']."\">".$row['descr'].');';
+
+
+
+  }
+  echo '</script>';
+
+  $result->free();
+  echo <<<ENDOFSTUFF
+		</select>
+		<br>
+		Size from
+		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
+		to
+		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
+		vertices
+		<br>
+		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
+	  </td>
+	  </tr>
+      <tr><td class="loadcollapse">
+	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
+          <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
+      </td></tr>
+ENDOFSTUFF;
+}
+?>
+
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
@@ -179,12 +250,166 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 			METAL HDX
 </p>
   </div>
+</div>
+<!--<div id="topControlPanel">
+	<p>
+		Control Panel
+	</p>-->
+<!--<button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+<select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+	  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	  <!--<table id="topControlPanelTable">
+    <tbody>
+      <tr>
+	<td id="topControlPanelAV1">
+	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+	  <input id="resetButton" type="button" value="Reset" onclick="resetPressed();cleanupBreakpoints()" />
+	  </td>
+	  </td>--><!--<td id="topControlPanelAV4">
+	  </td>-->
+	  <!--</tr>
+<tr>
+	  <td id="topControlPanelAV2">
+	  <select id="speedChanger" onchange="speedChanged()">
+	    <option value="0">Run To Completion</option>
+        <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Fastest possible</option>
+	    <option value="5">Extremely fast</option>
+	    <option value="20">Very fast</option>
+	    <option value="50" selected>Fast</option>
+	    <option value="100">Medium speed</option>
+	    <option value="250">Pretty slow</option>
+	    <option value="500">Slow</option>
+	    <option value="1000">Painfully slow</option>
+	    <option value="-1">Step</option>
+	  </select>
+	  </td>
+</tr>
+<tr>
+	<td id="topControlPanelAV3">
+	  <div id="check">
+			<input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+			<input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
+			<input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
+	  </div>
+</tr>
+<tr>
+--><!-- if any more AV-specific entries are added, they need to
+	     be dealt with in showTopControlPanel() -->
 
+	  <!--<input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>-->
+
+	
+	 <!-- <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>-->
+	
+	<!--<td id="topControlPanelShowMarkers">-->
+        <!--  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
+	<!--</td>-->
+     <!-- </tr>
+    </tbody>
+  </table>
+</div>-->
 <div id="map">
 </div>
+<!--<div id="about">
 
+		<h3>
+			About METAL HDX
+		</h3>
+
+		<p>
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  Need help?  A tutorial can be found <a href="tutorial.html">here</a>
+		</p>
+
+
+</div>-->
 <div id="loadDataPanel">
-  <script>
+<!-- <table id="loadDataTable" class="gratable">
+      <thead>
+	<tr><th>Load Data:</th></tr>
+      </thead>
+      <tbody>
+	<tr><td> Use this panel to load one of METAL's graphs right
+	    from METAL's database (Options 1 and 2), or to upload any
+	    data file in a format recognized by HDX from your computer
+	    (Option 3).
+	</td></tr>
+	<tr>
+	  <td>
+	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
+	    <div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph"><br />
+	    </div>
+	    Once you have selected a graph from the list of suggestions, press Enter to load it.
+	  </td>
+	</tr>
+	<tr>
+	  <td>
+	    <div>
+
+	    </div>
+	  </td>
+	</tr>
+
+
+	<tr><td>
+	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
+	</td></tr>
+      </tbody>
+    </table>-->
+
+
+
+
+   <!--<p style="text-align: center">
+	   Search for a graph in our database
+   </p>
+
+	<button type="button" id="basic" class="opt">Basic Search</button>-->
+
+	<!--<div id="the-basics">
+	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
+
+</div>-->
+
+	<!--<button type="button" class="opt">Advanced Search</button>
+	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-size: 24px;}">or</p><br>-->
+	<!--<button type="button" class="opt">Upload File</button>-->
+
+	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
+
+	<br>
+
+	<h3>
+			About METAL HDX
+		</h3>
+
+		<p class="descr">
+			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.
+		</p>
+
+		<br>
+		<br>
+		<p class="descr">
+		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
+		</p>-->
+	<script>
 
 		function basicMenu()
 		{
@@ -226,7 +451,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 			dataPanel.appendChild(br);
 
 
-      //Instructions for the Graph Search Box
+      //Instructions for the Grpah Search Box
 			var instructions = document.createElement("p");
 			instructions.innerHTML = "Search for a graph to display";
 			dataPanel.appendChild(instructions);
@@ -594,28 +819,49 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 		</script>
 </div>
 
+<!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
+<!-- Select an Algorithm to Visualize:
+	 <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
+	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
+	 <!-- </select>
+	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">-->
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
       <tr><th>Select an Algorithm to Visualize</th></tr>
     </thead>
     <tbody>
+      <!--<tr><td><p>To perform an algorithm visualization on the data
+	  currently displayed, choose an algorithm and the options you
+	  would like to use, then press "Done".<br />  To explore the
+	  data on the map manually with no algorithm visualization,
+	  choose the "No Algorithm Visualization" option.</p>
+      </td></tr>-->
       <tr>
 	<td>
-	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">
-	  </select>
+	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
+	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
+	 </select>
+
 	</td>
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
+
+
+	<!--<div id="algorithmOptions">
+
+	</div>-->
+
       </tr>
-      <tr>
-	<td>
-	  <p id="algDescription">
-	    Insert description here.
-	  </p>
-	</td>
-      </tr>
+	  <tr>
+		  <td>
+			  <p id = "algDescription">
+
+				Insert description here.
+				</p>
+		  </td>
+	  </tr>
       <tr>
 	<td>
 	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
