@@ -3,7 +3,7 @@
 //
 // METAL Project
 //
-// Primary Authors: Jim Teresco
+// Primary Authors: Luke Jennings
 //
 
 var hdxQuadtreeAV = {
@@ -11,7 +11,8 @@ var hdxQuadtreeAV = {
     // entries for list of AVs
     value: "quadtree",
     name: "Quadtree Construction",
-    description: "Construct a quadtree by inserting all waypoints (vertices) and refining as needed.",
+    description: "Construct a quadtree by inserting vertices (waypoints) and refining into smaller quadtrees." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
     //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
@@ -639,7 +640,7 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="' 
+        let newAO = 'Refinement Threshold <input type="number" id="refinement" min="2" max="' 
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
@@ -1156,11 +1157,81 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                     weight: 3
                 })
             );
-                console.log("0");
                 this.nw.hilbertOrderPoly(5,boundingPoly);
                 this.sw.hilbertOrderPoly(5,boundingPoly);
                 this.se.hilbertOrderPoly(7,boundingPoly);
                 this.ne.hilbertOrderPoly(7,boundingPoly);
+        }
+    }
+    this.greyOrder = function(orientation){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.greyOrder(0);
+                    this.sw.greyOrder(1);
+                    this.se.greyOrder(1);
+                    this.ne.greyOrder(0);
+                    break;
+                //case 1 is equivalent to the orientation being a ∩
+                case 1:
+                    this.se.greyOrder(1);
+                    this.ne.greyOrder(0);
+                    this.nw.greyOrder(0);
+                    this.sw.greyOrder(1);
+                    break;
+            }
+        }
+    }
+    this.greyOrderPoly = function(orientation,boundingPoly){
+        if(this.isLeaf()){
+            for(let i = 0; i < this.points.length; i++){
+                if(this.points[i] != null){
+                    this.points[i].value = k;
+                    k++;
+                 }
+            }
+        } else {
+            let nsEdge = this.makeNSedge();
+            let ewEdge = this.makeEWedge();
+                    
+                boundingPoly.push(
+                    L.polyline(nsEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                );
+                boundingPoly.push(
+                    L.polyline(ewEdge, {
+                        color: visualSettings.undiscovered.color,
+                        opacity: 0.7,
+                        weight: 3
+                    })
+                )
+            switch(orientation){
+                //case 0 is equivalent to the orientation being a u
+                case 0:
+                    this.nw.greyOrderPoly(0,boundingPoly);
+                    this.sw.greyOrderPoly(1,boundingPoly);
+                    this.se.greyOrderPoly(1,boundingPoly);
+                    this.ne.greyOrderPoly(0,boundingPoly);
+                    break;
+                //case 1 is equivalent to the orientation being a ∩
+                case 1:
+                    this.se.greyOrderPoly(1,boundingPoly);
+                    this.ne.greyOrderPoly(0,boundingPoly);
+                    this.nw.greyOrderPoly(0,boundingPoly);
+                    this.sw.greyOrderPoly(1,boundingPoly);
+                    break;
+            }
         }
     }
     

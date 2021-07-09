@@ -9,15 +9,12 @@
 var hdxOrderingAV = {
     value: "ordering",
     name: "Traversal Orderings",
-    description: "Visualize different ways of ordering vertices in a 2D space.",
+    description: "Visualize different ways of ordering vertices (waypoints) in a 2D space." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
 
     //used to track the num of the two verticies we are drawing an edge between
     v1: 0,
     v2: 0,
-
-    //used to help calculate Hilbert Curve Order
-    xCoord: 0,
-    yCoord: 0,
     //used to help calculate the dimensions of the quadtree
     n: 0,
     s: 0,
@@ -26,7 +23,7 @@ var hdxOrderingAV = {
 
     //default refinement threshold for the quadtree used by the morton order
     //deterimined with an i/o box before the av runs
-    refinement: 3,
+    refinement: 2,
 
     supportRefinement: false,
 
@@ -37,12 +34,16 @@ var hdxOrderingAV = {
     
     //used to keep track of all the polylines added to the map
     polyLines: [],
+    //used for the polylines of the bounding box
+    boundingPoly: [],
 
     originalWaypoints: [],
     //fhc: fixedHilbertCurve(),
     numVUndiscovered: waypoints.length,
 
     quadtree: null,
+
+    lengthEdges: 0,
 
     avActions: [
         {
@@ -58,15 +59,14 @@ var hdxOrderingAV = {
                 thisAV.originalWaypoints = waypoints.slice();
                 numVUndiscovered = waypoints.length,
 
-                thisAV.xCoord = 0;
-                thisAV.yCoord = 0;
+                thisAV.lengthEdges = 0;
 
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
                 thisAV.rainbowGradiant.setSpectrum('ff0000','ffc000','00ff00','00ffff','0000ff','c700ff');
-                //let fhc = fixedHilbertCurve();
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
+                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " mi");
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
@@ -115,16 +115,30 @@ var hdxOrderingAV = {
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
                             thisAV.quadtree.add(waypoints[i]);
-                            console.log("adding");
                         }
                         if(thisAV.showBB){
                             thisAV.quadtree.mooreOrderPoly(thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.mooreOrder();
+                        }
+                        break;
+                    case "grey":
+                        thisAV.findExtremePoints();
+                        thisAV.quadtree = new Quadtree(thisAV.s,thisAV.n,thisAV.w,thisAV.e,thisAV.refinement);
+                        for(var i = 0; i < waypoints.length; i++){
+                            waypoints[i].num = i;
+                            thisAV.quadtree.add(waypoints[i]);
+                        }
+                        if(thisAV.showBB){
+                            thisAV.quadtree.greyOrderPoly(0,thisAV.boundingPoly);
+                            for (var i = 0; i < thisAV.boundingPoly.length; i++) {
+                                thisAV.boundingPoly[i].addTo(map);
+                            }
+                        } else {
+                            thisAV.quadtree.greyOrder(0);
                         }
                         break;
 
@@ -148,6 +162,7 @@ var hdxOrderingAV = {
                     case "hilbert":
                     case "moore":
                     case "morton":
+                    case "grey":
                         waypoints.sort(function(a, b){return a.value - b.value});   
                         break;
                     case "default":
@@ -290,6 +305,7 @@ var hdxOrderingAV = {
         <option value="morton">Morton/Z Curve</option>
         <option value="hilbert">Hilbert Curve</option>
         <option value="moore">Moore Curve</option>
+        <option value="grey">Grey Code</option>
         <option value="default">Default</option>
 
         <!--<option value="fixedGrey">Fixed Grey Curve</option>-->
@@ -306,6 +322,7 @@ var hdxOrderingAV = {
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
         addEntryToAVControlPanel("v1",visualSettings.v1);
         addEntryToAVControlPanel("v2", visualSettings.v2);
+        addEntryToAVControlPanel("totalLength",visualSettings.discovered)
 
 
         let refSelector = document.getElementById("refinement");
@@ -335,6 +352,15 @@ var hdxOrderingAV = {
         let visitingLine = [];
         visitingLine[0] = [waypoints[this.nextToCheck].lat, waypoints[this.nextToCheck].lon];
         visitingLine[1] = [waypoints[this.nextToCheck + 1].lat, waypoints[this.nextToCheck + 1].lon];
+
+        this.lengthEdges += convertToCurrentUnits(
+		    distanceInMiles(waypoints[this.nextToCheck].lat,
+                                    waypoints[this.nextToCheck].lon,
+                                    waypoints[this.nextToCheck + 1].lat,
+                                    waypoints[this.nextToCheck + 1].lon));
+
+        updateAVControlEntry("totalLength","Total length of edges so far: " + this.lengthEdges.toFixed(2) + " mi");
+        
         this.polyLines.push(
             L.polyline(visitingLine, {
             color: "#" + this.rainbowGradiant.colorAt(
@@ -441,6 +467,8 @@ function refinementChanged(){
     switch(selector.options[selector.selectedIndex].value){
         case "morton":
         case "hilbert":
+        case "moore":
+        case "grey":
             refSelector.disabled = false;
             break;
         default:

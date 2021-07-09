@@ -12,7 +12,8 @@ var hdxClosestPairsRecAV = {
     // entries for list of AVs
     value: "closestpairs-recursive",
     name: "Vertex Closest Pairs Recursive",
-    description: "Search for the closest pair of vertices (waypoints) using recursive divide and conquer.",
+    description: "Search for the closest pair of vertices (waypoints) using recursive divide and conquer." +
+    "<br />NOTE: This algorithm visualization has known bugs. Refresh webpage for consistent results.",
     
     // state variables for closest pairs search
     minPoints: 3,
@@ -30,7 +31,7 @@ var hdxClosestPairsRecAV = {
     whileLoopIndex: 0,
     returnValue: 0,
 
-    originalWaypoints: null,
+    originalWaypoints: waypoints.slice(),
     //vertices sorted by longitude
     WtoE: null,
     //vertices sorted by latitude
@@ -53,6 +54,7 @@ var hdxClosestPairsRecAV = {
     lineClosest: null,
     lineFarthest: null,
     lineVisiting: null,
+    lineStack: null,
     
     // the actions that make up this algorithm
     avActions: [
@@ -676,10 +678,10 @@ var hdxClosestPairsRecAV = {
 
         //reorder waypoints
         let presort = new HDXPresort();
-        this.originalWaypoints = waypoints;
+        this.originalWaypoints = waypoints.slice();
         this.waypoints = presort.sortedWaypoints;
         hdxClosestPairsRecAV.WtoE = this.waypoints;
-        updateMap();
+        //updateMap();
 
         // show waypoints, hide connections
         initWaypointsAndConnections(true, false,
@@ -740,7 +742,7 @@ var hdxClosestPairsRecAV = {
 	if (this.lineFarthest != null) {
 	    this.lineFarthest.remove();
 	}
-	while (!this.lineStack.isEmpty()) {
+	while (this.lineStack != null && !this.lineStack.isEmpty()) {
 	    // remove from stack, returned result remove from map
 	    this.lineStack.remove().remove();
 	}

@@ -11,7 +11,7 @@ var hdxKruskalAV = {
     // entries for list of AVs
     value: "kruskal",
     name: "Kruskal's Algorithm",
-    description: "Finds Minimum Spanning tree/forest by considering edges in increasing length.",
+    description: "Finds minimum spanning forest by considering edges (connections) in increasing length.",
     
     // state variables for edge search
     discarded: 0,

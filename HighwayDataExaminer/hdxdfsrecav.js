@@ -11,7 +11,7 @@ var hdxDFSRecAV = {
     // entries for list of AVs
     value: "dfs-recursive",
     name: "Recursive Depth First Search",
-    description: "Recursive Depth-First search.",
+    description: "Depth-first graph traversal by recursive depth-first searches from each vertex (waypoint).",
     
     // state variables for edge search
     discarded: 0,
