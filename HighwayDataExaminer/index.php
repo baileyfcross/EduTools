@@ -101,69 +101,6 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <script src="hdxorderingav.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="supplmentalTypeAhead.css"/>
 
-<?php
-// function to generate the file load html
-function hdx_load_file_entries() {
-  echo <<<ENDOFSTUFF
-		<tr><td id="selects" class="loadcollapse">
-		<b>Option 2: </b>Search for a METAL graph by characteristics.<br />Select desired graph characteristics then press "Get Graph List" to see matching graphs.<br>
-		Sort criteria:
-		<select id = "orderOptions">
-			<option value = "alpha">Alphabetical</option>
-			<option value = "small">Size (small)</option>
-			<option value = "large">Size (large)</option>
-		</select>
-		<br>
-		<a target="_blank" href="https://courses.teresco.org/metal/graph-formats.shtml">Graph format</a>:
-		<select id = "restrictOptions">
-			<option value = "collapsed">Collapsed (most likely you want this)</option>
-			<option value = "traveled">Traveled (include traveler info)</option>
-			<option value = "simple">Simple (straight line edges only)</option>
-			<option value = "all">All</option>
-		</select>
-		<br>
-		Graph category:
-		<select id = "categoryOptions">
-				<option value="all">All Graphs</option>
-ENDOFSTUFF;
-  $result = tmdb_query("SELECT * FROM graphTypes");
-
-  echo '<script type="text/javascript">var categoryOptions = [];';
-
-  while ($row = $result->fetch_array()) {
-
-     //echo "<option value=\"".$row['category']."\">".$row['descr']."</option>\n";
-	 echo
-
-	 		'categoryOptions.push('.$row['category']."\">".$row['descr'].');';
-
-
-
-  }
-  echo '</script>';
-
-  $result->free();
-  echo <<<ENDOFSTUFF
-		</select>
-		<br>
-		Size from
-		<input type="number" min="1" value="1" id="minVertices" style="width:6rem;">
-		to
-		<input type="number" min="1" value="2000" id="maxVertices" style="width:6rem;">
-		vertices
-		<br>
-		<input type="button" value="Get Graph List" onclick="HDXFillGraphList(event)">
-	  </td>
-	  </tr>
-      <tr><td class="loadcollapse">
-	  <b>Option 3:</b>Select and upload a data file from your computer.<br />
-          <input id="fileToLoad" type="file"  value="Start" onchange="HDXStartFileselectorRead('fileToLoad')">
-      </td></tr>
-ENDOFSTUFF;
-}
-?>
-
-
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"/>
 <link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
