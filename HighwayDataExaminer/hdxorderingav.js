@@ -57,7 +57,7 @@ var hdxOrderingAV = {
                 thisAV.boundingPoly = [];
 
                 thisAV.originalWaypoints = waypoints.slice();
-                numVUndiscovered = waypoints.length,
+                thisAV.numVUndiscovered = waypoints.length,
 
                 thisAV.lengthEdges = 0;
 
@@ -191,13 +191,13 @@ var hdxOrderingAV = {
                     thisAV.v1 = waypoints[thisAV.nextToCheck].num;
                     thisAV.v2 = waypoints[thisAV.nextToCheck + 1].num;
                     updateMarkerAndTable(thisAV.v1, visualSettings.v1,
-                        30, false);
+                        31, false);
                     updateMarkerAndTable(thisAV.v2, visualSettings.v2,
-                        30, false);
+                        31, false);
 
                     hdxAV.nextAction = "addEdge";
 
-                    numVUndiscovered--;
+                    thisAV.numVUndiscovered--;
                     updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                     updateAVControlEntry("v1","v1: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
                     updateAVControlEntry("v2","v2: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
@@ -238,7 +238,7 @@ var hdxOrderingAV = {
 
             },
             logMessage: function(thisAV){
-                return "Adding edge between " + waypoints[thisAV.nextToCheck].num + " and "
+                return "Adding edge between vertex #" + waypoints[thisAV.nextToCheck].num + " and vertex #"
                     + waypoints[thisAV.nextToCheck + 1].num;
             }
 
