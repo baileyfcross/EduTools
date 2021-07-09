@@ -654,8 +654,12 @@ ENDOFSTUFF;
 
 		function newGraphMenu()
 		{
+			if (hdxAV.status == hdxStates.AV_RUNNING)
+			{
+				hdxAV.setStatus(hdxStates.AV_PAUSED);
+			}
 			var mainbox = document.getElementById("loadDataPanel");
-			console.log("made it 12345");
+			
 
 			//clear it
 			mainbox.innerHTML = "";

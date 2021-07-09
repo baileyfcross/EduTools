@@ -474,12 +474,14 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("filename").style.fontSize = "21px";
     document.getElementById("currentAlgorithm").style.display = "none";
     document.getElementById("topControlPanel").style.display = "none";
+    document.getElementById("pscode").style.display = "none";
     document.getElementById("metalTitle").style.display = "block";
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;
     resizePanels();
     algorithmSelectionChanged();
+    hideAVStatusPanel();
     
     
 }
