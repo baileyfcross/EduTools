@@ -268,12 +268,7 @@ var hdxOrderingAV = {
 
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
-        let lineCount = 0;
-        updateMap();
         initWaypointsAndConnections(true, false, visualSettings.undiscovered);
-        this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");
 
         //pseudocode
         this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
