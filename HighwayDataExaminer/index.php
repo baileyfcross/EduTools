@@ -657,6 +657,12 @@ ENDOFSTUFF;
 			if (hdxAV.status == hdxStates.AV_RUNNING)
 			{
 				hdxAV.setStatus(hdxStates.AV_PAUSED);
+				if (hdxAV.delay == -1) {
+            	hdxAV.startPause.innerHTML = "Next Step";
+        		}
+        		else {
+          		  hdxAV.startPause.innerHTML = "Resume";
+        		}
 			}
 			var mainbox = document.getElementById("loadDataPanel");
 			

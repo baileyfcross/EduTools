@@ -354,14 +354,10 @@ function showTopControlPanel() {
     document.getElementById("currentAlgorithm").style.marginTop = "0";
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
-    document.getElementById("metalTitle").style.display = "";
-    
+    document.getElementById("metalTitle").style.display = "inline";
     
     resizePanels();
 
-   
-
-    
     //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
 
 
@@ -462,6 +458,7 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("algorithmSelectionPanel").style.display="table";
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
+    document.getElementById("map").style.border = "2px solid white";
     document.getElementById("map").style.top = "67px";
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("topControlPanelAV3").style.display = "";
@@ -475,7 +472,8 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("currentAlgorithm").style.display = "none";
     document.getElementById("topControlPanel").style.display = "none";
     document.getElementById("pscode").style.display = "none";
-    document.getElementById("metalTitle").style.display = "block";
+    document.getElementById("metalTitle").style.display = "inline";
+    document.getElementById("info").style.display = "block";
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;

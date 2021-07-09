@@ -31,7 +31,7 @@ function highlightPseudocode(id, vs) {
         }
 
         codeChunk.setAttribute("custom-title",
-			       "Exec count: " + hdxAV.execCounts[id]);
+			       hdxAV.execCounts[id] + " executions");
     }
 }
 

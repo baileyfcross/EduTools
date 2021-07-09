@@ -9,9 +9,10 @@
     right: 0px;
     overflow:hidden;
     filter: blur(6px);
-    border-radius: 10px;
-    border: 2px solid white;
+    border-radius: 0;
+    border: none;
     margin: 0;
+    z-index: 2; 
 }
 
 .leaflet-control-scale-line {
@@ -370,12 +371,16 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     overflow: hidden;
 }
 .data-title{
-    font-size: 20px;
-    background-color: #00FF00;
+    font-size: 11px;
+    background-color: white;
+    color:rgb(47, 47, 47);
     white-space: wrap;
     box-shadow: 1px 1px 3px #222222;
     opacity: 50;
-    border: 1px solid #111111;
+    border: 1px solid rgb(47, 47, 47);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 #instructions{
@@ -853,7 +858,7 @@ input
     top: 67px;
     
     opacity: 1;
-    z-index:750; 
+    z-index: 1; 
     /* above leaflet tiles and overlays, below map tile selector */
     
     font-family: Avenir, Arial, Helvetica, sans-serif;
@@ -1068,6 +1073,7 @@ div.menubar
 #info
 {
     text-align: left;
+    display: none;
 }
 .menubar {
     font-size: 10pt;
@@ -1106,6 +1112,7 @@ p#pscode
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 36px;
     margin: 10px;
+    display: none;
     
 
 }
