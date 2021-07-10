@@ -128,10 +128,11 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 		<option value="0">Run To Completion</option>
 		<option value="0">Jump To Breakpoint</option>
 		<option value="1">Max Speed</option>
-		<option value="40">Very Fast</option>
+		<option value="25">Very Fast</option>
 		<option value="75" selected>Fast</option>
-		<option value="175">Medium</option>
-		<option value="1500">Slow</option>
+		<option value="225">Medium</option>
+		<option value="675">Slow</option>
+		<option value="2025">Very Slow</option>
 		<option value="-1">Step</option>
 	      </select>
 	    </td>
