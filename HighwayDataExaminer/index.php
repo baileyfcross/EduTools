@@ -208,10 +208,8 @@ ENDOFSTUFF;
   </table>
 </div>
 <div id="title">
-		<p id = "metalTitle">
-			METAL HDX
-</p>
-  </div>
+  <p id="metalTitle">METAL HDX</p>
+</div>
 </div>
 <!--<div id="topControlPanel">
 	<p>
