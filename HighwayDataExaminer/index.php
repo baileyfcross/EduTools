@@ -211,164 +211,10 @@ ENDOFSTUFF;
   <p id="metalTitle">METAL HDX</p>
 </div>
 </div>
-<!--<div id="topControlPanel">
-	<p>
-		Control Panel
-	</p>-->
-<!--<button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
-<select id="speedChanger" onchange="speedChanged()">
-	    <option value="0">Run To Completion</option>
-        <option value="0">Jump To Breakpoint</option>
-	    <option value="1">Fastest possible</option>
-	    <option value="5">Extremely fast</option>
-	    <option value="20">Very fast</option>
-	    <option value="50" selected>Fast</option>
-	    <option value="100">Medium speed</option>
-	    <option value="250">Pretty slow</option>
-	    <option value="500">Slow</option>
-	    <option value="1000">Painfully slow</option>
-	    <option value="-1">Step</option>
-	  </select>
-	  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
-	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
-	  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
-	  <!--<table id="topControlPanelTable">
-    <tbody>
-      <tr>
-	<td id="topControlPanelAV1">
-	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
-	  <input id="resetButton" type="button" value="Reset" onclick="resetPressed();cleanupBreakpoints()" />
-	  </td>
-	  </td>--><!--<td id="topControlPanelAV4">
-	  </td>-->
-	  <!--</tr>
-<tr>
-	  <td id="topControlPanelAV2">
-	  <select id="speedChanger" onchange="speedChanged()">
-	    <option value="0">Run To Completion</option>
-        <option value="0">Jump To Breakpoint</option>
-	    <option value="1">Fastest possible</option>
-	    <option value="5">Extremely fast</option>
-	    <option value="20">Very fast</option>
-	    <option value="50" selected>Fast</option>
-	    <option value="100">Medium speed</option>
-	    <option value="250">Pretty slow</option>
-	    <option value="500">Slow</option>
-	    <option value="1000">Painfully slow</option>
-	    <option value="-1">Step</option>
-	  </select>
-	  </td>
-</tr>
-<tr>
-	<td id="topControlPanelAV3">
-	  <div id="check">
-			<input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-			<input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
-			<input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers
-	  </div>
-</tr>
-<tr>
---><!-- if any more AV-specific entries are added, they need to
-	     be dealt with in showTopControlPanel() -->
-
-	  <!--<input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>-->
-
-	
-	 <!-- <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>-->
-	
-	<!--<td id="topControlPanelShowMarkers">-->
-        <!--  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers-->
-	<!--</td>-->
-     <!-- </tr>
-    </tbody>
-  </table>
-</div>-->
 <div id="map">
 </div>
-<!--<div id="about">
 
-		<h3>
-			About METAL HDX
-		</h3>
-
-		<p>
-			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.  Need help?  A tutorial can be found <a href="tutorial.html">here</a>
-		</p>
-
-
-</div>-->
 <div id="loadDataPanel">
-<!-- <table id="loadDataTable" class="gratable">
-      <thead>
-	<tr><th>Load Data:</th></tr>
-      </thead>
-      <tbody>
-	<tr><td> Use this panel to load one of METAL's graphs right
-	    from METAL's database (Options 1 and 2), or to upload any
-	    data file in a format recognized by HDX from your computer
-	    (Option 3).
-	</td></tr>
-	<tr>
-	  <td>
-	    <b>Option 1: </b>Search for a METAL "collapsed" graph by name.<br />Start typing in the box below for suggestions.
-	    <div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph"><br />
-	    </div>
-	    Once you have selected a graph from the list of suggestions, press Enter to load it.
-	  </td>
-	</tr>
-	<tr>
-	  <td>
-	    <div>
-
-	    </div>
-	  </td>
-	</tr>
-
-
-	<tr><td>
-	    <input type="button" value="Cancel" id="hideLoadDataPanel" onClick="loadDataPanelCancelPressed();" disabled>
-	</td></tr>
-      </tbody>
-    </table>-->
-
-
-
-
-   <!--<p style="text-align: center">
-	   Search for a graph in our database
-   </p>
-
-	<button type="button" id="basic" class="opt">Basic Search</button>-->
-
-	<!--<div id="the-basics">
-	      <input class="typeahead" type="text" id="searchBox" placeholder="Pick a Graph">
-
-</div>-->
-
-	<!--<button type="button" class="opt">Advanced Search</button>
-	<br><p style="{font-family: Avenir, Arial, Helvetica, sans-serif;
-    font-size: 24px;}">or</p><br>-->
-	<!--<button type="button" class="opt">Upload File</button>-->
-
-	<!--<label for="fileToLoad" id="uploadLabel">Upload File</label>
-
-	<br>
-
-	<h3>
-			About METAL HDX
-		</h3>
-
-		<p class="descr">
-			METAL HDX visualizes common computer scicence algorithms using graphs based on real world maps.
-		</p>
-
-		<br>
-		<br>
-		<p class="descr">
-		Need help?  A tutorial can be found <a href="tutorial.html" target="_blank">here</a>
-		</p>-->
 	<script>
 
 		function basicMenu()
@@ -779,7 +625,6 @@ ENDOFSTUFF;
 		</script>
 </div>
 
-<!--<input id="fileToLoad" name="fileToLoad" type="file"  value="Start" accept=".tmg, .wpt, .pth, .nmp, .gra, .wpl" onchange="HDXStartFileselectorRead('fileToLoad')">-->
 <div id="algorithmSelectionPanel" style="display=none;">
 <!-- Select an Algorithm to Visualize:
 	 <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
