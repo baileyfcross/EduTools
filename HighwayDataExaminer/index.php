@@ -185,54 +185,27 @@ ENDOFSTUFF;
       <tr>
 	<td id="topControlPanelAV1">
 	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
-	  </td><td id="topControlPanelAV2">
+	</td><td id="topControlPanelAV2">
 	  <select id="speedChanger" onchange="speedChanged()">
 	    <option value="0">Run To Completion</option>
-        <option value="0">Jump To Breakpoint</option>
-	    <option value="1">Max Speed</option>
-		
-		<!--<option value="50">Fast</option>
-		
-	    <option value="5">Extremely fast</option>
-	    <option value="20">Very fast</option>
-	    
-	    <option value="100">Medium speed</option>
-	    <option value="250">Pretty slow</option>
-	    <option value="500">Slow</option>
-	    <option value="1000">Painfully slow</option>-->
-		
-		<option value="40">Presto</option>
-		<option value="75" selected>Allegro</option>
-		<option value="175">Moderato</option>
-		<option value="1500">Largo</option>
+            <option value="0">Jump To Breakpoint</option>
+	    <option value="1">Max Speed</option>		
+	    <option value="40">Presto</option>
+	    <option value="75" selected>Allegro</option>
+	    <option value="175">Moderato</option>
+	    <option value="1500">Largo</option>
 	    <option value="-1">Step</option>
 	  </select>
-	  </td><td >
-		  <div id="topControlPanelAV3">
-		  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
-		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
-		  </div>
-	  	  
-	</td><!--<td id="topControlPanelAV4">
-	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />-->
-	<!-- if any more AV-specific entries are added, they need to
-	     be dealt with in showTopControlPanel() -->
-	<!--<td>
-	  <input id="loadOptionsButton" type="button" value="Load Data Options" id="loadDataPanelShow" onClick="loadDataOptionsPressed()"/>
+	</td><td>
+	  <div id="topControlPanelAV3">
+	    <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+	    <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	    <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+	  </div>	  
 	</td>
-	<td>
-	  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables<br>
-	</td>-->
-	<!--<td id="topControlPanelShowMarkers">
-          <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
-		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
-	</td>-->
       </tr>
     </tbody>
   </table>
-  
 </div>
 <div id="title">
 		<p id = "metalTitle">
