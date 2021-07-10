@@ -626,47 +626,28 @@ ENDOFSTUFF;
 </div>
 
 <div id="algorithmSelectionPanel" style="display=none;">
-<!-- Select an Algorithm to Visualize:
-	 <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
-	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
-	 <!-- </select>
-	  <input type="button" value="Done" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">-->
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
       <tr><th>Select an Algorithm to Visualize</th></tr>
     </thead>
     <tbody>
-      <!--<tr><td><p>To perform an algorithm visualization on the data
-	  currently displayed, choose an algorithm and the options you
-	  would like to use, then press "Done".<br />  To explore the
-	  data on the map manually with no algorithm visualization,
-	  choose the "No Algorithm Visualization" option.</p>
-      </td></tr>-->
       <tr>
 	<td>
-	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">-->
+	  <select id="AlgorithmSelection" onchange="algorithmSelectionChanged()">
 	    <!-- filled in with options by JS code in hdxAV.initOnLoad() -->
-	 </select>
-
+	  </select>
 	</td>
       </tr>
       <tr>
 	<td id="algorithmOptions"></td>
-
-
-	<!--<div id="algorithmOptions">
-
-	</div>-->
-
       </tr>
-	  <tr>
-		  <td>
-			  <p id = "algDescription">
-
-				Insert description here.
-				</p>
-		  </td>
-	  </tr>
+      <tr>
+	<td>
+	  <p id="algDescription">
+	    Insert description here.
+	  </p>
+	</td>
+      </tr>
       <tr>
 	<td>
 	  <input type="button" value="Visualize" id="algOptionsDone" onClick="algOptionsDonePressed(); createVariableSelector();">
@@ -681,10 +662,10 @@ ENDOFSTUFF;
       <tbody id="algorithmVars">
 	<tr><td id="algorithmStatus"></td></tr>
 	
-	<tr><td id="pseudo">
-		<p id = "pscode" style="display:none;">Pseudocode</p>
+	<tr>
+	  <td id="pseudo">
+	    <p id = "pscode" style="display:none;">Pseudocode</p>
 	    <span id="pseudoText" style="display:none;">Select an algorithm to view pseudocode.</span>
-		
 	  </td>
 	</tr>
       </tbody>
