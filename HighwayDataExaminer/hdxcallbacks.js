@@ -463,7 +463,7 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("map").style.border = "2px solid white";
     document.getElementById("map").style.top = "67px";
     document.getElementById("graphInfo").style.top = "79px";
-    document.getElementById("graphInfo").style.display = "";
+    document.getElementById("graphInfo").style.display = "block";
     
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("topControlPanelAV3").style.display = "";

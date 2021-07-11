@@ -72,8 +72,8 @@
 #avStatusTable td:not(.codeRow *, .pseudocode)
 {
     border: none;
-    border-radius: 10px;
-    padding: 5px;
+    border-radius: 25px;
+    padding: 7px 7px 7px 20px;
     box-shadow: 5px 5px 3px black;
     
 }
@@ -83,6 +83,7 @@
     border: none;
     margin: 0;
     padding-top: 0;
+    padding-left: 7px;
     border-spacing: 0;
     background-color: rgb(30, 179, 238);
 }
@@ -888,7 +889,7 @@ input
     border: none;
     padding: 5px;
     margin: 5px;
-    border-radius: 10px;
+    border-radius: 25px;
     text-align: center;
 
 }
