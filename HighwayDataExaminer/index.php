@@ -10,7 +10,6 @@
     Primary Author: Jim Teresco, Siena College, The College of Saint Rose
     Additional authors: Razie Fathi, Arjol Pengu, Maria Bamundo, Clarice Tarbay,
         Michael Dagostino, Abdul Samad, Eric Sauer, Spencer Moon
-
     (Pre-git) Modification History:
     2011-06-20 JDT  Initial implementation
     2011-06-21 JDT  Added .gra support and checkbox for hidden marker display
@@ -155,11 +154,6 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <div id="graphInfo">
 
 </div>
-<!--<div id="about">
-
-		<h3>
-			About METAL HDX
-		</h3>
 
 <div id="loadDataPanel">
 </div>

@@ -852,7 +852,7 @@ input
 }
 
 #datatable {
-    display: inline-block;
+    display: none;
     position: absolute;
     overflow: scroll;
     top: 67px;
@@ -1202,6 +1202,7 @@ input.typeahead.tt-input
     background-color: white;
     padding: 5px;
     border: 2px solid rgb(47, 47, 47);
+    display: none;
 }
 
 @media (max-width: 885px)
