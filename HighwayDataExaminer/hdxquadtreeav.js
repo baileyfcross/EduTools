@@ -558,12 +558,7 @@ var hdxQuadtreeAV = {
     
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
-        let lineCount = 0;
-        updateMap();
         initWaypointsAndConnections(true, false, visualSettings.undiscovered);
-        this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");
 
         //pseudocode for the start state    
         this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
@@ -791,16 +786,13 @@ var hdxQuadtreeAV = {
         if (temp != "No innerHTML") {
             return temp;
         }
-            switch (name) {
+        switch (name) {
             case "isLeaf":
                 html = createInnerHTMLChoice("boolean","isLeaf",
                                              "current quadtree is a leaf",
                                              "current quadtree is not a leaf");
-
-            case "topFindChildLng":
-                html = createInnerHTMLChoice("boolean","topFindChildLng",
-                                             "current vertex is in the south of the quadtree",
-                                             "current vertex is in the north of the quadtree");
+                return html;
+                
             }
         return "No innerHTML";
     },
@@ -810,15 +802,12 @@ var hdxQuadtreeAV = {
         if (answer) {
             return true;
         }
-        else {
-            switch (name) {
+        switch (name) {
             case "isLeaf":
                 return true;
-            }
         }
         return false;
     }
-
 
 };
 
