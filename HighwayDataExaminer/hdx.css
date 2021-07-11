@@ -1193,6 +1193,17 @@ input.typeahead.tt-input
     font-weight: 500;
 }
 
+#graphInfo
+{
+    z-index: 100000;
+    font-size: 15px;
+    position: absolute;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 5px;
+    border: 2px solid rgb(47, 47, 47);
+}
+
 @media (max-width: 885px)
 {
     #metalTitle

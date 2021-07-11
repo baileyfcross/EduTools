@@ -330,6 +330,8 @@ function resizePanels()
     {
     document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 71) + "px";
     document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 71) + "px";
+    document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
+
     }
     
     
@@ -460,6 +462,8 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("map").style.borderRadius = "10px";
     document.getElementById("map").style.border = "2px solid white";
     document.getElementById("map").style.top = "67px";
+    document.getElementById("graphInfo").style.top = "79px";
+    
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("topControlPanelAV3").style.display = "";
     //document.getElementById("currentAlgorithm").innerHTML = "";

@@ -223,7 +223,7 @@ ENDOFSTUFF;
 		  <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
 		  <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
 		  <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
-		  </div>
+		  </div> 
 	  	  
 	</td><!--<td id="topControlPanelAV4">
 	  <input id="resetButton" type="button" value="Reset AV" onclick="resetPressed();cleanupBreakpoints()" />-->
@@ -325,6 +325,10 @@ ENDOFSTUFF;
   </table>
 </div>-->
 <div id="map">
+</div>
+
+<div id="graphInfo">
+
 </div>
 <!--<div id="about">
 
