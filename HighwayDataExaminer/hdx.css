@@ -21,11 +21,9 @@
 
 #avStatusPanel {
     margin: 0;
-    top: 68px;
     z-index: 11000;
     /*background-color: rgb(30,173,229);*/
     position: absolute;
-    left: 10px;
     overflow: scroll;
     
     width: 400px;
@@ -36,7 +34,7 @@
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: white;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     
     /*text-shadow: 1.15px 1.15px 2px black;*/
 
@@ -48,7 +46,7 @@
     border: none;
     width: 100%;
     overflow: scroll;
-    background-color: rgb(47,47,47);
+    background-color: rgb(190, 235, 252);
     border-collapse: separate;
     border-spacing: 10px;
     max-width: 400px;
@@ -59,9 +57,7 @@
 {
     border: none;
     font-size: 24px;
-    color: white;
-    font-weight: 500;
-    text-shadow: 4px 4px 3px black;
+    color: rgb(39, 78, 93);
 }
 
 .codeRow
@@ -69,13 +65,12 @@
     border-spacing: 0;
 }
 
-#avStatusTable td:not(.codeRow *, .pseudocode)
-{
-    border: none;
+#avStatusTable td:not(.codeRow *, .pseudocode) {
+    border: 2px solid black;
     border-radius: 25px;
-    padding: 7px 7px 7px 20px;
-    box-shadow: 5px 5px 3px black;
-    
+    padding: 7px 7px 7px 10px;
+    font-weight: 500;
+    /* box-shadow: 5px 5px 3px black; */
 }
 
 #avStatusTable td#pseudo
@@ -86,6 +81,7 @@
     padding-left: 7px;
     border-spacing: 0;
     background-color: rgb(30, 179, 238);
+    border: 2px solid black;
 }
 
 
@@ -146,6 +142,7 @@
     font-weight: 500;
     padding: 0;
     margin: 0;
+    border: none;
     
 }
 
@@ -163,12 +160,13 @@
 {
     background-color: white;
     font-size: 12px;
+    padding: 2px 2px 2px 3px;
 }
 
 #foundAVCPEntry table.gratable th
 {
     font-size: 14px;
-    font-weight: 500;
+    color: white;
 }
 
 
@@ -865,11 +863,11 @@ input
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 12px;
     border-radius: 10px;
-    background-color: rgb(47, 47, 47);
+    background-color: rgb(255, 210, 246);
     margin: 0;
 
     max-width: 300px;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     
 }
 
@@ -885,7 +883,6 @@ input
 #datatable td, #datatable th
 {
     /*background-color: rgb(30, 179, 238);*/
-    color: white;
     border: none;
     padding: 5px;
     margin: 5px;
@@ -896,15 +893,16 @@ input
 
 #datatable td
 {
-    box-shadow: 5px 5px 3px black;
+    border: 2px solid black;
 }
 
 #datatable th.dtHeader
 {
-    text-shadow: 3px 3px 2px black;
+    padding: 0!important;
+    color:rgb(89, 41, 79);
+    font-size: 14px;
+    
 }
-
-
 
 
 #topControlPanel {
@@ -1204,6 +1202,14 @@ input.typeahead.tt-input
     padding: 5px;
     border: 2px solid rgb(47, 47, 47);
     display: none;
+}
+
+#wp, #cn
+{
+    color:rgb(89, 41, 79);
+    font-size: 24px;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
 }
 
 @media (max-width: 885px)
