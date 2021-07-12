@@ -94,6 +94,7 @@ function startPausePressed() {
         hdxAV.nextAction = "START";
         hdxAV.nextStep(hdxAV.currentAV);
         addStop();
+        resizePanels();
         break;
         
     case hdxStates.AV_RUNNING:
