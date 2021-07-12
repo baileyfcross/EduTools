@@ -106,7 +106,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
 
-<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)">
+<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)" id="theBody">
 <div id="sizeError">
 	Window must be enlarged
 </div>
@@ -161,7 +161,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <div id="algorithmSelectionPanel" style="display=none;">
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
-      <tr><th>Select an Algorithm to Visualize</th></tr>
+      <tr><th>Select Algorithm</th></tr>
     </thead>
     <tbody>
       <tr>

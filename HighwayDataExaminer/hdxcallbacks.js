@@ -272,12 +272,6 @@ window.addEventListener('resize', resizePanels);
 function resizePanels()
 {
 
-    console.log("window: " + window.innerWidth);
-    if (window.innerWidth < 930)
-    {
-        window.resizeTo(930, 500);
-        console.log("made it 40");
-    }
     var checked = document.getElementById("datatablesCheckbox").checked;
     if (titleScreen)
     {
@@ -298,7 +292,7 @@ function resizePanels()
         document.getElementById("map").style.width = (window.innerWidth - (left + dtWidth + (3 * sep) + (3 * bord))) + "px";
 
         document.getElementById("datatable").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
-        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 1) - 71) + "px";
+        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 1) - 67) + "px";
         
     }
     else if (!checked && hdxAV.currentAV.value != "NONE") //Datatables not checked and an algorithm is selected
@@ -328,8 +322,9 @@ function resizePanels()
 
     if (!titleScreen)
     {
-    document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 71) + "px";
-    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 71) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 67) + "px";
+    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 67) + "px";
+    document.getElementById("datatable").style.maxHeight = (window.innerHeight - sep - 67) + "px";
     document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
 
     }
