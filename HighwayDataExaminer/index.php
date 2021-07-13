@@ -145,7 +145,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
   </table>
 </div>
 <div id="title">
-  <p id="metalTitle">METAL&nbsp;HDX</p>
+  <p id="metalTitle">METAL HDX</p>
 </div>
 </div>
 <div id="map">
