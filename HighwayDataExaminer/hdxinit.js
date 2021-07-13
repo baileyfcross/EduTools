@@ -49,5 +49,6 @@ function HDXInit() {
     if (HDXQSIsSpecified("load")) {
 	HDXReadFileFromWebServer(HDXQSValue("load"));
     }
-
+    
+    map.on('baselayerchange', newMapTileSelected);
 }

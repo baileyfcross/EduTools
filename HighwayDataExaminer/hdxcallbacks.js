@@ -574,3 +574,21 @@ function HDXFillGraphList(e) {
         }
     });
 }
+
+
+function newMapTileSelected(e) {
+
+    let selectedMap = "NOT FOUND";
+    for (var mapname in baseLayers) {
+	if (map.hasLayer(baseLayers[mapname])) {
+	    selectedMap = mapname;
+	    break;
+	}
+    }
+    if (selectedMap.includes("Dark")) {
+	console.log("DARK selectedMap: " + selectedMap);
+    }
+    else {
+	console.log("LIGHT selectedMap: " + selectedMap);
+    }
+}
