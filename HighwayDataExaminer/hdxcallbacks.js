@@ -10,17 +10,16 @@
 function speedChanged() {
 
     var speedChanger = document.getElementById("speedChanger");
-    console.log("Selected Index: " + speedChanger.selectedIndex);
     let temp = speedChanger.options[speedChanger.selectedIndex];
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
 
-    if (speedChanger.selectedIndex < 6)
-    {
+    // this will hide the log message when running on faster speeds
+    // when it is going by too fast to see anyway
+    if (hdxAV.delay > 0 && hdxAV.delay < 500) {
         document.getElementById("algorithmStatus").style.display = "none";
     }
-    else
-    {
+    else {
         document.getElementById("algorithmStatus").style.display = "";
     }
 }
