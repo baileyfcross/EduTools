@@ -1104,7 +1104,7 @@ var hdxTraversalsSpanningAVCommon = {
             this.foundTableHeader + '</span><br />' +
             '<span id="totalTreeCost"></span>' +
             '<table class="gratable"><thead>' +
-            '<tr style="text-align:center"><th>Place</th>';
+            '<tr style="text-align:center" id="pathHeaders"><th>Place</th>';
         if (this.distEntry != "") {
             foundEntry += '<th>' + this.distEntry + '</th>';
         }

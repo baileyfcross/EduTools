@@ -52,8 +52,7 @@ function buildWaypointSelector(id,label,initVal) {
         '\')" type="number" value="' + initVal + '" min="0" max="' +
         (waypoints.length-1) + '" size="6" style="width: 7em" ' +
         'onchange="waypointSelectorChanged(\'' + id + '\')"' +
-        '/><span id="' + id + 'Label">' + waypoints[initVal].label +
-        '</span>';        
+        '/>';        
 }
 
 // Same as buildWaypointSelector but is used for

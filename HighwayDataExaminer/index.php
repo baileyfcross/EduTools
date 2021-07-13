@@ -10,7 +10,6 @@
     Primary Author: Jim Teresco, Siena College, The College of Saint Rose
     Additional authors: Razie Fathi, Arjol Pengu, Maria Bamundo, Clarice Tarbay,
         Michael Dagostino, Abdul Samad, Eric Sauer, Spencer Moon
-
     (Pre-git) Modification History:
     2011-06-20 JDT  Initial implementation
     2011-06-21 JDT  Added .gra support and checkbox for hidden marker display
@@ -107,7 +106,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <link rel="stylesheet" type="text/css" href="hdx.css" />
 </head>
 
-<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)">
+<body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)" id="theBody">
 <div id="sizeError">
 	Window must be enlarged
 </div>
@@ -128,11 +127,10 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	    <option value="0">Run To Completion</option>
             <option value="0">Jump To Breakpoint</option>
 	    <option value="1">Max Speed</option>		
-	    <option value="25">Very Fast</option>
-	    <option value="75" selected>Fast</option>
-	    <option value="225">Medium</option>
-		<option value="675">Slow</option>
-	    <option value="2025">Very Slow</option>
+	    <option value="40">Presto</option>
+	    <option value="75" selected>Allegro</option>
+	    <option value="175">Moderato</option>
+	    <option value="1500">Largo</option>
 	    <option value="-1">Step</option>
 	  </select>
 	</td><td>
@@ -147,11 +145,14 @@ $result = tmdb_query("SELECT * FROM graphTypes");
   </table>
 </div>
 <div id="title">
-  <p id="metalTitle">METAL HDX</p>
+  <p id="metalTitle">METAL&nbsp;HDX</p>
 </div>
 </div>
->>>>>>> 7bf8beb8764bb54964c17c13d780c7791d01654f
 <div id="map">
+</div>
+
+<div id="graphInfo">
+
 </div>
 
 <div id="loadDataPanel">
@@ -160,7 +161,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 <div id="algorithmSelectionPanel" style="display=none;">
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
-      <tr><th>Select an Algorithm to Visualize</th></tr>
+      <tr><th>Select Algorithm</th></tr>
     </thead>
     <tbody>
       <tr>
