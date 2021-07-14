@@ -109,8 +109,8 @@ var hdxBFConvexHullAV = {
         visitingLine[0] = [waypoints[this.hullv1].lat, waypoints[this.hullv1].lon];
         visitingLine[1] = [waypoints[this.hullv2].lat, waypoints[this.hullv2].lon];
         this.currentSegment = L.polyline(visitingLine, {
-            color: visualSettings.visiting.color,
-            opacity: 0.6,
+            color: "rgb(30, 179, 238)",
+            opacity: 1,
             weight: 4
         });
         this.currentSegment.addTo(map);

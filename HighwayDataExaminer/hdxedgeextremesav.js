@@ -80,7 +80,7 @@ var hdxEdgeExtremesSearchAV = {
             },
             leaderString: edgeLengthLeaderString,
             visualSettings: {
-                color: "#8b0000",
+                color: "rgb(255, 130, 0)",
                 textColor: "white",
                 scale: 6,
                 name: "shortEdgeLeader",
@@ -101,7 +101,7 @@ var hdxEdgeExtremesSearchAV = {
             },
             leaderString: edgeLengthLeaderString,
             visualSettings: {
-                color: "#ee0000",
+                color: "rgb(164, 81, 255)",
                 textColor: "white",
                 scale: 6,
                 name: "longEdgeLeader",

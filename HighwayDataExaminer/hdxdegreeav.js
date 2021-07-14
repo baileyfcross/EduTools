@@ -41,7 +41,7 @@ var hdxDegreeAV = {
 
 
             visualSettings: {
-                color: "#000080",
+                color: "rgb(255, 130, 0)",
                 textColor: "white",
                 scale: 6,
                 name: "minDegree",
@@ -71,7 +71,7 @@ var hdxDegreeAV = {
 
 
             visualSettings: {
-                color: "#ee0000",
+                color: "rgb(164, 81, 255)",
                 textColor: "white",
                 scale: 6,
                 name: "maxDegree",

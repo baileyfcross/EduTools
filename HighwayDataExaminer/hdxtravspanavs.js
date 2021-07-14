@@ -175,7 +175,7 @@ var hdxTraversalsSpanningAVCommon = {
             opacity: 0.6
         },
         foundPath: {
-            color: "darkRed",
+            color: "rgb(255, 91, 184)",
             textColor: "white",
             scale: 4,
             name: "foundPath",
@@ -1103,7 +1103,7 @@ var hdxTraversalsSpanningAVCommon = {
             ' <span id="foundTableLabel">' +
             this.foundTableHeader + '</span><br />' +
             '<span id="totalTreeCost"></span>' +
-            '<table class="gratable"><thead>' +
+            '<table class="pathTable"><thead>' +
             '<tr style="text-align:center" id="pathHeaders"><th>Place</th>';
         if (this.distEntry != "") {
             foundEntry += '<th>' + this.distEntry + '</th>';

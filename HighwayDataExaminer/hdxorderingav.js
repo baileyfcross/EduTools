@@ -8,7 +8,7 @@
 
 var hdxOrderingAV = {
     value: "ordering",
-    name: "Traversal Orderings",
+    name: "Space-Filling Curve Traversals",
     description: "Visualize different ways of ordering vertices (waypoints) in a 2D space." +
     "<br />NOTE: Conditional breakpoints are currently not available.",
 

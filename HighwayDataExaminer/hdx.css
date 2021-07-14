@@ -1,5 +1,15 @@
 /* CSS for the METAL Highway Data Examiner */
 
+#blah
+{
+    color:rgb(255, 236, 68)
+}
+
+#sup
+{
+    color: rgb(126, 126, 126);
+}
+
 #map {
     position: absolute;
     /*top: 72px;*/
@@ -40,6 +50,17 @@
 
     
 
+}
+
+#avStatusPanel::-webkit-scrollbar, #discoveredAVCPEntry::-webkit-scrollbar, #datatable::-webkit-scrollbar
+{
+    display: none;  /*Removes scrollbar in Chrome, Safari, and Opera*/
+} 
+
+#avStatusPanel, #discoveredAVCPEntry, #datatable
+{
+    -ms-overflow-style: none;  /*Removes scrollbar in Internet Explorer and Edge*/
+    scrollbar-width: none;  /*removes scrollbar in Firefox*/
 }
 
 #avStatusTable {
@@ -90,9 +111,10 @@
     padding: 10px;
     width: 200px;
     display: block;
-    color: white;
+    color: rgb(39, 78, 93);
     min-height: 40px;
     box-shadow: none;
+    border: none;
     
 }
 
@@ -120,7 +142,7 @@
 {
     
     border-collapse: separate;
-    border-spacing: 10px;
+    border-spacing: 5px;
 
 }
 
@@ -129,14 +151,14 @@
     border-radius: 10px;
     background-color: white;
     color: black;
-    font-size: 12px;
+    font-size: 11px;
     border: 2px solid black;
     
 }
 
 #discoveredAVCPEntry table tbody tr td#dotdotdot
 {
-    background-color: #00a000;
+    background-color: rgb(255, 130, 0);
     color: white;
     font-size: 20px;
     font-weight: 500;
@@ -146,24 +168,30 @@
     
 }
 
-
-#foundAVCPEntry table.gratable
+#foundAVCPEntry
 {
-    background-color: #0050f0;
-    border-collapse: separate;
-    border-spacing: 10px;
-    border: none;
-    max-width: 380px;
+    text-align: center;
 }
 
-#foundAVCPEntry table.gratable td
+#foundAVCPEntry table.pathTable
+{
+    /*background-color: rgb(113, 88, 255);*/
+    border-collapse: separate;
+    border-spacing: 6px;
+    border: none;
+    max-width: 380px;
+    margin: auto;
+}
+
+#foundAVCPEntry table.pathTable td
 {
     background-color: white;
     font-size: 12px;
-    padding: 2px 2px 2px 3px;
+    padding: 3px 3px 3px 5px;
+    color: black;
 }
 
-#foundAVCPEntry table.gratable th
+#foundAVCPEntry table.pathTable th
 {
     font-size: 14px;
     color: white;
@@ -421,6 +449,14 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     font-weight: 500;
     margin-bottom: 2px;
     
+}
+
+#breakpointText select
+{
+    border: none;
+    border-radius: 10px;
+    padding: 4px;
+    margin-top: 1px;
 }
 
 #cbp
@@ -1254,6 +1290,10 @@ input.typeahead.tt-input
         display: none!important;
     }
 }
+
+
+
+
 
 
 

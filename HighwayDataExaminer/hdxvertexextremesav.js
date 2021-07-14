@@ -101,7 +101,7 @@ var hdxVertexExtremesSearchAV = {
             leaderString: extremePointLeaderString,
 
             visualSettings: {
-                color: "#0058f0",
+                color: "rgb(164, 81, 255)",
                 textColor: "white",
                 scale: 6,
                 name: "northLeader",
@@ -158,7 +158,7 @@ var hdxVertexExtremesSearchAV = {
             },
             leaderString: extremePointLeaderString,
             visualSettings: {
-                color: "rgb(255, 55, 168)",
+                color: "rgb(255, 91, 184)",
                 textColor: "white",
                 scale: 6,
                 name: "eastLeader",
@@ -186,7 +186,7 @@ var hdxVertexExtremesSearchAV = {
             },
             leaderString: extremePointLeaderString,
             visualSettings: {
-                color: "rgb(191, 45, 254)",
+                color: "#1b6eff",
                 textColor: "white",
                 scale: 6,
                 name: "westLeader",

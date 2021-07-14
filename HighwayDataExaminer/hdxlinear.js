@@ -72,7 +72,7 @@ function HDXLinear(type, displayName) {
 
         this.docElement = dE;
         this.elementHTMLCallback = eC;
-        let t = this.displayName + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size = <span id="HDXLinear' +
+        let t = this.displayName + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size = <span id="HDXLinear' +
         this.idNum + 'Span">'+ this.items.length +
         '</span>; max = <span id="HDXLinear' + this.idNum +
         'Mspan">' + this.maxSize +
