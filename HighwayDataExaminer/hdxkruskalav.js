@@ -434,7 +434,7 @@ var hdxKruskalAV = {
         let foundEntry = '<span id="foundEntriesCount">0</span>' +
             ' <span id="foundTableLabel">Edges in Minimum Spanning Tree/Forest</span>' +
             '<span id="totalTreeCost"></span>' + '<br />' +
-            '<table class="gratable"><thead>' +
+            '<table class="pathTable"><thead>' +
             '<tr style="text-align:center"><th>Length</th>' +
             '<th>Edge</th>' +
             '<th>Endpoints</th></tr>' +

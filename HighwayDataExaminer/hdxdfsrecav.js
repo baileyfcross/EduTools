@@ -417,7 +417,7 @@ var hdxDFSRecAV = {
         addEntryToAVControlPanel("found", visualSettings.spanningTree);
         let foundEntry = '<span id="foundEntriesCount">0</span>' +
             ' <span id="foundTableLabel">Edges in Minimum Spanning Tree</span>' +
-            '<br /><table class="gratable"><thead>' +
+            '<br /><table class="pathTable"><thead>' +
             '<tr style="text-align:center"><th>Place</th>' +
             '<th>Hops</th>' +
             '<th>Arrive From</th>' +
