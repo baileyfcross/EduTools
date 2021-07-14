@@ -838,10 +838,8 @@ function setupQuadtreeVis(){
   updateAVControlEntryQuad("quadtree",svg1);
 };
 var counter = 0;
-var counter2 = 0;
-var lenSpace = 60;
-var setupLenX = 85;
-var setupLenY = 15;
+var setupLenX = 80;
+var setupLenY = 25;
 
 function newQuadtreeNode(){
   var currentSvg = document.getElementById("quadtreeVis");
@@ -849,7 +847,7 @@ function newQuadtreeNode(){
   cir1.setAttribute("cx",setupLenX);
   cir1.setAttribute("cy",setupLenY);
   cir1.setAttribute("r","5");
-  setupLenX += 15;
+  setupLenX += 60;
   currentSvg.appendChild(cir1)
   updateAVControlEntryQuad("quadtree",currentSvg);
 };
@@ -867,16 +865,13 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.se = null;
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
-    
+
     if(rootSetup){
       if(counter == 4){
         counter = 0;
-        setupLenX += 60;
-          if(counter2 == 8){
-            counter2 =0;
-            setupLenY += 15;
+        setupLenX += 10;
+        setupLenY += 15;
           }
-      }
       else{
         counter+=1;
         newQuadtreeNode();
