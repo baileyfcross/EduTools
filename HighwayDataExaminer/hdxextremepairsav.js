@@ -38,7 +38,7 @@ var hdxExtremePairsAV = {
     // common names and moved to hdxAV.visualSettings
     visualSettings: {
         v1: {
-            color: "darkRed",
+            color: "#1b6eff",
             textColor: "white",
             scale: 6,
             name: "v1",

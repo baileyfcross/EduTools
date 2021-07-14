@@ -11,7 +11,7 @@ var visualSettings = {
     // first, some used by many algorithms
     
     undiscovered: {
-        color: "#202020",
+        color: "black",
         textColor: "#ffffff",
         scale: 4,
         name: "undiscovered", 
@@ -20,23 +20,23 @@ var visualSettings = {
         opacity: 0.6
     },
     visiting: {
-        color: "gold",
-        textColor: "black",
+        color: "rgb(30, 179, 238)",
+        textColor: "white",
         scale: 8,
         name: "visiting",
         value: 0,
         weight: 8,
-        opacity: 0.8
+        opacity: 1
     },
     leader: {
-        color: "darkBlue",
+        color: "rgb(255, 130, 0)",
         textColor: "white",
         scale: 6,
         name: "leader",
         value: 0
     },
     leader2: {
-        color: "DodgerBlue",
+        color: "rgb(164, 81, 255)",
         textColor: "white",
         scale: 6,
         name: "leader",
@@ -67,7 +67,7 @@ var visualSettings = {
         value: 0
     },
     discarded: { //discard on removal
-        color: "dimGrey",
+        color: "rgb(142, 142, 142)",
         textColor: "white",
         scale: 3,
         name: "discarded",
@@ -78,7 +78,7 @@ var visualSettings = {
 
     // these are in graph traversals and Dijkstra's so far
     discardedOnDiscovery: {
-        color: "plum",
+        color: "rgb(255, 234, 71)",
         textColor: "black",
         scale: 4,
         name: "discardedOnDiscovery",
@@ -87,14 +87,14 @@ var visualSettings = {
         opacity: 0.6
     },
     startVertex: {
-        color: "darkviolet",
+        color: "rgb(63, 210, 34)",
         textColor: "white",
         scale: 7,
         name: "startVertex",
         value: 0
     },
     endVertex: {
-        color: "violet",
+        color: "rgb(255, 69, 69)",
         textColor: "white",
         scale: 7,
         name: "endVertex",
@@ -148,7 +148,7 @@ var visualSettings = {
         opacity: 0.6
     },
     spanningTree: {
-        color: "#0050f0",
+        color: "rgb(113, 88, 255)",
         textColor: "white",
         scale: 4,
         name: "spanningTree",
@@ -157,7 +157,7 @@ var visualSettings = {
         opacity: 0.6
     },
     discovered: {
-        color: "#00a000",
+        color: "rgb(255, 130, 0)",
         textColor: "white",
         scale: 4,
         name: "discovered",
