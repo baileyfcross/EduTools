@@ -10,17 +10,16 @@
 function speedChanged() {
 
     var speedChanger = document.getElementById("speedChanger");
-    console.log("Selected Index: " + speedChanger.selectedIndex);
     let temp = speedChanger.options[speedChanger.selectedIndex];
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
 
-    if (speedChanger.selectedIndex < 6)
-    {
+    // this will hide the log message when running on faster speeds
+    // when it is going by too fast to see anyway
+    if (hdxAV.delay > 0 && hdxAV.delay < 500) {
         document.getElementById("algorithmStatus").style.display = "none";
     }
-    else
-    {
+    else {
         document.getElementById("algorithmStatus").style.display = "";
     }
 }
@@ -573,4 +572,22 @@ function HDXFillGraphList(e) {
             }
         }
     });
+}
+
+
+function newMapTileSelected(e) {
+
+    let selectedMap = "NOT FOUND";
+    for (var mapname in baseLayers) {
+	if (map.hasLayer(baseLayers[mapname])) {
+	    selectedMap = mapname;
+	    break;
+	}
+    }
+    if (selectedMap.includes("Dark")) {
+	console.log("DARK selectedMap: " + selectedMap);
+    }
+    else {
+	console.log("LIGHT selectedMap: " + selectedMap);
+    }
 }
