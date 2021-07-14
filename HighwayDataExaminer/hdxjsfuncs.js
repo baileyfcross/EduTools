@@ -17,7 +17,7 @@
 
 // Essentially an enum of possible states of the simulation, used to
 // ensure that only things that should be done are permitted in a
-// given state.  Any AV_ state implies that a graph is loaded.  
+// given state.  Any AV_ state implies that a graph is loaded.
 var hdxStates = {
 
     NO_DATA: 1,
@@ -78,7 +78,7 @@ function updatePolylineAndTable(edgeNum, vs, hideTableLine) {
     row.style.color = vs.textColor;
     if (hideTableLine) {
         row.style.display = "none";
-    } 
+    }
 }
 
 // function to show/hide/reinitialize waypoints and connections
@@ -92,7 +92,7 @@ function initWaypointsAndConnections(showW, showC, vs) {
     if (showW) {
         // make sure waypoints table is displayed
         document.getElementById("waypoints").style.display = "";
-        
+
         // show all existing markers on map and table
         for (var i = 0; i < waypoints.length; i++) {
             markers[i].remove();
@@ -147,7 +147,7 @@ function initWaypointsAndConnections(showW, showC, vs) {
 // function to limit the given string to the given length, replacing
 // characters in the middle with ".." if needed to shorten
 function shortLabel(label, max) {
-    
+
     if (label.length > max) {
         return label.substring(0,max/2-1) + ".." +
             label.substring(label.length - (max/2-1));
@@ -169,7 +169,7 @@ function getAdjacentPoints(pointIndex) {
         }
         resultArray.push(adjacentIndex);
     }
-    
+
     return resultArray;
 }
 
@@ -185,7 +185,7 @@ function HDXDisplayVariable(displayLabel,docElement,initVal) {
 
     // set to a new value
     this.set = function(newVal) {
-        
+
         this.value = newVal;
         this.paint();
     };
@@ -196,7 +196,7 @@ function HDXDisplayVariable(displayLabel,docElement,initVal) {
         this.value++;
         this.paint();
     };
-    
+
     // redraw in the document element
     this.paint = function() {
 
@@ -211,10 +211,10 @@ function HDXDisplayVariable(displayLabel,docElement,initVal) {
 function pointboxErrorMsg(msg) {
     pointbox = document.getElementById("pointbox");
     selected = document.getElementById("selected");
-    
+
     pointbox.innerHTML = "<table class=\"gratable\"><thead><tr><th style=\"color: red\">" + msg + "</th></thead></table>";
     selected.innerHTML = pointbox.innerHTML;
-    
+
 }
 
 // When a file is selected by a fileselector whose DOM id
@@ -227,7 +227,7 @@ function HDXStartFileselectorRead(filesel) {
     // the pointbox to be displayed
     let file = document.getElementById(filesel).files[0];
     hdxGlobals.loadingFile = file.name;
-    
+
     // force data table to be displayed
     let datatable = document.getElementById("datatable");
     datatable.style.display = "";
@@ -267,7 +267,7 @@ function HDXReadSelectedGraphFromServer(event) {
 
     let index = document.getElementById("graphList").selectedIndex;
     let graphName = document.getElementById("graphList").options[index].value;
-    
+
     if (graphName != "") {
 	HDXReadFileFromWebServer(graphName);
     }
@@ -308,14 +308,14 @@ function HDXReadFileFromWebServer(graphName) {
     xmlhttp.open("GET",
 		 "https://courses.teresco.org/metal/graphdata/" + graphName,
 		 true);
-    xmlhttp.send(); 
+    xmlhttp.send();
 }
 
 // when the FileReader created in HDXReadFileFromWebServer or
 // HDXStartFileselectorRead has finished, this will be called to
 // process the contents of the file
 function HDXFileLoadedCallback(event) {
-    
+
     // file done loading, read the contents
     HDXProcessFileContents(event.target.result);
     HDXAddCustomTitles();
@@ -324,7 +324,7 @@ function HDXFileLoadedCallback(event) {
 
 // process the contents of a String which came from a file or elsewhere
 function HDXProcessFileContents(fileContents) {
-    
+
     let pointboxContents = "";
 
     // in case we had set colors (for an NMP file) previously:
@@ -344,7 +344,7 @@ function HDXProcessFileContents(fileContents) {
 	document.getElementById("currentAlgorithm").innerHTML =
             hdxAV.currentAV.name;
     }
-    
+
     // parse the file and process as appropriate
     // its name should have been stored in hdxGlobals.loadingFile
     if (hdxGlobals.loadingFile.indexOf(".wpt") >= 0) {
@@ -394,7 +394,7 @@ function HDXProcessFileContents(fileContents) {
             showAlgorithmSelectionPanel();
 	}
     }
-    
+
     document.getElementById('datatable').innerHTML = pointboxContents;
     hideLoadDataPanel();
     mapStatus = mapStates.HDX;
@@ -407,7 +407,7 @@ function HDXProcessFileContents(fileContents) {
 // see https://courses.teresco.org/metal/graph-formats.shtml
 //
 function parseTMGContents(fileContents) {
-    
+
     var lines = fileContents.replace(/\r\n/g,"\n").split('\n');
     var header = lines[0].split(' ');
     if (header[0] != "TMG") {
@@ -427,7 +427,7 @@ function parseTMGContents(fileContents) {
 
     var graphInfo = document.getElementById("graphInfo");
     graphInfo.innerHTML = numV + " vertices, " + numE + " edges";
-    
+
     // is this a traveled format graph?
     if (header[2] == "traveled") {
         haveTravelers = true;
@@ -437,44 +437,44 @@ function parseTMGContents(fileContents) {
         haveTravelers = false;
         numTravelers = 0;
     }
-    
+
     /*var summaryInfo = '<table class="table-sm"><thead class = "thead-dark"><tr><th scope="col">' + numV + " waypoints, " + numE + " connections"
 
     if (haveTravelers) {
         summaryInfo += ", " + numTravelers + " travelers";
     }
-    
+
     summaryInfo += ".</th></tr></table>";*/
-    
+
     var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="wp">Waypoints</th></tr><tr><th class="dtHeader">#</th><th scope="col" class="dtHeader">Coordinates</th><th scope="col" class="dtHeader">Waypoint Name</th></tr></thead><tbody>';
-    
+
     waypoints = new Array(numV);
     for (var i = 0; i < numV; i++) {
         var vertexInfo = lines[i+2].split(' ');
         waypoints[i] = new Waypoint(vertexInfo[0], vertexInfo[1], vertexInfo[2], "", new Array());
-        
+
         var vsubstr =  parseFloat(vertexInfo[1]).toFixed(3) + ',' +
-            parseFloat(vertexInfo[2]).toFixed(3) 
+            parseFloat(vertexInfo[2]).toFixed(3)
             +'</td>' + '<td style ="word-break:break-all;">' + (waypoints[i].label).substring(0,10);
         var e = "...";
         if (((waypoints[i]).label).length > 10) {
             vsubstr =  parseFloat(vertexInfo[1]).toFixed(3) + ',' +
-                parseFloat(vertexInfo[2]).toFixed(3) 
+                parseFloat(vertexInfo[2]).toFixed(3)
                 +'</td>' + '<td style ="word-break:break-all;">' + (waypoints[i].label).substring(0,10) + e;
         }
-        
+
         var vsubstrL =  parseFloat(vertexInfo[1]).toFixed(3) + ',' +
-            parseFloat(vertexInfo[2]).toFixed(3) 
+            parseFloat(vertexInfo[2]).toFixed(3)
             + waypoints[i].label;
-        
+
         vTable += '<tr id="waypoint' + i + '" custom-title = "' + vsubstrL +'" onmouseover = "hoverV('+i+', false)" onmouseout = "hoverEndV('+i+', false)" onclick = "labelClickHDX('+i+')" ><td style ="word-break:break-all;">' + i +'</td>';
-        
-        var vstr = '<td style ="word-break:break-all;"' ; 
+
+        var vstr = '<td style ="word-break:break-all;"' ;
         var vstr2 = vstr +'>' + vsubstr + '</td></tr>';
         vTable += vstr2;
     }
     vTable += '</tbody></table>';
-    
+
     var eTable = '<table  id="connection" class="table table-light"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="cn">Connections</th></tr><tr><th scope="col" class="dtHeader">#</th><th scope="col" class="dtHeader">Route Name(s)</th><th scope="col" class="dtHeader">Endpoints</th></tr></thead><tbody>';
     graphEdges = new Array(numE);
     for (var i = 0; i < numE; i++) {
@@ -517,18 +517,18 @@ function parseTMGContents(fileContents) {
             + edgeInfo[0] + '&nbsp;'  +
             ' &harr;&nbsp; ' + edgeInfo[1] + '&nbsp;'
              + '</td>';
-        
+
         eTable += '<tr custom-title = "' + test + '"' + 'onmouseover="hoverE(event,'+i+')" onmouseout="hoverEndE(event,'+i+')" onclick="connectionClick({ connIndex: '+i+'})" id="connection' + i + '" class="v_' + firstNode + '_' + secondNode + '"><td id = "connectname" style ="word-break:break-all;" >' + i + '</td>';
-        
-        var subst2 = '<td style ="word-break:break-all;"'; 
+
+        var subst2 = '<td style ="word-break:break-all;"';
         var subst3 = subst2 + '>' + edgeInfo[2] + subst;
         eTable += subst3;
-        
+
         graphEdges[i] = newEdge;
         // record edge index in GraphEdge structure
         newEdge.edgeListIndex = i;
     }
-    
+
     eTable += '</tbody></table>';
     genEdges = false;
     usingAdjacencyLists = true;
@@ -975,14 +975,14 @@ function listToVIndexString(items) {
                 line += items[i].vIndex;
             } else {
                 line += items[i].vIndex + `, `;
-            }       
+            }
         }
         line += ` ]`;
         return line;
     }
 }
 
-// Compute Squared Distance 
+// Compute Squared Distance
 function squaredDistance(o1, o2) {
     var dx, dy;
     dx = o1.lon - o2.lon;
@@ -992,7 +992,7 @@ function squaredDistance(o1, o2) {
 
 // Hide the instructions object
 function hideInstructions() {
-    
+
     let element = document.getElementById("instructions");
-    element.style.display = "none";
+    //element.style.display = "none";
 }

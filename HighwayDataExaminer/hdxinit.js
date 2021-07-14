@@ -10,7 +10,7 @@ function HDXInit() {
 
     // get query string parameters
     HDXInitQS();
-    
+
     // TravelMapping's loadmap
     loadmap();
 
@@ -22,7 +22,7 @@ function HDXInit() {
 
     // HDX AV initialization (could delay?)
     hdxAV.initOnLoad();
-    
+
     // create the tabs for HDX instructions popup
     createTabs();
 
@@ -43,12 +43,12 @@ function HDXInit() {
 	distanceUnits = getTMCookie("units");
 	if (distanceUnits == "") distanceUnits = "miles";
     }
-    
+
     // if the load= QS parameter is present, try to load the file
     // from the graphdata on the server
     if (HDXQSIsSpecified("load")) {
 	HDXReadFileFromWebServer(HDXQSValue("load"));
     }
-    
+
     map.on('baselayerchange', newMapTileSelected);
 }

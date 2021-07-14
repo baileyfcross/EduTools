@@ -5,7 +5,7 @@
 //
 // Primary Authors: Jim Teresco
 //
-
+var rootSetup = false;
 var hdxQuadtreeAV = {
 
     // entries for list of AVs
@@ -125,7 +125,6 @@ var hdxQuadtreeAV = {
                     updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                     updateAVControlEntry("numLeaves","Number of leaf quadtrees: " + thisAV.numLeaves);
                     updateAVControlEntry("maxDepth","Depth of the quadtree: " + thisAV.maxDepth);
-                    updateAVControlEntry("quadtree","Space where the quadtree will be");
                     thisAV.qtStack.push(thisAV.currentQuadtree);
                     thisAV.highlightBoundingBox();
                     hdxAV.nextAction = "topAddPoint";
@@ -649,7 +648,6 @@ var hdxQuadtreeAV = {
         addEntryToAVControlPanel("visiting",visualSettings.visiting)
         addEntryToAVControlPanel("numLeaves",visualSettings.discovered);
         addEntryToAVControlPanel("maxDepth",visualSettings.highlightBounding);
-
     },
 
     cleanupUI() {
@@ -824,6 +822,37 @@ var hdxQuadtreeAV = {
 };
 
 let k = 0;
+var cir1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+cir1.setAttribute("cx","170");
+cir1.setAttribute("cy","5");
+cir1.setAttribute("r","5");
+
+function setupQuadtreeVis(){
+  var svg1 = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  //svg1.setAttribute("viewBox","0 0 15 15");
+  svg1.setAttribute("width","100%");
+  svg1.setAttribute("height","100%");
+  svg1.setAttribute("id","quadtreeVis")
+  svg1.appendChild(cir1);
+
+  updateAVControlEntryQuad("quadtree",svg1);
+};
+var counter = 0;
+var counter2 = 0;
+var lenSpace = 60;
+var setupLenX = 85;
+var setupLenY = 15;
+
+function newQuadtreeNode(){
+  var currentSvg = document.getElementById("quadtreeVis");
+  var cir1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  cir1.setAttribute("cx",setupLenX);
+  cir1.setAttribute("cy",setupLenY);
+  cir1.setAttribute("r","5");
+  setupLenX += 15;
+  currentSvg.appendChild(cir1)
+  updateAVControlEntryQuad("quadtree",currentSvg);
+};
 //Quadtree object constructor
 function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.maxLat = maxLat;
@@ -838,6 +867,26 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.se = null;
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
+    
+    if(rootSetup){
+      if(counter == 4){
+        counter = 0;
+        setupLenX += 60;
+          if(counter2 == 8){
+            counter2 =0;
+            setupLenY += 15;
+          }
+      }
+      else{
+        counter+=1;
+        newQuadtreeNode();
+      }
+    }
+
+    if(rootSetup == false){
+        rootSetup = true;
+        setupQuadtreeVis();
+    }
 
     //contains waypoint objects
     this.points = [];
