@@ -477,6 +477,8 @@ var hdxExtremePairsAV = {
 
     // set up UI entries for closest/farthest pairs
     setupUI() {
+        var algDescription = document.getElementById("algDescription");
+        algDescription.innerHTML = this.description;
 
         hdxAV.algStat.style.display = "";
         hdxAV.algStat.innerHTML = "Setting up";

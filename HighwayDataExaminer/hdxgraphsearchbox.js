@@ -101,6 +101,7 @@ $(document).ready(function() {
         if (keycode == '13') {
 	    let input = document.getElementById("searchBox").value;
 	    if (HDXGraphs.hasOwnProperty(input)) {
+            loadingMenu();
 		HDXReadFileFromWebServer(HDXGraphs[input]);
 	    }
 	    else {
@@ -113,7 +114,7 @@ $(document).ready(function() {
           }
           var noGraph = document.createElement('P');
           noGraph.innerHTML = "Graph Not Found: " + input;
-          noGraph.style.color = 'red';
+          noGraph.style.color = 'rgb(255, 107, 107';
           noGraph.id = 'noGraphFound';
           document.getElementById('the-basics').appendChild(noGraph);
           noGraphCounter += 1;
@@ -121,3 +122,28 @@ $(document).ready(function() {
         }
     });
 })};
+
+function nextPressed()
+{
+    
+	    let input = document.getElementById("searchBox").value;
+	    if (HDXGraphs.hasOwnProperty(input)) {
+            console.log("Made it 30");
+            loadingMenu();
+		    HDXReadFileFromWebServer(HDXGraphs[input]);
+	    }
+	    else {
+		      //creates text under the graph search box saying that the graph doesn't exist
+          if(document.getElementById("noGraphFound") != null)
+          {
+            document.getElementById("noGraphFound").remove();
+          }
+          var noGraph = document.createElement('P');
+          noGraph.innerHTML = "Graph Not Found: " + input;
+          noGraph.style.color = 'rgb(255, 107, 107';
+          noGraph.id = 'noGraphFound';
+          document.getElementById('the-basics').appendChild(noGraph);
+          
+	    }
+        
+}
