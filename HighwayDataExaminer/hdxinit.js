@@ -16,7 +16,9 @@ function HDXInit() {
 
     // graph selector data initialization
     //HDXGraphSearchInit();
-    
+
+    // HDX menuing system initialization
+    defaultMenu();
 
     // HDX AV initialization (could delay?)
     hdxAV.initOnLoad();
@@ -47,5 +49,6 @@ function HDXInit() {
     if (HDXQSIsSpecified("load")) {
 	HDXReadFileFromWebServer(HDXQSValue("load"));
     }
-
+    
+    map.on('baselayerchange', newMapTileSelected);
 }

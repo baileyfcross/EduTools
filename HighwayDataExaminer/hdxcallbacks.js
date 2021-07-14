@@ -6,16 +6,22 @@
 // Primary Author: Jim Teresco
 //
 
-
-
 // speedChanger dropdown callback
 function speedChanged() {
 
     var speedChanger = document.getElementById("speedChanger");
-    console.log("Selected Index: " + speedChanger.selectedIndex);
     let temp = speedChanger.options[speedChanger.selectedIndex];
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
+
+    // this will hide the log message when running on faster speeds
+    // when it is going by too fast to see anyway
+    if (hdxAV.delay > 0 && hdxAV.delay < 500) {
+        document.getElementById("algorithmStatus").style.display = "none";
+    }
+    else {
+        document.getElementById("algorithmStatus").style.display = "";
+    }
 }
 
 
@@ -87,6 +93,7 @@ function startPausePressed() {
         hdxAV.nextAction = "START";
         hdxAV.nextStep(hdxAV.currentAV);
         addStop();
+        resizePanels();
         break;
         
     case hdxStates.AV_RUNNING:
@@ -244,26 +251,27 @@ function showHideDatatables() {
     let checked = document.getElementById("datatablesCheckbox").checked;
     let datatable = document.getElementById("datatable");
     if (checked) {
-        datatable.style.display = "";
+        datatable.style.display = "inline-block";
     }
     else {
         datatable.style.display = "none";
     }
-    fixSize();
+    resizePanels();
 }
 
 var statusLeft = 400;  //Width of status panel
-var sep = 10;  //Seperation between panels
-var bord = 2;  //Border thickness
+var sep = 12;  //Seperation between panels
+var bord = 0;  //Border thickness
 var left = statusLeft + sep + (3 * bord);
 var dtWidth;  //Width of datatable
 var firstLoad = true;
 var titleScreen = true;
 
 //Ensures that map is resized properly when window is resized.
-window.addEventListener('resize', fixSize);
-function fixSize()
+window.addEventListener('resize', resizePanels);
+function resizePanels()
 {
+
     var checked = document.getElementById("datatablesCheckbox").checked;
     if (titleScreen)
     {
@@ -284,7 +292,7 @@ function fixSize()
         document.getElementById("map").style.width = (window.innerWidth - (left + dtWidth + (3 * sep) + (3 * bord))) + "px";
 
         document.getElementById("datatable").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
-        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 1) - 71) + "px";
+        document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 1) - 67) + "px";
         
     }
     else if (!checked && hdxAV.currentAV.value != "NONE") //Datatables not checked and an algorithm is selected
@@ -314,8 +322,11 @@ function fixSize()
 
     if (!titleScreen)
     {
-    document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 71) + "px";
-    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 71) + "px";
+    document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 67) + "px";
+    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 67) + "px";
+    document.getElementById("datatable").style.maxHeight = (window.innerHeight - sep - 67) + "px";
+    document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
+
     }
     
     
@@ -340,13 +351,10 @@ function showTopControlPanel() {
     document.getElementById("currentAlgorithm").style.marginTop = "0";
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
+    document.getElementById("metalTitle").style.display = "inline";
     
-    
-    fixSize();
+    resizePanels();
 
-   
-
-    
     //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
 
 
@@ -447,7 +455,11 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("algorithmSelectionPanel").style.display="table";
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
+   // document.getElementById("map").style.border = "2px solid white";
     document.getElementById("map").style.top = "67px";
+    document.getElementById("graphInfo").style.top = "79px";
+    document.getElementById("graphInfo").style.display = "block";
+    
     document.getElementById("map").style.height = (window.innerHeight - sep - 73) + "px";
     document.getElementById("topControlPanelAV3").style.display = "";
     //document.getElementById("currentAlgorithm").innerHTML = "";
@@ -459,11 +471,15 @@ function showAlgorithmSelectionPanel() {
     document.getElementById("filename").style.fontSize = "21px";
     document.getElementById("currentAlgorithm").style.display = "none";
     document.getElementById("topControlPanel").style.display = "none";
+    document.getElementById("pscode").style.display = "none";
+    document.getElementById("metalTitle").style.display = "inline";
+    document.getElementById("info").style.display = "block";
     titleScreen = false;
     algScreen = true;
     hdxAV.currentAV = null;
-    fixSize();
+    resizePanels();
     algorithmSelectionChanged();
+    hideAVStatusPanel();
     
     
 }
@@ -479,7 +495,7 @@ function showAVStatusPanel() {
     document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints);
     
     document.getElementById("avStatusPanel").style.display="block";
-    document.getElementById("avStatusPanel").style.left = "10px";
+    document.getElementById("avStatusPanel").style.left = "12px";
     document.getElementById("avStatusPanel").style.top = "67px";
     
 }
@@ -556,4 +572,22 @@ function HDXFillGraphList(e) {
             }
         }
     });
+}
+
+
+function newMapTileSelected(e) {
+
+    let selectedMap = "NOT FOUND";
+    for (var mapname in baseLayers) {
+	if (map.hasLayer(baseLayers[mapname])) {
+	    selectedMap = mapname;
+	    break;
+	}
+    }
+    if (selectedMap.includes("Dark")) {
+	console.log("DARK selectedMap: " + selectedMap);
+    }
+    else {
+	console.log("LIGHT selectedMap: " + selectedMap);
+    }
 }

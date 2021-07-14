@@ -52,8 +52,7 @@ function buildWaypointSelector(id,label,initVal) {
         '\')" type="number" value="' + initVal + '" min="0" max="' +
         (waypoints.length-1) + '" size="6" style="width: 7em" ' +
         'onchange="waypointSelectorChanged(\'' + id + '\')"' +
-        '/><span id="' + id + 'Label">' + waypoints[initVal].label +
-        '</span>';        
+        '/>';        
 }
 
 // Same as buildWaypointSelector but is used for
@@ -63,9 +62,9 @@ function buildWaypointSelector2(id,label) {
     return label + ' <input id="' + id +
         '" onfocus="hdxVertexSelector.startSelection(\'' + id +
         '\')" type="number" min="0" max="' +
-        (waypoints.length-1) + '" size="6" style="width: 7em" name="quantity" ' +
+        (waypoints.length-1) + '" size="6" style="width: 47px" name="quantity" ' +
         'onchange="waypointSelectorChanged(\'' + id + '\')"' +
-        '/><span id="' + id + 'Label"></span>';
+        '/>';
 }
 
 // event handler for waypoint selectors

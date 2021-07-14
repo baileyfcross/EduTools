@@ -9,18 +9,21 @@
     right: 0px;
     overflow:hidden;
     filter: blur(6px);
-    border-radius: 10px;
-    border: 2px solid white;
+    border-radius: 0;
+    border: none;
     margin: 0;
+    z-index: 2; 
+}
+
+.leaflet-control-scale-line {
+    border-radius: 0;
 }
 
 #avStatusPanel {
     margin: 0;
-    top: 68px;
     z-index: 11000;
     /*background-color: rgb(30,173,229);*/
     position: absolute;
-    left: 10px;
     overflow: scroll;
     
     width: 400px;
@@ -31,7 +34,7 @@
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: white;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     
     /*text-shadow: 1.15px 1.15px 2px black;*/
 
@@ -43,7 +46,7 @@
     border: none;
     width: 100%;
     overflow: scroll;
-    background-color: rgb(47,47,47);
+    background-color: rgb(190, 235, 252);
     border-collapse: separate;
     border-spacing: 10px;
     max-width: 400px;
@@ -54,9 +57,7 @@
 {
     border: none;
     font-size: 24px;
-    color: white;
-    font-weight: 500;
-    text-shadow: 4px 4px 3px black;
+    color: rgb(39, 78, 93);
 }
 
 .codeRow
@@ -64,13 +65,12 @@
     border-spacing: 0;
 }
 
-#avStatusTable td:not(.codeRow *, .pseudocode)
-{
-    border: none;
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: 5px 5px 3px black;
-    
+#avStatusTable td:not(.codeRow *, .pseudocode) {
+    border: 2px solid black;
+    border-radius: 25px;
+    padding: 7px 7px 7px 10px;
+    font-weight: 500;
+    /* box-shadow: 5px 5px 3px black; */
 }
 
 #avStatusTable td#pseudo
@@ -78,8 +78,10 @@
     border: none;
     margin: 0;
     padding-top: 0;
+    padding-left: 7px;
     border-spacing: 0;
     background-color: rgb(30, 179, 238);
+    border: 2px solid black;
 }
 
 
@@ -140,6 +142,7 @@
     font-weight: 500;
     padding: 0;
     margin: 0;
+    border: none;
     
 }
 
@@ -157,12 +160,13 @@
 {
     background-color: white;
     font-size: 12px;
+    padding: 2px 2px 2px 3px;
 }
 
 #foundAVCPEntry table.gratable th
 {
     font-size: 14px;
-    font-weight: 500;
+    color: white;
 }
 
 
@@ -259,6 +263,7 @@ table.pseudocode {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 5px;
     background-color: white;
     color: black;
    
@@ -365,12 +370,16 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
     overflow: hidden;
 }
 .data-title{
-    font-size: 20px;
-    background-color: #00FF00;
+    font-size: 11px;
+    background-color: white;
+    color:rgb(47, 47, 47);
     white-space: wrap;
     box-shadow: 1px 1px 3px #222222;
     opacity: 50;
-    border: 1px solid #111111;
+    border: 1px solid rgb(47, 47, 47);
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 #instructions{
@@ -389,11 +398,11 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 
 #breakpointVariableSelector {
     z-index: 9999;
-    position: fixed;
     top: 100px;
     left: 191px;
-    background-color: white;
     max-width: 300px;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 #showBreakpointVariable {
@@ -404,9 +413,22 @@ https://stackoverflow.com/questions/19343331/how-do-i-center-an-absolutely-posit
 }
 
 #breakpointText{
-    width: 90%;
+    width: 100%;
     position: relative;
     float: left;
+    color: white;
+    font-size: 10pt;
+    font-weight: 500;
+    margin-bottom: 2px;
+    
+}
+
+#cbp
+{
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 7px;
 }
 
 #useBreakpointVariable{
@@ -465,10 +487,6 @@ button, #uploadLabel
     
 }
 
-#loadDataPanel h3
-{
-    /*text-shadow: 5px 5px 5px black;*/
-}
 .opt:hover, #uploadLabel:hover
 {
     padding: 8px;
@@ -543,7 +561,7 @@ div
     margin: auto;
     max-width: 450px;   
     text-align: center;
-    box-shadow: 12px 12px 20px rgb(103, 103, 103);
+    box-shadow: 5px 5px 20px black;
     
 }
 
@@ -637,6 +655,7 @@ h3
     display: none;
     border-radius: 10px;
     text-align: center;
+    color: rgb(39, 78, 93)
     
 }
 
@@ -644,15 +663,15 @@ h3
     margin: 0;
     top: 67px;
     position: absolute;
-    left: 10px;
+    left: 12px;
     overflow: scroll;
     
-    width: 404px;
-    border: 2px solid white;
+    width: 400px;
+    border: none;
     /*left: 5px;*/
     z-index: 10000;
-    background-color: rgb(129, 91, 216); 
-    color: white;
+    background-color: rgb(236, 207, 255); 
+    color: rgb(95, 55, 126);
     border-radius: 10px;
     font-size: 14px;
     padding: 10px;
@@ -663,6 +682,7 @@ h3
 {
     font-size: 24px;
     border: none;
+    
 }
 
 #algorithmSelectionPanelTable td
@@ -678,18 +698,42 @@ h3
     border-radius: 10px;
     padding: 5px;
     margin-top: 5px;
+    border: none;
 }
 
 #algorithmSelectionPanelTable td input
 {
     border-radius: 10px;
-    color: rgb(129, 91, 216);
+    color: rgb(95, 55, 126);
     background-color: white;
-    font-size: 20px;
-    border: 4px solid rgb(159, 133, 219);
+    font-size: 17px;
+    border: none;
     font-weight: bold;
     position: relative;
-    margin-top: 10px;
+    margin-top: 7px;
+    margin-bottom: 3px;
+    padding: 5px;
+}
+
+#algorithmSelectionPanelTable td input#algOptionsDone
+{
+    margin-top: 0;
+    padding: 7px;
+    font-size: 22px;
+}
+
+#algOptionsDone:hover
+{
+    border: 3px solid rgb(95, 55, 126);
+    margin-top: -3px!important;
+    margin-bottom: 0;
+
+
+}
+
+#algorithmSelectionPanelTable td select#traversalDiscipline
+{
+    margin-top: 7px;
 }
 
 p#algDescription
@@ -697,11 +741,6 @@ p#algDescription
     font-size: 14px;
     margin: 15px;
     font-style: italic;
-}
-
-#algorithmSelectionPanelTable td input#algOptionsDone
-{
-    margin-top: 0;
 }
 
 
@@ -796,6 +835,7 @@ h4
 #loadDataPanel #selects
 {
     text-align: left;
+    
 }
 
 #loadDataPanel #selects #vert
@@ -833,23 +873,23 @@ input
 }
 
 #datatable {
-    display: inline-block;
+    display: none;
     position: absolute;
     overflow: scroll;
     top: 67px;
     
     opacity: 1;
-    z-index:750; 
+    z-index: 1; 
     /* above leaflet tiles and overlays, below map tile selector */
     
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 12px;
     border-radius: 10px;
-    background-color: rgb(47, 47, 47);
+    background-color: rgb(255, 210, 246);
     margin: 0;
 
     max-width: 300px;
-    border: 2px solid white;
+    /*border: 2px solid white;*/
     
 }
 
@@ -865,26 +905,26 @@ input
 #datatable td, #datatable th
 {
     /*background-color: rgb(30, 179, 238);*/
-    color: white;
     border: none;
     padding: 5px;
     margin: 5px;
-    border-radius: 10px;
+    border-radius: 25px;
     text-align: center;
 
 }
 
 #datatable td
 {
-    box-shadow: 5px 5px 3px black;
+    border: 2px solid black;
 }
 
 #datatable th.dtHeader
 {
-    text-shadow: 3px 3px 2px black;
+    padding: 0!important;
+    color:rgb(89, 41, 79);
+    font-size: 14px;
+    
 }
-
-
 
 
 #topControlPanel {
@@ -1030,6 +1070,7 @@ div.menubar
 #startPauseButton, #resetButton
 {
     margin: 0px 15px;
+    margin-left: 0;
     
 }
 
@@ -1041,7 +1082,7 @@ div.menubar
 #topControlPanelTable td select
 {
     margin-top: 3px;
-    margin-right: 15px;
+    margin-right: 11px;
 }
 
 #topControlPanelTable #topControlPanelAV3
@@ -1053,6 +1094,7 @@ div.menubar
 #info
 {
     text-align: left;
+    display: none;
 }
 .menubar {
     font-size: 10pt;
@@ -1075,15 +1117,15 @@ p#pscode
 {
     border: none;
     padding: 0;
-    margin: 0;
+    margin: 5px 0 0 0;
     height: 20px;
     color: white;
     text-align: center;
-    font-weight: 500;
+    font-weight: 600;
    
 }
 
-#title p#titleh1
+#title p#metalTitle
 {
     float: left;
     max-width: 200px;
@@ -1091,8 +1133,11 @@ p#pscode
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 36px;
     margin: 10px;
+    display: none;
+    
 
 }
+
 #title
 {
     text-align: left;
@@ -1151,6 +1196,66 @@ input.typeahead.tt-input
 {
     padding-left: 2px;
 }
+
+#sizeError
+{
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    margin-top: 5px;
+    background-color: rgb(47, 47, 47);
+    z-index: 1000000;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    font-weight: 500;
+}
+
+#graphInfo
+{
+    z-index: 100000;
+    font-size: 15px;
+    position: absolute;
+    font-family: Avenir, Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 5px;
+    border: 2px solid rgb(47, 47, 47);
+    display: none;
+}
+
+#wp, #cn
+{
+    color:rgb(89, 41, 79);
+    font-size: 24px;
+    padding-top: 0!important;
+    padding-bottom: 0!important;
+}
+
+@media (max-width: 885px)
+{
+    #metalTitle
+    {
+        display: none;
+    }
+}
+
+@media (max-width: 675px)
+{
+    #sizeError
+    {
+        display: block;
+    }
+
+    body *:not(#sizeError)
+    {
+        display: none!important;
+    }
+}
+
+
 
 
 

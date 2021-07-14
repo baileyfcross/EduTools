@@ -45,22 +45,31 @@ function HDXAddCustomTitles() {
                 
                 // Get the left and top x-y coordinates. Set them for the span tag
                 var rect = classNodes[0].getBoundingClientRect();
-                var left = rect.left;
-                spanTag.style.left = left + "px";
-                spanTag.style.top = (50 + rect.top) + "px";
+                var right = rect.right;
+                var top = rect.top;
+                spanTag.style.left = right + 2 + "px";
+                spanTag.style.top = top + -4 + "px";
+               //spanTag.style.left = "700px";
+               // spanTag.style.top = (50 + rect.top) + "px";
+
+               //Puts span tag to the right of the mouse
+               //spanTag.style.left = event.clientX + 15 + "px";
+               
                 
                 // Grab the span tag's right most side, if its past
                 // the screen, shift it to the left the difference to
                 // display it all
                 var rect2 = spanTag.getBoundingClientRect();
                 if (rect2.right > window.innerWidth) {
-                    spanTag.style.left = left - (rect2.right - window.innerWidth) + "px";
+                    spanTag.style.left = right - (rect2.right - window.innerWidth) + "px";
                 }
             }
             catch(err) {
                 console.log("MouseEnter has encountered an error");
             }
         }, false);
+
+        
 	        
         // Adds a mouse event when it leaves an object with a custom title
         // will grab the class(psuedo-ID) and change the spantags display to none
@@ -98,6 +107,8 @@ function HDXAddCustomTitles() {
         var rect = titles[x].getBoundingClientRect();
         title.style.left = "" + rect.left + "px";
         title.style.top = "" + rect.top + "px";
+
+        
         title.style.zIndex = "99999";
         title.style.maxWidth = "550px";
         // adds the titleNode to title

@@ -3,7 +3,7 @@
 //
 // METAL Project
 //
-// Primary Authors: Jim Teresco
+// Primary Authors: Luke Jennings
 //
 
 var hdxQuadtreeAV = {
@@ -11,7 +11,8 @@ var hdxQuadtreeAV = {
     // entries for list of AVs
     value: "quadtree",
     name: "Quadtree Construction",
-    description: "Construct a quadtree by inserting all waypoints (vertices) and refining as needed.",
+    description: "Construct a quadtree by inserting vertices (waypoints) and refining into smaller quadtrees." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
     //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
@@ -557,12 +558,7 @@ var hdxQuadtreeAV = {
     
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
-        let lineCount = 0;
-        updateMap();
         initWaypointsAndConnections(true, false, visualSettings.undiscovered);
-        this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");
 
         //pseudocode for the start state    
         this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
@@ -639,7 +635,7 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="' 
+        let newAO = 'Refinement Threshold <input type="number" id="refinement" min="2" max="' 
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
@@ -790,16 +786,13 @@ var hdxQuadtreeAV = {
         if (temp != "No innerHTML") {
             return temp;
         }
-            switch (name) {
+        switch (name) {
             case "isLeaf":
                 html = createInnerHTMLChoice("boolean","isLeaf",
                                              "current quadtree is a leaf",
                                              "current quadtree is not a leaf");
-
-            case "topFindChildLng":
-                html = createInnerHTMLChoice("boolean","topFindChildLng",
-                                             "current vertex is in the south of the quadtree",
-                                             "current vertex is in the north of the quadtree");
+                return html;
+                
             }
         return "No innerHTML";
     },
@@ -809,15 +802,12 @@ var hdxQuadtreeAV = {
         if (answer) {
             return true;
         }
-        else {
-            switch (name) {
+        switch (name) {
             case "isLeaf":
                 return true;
-            }
         }
         return false;
     }
-
 
 };
 
@@ -1156,7 +1146,6 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                     weight: 3
                 })
             );
-                console.log("0");
                 this.nw.hilbertOrderPoly(5,boundingPoly);
                 this.sw.hilbertOrderPoly(5,boundingPoly);
                 this.se.hilbertOrderPoly(7,boundingPoly);

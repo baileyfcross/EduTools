@@ -424,6 +424,9 @@ function parseTMGContents(fileContents) {
     var numV = parseInt(counts[0]);
     var numE = parseInt(counts[1]);
     var numTravelers = 0;
+
+    var graphInfo = document.getElementById("graphInfo");
+    graphInfo.innerHTML = numV + " vertices, " + numE + " edges";
     
     // is this a traveled format graph?
     if (header[2] == "traveled") {
@@ -435,13 +438,13 @@ function parseTMGContents(fileContents) {
         numTravelers = 0;
     }
     
-    var summaryInfo = '<table class="table-sm"><thead class = "thead-dark"><tr><th scope="col">' + numV + " waypoints, " + numE + " connections"
+    /*var summaryInfo = '<table class="table-sm"><thead class = "thead-dark"><tr><th scope="col">' + numV + " waypoints, " + numE + " connections"
 
     if (haveTravelers) {
         summaryInfo += ", " + numTravelers + " travelers";
     }
     
-    summaryInfo += ".</th></tr></table>";
+    summaryInfo += ".</th></tr></table>";*/
     
     var vTable = '<table id="waypoints" class="table table-light table-bordered"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="wp">Waypoints</th></tr><tr><th class="dtHeader">#</th><th scope="col" class="dtHeader">Coordinates</th><th scope="col" class="dtHeader">Waypoint Name</th></tr></thead><tbody>';
     
@@ -472,7 +475,7 @@ function parseTMGContents(fileContents) {
     }
     vTable += '</tbody></table>';
     
-    var eTable = '<table  id="connection" class="table table-light"><thead class = "thead-dark"><tr><th scope="col" colspan="3">Connections</th></tr><tr><th scope="col">#</th><th scope="col">Route Name(s)</th><th scope="col">Endpoints</th></tr></thead><tbody>';
+    var eTable = '<table  id="connection" class="table table-light"><thead class = "thead-dark"><tr><th scope="col" colspan="3" id="cn">Connections</th></tr><tr><th scope="col" class="dtHeader">#</th><th scope="col" class="dtHeader">Route Name(s)</th><th scope="col" class="dtHeader">Endpoints</th></tr></thead><tbody>';
     graphEdges = new Array(numE);
     for (var i = 0; i < numE; i++) {
         var edgeInfo = lines[i+numV+2].split(' ');
@@ -535,7 +538,7 @@ function parseTMGContents(fileContents) {
         travelerNames = lines[lines.length-2].split(' ');
     }
     hdxAV.setStatus(hdxStates.GRAPH_LOADED);
-    return summaryInfo + '<p />' + vTable + '<p />' + eTable;
+    return vTable + eTable;
 }
 
 // parse the contents of a .gra file
