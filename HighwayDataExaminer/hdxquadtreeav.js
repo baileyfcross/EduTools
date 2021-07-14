@@ -640,11 +640,7 @@ var hdxQuadtreeAV = {
         hdxAV.algStat.innerHTML = "Setting up";
         hdxAV.logMessageArr = [];
         hdxAV.logMessageArr.push("Setting up");
-<<<<<<< HEAD
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="1" max="'
-=======
-        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="' 
->>>>>>> 1e00c618d916c1243c1e065a16499a0cb9aa549c
+        let newAO = 'Refinement threshold <input type="number" id="refinement" min="2" max="'
         + (waypoints.length) + '" value="3">';
 
         hdxAV.algOptions.innerHTML = newAO;
@@ -839,12 +835,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.nw = null;
     this.ne = null;
     this.sw = null;
-<<<<<<< HEAD
     this.se = null;
-
-=======
-    this.se = null;    
->>>>>>> 1e00c618d916c1243c1e065a16499a0cb9aa549c
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
 
@@ -915,9 +906,6 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.childThatContains(waypoint.lat,waypoint.lon).add(waypoint);
         }
     }
-<<<<<<< HEAD
-}
-=======
     //this version take an array parameter
     this.mortonOrderPoly = function(boundingPoly){
         if(this.isLeaf()){
@@ -928,10 +916,10 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                  }
             }
         } else {
-           
+
                 let nsEdge = this.makeNSedge();
                 let ewEdge = this.makeEWedge();
-                        
+
                     boundingPoly.push(
                         L.polyline(nsEdge, {
                             color: visualSettings.undiscovered.color,
@@ -978,7 +966,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                  }
             }
         } else {
-            
+
             switch(orientation){
                 //case 0 is equivalent to the orientation being a u
                 case 0:
@@ -993,7 +981,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                     this.sw.hilbertOrder(1);
                     this.nw.hilbertOrder(1);
                     this.ne.hilbertOrder(0);
-                    
+
                     break;
                 //case 2 is equivalent to the orientation being ∩
                 case 2:
@@ -1052,7 +1040,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         } else {
             let nsEdge = this.makeNSedge();
             let ewEdge = this.makeEWedge();
-                    
+
                 boundingPoly.push(
                     L.polyline(nsEdge, {
                         color: visualSettings.undiscovered.color,
@@ -1081,7 +1069,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
                     this.sw.hilbertOrderPoly(1,boundingPoly);
                     this.nw.hilbertOrderPoly(1,boundingPoly);
                     this.ne.hilbertOrderPoly(0,boundingPoly);
-                    
+
                     break;
                 //case 2 is equivalent to the orientation being ∩
                 case 2:
@@ -1141,7 +1129,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             this.sw.hilbertOrder(5);
             this.se.hilbertOrder(7);
             this.ne.hilbertOrder(7);
-            
+
         }
     }
     this.mooreOrderPoly = function(boundingPoly){
@@ -1155,7 +1143,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         } else {
             let nsEdge = this.makeNSedge();
             let ewEdge = this.makeEWedge();
-                    
+
             boundingPoly.push(
                 L.polyline(nsEdge, {
                     color: visualSettings.undiscovered.color,
@@ -1215,7 +1203,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         } else {
             let nsEdge = this.makeNSedge();
             let ewEdge = this.makeEWedge();
-                    
+
                 boundingPoly.push(
                     L.polyline(nsEdge, {
                         color: visualSettings.undiscovered.color,
@@ -1248,6 +1236,5 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
             }
         }
     }
-    
+
 };
->>>>>>> 1e00c618d916c1243c1e065a16499a0cb9aa549c

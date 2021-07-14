@@ -10,7 +10,7 @@ var hdxDegreeAV = {
     // entries for list of AVs
     value: "degree",
     name: "Vertex Min/Max Degree Search",
-    description: "Search for min and max degree vertices",
+    description: "Search for minimum and maximum degree vertices (waypoints) in graph.",
 
     // state variables for vertex degree search
     nextToCheck: 0, //for loop counter

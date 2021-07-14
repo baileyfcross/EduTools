@@ -9,15 +9,12 @@
 var hdxOrderingAV = {
     value: "ordering",
     name: "Traversal Orderings",
-    description: "Visualize different ways of ordering vertices in a 2D space.",
+    description: "Visualize different ways of ordering vertices (waypoints) in a 2D space." +
+    "<br />NOTE: Conditional breakpoints are currently not available.",
 
     //used to track the num of the two verticies we are drawing an edge between
     v1: 0,
     v2: 0,
-
-    //used to help calculate Hilbert Curve Order
-    xCoord: 0,
-    yCoord: 0,
     //used to help calculate the dimensions of the quadtree
     n: 0,
     s: 0,
@@ -26,7 +23,7 @@ var hdxOrderingAV = {
 
     //default refinement threshold for the quadtree used by the morton order
     //deterimined with an i/o box before the av runs
-    refinement: 3,
+    refinement: 2,
 
     supportRefinement: false,
 
@@ -37,6 +34,8 @@ var hdxOrderingAV = {
     
     //used to keep track of all the polylines added to the map
     polyLines: [],
+    //used for the polylines of the bounding box
+    boundingPoly: [],
 
     originalWaypoints: [],
     //fhc: fixedHilbertCurve(),
@@ -58,14 +57,13 @@ var hdxOrderingAV = {
                 thisAV.boundingPoly = [];
 
                 thisAV.originalWaypoints = waypoints.slice();
-                numVUndiscovered = waypoints.length,
+                thisAV.numVUndiscovered = waypoints.length,
 
                 thisAV.lengthEdges = 0;
 
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
                 thisAV.rainbowGradiant.setSpectrum('ff0000','ffc000','00ff00','00ffff','0000ff','c700ff');
-                //let fhc = fixedHilbertCurve();
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                 updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " mi");
@@ -117,13 +115,11 @@ var hdxOrderingAV = {
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
                             thisAV.quadtree.add(waypoints[i]);
-                            console.log("adding");
                         }
                         if(thisAV.showBB){
                             thisAV.quadtree.mooreOrderPoly(thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.mooreOrder();
@@ -135,13 +131,11 @@ var hdxOrderingAV = {
                         for(var i = 0; i < waypoints.length; i++){
                             waypoints[i].num = i;
                             thisAV.quadtree.add(waypoints[i]);
-                            console.log("adding");
                         }
                         if(thisAV.showBB){
                             thisAV.quadtree.greyOrderPoly(0,thisAV.boundingPoly);
                             for (var i = 0; i < thisAV.boundingPoly.length; i++) {
                                 thisAV.boundingPoly[i].addTo(map);
-                                console.log("adding");
                             }
                         } else {
                             thisAV.quadtree.greyOrder(0);
@@ -197,13 +191,13 @@ var hdxOrderingAV = {
                     thisAV.v1 = waypoints[thisAV.nextToCheck].num;
                     thisAV.v2 = waypoints[thisAV.nextToCheck + 1].num;
                     updateMarkerAndTable(thisAV.v1, visualSettings.v1,
-                        30, false);
+                        31, false);
                     updateMarkerAndTable(thisAV.v2, visualSettings.v2,
-                        30, false);
+                        31, false);
 
                     hdxAV.nextAction = "addEdge";
 
-                    numVUndiscovered--;
+                    thisAV.numVUndiscovered--;
                     updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                     updateAVControlEntry("v1","v1: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
                     updateAVControlEntry("v2","v2: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
@@ -244,7 +238,7 @@ var hdxOrderingAV = {
 
             },
             logMessage: function(thisAV){
-                return "Adding edge between " + waypoints[thisAV.nextToCheck].num + " and "
+                return "Adding edge between vertex #" + waypoints[thisAV.nextToCheck].num + " and vertex #"
                     + waypoints[thisAV.nextToCheck + 1].num;
             }
 
@@ -274,12 +268,7 @@ var hdxOrderingAV = {
 
     prepToStart() {
         hdxAV.algStat.innerHTML = "Initializing";
-        let lineCount = 0;
-        updateMap();
         initWaypointsAndConnections(true, false, visualSettings.undiscovered);
-        this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");this.Stack = new HDXLinear(hdxLinearTypes.STACK,
-            "Stack");
 
         //pseudocode
         this.code = '<table class="pseudocode"><tr id="START" class="pseudocode"><td class="pseudocode">';
@@ -473,6 +462,8 @@ function refinementChanged(){
     switch(selector.options[selector.selectedIndex].value){
         case "morton":
         case "hilbert":
+        case "moore":
+        case "grey":
             refSelector.disabled = false;
             break;
         default:
