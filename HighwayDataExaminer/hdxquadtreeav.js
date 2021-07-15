@@ -838,6 +838,8 @@ function setupQuadtreeVis(){
   updateAVControlEntryQuad("quadtree",svg1);
 };
 var counter = 0;
+//can use the built in depth
+var spacingLen = 60;
 var setupLenX = 80;
 var setupLenY = 25;
 
@@ -847,8 +849,30 @@ function newQuadtreeNode(){
   cir1.setAttribute("cx",setupLenX);
   cir1.setAttribute("cy",setupLenY);
   cir1.setAttribute("r","5");
-  setupLenX += 60;
-  currentSvg.appendChild(cir1)
+  setupLenX += spacingLen;
+
+  var cir2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  cir2.setAttribute("cx",setupLenX);
+  cir2.setAttribute("cy",setupLenY);
+  cir2.setAttribute("r","5");
+  setupLenX += spacingLen;
+
+  var cir3 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  cir3.setAttribute("cx",setupLenX);
+  cir3.setAttribute("cy",setupLenY);
+  cir3.setAttribute("r","5");
+  setupLenX += spacingLen;
+
+  var cir4 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  cir4.setAttribute("cx",setupLenX);
+  cir4.setAttribute("cy",setupLenY);
+  cir4.setAttribute("r","5");
+  setupLenX += spacingLen;
+
+  currentSvg.appendChild(cir1);
+  currentSvg.appendChild(cir2);
+  currentSvg.appendChild(cir3);
+  currentSvg.appendChild(cir4);
   updateAVControlEntryQuad("quadtree",currentSvg);
 };
 //Quadtree object constructor
@@ -865,18 +889,6 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.se = null;
     //determines the refinement factor of the quadtree
     this.refinement = refinement;
-
-    if(rootSetup){
-      if(counter == 4){
-        counter = 0;
-        setupLenX += 10;
-        setupLenY += 15;
-          }
-      else{
-        counter+=1;
-        newQuadtreeNode();
-      }
-    }
 
     if(rootSetup == false){
         rootSetup = true;
@@ -902,6 +914,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         this.ne = new Quadtree(this.midLat, this.maxLat, this.midLng, this.maxLng, this.refinement);
         this.sw = new Quadtree(this.minLat, this.midLat, this.minLng, this.midLng, this.refinement);
         this.se = new Quadtree(this.minLat, this.midLat, this.midLng, this.maxLng, this.refinement);
+        newQuadtreeNode();
     }
     this.makeNSedge = function(){
         return [[this.minLat,this.midLng],[this.maxLat,this.midLng]];
