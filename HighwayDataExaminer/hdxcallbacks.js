@@ -326,9 +326,9 @@ function resizePanels()
     document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 67) + "px";
     document.getElementById("datatable").style.maxHeight = (window.innerHeight - sep - 67) + "px";
     document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
-
     }
     
+    map.invalidateSize();
     
 }
 
@@ -451,7 +451,7 @@ function hideAlgorithmSelectionPanel() {
 var algScreen;
 
 function showAlgorithmSelectionPanel() {
-
+ 
     document.getElementById("algorithmSelectionPanel").style.display="table";
     document.getElementById("map").style.filter = "none";
     document.getElementById("map").style.borderRadius = "10px";
@@ -480,7 +480,6 @@ function showAlgorithmSelectionPanel() {
     resizePanels();
     algorithmSelectionChanged();
     hideAVStatusPanel();
-    
     
 }
 
