@@ -867,8 +867,12 @@ function newQuadtreeNode(){
   cir4.setAttribute("cx",setupLenX);
   cir4.setAttribute("cy",setupLenY);
   cir4.setAttribute("r","5");
-  setupLenX += spacingLen;
 
+  setupLenX -= (spacingLen * 4);
+  setupLenX /= 4;
+  spacingLen /= 2;
+  setupLenX += (spacingLen/2 + spacingLen/2);
+  setupLenY += 25;
   currentSvg.appendChild(cir1);
   currentSvg.appendChild(cir2);
   currentSvg.appendChild(cir3);
