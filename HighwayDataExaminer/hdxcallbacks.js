@@ -584,12 +584,8 @@ function newMapTileSelected(e) {
 	    break;
 	}
     }
-    if (selectedMap.includes("Dark") || selectedMap.includes("Matrix") || selectedMap.includes("Topo")) {
-	    console.log("DARK selectedMap: " + selectedMap);
-        visualSettings.undiscovered.color = "white";
-        visualSettings.undiscovered.textColor = "black";
-        visualSettings.undiscovered.icon.borderColor = "white";
-        console.log("made it 70");
+    if (selectedMap.includes("Dark") || selectedMap.includes("Matrix") || selectedMap.includes("/Topo") || selectedMap.includes("HERE Hybrid Day") || selectedMap.includes("Esri WorldImagery") || selectedMap.includes("Esri Nat") || selectedMap.includes("Black") || selectedMap.includes("Spinal")) {
+
 
         markerList = document.querySelectorAll(".circle-dot");
 
@@ -642,11 +638,7 @@ function newMapTileSelected(e) {
         }*/
     }
     else {
-	    console.log("LIGHT selectedMap: " + selectedMap);
-        visualSettings.undiscovered.color = "rgb(60, 60, 60)";
-        visualSettings.undiscovered.textColor = "white";
-        visualSettings.undiscovered.icon.borderColor = "rgb(60, 60, 60)";
-        console.log("made it 70");
+	    
 
         markerList = document.querySelectorAll(".circle-dot");
 

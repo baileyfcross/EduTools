@@ -1285,6 +1285,12 @@ input.typeahead.tt-input
     padding-bottom: 0!important;
 }
 
+#undiscoveredAVCPEntry
+{
+    background-color: white!important;
+    color: black!important;
+}
+
 @media (max-width: 885px)
 {
     #metalTitle
