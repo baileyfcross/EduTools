@@ -11,7 +11,7 @@ var visualSettings = {
     // first, some used by many algorithms
     
     undiscovered: {
-        color: "black",
+        color: "rgb(60, 60, 60)",
         textColor: "#ffffff",
         scale: 4,
         name: "undiscovered", 
@@ -78,7 +78,7 @@ var visualSettings = {
 
     // these are in graph traversals and Dijkstra's so far
     discardedOnDiscovery: {
-        color: "rgb(255, 234, 71)",
+        color: "rgb(255, 233, 64)",
         textColor: "black",
         scale: 4,
         name: "discardedOnDiscovery",
@@ -103,7 +103,7 @@ var visualSettings = {
 
     // both vertex and edge search
     shortLabelLeader: {
-        color: "rgb(30,173,229)",
+        color: "rgb(255, 60, 60)",
         textColor: "white",
         scale: 6,
         name: "shortLabelLeader",
@@ -112,7 +112,7 @@ var visualSettings = {
         opacity: 0.6
     },
     longLabelLeader: {
-        color: "#56e440",
+        color: "rgb(117, 218, 66)",
         textColor: "white",
         scale: 6,
         name: "longLabelLeader",
@@ -121,8 +121,8 @@ var visualSettings = {
         opacity: 0.6
     },
     firstLabelLeader: {
-        color: "#e4e43d",
-        textColor: "white",
+        color: "rgb(254, 201, 66)",
+        textColor: "black",
         scale: 6,
         name: "firstLabelLeader",
         value: 0,
@@ -130,7 +130,7 @@ var visualSettings = {
         opacity: 0.6
     },
     lastLabelLeader: {
-        color: "#f0245b",
+        color: "rgb(1, 107, 84)",
         textColor: "white",
         scale: 6,
         name: "lastLabelLeader",
@@ -177,7 +177,7 @@ var visualSettings = {
         textColor: "black"
     },
     highlightBounding: {
-        color: "red",
+        color: "rgb(255, 60, 60)",
         textColor: "white",
         name: "highlightBounding",
         weight: 4,

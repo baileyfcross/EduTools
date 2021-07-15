@@ -51,4 +51,5 @@ function HDXInit() {
     }
     
     map.on('baselayerchange', newMapTileSelected);
+    newMapTileSelected();
 }

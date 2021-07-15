@@ -584,10 +584,89 @@ function newMapTileSelected(e) {
 	    break;
 	}
     }
-    if (selectedMap.includes("Dark")) {
-	console.log("DARK selectedMap: " + selectedMap);
+    if (selectedMap.includes("Dark") || selectedMap.includes("Matrix") || selectedMap.includes("Topo")) {
+	    console.log("DARK selectedMap: " + selectedMap);
+        visualSettings.undiscovered.color = "white";
+        visualSettings.undiscovered.textColor = "black";
+        visualSettings.undiscovered.icon.borderColor = "white";
+        console.log("made it 70");
+
+        markerList = document.querySelectorAll(".circle-dot");
+
+        for (let i = 0; i < markerList.length; i++)
+        {
+            if (markerList[i].style.borderColor == "rgb(60, 60, 60)")
+            {
+                markerList[i].style.borderColor = "white";
+            }
+        }
+        console.log("conLen: " + connections.length)
+        for (let i = 0; i < connections.length; i++)
+        {
+            if (connections[i].options.color == "rgb(60, 60, 60)")
+            {
+                connections[i].setStyle({
+                    color: "white",
+                    });
+            }
+        }
+
+        /*for (let i = 0; i < markers.length; i++)
+        {
+            markers[i].setIcon(visualSettings.undiscovered.icon);
+            console.log("made it 760");
+        }
+        /*if (!visualSettings.hasOwnProperty('icon')) {
+            var options = {
+                iconShape: 'circle-dot',
+                iconSize: [visualSettings.scale, visualSettings.scale],
+                iconAnchor: [visualSettings.scale, visualSettings.scale],
+                borderWidth: visualSettings.scale,
+                borderColor: visualSettings.color
+            };
+            visualSettings.icon = L.BeautifyIcon.icon(options);
+        }
+        console.log("ml: " + markers.length);
+        for (let i = 0; i < markers.length; i++)
+        {
+            //console.log(markers[i]);
+            if (markers[i].color == "rgb(60, 60, 60)" || true)
+            {
+                console.log("made it 60");
+                markers[i].options.icon.options.borderColor = "white";
+                var row = document.getElementById("waypoint" + i);
+                row.style.backgroundColor = visualSettings.color;
+                row.style.color = visualSettings.textColor;
+                console.log(markers[i]);
+            }
+        }*/
     }
     else {
-	console.log("LIGHT selectedMap: " + selectedMap);
+	    console.log("LIGHT selectedMap: " + selectedMap);
+        visualSettings.undiscovered.color = "rgb(60, 60, 60)";
+        visualSettings.undiscovered.textColor = "white";
+        visualSettings.undiscovered.icon.borderColor = "rgb(60, 60, 60)";
+        console.log("made it 70");
+
+        markerList = document.querySelectorAll(".circle-dot");
+
+        for (let i = 0; i < markerList.length; i++)
+        {
+            if (markerList[i].style.borderColor == "white")
+            {
+                markerList[i].style.borderColor = "rgb(60, 60, 60)";
+            }
+        }
+        console.log("conLen: " + connections.length)
+        for (let i = 0; i < connections.length; i++)
+        {
+            if (connections[i].options.color == "white")
+            {
+                connections[i].setStyle({
+                    color: "rgb(60, 60, 60)",
+                    });
+            }
+        }
+        
     }
 }
