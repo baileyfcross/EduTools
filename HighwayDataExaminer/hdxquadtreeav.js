@@ -243,6 +243,7 @@ var hdxQuadtreeAV = {
                 thisAV.refI = -1;
                 //this calls a function of the quadtree object that creates the quadtree children
                 thisAV.currentQuadtree.makeChildren();
+                thisAV.currentQuadtree.newQuadtreeNode();
                 //this method call adds new polylines to the map to represent the creation of new quadtree children
                 //and that the refinement process has begun
                 thisAV.addNewPolylines();
@@ -837,6 +838,8 @@ function setupQuadtreeVis(){
 
   updateAVControlEntryQuad("quadtree",svg1);
 };
+
+var xKeepers =[];
 var counter = 0;
 //can use the built in depth
 var spacingLen = 60;
@@ -844,30 +847,38 @@ var setupLenX = 80;
 var setupLenY = 25;
 
 function newQuadtreeNode(){
+  console.log(spacingLen);
+  //spacingLen = parentX;
   var currentSvg = document.getElementById("quadtreeVis");
   var cir1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   cir1.setAttribute("cx",setupLenX);
   cir1.setAttribute("cy",setupLenY);
   cir1.setAttribute("r","5");
+  xKeepers.push(setupLenX);
   setupLenX += spacingLen;
+
 
   var cir2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   cir2.setAttribute("cx",setupLenX);
   cir2.setAttribute("cy",setupLenY);
   cir2.setAttribute("r","5");
+  xKeepers.push(setupLenX);
   setupLenX += spacingLen;
 
   var cir3 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   cir3.setAttribute("cx",setupLenX);
   cir3.setAttribute("cy",setupLenY);
   cir3.setAttribute("r","5");
+  xKeepers.push(setupLenX);
   setupLenX += spacingLen;
 
   var cir4 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
   cir4.setAttribute("cx",setupLenX);
   cir4.setAttribute("cy",setupLenY);
   cir4.setAttribute("r","5");
+  xKeepers.push(setupLenX);
 
+  console.log(xKeepers);
   setupLenX -= (spacingLen * 4);
   setupLenX /= 4;
   spacingLen /= 2;
@@ -918,7 +929,7 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
         this.ne = new Quadtree(this.midLat, this.maxLat, this.midLng, this.maxLng, this.refinement);
         this.sw = new Quadtree(this.minLat, this.midLat, this.minLng, this.midLng, this.refinement);
         this.se = new Quadtree(this.minLat, this.midLat, this.midLng, this.maxLng, this.refinement);
-        newQuadtreeNode();
+        //newQuadtreeNode();
     }
     this.makeNSedge = function(){
         return [[this.minLat,this.midLng],[this.maxLat,this.midLng]];
@@ -929,17 +940,25 @@ function Quadtree(minLat,maxLat,minLng,maxLng,refinement){
     this.childThatContains = function(lat,lng){
         if (lat < this.midLat) {
             if (lng < this.midLng) {
+            console.log("this was trigger sw");
+            newQuadtreeNode(xKeepers[2]);
             return this.sw;
             }
             else {
+            console.log('this was trigger se');
+            newQuadtreeNode(xKeepers[3]);
             return this.se;
             }
         }
         else {
             if (lng < this.midLng) {
+            console.log('this was trigger nw');
+            newQuadtreeNode(xKeepers[0]);
             return this.nw;
             }
             else {
+            console.log('this was trigger ne');
+            newQuadtreeNode(xKeepers[1]);
             return this.ne;
             }
         }
