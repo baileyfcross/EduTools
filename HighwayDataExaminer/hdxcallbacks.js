@@ -73,6 +73,11 @@ function showHidePseudocode() {
         (hdxAV.traceActions ? "" : "none");
         document.getElementById("pscode").style.display =
         (hdxAV.traceActions ? "" : "none");
+
+    document.getElementById("pseudo").parentNode.style.display =
+        (hdxAV.traceActions ? "" : "none");
+        document.getElementById("pscode").style.display =
+        (hdxAV.traceActions ? "" : "none");
 }
 
 // generic event handler for start/pause/resume button
@@ -93,12 +98,15 @@ function startPausePressed() {
         hdxAV.currentAV.prepToStart();
         // set pseudocode
         document.getElementById("pseudoText").innerHTML = hdxAV.currentAV.code;
+        document.getElementById("pseudo").parentNode.style.display = "";
+      
 
         // reset all execution counts
         hdxAV.execCounts = [];
         hdxAV.maxExecCount = 0;
 
         showHidePseudocode();
+        showEntries();
         //document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
 
         // get the simulation going, always start with the "START"
@@ -107,6 +115,7 @@ function startPausePressed() {
         hdxAV.nextStep(hdxAV.currentAV);
         addStop();
         resizePanels();
+        hideEntries();
         break;
         
     case hdxStates.AV_RUNNING:
@@ -365,6 +374,7 @@ function showTopControlPanel() {
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
     document.getElementById("metalTitle").style.display = "inline";
+    document.getElementById("pseudo").parentNode.style.display = "none";
     
     resizePanels();
 
@@ -401,7 +411,8 @@ function showTopControlPanel() {
         av2.style.display = "none";
         document.getElementById("newGraph").addEventListener("click", newGraphMenu);
         document.getElementById("newAlg").addEventListener("click", resetPressed);
-        document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints);
+        document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints());
+        
         //av3.style.display = "none";
        // av4.style.display = "";
        // av4button.value = "Select AV";
@@ -596,10 +607,89 @@ function newMapTileSelected(e) {
 	    break;
 	}
     }
-    if (selectedMap.includes("Dark")) {
-	console.log("DARK selectedMap: " + selectedMap);
+    if (selectedMap.includes("Dark") || selectedMap.includes("Matrix") || selectedMap.includes("/Topo") || selectedMap.includes("HERE Hybrid Day") || selectedMap.includes("Esri WorldImagery") || selectedMap.includes("Esri Nat") || selectedMap.includes("Black") || selectedMap.includes("Spinal")) {
+	    console.log("DARK selectedMap: " + selectedMap);
+        visualSettings.undiscovered.color = "white";
+        visualSettings.undiscovered.textColor = "black";
+        visualSettings.undiscovered.icon.borderColor = "white";
+        console.log("made it 70");
+
+        markerList = document.querySelectorAll(".circle-dot");
+
+        for (let i = 0; i < markerList.length; i++)
+        {
+            if (markerList[i].style.borderColor == "rgb(60, 60, 60)")
+            {
+                markerList[i].style.borderColor = "white";
+            }
+        }
+        console.log("conLen: " + connections.length)
+        for (let i = 0; i < connections.length; i++)
+        {
+            if (connections[i].options.color == "rgb(60, 60, 60)")
+            {
+                connections[i].setStyle({
+                    color: "white",
+                    });
+            }
+        }
+
+        /*for (let i = 0; i < markers.length; i++)
+        {
+            markers[i].setIcon(visualSettings.undiscovered.icon);
+            console.log("made it 760");
+        }
+        /*if (!visualSettings.hasOwnProperty('icon')) {
+            var options = {
+                iconShape: 'circle-dot',
+                iconSize: [visualSettings.scale, visualSettings.scale],
+                iconAnchor: [visualSettings.scale, visualSettings.scale],
+                borderWidth: visualSettings.scale,
+                borderColor: visualSettings.color
+            };
+            visualSettings.icon = L.BeautifyIcon.icon(options);
+        }
+        console.log("ml: " + markers.length);
+        for (let i = 0; i < markers.length; i++)
+        {
+            //console.log(markers[i]);
+            if (markers[i].color == "rgb(60, 60, 60)" || true)
+            {
+                console.log("made it 60");
+                markers[i].options.icon.options.borderColor = "white";
+                var row = document.getElementById("waypoint" + i);
+                row.style.backgroundColor = visualSettings.color;
+                row.style.color = visualSettings.textColor;
+                console.log(markers[i]);
+            }
+        }*/
     }
     else {
-	console.log("LIGHT selectedMap: " + selectedMap);
+	    console.log("LIGHT selectedMap: " + selectedMap);
+        visualSettings.undiscovered.color = "rgb(60, 60, 60)";
+        visualSettings.undiscovered.textColor = "white";
+        visualSettings.undiscovered.icon.borderColor = "rgb(60, 60, 60)";
+        console.log("made it 70");
+
+        markerList = document.querySelectorAll(".circle-dot");
+
+        for (let i = 0; i < markerList.length; i++)
+        {
+            if (markerList[i].style.borderColor == "white")
+            {
+                markerList[i].style.borderColor = "rgb(60, 60, 60)";
+            }
+        }
+        console.log("conLen: " + connections.length)
+        for (let i = 0; i < connections.length; i++)
+        {
+            if (connections[i].options.color == "white")
+            {
+                connections[i].setStyle({
+                    color: "rgb(60, 60, 60)",
+                    });
+            }
+        }
+        
     }
 }

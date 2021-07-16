@@ -56,6 +56,13 @@ function updateMarkerAndTable(waypointNum, vs, zIndex, hideTableLine) {
     var row = document.getElementById("waypoint"+waypointNum);
     row.style.backgroundColor = vs.color;
     row.style.color = vs.textColor;
+    console.log(row.style.backgroundColor);
+    if (row.style.backgroundColor == "rgb(60, 60, 60)")
+    {
+        console.log("Made it 120");
+        row.style.backgroundColor = "white";
+        row.style.color = "black";
+    }
     if (hideTableLine) {
         row.style.display = "none";
     }
@@ -76,6 +83,14 @@ function updatePolylineAndTable(edgeNum, vs, hideTableLine) {
     let row = document.getElementById("connection" + edgeNum);
     row.style.backgroundColor = vs.color;
     row.style.color = vs.textColor;
+    console.log(row.style.backgroundColor);
+    if (row.style.backgroundColor == "rgb(60, 60, 60)")
+    {
+        console.log("Made it 121");
+        row.style.backgroundColor = "white";
+        row.style.color = "black";
+    }
+
     if (hideTableLine) {
         row.style.display = "none";
     } 
