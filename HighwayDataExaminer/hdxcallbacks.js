@@ -60,6 +60,11 @@ function showHidePseudocode() {
         (hdxAV.traceActions ? "" : "none");
         document.getElementById("pscode").style.display =
         (hdxAV.traceActions ? "" : "none");
+
+    document.getElementById("pseudo").parentNode.style.display =
+        (hdxAV.traceActions ? "" : "none");
+        document.getElementById("pscode").style.display =
+        (hdxAV.traceActions ? "" : "none");
 }
 
 // generic event handler for start/pause/resume button
@@ -80,12 +85,14 @@ function startPausePressed() {
         hdxAV.currentAV.prepToStart();
         // set pseudocode
         document.getElementById("pseudoText").innerHTML = hdxAV.currentAV.code;
+        document.getElementById("pseudo").parentNode.style.display = "";
 
         // reset all execution counts
         hdxAV.execCounts = [];
         hdxAV.maxExecCount = 0;
 
         showHidePseudocode();
+        showEntries();
         //document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
 
         // get the simulation going, always start with the "START"
@@ -352,6 +359,7 @@ function showTopControlPanel() {
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
     document.getElementById("metalTitle").style.display = "inline";
+    document.getElementById("pseudo").parentNode.style.display = "none";
     
     resizePanels();
 
@@ -388,7 +396,8 @@ function showTopControlPanel() {
         av2.style.display = "none";
         document.getElementById("newGraph").addEventListener("click", newGraphMenu);
         document.getElementById("newAlg").addEventListener("click", resetPressed);
-        document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints);
+        document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints());
+        
         //av3.style.display = "none";
        // av4.style.display = "";
        // av4button.value = "Select AV";
