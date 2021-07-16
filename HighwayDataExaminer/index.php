@@ -124,15 +124,22 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
 	</td><td id="topControlPanelAV2">
 	  <select id="speedChanger" onchange="speedChanged()">
-	    <option value="0">Run To Completion</option>
-            <option value="0">Jump To Breakpoint</option>
-	    <option value="1">Max Speed</option>		
-	    <option value="40">Very Fast</option>
-	    <option value="75" selected>Fast</option>
-	    <option value="225">Medium</option>
-	    <option value="675">Slow</option>
-	    <option value="2000">Very Slow</option>
-	    <option value="-1">Step</option>
+	    <optgroup label="Run Options">
+	      <!-- entries in this group must match conditional in
+	      speedChanged -->
+	      <option value="0">1 Update/sec</option>
+              <option value="0">15 Updates/sec</option>
+              <option value="0">60 Updates/sec</option>
+	    </optgroup>
+	    <optgroup label="Step-By-Step Options">
+	      <option value="1">Max Step-by-Step Speed</option>		
+	      <option value="40">Very Fast</option>
+	      <option value="75" selected>Fast</option>
+	      <option value="225">Medium</option>
+	      <option value="675">Slow</option>
+	      <option value="2000">Very Slow</option>
+	      <option value="-1">Single Step</option>
+	    </optgroup>
 	  </select>
 	</td><td>
 	  <div id="topControlPanelAV3">

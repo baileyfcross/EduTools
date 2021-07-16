@@ -21,11 +21,16 @@ var hdxAV = {
     //Global variable for what methods have conditonals
     hasAConditional: [],
 
-    // delay (in ms) between visualization steps
-    // default delay 50 should match the selected option in the speedChanger
+    // when in a step-by-step mode, delay (in ms) between visualization steps
+    // default delay 75 should match the selected option in the speedChanger
     // and delay should be used for the amount of time in the future to use
     // for setTimeout calls
-    delay: 50,
+    delay: 75,
+
+    // when in a run mode (indicated by delay == 0), the amount of time
+    // between screen updates, will be set by speedChanged if such a mode
+    // is chosen
+    updateTime: 0,
 
     // list of available AVs
     avList: [],
@@ -165,33 +170,17 @@ var hdxAV = {
         if (hdxAV.paused()) {
             return;
         }
-
-        // Run to Completion option
-        if (hdxAV.delay == 0 && hdxAV.speedName == "Run To Completion") {
-	    let startTime = Date.now();
-            while (hdxAV.nextAction != "DONE") {
-		// every one second, yield instead so the UI can
-		// refresh and button presses can be processed, allowing
-		// some feedback to the user that progress is being made
-		// and very importantly allowing the Pause button to
-		// work during run to completion.
-		if (Date.now() - startTime > 1000) {
-		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
-		    return;
-		}
-		hdxAV.oneIteration(thisAV);
-            }
-            hdxAV.avDone();
-            return;
-        }
 	
-        // Jump To Breakpoint
+        // run mode (was: run to completion and jump to breakpoint)
         if (hdxAV.delay == 0) {
 	    let startTime = Date.now();
             while (hdxAV.nextAction != "DONE" && !hdxAV.jumpToBreakpoint) {
-		// as above every one second, yield so the UI can
-		// refresh and button presses can be processed
-		if (Date.now() - startTime > 1000) {
+		// After hdxAV.updateTime ms have passed, yield so the UI can
+		// refresh and button presses can be processed, allowing
+		// feedback to the user that progress is being made
+		// and very importantly allowing the Pause button to
+		// work during run modes
+		if (Date.now() - startTime > hdxAV.updateTime) {
 		    setTimeout(function() { hdxAV.nextStep(thisAV) }, 0);
 		    return;
 		}
@@ -358,6 +347,7 @@ var hdxAV = {
             else {
                 hdxAV.setStatus(hdxStates.AV_PAUSED);
                 hdxAV.startPause.innerHTML = "Resume";
+		hdxAV.jumpToBreakpoint = true;
             }
         }
                 
