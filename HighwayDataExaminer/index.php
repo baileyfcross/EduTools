@@ -114,7 +114,7 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 	<div id="info">
   <span id="startUp">To begin, select a graph to display.</span>
   <button id="newGraph">New Graph</button><span id="filename"></span><br>
-  <button id="newAlg">New Algorithm</button><span id="currentAlgorithm"></span>
+  <button id="newAlg">New Algorithm</button><span id="currentAlgorithm" onclick="resetPressed();cleanupBreakpoints();cleanupAVControlPanel()"></span>
 	</div>
 <div id="topControlPanel">
   <table id="topControlPanelTable">

@@ -2,7 +2,7 @@
 
 #blah
 {
-    color:rgb(255, 236, 68)
+    color:rgb(68, 255, 168);
 }
 
 #sup
@@ -89,9 +89,24 @@
 #avStatusTable td:not(.codeRow *, .pseudocode) {
     border: 2px solid black;
     border-radius: 25px;
-    padding: 7px 7px 7px 10px;
+    padding: 7px 7px 7px 13px;
     font-weight: 500;
     /* box-shadow: 5px 5px 3px black; */
+}
+
+#avStatusTable td#foundAVCPEntry
+{
+    padding: 7px;
+}
+
+#avStatusTable td#discoveredAVCPEntry table tbody tr td
+{
+    padding: 7px;
+}
+
+#avStatusTable td#discoveredAVCPEntry table tbody tr td#dotdotdot
+{
+    padding: 0;
 }
 
 #avStatusTable td#pseudo
@@ -1268,6 +1283,12 @@ input.typeahead.tt-input
     font-size: 24px;
     padding-top: 0!important;
     padding-bottom: 0!important;
+}
+
+#undiscoveredAVCPEntry
+{
+    background-color: white!important;
+    color: black!important;
 }
 
 @media (max-width: 885px)

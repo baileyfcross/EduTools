@@ -9,6 +9,7 @@
 /* functions for algorithm visualization control panel */
 var AVCPsuffix = "AVCPEntry";
 var AVCPentries = [];
+var rows = [];
 
 /* add entry to the algorithm visualization control panel */
 function addEntryToAVControlPanel(namePrefix, vs) {
@@ -20,10 +21,30 @@ function addEntryToAVControlPanel(namePrefix, vs) {
     infoBox.setAttribute('style', "color:" + vs.textColor +
                          "; background-color:" + vs.color);
     infoBoxtr.appendChild(infoBox);
+    infoBoxtr.style.display = "none";
+    rows.push(infoBoxtr);
     avControlTbody.appendChild(infoBoxtr);
     AVCPentries.push(namePrefix);
 }
 
+function showEntries()
+{
+    for (let i = 0; i < rows.length; i++)
+    {
+        rows[i].style.display = "";
+    }
+}
+
+function hideEntries()
+{
+    for (let i = 0; i < rows.length; i++)
+    {
+        if (rows[i].firstChild.innerHTML == "")
+        {
+            rows[i].style.display = "none";
+        }
+    }
+}
 /* clean up all entries from algorithm visualization control panel */
 function cleanupAVControlPanel() {
 
@@ -48,10 +69,17 @@ function removeEntryFromAVControlPanel(namePrefix) {
 /* set the HTML of an AV control panel entry */
 function updateAVControlEntry(namePrefix, text) {
 
+        
     document.getElementById(namePrefix + AVCPsuffix).innerHTML = text;
+    if (text == "")
+    {
+        document.getElementById(namePrefix + AVCPsuffix).parentNode.style.display = "none";
+    }
     if (hdxAV.delay != 0) {
         HDXAddCustomTitles();
-    }   
+    }
+    
+    
 }
 
 /* set the visualSettings of an AV control panel entry */

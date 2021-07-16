@@ -45,7 +45,7 @@ var hdxExtremePairsAV = {
             value: 0
         },
         v2: {
-            color: "red",
+            color: "rgb(255, 60, 60)",
             textColor: "white",
             scale: 6,
             name: "v2",
