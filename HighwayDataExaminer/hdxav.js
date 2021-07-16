@@ -403,6 +403,7 @@ var hdxAV = {
         document.getElementById("pseudoCheckbox").checked = false;
         document.getElementById("pseudoText").style.display = "none";
         document.getElementById("pscode").style.display = "none";
+        document.getElementById("pseudo").parentNode.style.display = "none";
             
         hdxAV.setStatus(hdxStates.AV_COMPLETE);
         HDXAddCustomTitles();
