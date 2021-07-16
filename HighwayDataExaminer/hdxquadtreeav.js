@@ -243,7 +243,7 @@ var hdxQuadtreeAV = {
                 thisAV.refI = -1;
                 //this calls a function of the quadtree object that creates the quadtree children
                 thisAV.currentQuadtree.makeChildren();
-                thisAV.currentQuadtree.newQuadtreeNode();
+                newQuadtreeNode();
                 //this method call adds new polylines to the map to represent the creation of new quadtree children
                 //and that the refinement process has begun
                 thisAV.addNewPolylines();
