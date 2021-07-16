@@ -44,6 +44,8 @@ var hdxOrderingAV = {
     quadtree: null,
 
     lengthEdges: 0,
+    currentEdgeLength: 0,
+    lengthOfEdges: [],
 
     avActions: [
         {
@@ -60,13 +62,15 @@ var hdxOrderingAV = {
                 thisAV.numVUndiscovered = waypoints.length,
 
                 thisAV.lengthEdges = 0;
+                thisAV.currentEdgeLength = 0;
+                thisAV.longestEdgeLength = 0;
+                thisAV.lengthOfEdges = [];
 
                 thisAV.rainbowGradiant = new Rainbow();
                 thisAV.rainbowGradiant.setNumberRange(0,waypoints.length);
                 thisAV.rainbowGradiant.setSpectrum('ff0000','ffc000','00ff00','00ffff','0000ff','c700ff');
 
                 updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
-                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " mi");
 
                 thisAV.option = document.getElementById("traversalOrdering").value;
                 thisAV.refinement = document.getElementById("refinement").value;
@@ -234,6 +238,15 @@ var hdxOrderingAV = {
 
  
                 thisAV.drawLineVisiting();
+
+                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " " + distanceUnits);
+
+                if(thisAV.currentEdgeLength > thisAV.longestEdgeLength){
+                    thisAV.longestEdgeLength = thisAV.currentEdgeLength;
+                    updateAVControlEntry("longestEdge","Longest edge added so far: " + thisAV.longestEdgeLength.toFixed(2) + " " + distanceUnits);
+                }
+
+                updateAVControlEntry("varianceLength","Standard deviation of edges so far: " + thisAV.calculateStdevOfEdges() + " " + distanceUnits);
                 hdxAV.nextAction = "topForLoop"
 
             },
@@ -317,7 +330,9 @@ var hdxOrderingAV = {
         addEntryToAVControlPanel("undiscovered", visualSettings.undiscovered); 
         addEntryToAVControlPanel("v1",visualSettings.v1);
         addEntryToAVControlPanel("v2", visualSettings.v2);
-        addEntryToAVControlPanel("totalLength",visualSettings.discovered)
+        addEntryToAVControlPanel("totalLength",visualSettings.discovered);
+        addEntryToAVControlPanel("longestEdge",visualSettings.spanningTree);
+        addEntryToAVControlPanel("varianceLength",visualSettings.averageCoord);
 
 
         let refSelector = document.getElementById("refinement");
@@ -348,11 +363,13 @@ var hdxOrderingAV = {
         visitingLine[0] = [waypoints[this.nextToCheck].lat, waypoints[this.nextToCheck].lon];
         visitingLine[1] = [waypoints[this.nextToCheck + 1].lat, waypoints[this.nextToCheck + 1].lon];
 
-        this.lengthEdges += convertToCurrentUnits(
+        this.currentEdgeLength = convertToCurrentUnits(
 		    distanceInMiles(waypoints[this.nextToCheck].lat,
                                     waypoints[this.nextToCheck].lon,
                                     waypoints[this.nextToCheck + 1].lat,
                                     waypoints[this.nextToCheck + 1].lon));
+        this.lengthEdges += this.currentEdgeLength;
+        this.lengthOfEdges.push(this.currentEdgeLength);
 
         updateAVControlEntry("totalLength","Total length of edges so far: " + this.lengthEdges.toFixed(2) + " mi");
         
@@ -368,6 +385,16 @@ var hdxOrderingAV = {
             this.polyLines[i].addTo(map);
         }  
 
+    },
+
+    calculateStdevOfEdges() {
+        let variance = 0;
+        let mean = this.lengthEdges / (this.nextToCheck + 1);
+        for(var i = 0; i < this.lengthOfEdges.length; i++){
+            variance += Math.pow(this.lengthOfEdges[i] - mean,2)
+        }
+        let popStdev = Math.sqrt(variance / (this.nextToCheck + 1));
+        return popStdev.toFixed(2);
     },
 
     setConditionalBreakpoints(name) {
