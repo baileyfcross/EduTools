@@ -14,6 +14,19 @@ function speedChanged() {
     hdxAV.delay = temp.value;
     hdxAV.speedName = temp.innerHTML;
 
+    // for run options, set update time, should match the values
+    // set in the speedChanged when created in index.php
+    if (hdxAV.delay == 0) {
+	if (hdxAV.speedName == "1 Update/sec") {
+	    hdxAV.updateTime = 1000;
+	}
+	else if (hdxAV.speedName == "15 Updates/sec") {
+	    hdxAV.updateTime = 67;
+	}
+	else { //if (hdxAV.speedName == "60 Updates/sec")
+	    hdxAV.updateTime = 17;
+	}
+    }
     // this will hide the log message when running on faster speeds
     // when it is going by too fast to see anyway
     if (hdxAV.delay > 0 && hdxAV.delay < 500) {
