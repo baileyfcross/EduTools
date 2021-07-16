@@ -103,6 +103,7 @@ function startPausePressed() {
         addStop();
         resizePanels();
         hideEntries();
+        newMapTileSelected();
         break;
         
     case hdxStates.AV_RUNNING:
@@ -210,15 +211,16 @@ function resetPressed() {
 
     // show waypoints, show connections
     initWaypointsAndConnections(true, true,
-                                visualSettings.undiscovered);
+                              visualSettings.undiscovered);
 
     hideTopControlPanel();
     cleanupAVControlPanel();
     algorithmSelectionChanged();
-    hideAVStatusPanel();
+    //hideAVStatusPanel();
     showAlgorithmSelectionPanel();
     document.getElementById("pscode").style.display = "none";
     deleteVariableSelector();
+    newMapTileSelected();
 }
 
 // event handler for "Load Data Options" button
@@ -253,7 +255,7 @@ function loadDataOptionsPressed() {
 }
 
 
-
+var firstTime = true;
 // event handler for "Show Data Tables" checkbox
 function showHideDatatables() {
 
@@ -261,9 +263,28 @@ function showHideDatatables() {
     let datatable = document.getElementById("datatable");
     if (checked) {
         datatable.style.display = "inline-block";
+        /*if (hdxAV.status == hdxStates.AV_SELECTED)
+        {
+            var tablesRows = document.querySelectorAll("#datatable tr");
+
+            for (let i = 0; i < tablesRows.length; i++)
+            {
+                cell = document.getElementById("waypoint" + i).firstChild;
+                cell.style.backgroundColor = "white";
+                cell.style.color = "black";
+            }
+        }*/
+        
     }
     else {
         datatable.style.display = "none";
+    }
+    
+    if (firstTime)
+    {
+        initWaypointsAndConnections(true, true,
+            visualSettings.undiscovered);
+        firstTime = false;
     }
     resizePanels();
 }
@@ -361,9 +382,17 @@ function showTopControlPanel() {
     document.getElementById("filename").style.fontSize = "12px";
     document.getElementById("currentAlgorithm").style.display = "inline";
     document.getElementById("metalTitle").style.display = "inline";
-    document.getElementById("pseudo").parentNode.style.display = "none";
+    if (document.getElementById("pseudo") != null)
+    {
+        document.getElementById("pseudo").parentNode.style.display = "none";
+    }
+    if (document.getElementById("foundAVCPEntry") != null)
+    {
+        document.getElementById("foundAVCPEntry").parentNode.style.display = "none";
+    }
     
     resizePanels();
+    
 
     //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
 
@@ -492,6 +521,7 @@ function showAlgorithmSelectionPanel() {
     algorithmSelectionChanged();
     hideAVStatusPanel();
     
+    
 }
 
 
@@ -502,7 +532,7 @@ function showAVStatusPanel() {
 
     document.getElementById("newGraph").addEventListener("click", newGraphMenu);
     document.getElementById("newAlg").addEventListener("click", resetPressed);
-    document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints);
+    document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints());
     
     document.getElementById("avStatusPanel").style.display="block";
     document.getElementById("avStatusPanel").style.left = "12px";
@@ -584,7 +614,7 @@ function HDXFillGraphList(e) {
     });
 }
 
-
+var darkMap = false;
 function newMapTileSelected(e) {
 
     let selectedMap = "NOT FOUND";
@@ -600,6 +630,7 @@ function newMapTileSelected(e) {
         visualSettings.undiscovered.textColor = "black";
         visualSettings.undiscovered.icon.borderColor = "white";
         console.log("made it 70");
+        darkMap = true;
 
         markerList = document.querySelectorAll(".circle-dot");
 
@@ -620,36 +651,6 @@ function newMapTileSelected(e) {
                     });
             }
         }
-
-        /*for (let i = 0; i < markers.length; i++)
-        {
-            markers[i].setIcon(visualSettings.undiscovered.icon);
-            console.log("made it 760");
-        }
-        /*if (!visualSettings.hasOwnProperty('icon')) {
-            var options = {
-                iconShape: 'circle-dot',
-                iconSize: [visualSettings.scale, visualSettings.scale],
-                iconAnchor: [visualSettings.scale, visualSettings.scale],
-                borderWidth: visualSettings.scale,
-                borderColor: visualSettings.color
-            };
-            visualSettings.icon = L.BeautifyIcon.icon(options);
-        }
-        console.log("ml: " + markers.length);
-        for (let i = 0; i < markers.length; i++)
-        {
-            //console.log(markers[i]);
-            if (markers[i].color == "rgb(60, 60, 60)" || true)
-            {
-                console.log("made it 60");
-                markers[i].options.icon.options.borderColor = "white";
-                var row = document.getElementById("waypoint" + i);
-                row.style.backgroundColor = visualSettings.color;
-                row.style.color = visualSettings.textColor;
-                console.log(markers[i]);
-            }
-        }*/
     }
     else {
 	    console.log("LIGHT selectedMap: " + selectedMap);
@@ -657,6 +658,7 @@ function newMapTileSelected(e) {
         visualSettings.undiscovered.textColor = "white";
         visualSettings.undiscovered.icon.borderColor = "rgb(60, 60, 60)";
         console.log("made it 70");
+        darkMap = false;
 
         markerList = document.querySelectorAll(".circle-dot");
 
@@ -679,4 +681,6 @@ function newMapTileSelected(e) {
         }
         
     }
+
+    console.log("current color: " + visualSettings.undiscovered.icon.borderColor);
 }

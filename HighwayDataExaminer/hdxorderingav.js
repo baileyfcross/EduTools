@@ -239,14 +239,14 @@ var hdxOrderingAV = {
  
                 thisAV.drawLineVisiting();
 
-                updateAVControlEntry("totalLength","Total length of edges so far: " + thisAV.lengthEdges.toFixed(2) + " " + distanceUnits);
+                updateAVControlEntry("totalLength","Total length of edges: " + thisAV.lengthEdges.toFixed(2) + " " + distanceUnits);
 
                 if(thisAV.currentEdgeLength > thisAV.longestEdgeLength){
                     thisAV.longestEdgeLength = thisAV.currentEdgeLength;
-                    updateAVControlEntry("longestEdge","Longest edge added so far: " + thisAV.longestEdgeLength.toFixed(2) + " " + distanceUnits);
+                    updateAVControlEntry("longestEdge","Longest edge added: " + thisAV.longestEdgeLength.toFixed(2) + " " + distanceUnits);
                 }
 
-                updateAVControlEntry("varianceLength","Standard deviation of edges so far: " + thisAV.calculateStdevOfEdges() + " " + distanceUnits);
+                updateAVControlEntry("varianceLength","Standard deviation of edges: " + thisAV.calculateStdevOfEdges() + " " + distanceUnits);
                 hdxAV.nextAction = "topForLoop"
 
             },

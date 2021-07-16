@@ -44,16 +44,16 @@ var visualSettings = {
     },
     //not used by everything, but this is a placeholder in case things need to be made universal in the future
     v1: {
-        color: "gold",
-        textColor: "black",
+        color: "rgb(30, 179, 238)",
+        textColor: "white",
         scale: 6,
         name: "v1",
         value: 0
     },
     //same as v1
     v2: {
-        color: "goldenrod",
-        textColor: "black",
+        color: "rgb(255, 60, 60)",
+        textColor: "white",
         scale: 6,
         name: "v2",
         value: 0
@@ -94,7 +94,7 @@ var visualSettings = {
         value: 0
     },
     endVertex: {
-        color: "rgb(255, 69, 69)",
+        color: "rgb(255, 60, 60)",
         textColor: "white",
         scale: 7,
         name: "endVertex",
@@ -112,7 +112,7 @@ var visualSettings = {
         opacity: 0.6
     },
     longLabelLeader: {
-        color: "rgb(117, 218, 66)",
+        color: "rgb(63, 210, 34)",
         textColor: "white",
         scale: 6,
         name: "longLabelLeader",
@@ -139,7 +139,7 @@ var visualSettings = {
         opacity: 0.6
     },
     averageCoord: {
-        color: "darkviolet",
+        color: "rgb(32, 178, 170)",
         textColor: "white",
         scale: 4,
         name: "averageCoord",
@@ -166,8 +166,8 @@ var visualSettings = {
         opacity: 0.6
     },
     hoverV: {
-        color: "fuchsia",
-        textColor: "white",
+        color: "rgb(190, 235, 252)",
+        textColor: "black",
         scale: 6,
         name: "hoverV",
         value: 0

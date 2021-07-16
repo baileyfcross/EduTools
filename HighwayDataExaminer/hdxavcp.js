@@ -75,6 +75,10 @@ function updateAVControlEntry(namePrefix, text) {
     {
         document.getElementById(namePrefix + AVCPsuffix).parentNode.style.display = "none";
     }
+    else
+    {
+        document.getElementById(namePrefix + AVCPsuffix).parentNode.style.display = "";
+    }
     if (hdxAV.delay != 0) {
         HDXAddCustomTitles();
     }
