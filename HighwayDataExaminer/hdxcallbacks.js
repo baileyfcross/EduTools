@@ -86,6 +86,7 @@ function startPausePressed() {
         // set pseudocode
         document.getElementById("pseudoText").innerHTML = hdxAV.currentAV.code;
         document.getElementById("pseudo").parentNode.style.display = "";
+      
 
         // reset all execution counts
         hdxAV.execCounts = [];
@@ -101,6 +102,7 @@ function startPausePressed() {
         hdxAV.nextStep(hdxAV.currentAV);
         addStop();
         resizePanels();
+        hideEntries();
         break;
         
     case hdxStates.AV_RUNNING:
