@@ -1,18 +1,7 @@
-/* CSS for the METAL Highway Data Examiner */
-
-#blah
-{
-    color:rgb(68, 255, 168);
-}
-
-#sup
-{
-    color: rgb(126, 126, 126);
-}
+/* CSS for the METAL Highway Data Examiner*/
 
 #map {
     position: absolute;
-    /*top: 72px;*/
     top: 0px;
     bottom:0px;
     width: 100%;
@@ -32,24 +21,15 @@
 #avStatusPanel {
     margin: 0;
     z-index: 11000;
-    /*background-color: rgb(30,173,229);*/
     position: absolute;
     overflow: scroll;
-    
     width: 400px;
-    /*max-height: calc(100vh - 125px);*/
     opacity: 1.0;
     display: none;
 
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: white;
-    /*border: 2px solid white;*/
-    
-    /*text-shadow: 1.15px 1.15px 2px black;*/
-
-    
-
 }
 
 #avStatusPanel::-webkit-scrollbar, #discoveredAVCPEntry::-webkit-scrollbar, #datatable::-webkit-scrollbar
@@ -955,7 +935,6 @@ input
 
 #datatable td, #datatable th
 {
-    /*background-color: rgb(30, 179, 238);*/
     border: none;
     padding: 5px;
     margin: 5px;
@@ -986,13 +965,11 @@ input
     display: none;
     margin-top: 0;
     margin-bottom: 0;
-    /*margin-left: 50px;*/
 }
 #topControlPanelTable
 {
     position: relative;
     margin: 0;
-    /*text-align: left;*/
 }
 
 #topControlPanel #topControlPanelTable select
@@ -1011,14 +988,8 @@ input
     font-family: Avenir, Arial, Helvetica, sans-serif;
     font-size: 14px;
     text-align: center;
-    /*background-color:rgb(129, 91, 216)*/
-
 }
 
-#topControlPanelTable td *
-{
-    
-}
 #topControlPanel p
 {
     font-family: Avenir, Arial, Helvetica, sans-serif;
@@ -1034,9 +1005,6 @@ input
 {
     text-align: left;
 }
-
-
-
 
 #startPauseButton
 {
@@ -1080,7 +1048,6 @@ div.menubar > *:not(#title)
 div.menubar 
 {
     background-color: rgb(47, 47, 47);
-    /*background-color: hotpink;*/
     z-index: 0;
     min-height: 50px;
     border-radius: 0;
