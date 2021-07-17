@@ -690,6 +690,4 @@ function newMapTileSelected(e) {
         }
         
     }
-
-    console.log("current color: " + visualSettings.undiscovered.icon.borderColor);
 }
