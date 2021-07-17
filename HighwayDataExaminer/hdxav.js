@@ -111,31 +111,60 @@ var hdxAV = {
 
     // all setup that needs to happen on page load for HDX
     initOnLoad() {
-        // populate the list of algorithms -- add new entries here
+
+	// group headers and starting positions
+	let groupStarts = [];
+	
+        // populate the list of algorithms -- add new entries here, be sure
+	// they end up under the correct category
         this.avList.push(hdxNoAV);
+	groupStarts.push({
+	    first: this.avList.length,
+	    text: "Point-Only Algorithms"
+	});
         this.avList.push(hdxVertexExtremesSearchAV);
-        this.avList.push(hdxEdgeExtremesSearchAV);
-        this.avList.push(hdxDegreeAV);
         this.avList.push(hdxExtremePairsAV);
+        this.avList.push(hdxBFConvexHullAV);
+        this.avList.push(hdxClosestPairsRecAV);
+        this.avList.push(hdxQuadtreeAV);
+        this.avList.push(hdxOrderingAV);
+	groupStarts.push({
+	    first: this.avList.length,
+	    text: "Edge-Only Algorithms"
+	});
+        this.avList.push(hdxEdgeExtremesSearchAV);
+	groupStarts.push({
+	    first: this.avList.length,
+	    text: "Graph Algorithms"
+	});
+        this.avList.push(hdxDegreeAV);
         this.avList.push(hdxGraphTraversalsAV);
         this.avList.push(hdxDijkstraAV);
         this.avList.push(hdxPrimAV);
         this.avList.push(hdxKruskalAV);
         this.avList.push(hdxDFSRecAV);
-        this.avList.push(hdxBFConvexHullAV);
-        this.avList.push(hdxClosestPairsRecAV);
-        this.avList.push(hdxQuadtreeAV);
-        this.avList.push(hdxOrderingAV);
         
         // populate the algorithm selection select with options
         // from the avList
         let s = document.getElementById("AlgorithmSelection");
         s.innerHTML = "";
+	let nextGroup = 0;
         for (var i = 0; i < this.avList.length; i++) {
             let av = this.avList[i];
+	    // start a new group?
+	    if (nextGroup < groupStarts.length &&
+		groupStarts[nextGroup].first == i) {
+		if (nextGroup != 0) {
+		    s.innerHTML += '</optgroup>';
+		}
+		s.innerHTML += '<optgroup label="' +
+		    groupStarts[nextGroup].text + '">';
+		nextGroup++;
+	    }
             s.innerHTML += '<option value="' + av.value +
                 '">' + av.name + '</option>';
         }
+	s.innerHTML += '</optgroup>';
 
         // set up some references to commonly-used document elements
 
