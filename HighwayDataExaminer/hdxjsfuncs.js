@@ -56,10 +56,8 @@ function updateMarkerAndTable(waypointNum, vs, zIndex, hideTableLine) {
     var row = document.getElementById("waypoint"+waypointNum);
     row.style.backgroundColor = vs.color;
     row.style.color = vs.textColor;
-    console.log(row.style.backgroundColor);
     if (row.style.backgroundColor == "rgb(60, 60, 60)")
     {
-        console.log("Made it 120");
         row.style.backgroundColor = "white";
         row.style.color = "black";
     }
@@ -83,10 +81,8 @@ function updatePolylineAndTable(edgeNum, vs, hideTableLine) {
     let row = document.getElementById("connection" + edgeNum);
     row.style.backgroundColor = vs.color;
     row.style.color = vs.textColor;
-    console.log(row.style.backgroundColor);
     if (row.style.backgroundColor == "rgb(60, 60, 60)")
     {
-        console.log("Made it 121");
         row.style.backgroundColor = "white";
         row.style.color = "black";
     }
@@ -334,7 +330,6 @@ function HDXFileLoadedCallback(event) {
     // file done loading, read the contents
     HDXProcessFileContents(event.target.result);
     HDXAddCustomTitles();
-    hideInstructions();
 }
 
 // process the contents of a String which came from a file or elsewhere
@@ -1005,9 +1000,3 @@ function squaredDistance(o1, o2) {
     return dx * dx + dy * dy;
 }
 
-// Hide the instructions object
-function hideInstructions() {
-    
-    let element = document.getElementById("instructions");
-    element.style.display = "none";
-}
