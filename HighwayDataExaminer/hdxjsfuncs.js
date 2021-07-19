@@ -335,7 +335,8 @@ function HDXFileLoadedCallback(event) {
 // process the contents of a String which came from a file or elsewhere
 function HDXProcessFileContents(fileContents) {
     
-    let pointboxContents = "";
+    let datatable = document.getElementById("datatable");
+    let showAVSelection = false;
 
     // in case we had set colors (for an NMP file) previously:
     waypointColors = new Array();
@@ -360,49 +361,52 @@ function HDXProcessFileContents(fileContents) {
     if (hdxGlobals.loadingFile.indexOf(".wpt") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint File)";
-        pointboxContents = parseWPTContents(fileContents);
-        showTopControlPanel();
+        datatable.innerHTML = parseWPTContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".pth") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint Path File)";
-        pointboxContents = parsePTHContents(fileContents);
-        showTopControlPanel();
+        datatable.innerHTML = parsePTHContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".nmp") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Near-Miss Point File)";
-        pointboxContents = parseNMPContents(fileContents);
-        showTopControlPanel();
+        datatable.innerHTML = parseNMPContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".wpl") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint List File)";
-        pointboxContents = parseWPLContents(fileContents);
-        showTopControlPanel();
+        datatable.innerHTML = parseWPLContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".gra") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Highway Graph File)";
-        pointboxContents = parseGRAContents(fileContents);
+        datatable.innerHTML = parseGRAContents(fileContents);
+	// unless the "noav" QS parameter is specified, we need to go to
+	// the AV Selection Panel
+	if (!HDXQSIsSpecified("noav")) {
+	    showAVSelection = true;
+	}
     }
     else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
         document.getElementById('filename').innerHTML = hdxGlobals.loadingFile;
-        pointboxContents = parseTMGContents(fileContents);
-	// if the "noav" QS parameter is specified, we skip over the
-	// AV Selection Panel
-	if (HDXQSIsSpecified("noav")) {
-	    showTopControlPanel();
-	}
-	else {
-            showAlgorithmSelectionPanel();
+        datatable.innerHTML = parseTMGContents(fileContents);
+	// unless the "noav" QS parameter is specified, we need to go to
+	// the AV Selection Panel
+	if (!HDXQSIsSpecified("noav")) {
+	    showAVSelection = true;
 	}
     }
     
-    document.getElementById('datatable').innerHTML = pointboxContents;
     hideLoadDataPanel();
     mapStatus = mapStates.HDX;
     updateMap(null,null,null);
+    if (showAVSelection) {
+	showAlgorithmSelectionPanel();
+    }
+    else {
+	showTopControlPanel();
+    }
 }
 
 // parse the contents of a .tmg file
