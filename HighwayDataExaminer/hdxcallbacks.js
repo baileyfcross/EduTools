@@ -558,7 +558,7 @@ function hideAVStatusPanel() {
 }
 
 // Populate the dropdown menu of selected graphs based on the filters
-// and other criteria in Option 2 of the Load Data panel.  Called when
+// and other criteria in the Advanced Graph Data Search panel.  Called when
 // the "Get Graph List" button is pressed.
 function HDXFillGraphList(e) {
     
@@ -577,11 +577,11 @@ function HDXFillGraphList(e) {
     }
     var mapSel = document.createElement("select");
     mapSel.setAttribute("id", "graphList");
-    mapSel.setAttribute("onchange", "HDXReadSelectedGraphFromServer(event)");
-    var init = document.createElement("option");
-    init.innerHTML = "Choose a Graph";
-    init.value = "init";
-    mapSel.appendChild(init);
+    var loadingEntry = document.createElement("option");
+    loadingEntry.innerHTML = "Loading...";
+    loadingEntry.setAttribute("id", "loadingEntry");
+    loadingEntry.value = "loadingEntry";
+    mapSel.appendChild(loadingEntry);
     sels.appendChild(mapSel);
     var params = {
         order:orderSel,
@@ -597,6 +597,8 @@ function HDXFillGraphList(e) {
         datatype: "json",
         data: {"params":jsonParams},
         success: function(data) {
+	    var mapSel = document.getElementById("graphList");
+	    
             var opts = $.parseJSON(data);
             var txt = opts['text'];
             var values = opts['values'];
@@ -605,8 +607,16 @@ function HDXFillGraphList(e) {
             var opt;
             var str = "";
             if (txt.length == 0) {
+		// remove the dropdown until the button is pressed
+		// again with valid entries
+		var sels = document.getElementById("selects");
+		sels.removeChild(mapSel);
                 alert("No graphs matched!  Please choose less restrictive filters.");
+		return;
             }
+	    // replace "loading" message with "choose" message
+	    var loadingEntry = document.getElementById("loadingEntry");
+	    loadingEntry.innerHTML = "Choose a Graph";
             for (var i = 0; i < txt.length; i++) {
                 opt = document.createElement("option");
                 if (values[i].indexOf("simple") != -1) {
@@ -620,8 +630,10 @@ function HDXFillGraphList(e) {
                 }
                 opt.innerHTML = str;
                 opt.value = values[i];
-                document.getElementById("graphList").appendChild(opt);
+                mapSel.appendChild(opt);
             }
+	    // now that the list is populated, add the listener
+	    mapSel.setAttribute("onchange", "HDXReadSelectedGraphFromServer(event)");
         }
     });
 }
