@@ -9,8 +9,7 @@
 var hdxOrderingAV = {
     value: "ordering",
     name: "Space-Filling Curve Traversals",
-    description: "Visualize different ways of ordering vertices (waypoints) in a 2D space." +
-    "<br />NOTE: Conditional breakpoints are currently not available.",
+    description: "Visualize various 1D orderings of vertices (waypoints) in 2D space.",
 
     //used to track the num of the two verticies we are drawing an edge between
     v1: 0,
@@ -203,8 +202,8 @@ var hdxOrderingAV = {
 
                     thisAV.numVUndiscovered--;
                     updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
-                    updateAVControlEntry("v1","v1: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
-                    updateAVControlEntry("v2","v2: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
+                    updateAVControlEntry("v1","from: #" + thisAV.v1 + " " + waypoints[thisAV.nextToCheck].label);
+                    updateAVControlEntry("v2","to: #" + thisAV.v2 + " " + waypoints[thisAV.nextToCheck + 1].label);
 
                 } else {
                     hdxAV.nextAction = "cleanup";

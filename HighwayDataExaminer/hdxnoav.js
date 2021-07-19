@@ -13,7 +13,7 @@ var hdxNoAV = {
     // entries for list of AVs
     value: "NONE",
     name: "No Algorithm Visualization",
-    description: "No algorithm is selected, please select.",
+    description: "Visualize Graph Data Only",
 
     code: "Select and start an algorithm to view pseudocode.",
     

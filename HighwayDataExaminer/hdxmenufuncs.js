@@ -44,8 +44,13 @@ function basicMenu() {
     
     // Instructions for the Grpah Search Box
     var instructions = document.createElement("p");
-    instructions.innerHTML = "Search for a graph to display";
+    instructions.innerHTML = "Search by name for a METAL graph";
     dataPanel.appendChild(instructions);
+    var instr2 = document.createElement("p");
+    instr2.innerHTML = "Start typing a place name to get suggestions";
+    instr2.setAttribute("class", "descr");
+    instr2.setAttribute("id", "instr2");
+    dataPanel.appendChild(instr2);
     
     // Container for the input element
     var basic = document.createElement("div");
@@ -82,7 +87,7 @@ function advancedMenu() {
     container.setAttribute("id", "selects")
     
     var title = document.createElement("h4");
-    title.innerHTML = "Advanced Search";
+    title.innerHTML = "Advanced Graph Data Search";
     container.appendChild(title);
     
     if (titleScreen) {
@@ -128,7 +133,7 @@ function advancedMenu() {
     
     var optA = document.createElement("option");
     optA.setAttribute("value", "collapsed");
-    optA.innerHTML = "Collapsed (standard format)";
+    optA.innerHTML = "Standard";
     select2.appendChild(optA);
     
     var optB = document.createElement("option");
@@ -316,7 +321,7 @@ function defaultMenu() {
     var intro = document.createElement("p");
     intro.setAttribute("class", "descr");
     intro.setAttribute("id", "overview");
-    intro.innerHTML = "Visualize algorithms using graphs based on real world map data.";
+    intro.innerHTML = "Visualize algorithms on maps using real world highway data";
     mainbox.appendChild(intro);
     
     var br = document.createElement("br");
@@ -324,7 +329,7 @@ function defaultMenu() {
     
     
     var instruct = document.createElement("p");
-    instruct.innerHTML = "Search for a graph in our database";
+    instruct.innerHTML = "Load a graph from METAL's database";
     
     mainbox.appendChild(instruct);
     
@@ -374,6 +379,6 @@ function defaultMenu() {
     
     var help = document.createElement("p");
     help.setAttribute("class", "descr");
-    help.innerHTML = "Need help?  A tutorial can be found <a href='tutorial.html' target='_blank'>here</a>";
+    help.innerHTML = "Need help?  A tutorial can be found <a href='tutorial.html' target='_blank'>here</a>.";
     mainbox.appendChild(help);
 }

@@ -11,8 +11,7 @@ var hdxQuadtreeAV = {
     // entries for list of AVs
     value: "quadtree",
     name: "Quadtree Construction",
-    description: "Construct a quadtree by inserting vertices (waypoints) and refining into smaller quadtrees." +
-    "<br />NOTE: Conditional breakpoints are currently not available.",
+    description: "Construct a quadtree by inserting vertices (waypoints) and refining into smaller quadtrees.",
     //this is used to help determine the universe of our quadtree
     n: 0,
     e: 0,
