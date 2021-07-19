@@ -360,40 +360,34 @@ function HDXProcessFileContents(fileContents) {
     if (hdxGlobals.loadingFile.indexOf(".wpt") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint File)";
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parseWPTContents(fileContents);
         showTopControlPanel();
     }
     else if (hdxGlobals.loadingFile.indexOf(".pth") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint Path File)";
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parsePTHContents(fileContents);
         showTopControlPanel();
     }
     else if (hdxGlobals.loadingFile.indexOf(".nmp") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Near-Miss Point File)";
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parseNMPContents(fileContents);
         showTopControlPanel();
     }
     else if (hdxGlobals.loadingFile.indexOf(".wpl") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Waypoint List File)";
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parseWPLContents(fileContents);
         showTopControlPanel();
     }
     else if (hdxGlobals.loadingFile.indexOf(".gra") >= 0) {
         document.getElementById('filename').innerHTML =
 	    hdxGlobals.loadingFile + " (Highway Graph File)";
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parseGRAContents(fileContents);
     }
     else if (hdxGlobals.loadingFile.indexOf(".tmg") >= 0) {
         document.getElementById('filename').innerHTML = hdxGlobals.loadingFile;
-        document.getElementById('startUp').innerHTML="";
         pointboxContents = parseTMGContents(fileContents);
 	// if the "noav" QS parameter is specified, we skip over the
 	// AV Selection Panel

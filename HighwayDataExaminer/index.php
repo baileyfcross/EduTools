@@ -107,65 +107,70 @@ $result = tmdb_query("SELECT * FROM graphTypes");
 </head>
 
 <body onload="HDXInit();" ondragover="allowdrop(event)" ondrop="drop(event)" style="background-color: rgb(47, 47, 47)" id="theBody">
+<!-- 
+If the window gets too small to be used reasonably, this div 
+will display 
+-->
 <div id="sizeError">
-	Window must be enlarged
+  Window must be enlarged
 </div>
+<!-- Bar across the top -->
 <div class="menubar">
-	<div id="info">
-  <span id="startUp">To begin, select a graph to display.</span>
-  <button id="newGraph">New Graph</button><span id="filename"></span><br>
-  <button id="newAlg">New Algorithm</button><span id="currentAlgorithm" onclick="resetPressed();cleanupBreakpoints();cleanupAVControlPanel()"></span>
-	</div>
-<div id="topControlPanel">
-  <table id="topControlPanelTable">
-    <tbody>
-      <tr>
-	<td id="topControlPanelAV1">
-	  <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
-	</td><td id="topControlPanelAV2">
-	  <select id="speedChanger" onchange="speedChanged()">
-	    <optgroup label="Run Options">
-	      <!-- entries in this group must match conditional in
-	      speedChanged -->
-	      <option value="0">1 Update/sec</option>
-              <option value="0">15 Updates/sec</option>
-              <option value="0">60 Updates/sec</option>
-	    </optgroup>
-	    <optgroup label="Step-By-Step Options">
-	      <option value="1">Max Step-by-Step Speed</option>		
-	      <option value="40">Very Fast</option>
-	      <option value="75" selected>Fast</option>
-	      <option value="225">Medium</option>
-	      <option value="675">Slow</option>
-	      <option value="2000">Very Slow</option>
-	      <option value="-1">Single Step</option>
-	    </optgroup>
-	  </select>
-	</td><td>
-	  <div id="topControlPanelAV3">
-	    <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
-	    <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
-	    <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
-	  </div>	  
-	</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<div id="title">
-  <p id="metalTitle">METAL&nbsp;HDX</p>
-</div>
-</div>
-<div id="map">
+  <div id="info">
+    <button id="newGraph">New Graph</button><span id="filename"></span><br>
+    <button id="newAlg">New Algorithm</button><span id="currentAlgorithm" onclick="resetPressed();cleanupBreakpoints();cleanupAVControlPanel()"></span>
+  </div>
+  <div id="topControlPanel">
+    <table id="topControlPanelTable">
+      <tbody>
+	<tr>
+	  <td id="topControlPanelAV1">
+	    <button id="startPauseButton" type="button" onclick="startPausePressed()">Start</button>
+	  </td><td id="topControlPanelAV2">
+	    <select id="speedChanger" onchange="speedChanged()">
+	      <optgroup label="Run Options">
+		<!-- entries in this group must match conditional in
+		     speedChanged -->
+		<option value="0">1 Update/sec</option>
+		<option value="0">15 Updates/sec</option>
+		<option value="0">60 Updates/sec</option>
+	      </optgroup>
+	      <optgroup label="Step-By-Step Options">
+		<option value="1">Max Step-by-Step Speed</option>		
+		<option value="40">Very Fast</option>
+		<option value="75" selected>Fast</option>
+		<option value="225">Medium</option>
+		<option value="675">Slow</option>
+		<option value="2000">Very Slow</option>
+		<option value="-1">Single Step</option>
+	      </optgroup>
+	    </select>
+	  </td><td>
+	    <div id="topControlPanelAV3">
+	      <input id="showMarkers" type="checkbox" name="Show Markers" onclick="showMarkersClicked()" checked />&nbsp;Show Markers<br>
+	      <input id="pseudoCheckbox" type="checkbox" name="Pseudocode-level AV" checked onclick="showHidePseudocode();cleanupBreakpoints()" />&nbsp;Trace Pseudocode<br>
+	      <input id="datatablesCheckbox" type="checkbox" name="Datatables" checked onclick="showHideDatatables()" />&nbsp;Show Data Tables
+	    </div>	  
+	  </td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+  <div id="title">
+    <p id="metalTitle">METAL&nbsp;HDX</p>
+  </div>
 </div>
 
-<div id="graphInfo">
+<!-- The Leaflet map will go in this div -->
+<div id="map"></div>
 
-</div>
+<!-- The number of vertices and edges will go in this div -->
+<div id="graphInfo"></div>
 
-<div id="loadDataPanel">
-</div>
+<!-- This div will be used for the load data windows -->
+<div id="loadDataPanel"></div>
 
+<!-- Left-side panel that will appear when AV selection is active -->
 <div id="algorithmSelectionPanel" style="display=none;">
   <table id="algorithmSelectionPanelTable" style="display=none;" class="gratable">
     <thead>
@@ -197,6 +202,8 @@ $result = tmdb_query("SELECT * FROM graphTypes");
     </tbody>
   </table>
 </div>
+
+<!-- Left-side AV status panel when an AV is selected -->
 <div id="avStatusPanel">
   <table id="avStatusTable" class="gratable">
     <thead><tr><th>Algorithm Visualization Status</th></tr><thead>

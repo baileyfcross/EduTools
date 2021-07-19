@@ -53,7 +53,6 @@ function labelClickHDX(i) {
 }
 
 
-
 // get the selected algorithm from the AlgorithmSelection menu
 // (factored out here to avoid repeated code)
 function getSelectedAlgorithm() {
@@ -107,7 +106,6 @@ function startPausePressed() {
 
         showHidePseudocode();
         showEntries();
-        //document.getElementById("undiscoveredAVCPEntry").style.backgroundColor = "rgb(30, 179, 238)";
 
         // get the simulation going, always start with the "START"
         // action, then do it
@@ -293,8 +291,7 @@ function showHideDatatables() {
         datatable.style.display = "none";
     }
     
-    if (firstTime)
-    {
+    if (firstTime) {
         initWaypointsAndConnections(true, true,
             visualSettings.undiscovered);
         firstTime = false;
@@ -302,6 +299,7 @@ function showHideDatatables() {
     resizePanels();
 }
 
+// *** move these to hdxGlobals?
 var statusLeft = 400;  //Width of status panel
 var sep = 12;  //Seperation between panels
 var bord = 0;  //Border thickness
@@ -310,42 +308,40 @@ var dtWidth;  //Width of datatable
 var firstLoad = true;
 var titleScreen = true;
 
-//Ensures that map is resized properly when window is resized.
+// *** move to HDXInit?
+// Ensures that map is resized properly when window is resized.
 window.addEventListener('resize', resizePanels);
-function resizePanels()
-{
+
+function resizePanels() {
 
     var checked = document.getElementById("datatablesCheckbox").checked;
-    if (titleScreen)
-    {
-    
+    if (titleScreen) {
+	// do nothing
     }
-    else if (algScreen)
-    {
-            document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
-            document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
+    else if (algScreen) {
+        document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
+        document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
     }
-    else if (checked && hdxAV.currentAV.value != "NONE")  //Datatables checked and an algorithm is selected
-    {
-    
+    else if (checked && hdxAV.currentAV.value != "NONE") {
+	// Datatables checked and an algorithm is selected
+	
         dtWidth = document.getElementById("datatable").clientWidth;
         
         document.getElementById("map").style.left = (left + dtWidth + (2 * sep) + (1 * bord)) + "px";
         document.getElementById("map").style.width = (window.innerWidth - (left + dtWidth + (3 * sep) + (3 * bord))) + "px";
-
+	
         document.getElementById("datatable").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
         document.getElementById("datatable").style.maxHeight = (window.innerHeight - (sep * 1) - 67) + "px";
-        
     }
-    else if (!checked && hdxAV.currentAV.value != "NONE") //Datatables not checked and an algorithm is selected
-    {
+    else if (!checked && hdxAV.currentAV.value != "NONE") {
+	// Datatables not checked and an algorithm is selected
         
         document.getElementById("map").style.left = (left + (1 * sep) + (-1 * bord)) + "px";
         document.getElementById("map").style.width = (window.innerWidth - (left + (2 * sep) + (1 * bord))) + "px";
         
     }
-    else if (checked && hdxAV.currentAV.value == "NONE") //Datatables checked and no algorithm selected
-    {
+    else if (checked && hdxAV.currentAV.value == "NONE") {
+	// Datatables checked and no algorithm selected
         
         dtWidth = document.getElementById("datatable").clientWidth;
         var left2 = dtWidth + sep + (3 * bord);
@@ -354,32 +350,29 @@ function resizePanels()
         document.getElementById("map").style.left =  (left2 + (1 * sep) + (-1 * bord)) + "px"
         document.getElementById("map").style.width = (window.innerWidth - (left2 + (2 * sep) + (1 * bord))) + "px";
     }
-    else //Datatables not checked and no algorithm selected
-    {
-
+    else {
+	// Datatables not checked and no algorithm selected
         
         document.getElementById("map").style.left = ((1 * sep) + (0 * bord)) + "px";
         document.getElementById("map").style.width = (window.innerWidth - ((2 * sep) + (2 * bord))) + "px";
     }
-
-    if (!titleScreen)
-    {
-    document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 67) + "px";
-    document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 67) + "px";
-    document.getElementById("datatable").style.maxHeight = (window.innerHeight - sep - 67) + "px";
-    document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
+    
+    if (!titleScreen) {
+	document.getElementById("map").style.height = (window.innerHeight - (sep * 1) - 67) + "px";
+	document.getElementById("avStatusPanel").style.maxHeight = (window.innerHeight - sep - 67) + "px";
+	document.getElementById("datatable").style.maxHeight = (window.innerHeight - sep - 67) + "px";
+	document.getElementById("graphInfo").style.left = 60 + parseInt(document.getElementById("map").style.left) + "px";
     }
-    
+
+    // this helped keep the map centered on resize
     map.invalidateSize();
-    
 }
 
 // Functions to show or hide panels that are displayed only
 // in certain modes of HDX operation
 
 // top control panel (algorithm controls, reset/load buttons)
-function showTopControlPanel() {
-    
+function showTopControlPanel() {    
 
     firstLoad = false;
     document.getElementById("map").style.filter = "none";
@@ -404,17 +397,10 @@ function showTopControlPanel() {
     }
     
     resizePanels();
-    
-
-    //document.getElementById("map").style.width = (window.innerWidth - 300) + "px";
-
 
     let av1 = document.getElementById("topControlPanelAV1");
     let av2 = document.getElementById("topControlPanelAV2");
     let av3 = document.getElementById("topControlPanelAV3");
-   // let av4 = document.getElementById("topControlPanelAV4");
-    //let av4button = document.getElementById("resetButton");
-    //let showMarkers = document.getElementById("topControlPanelShowMarkers");
     
     // show only the relevant components given the current
     // state of HDX
@@ -427,8 +413,6 @@ function showTopControlPanel() {
         av1.style.display = "none";
         av2.style.display = "none";
         av3.style.display = "none";
-        //av4.style.display = "none";
-       // showMarkers.style.display = "";
         break;
 
     case hdxStates.GRAPH_LOADED:
@@ -441,10 +425,6 @@ function showTopControlPanel() {
         document.getElementById("newAlg").addEventListener("click", resetPressed);
         document.getElementById("newAlg").addEventListener("click", cleanupBreakpoints());
         
-        //av3.style.display = "none";
-       // av4.style.display = "";
-       // av4button.value = "Select AV";
-      //  showMarkers.style.display = "";
         document.getElementById("datatablesCheckbox").checked = false;
         break;
 
@@ -455,10 +435,6 @@ function showTopControlPanel() {
         av1.style.display = "";
         av2.style.display = "";
         av3.style.display = "";
-       // av4.style.display = "";
-        //av4button.value = "Reset";
-      //  showMarkers.style.display = "none";
-        //document.getElementById("speedChanger").selectedIndex = 5;
         speedChanged();
         document.getElementById("pseudoCheckbox").checked = true;
         document.getElementById("datatablesCheckbox").checked = false;
@@ -532,11 +508,7 @@ function showAlgorithmSelectionPanel() {
     resizePanels();
     algorithmSelectionChanged();
     hideAVStatusPanel();
-    
-    
 }
-
-
 
 // the algorithm status panel, including messages, code, data, and
 // other information showing the status of an AV
@@ -548,8 +520,7 @@ function showAVStatusPanel() {
     
     document.getElementById("avStatusPanel").style.display="block";
     document.getElementById("avStatusPanel").style.left = "12px";
-    document.getElementById("avStatusPanel").style.top = "67px";
-    
+    document.getElementById("avStatusPanel").style.top = "67px";    
 }
 
 function hideAVStatusPanel() {
@@ -577,6 +548,8 @@ function HDXFillGraphList(e) {
     }
     var mapSel = document.createElement("select");
     mapSel.setAttribute("id", "graphList");
+    // initially put "Loading..." into the dropdown, to be replaced
+    // when the AJAX request is complete
     var loadingEntry = document.createElement("option");
     loadingEntry.innerHTML = "Loading...";
     loadingEntry.setAttribute("id", "loadingEntry");
@@ -658,20 +631,16 @@ function newMapTileSelected(e) {
 
         markerList = document.querySelectorAll(".circle-dot");
 
-        for (let i = 0; i < markerList.length; i++)
-        {
-            if (markerList[i].style.borderColor == "rgb(60, 60, 60)")
-            {
+        for (let i = 0; i < markerList.length; i++) {
+            if (markerList[i].style.borderColor == "rgb(60, 60, 60)") {
                 markerList[i].style.borderColor = "white";
             }
         }
-        for (let i = 0; i < connections.length; i++)
-        {
-            if (connections[i].options.color == "rgb(60, 60, 60)")
-            {
+        for (let i = 0; i < connections.length; i++) {
+            if (connections[i].options.color == "rgb(60, 60, 60)") {
                 connections[i].setStyle({
                     color: "white",
-                    });
+                });
             }
         }
     }
@@ -684,22 +653,17 @@ function newMapTileSelected(e) {
 
         markerList = document.querySelectorAll(".circle-dot");
 
-        for (let i = 0; i < markerList.length; i++)
-        {
-            if (markerList[i].style.borderColor == "white")
-            {
+        for (let i = 0; i < markerList.length; i++) {
+            if (markerList[i].style.borderColor == "white") {
                 markerList[i].style.borderColor = "rgb(60, 60, 60)";
             }
         }
-        for (let i = 0; i < connections.length; i++)
-        {
-            if (connections[i].options.color == "white")
-            {
+        for (let i = 0; i < connections.length; i++) {
+            if (connections[i].options.color == "white") {
                 connections[i].setStyle({
                     color: "rgb(60, 60, 60)",
                     });
             }
         }
-        
     }
 }
