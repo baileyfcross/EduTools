@@ -23,9 +23,6 @@ function HDXInit() {
     // HDX AV initialization (could delay?)
     hdxAV.initOnLoad();
     
-    // create the tabs for HDX instructions popup
-    createTabs();
-
     // if the units= QS parameter is present, honor it if valid
     if (HDXQSIsSpecified("units")) {
 	let units = HDXQSValue("units");

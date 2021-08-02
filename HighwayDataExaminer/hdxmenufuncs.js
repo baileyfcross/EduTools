@@ -379,6 +379,6 @@ function defaultMenu() {
     
     var help = document.createElement("p");
     help.setAttribute("class", "descr");
-    help.innerHTML = "Need help?  A tutorial can be found <a href='tutorial.html' target='_blank'>here</a>.";
+    help.innerHTML = "Need help?  HDX tips can be found <a href='https://courses.teresco.org/metal/tips.html' target='_blank'>here</a>.";
     mainbox.appendChild(help);
 }
