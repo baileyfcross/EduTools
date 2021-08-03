@@ -607,6 +607,7 @@ function HDXFillGraphList(e) {
             }
 	    // now that the list is populated, add the listener
 	    mapSel.setAttribute("onchange", "HDXReadSelectedGraphFromServer(event)");
+        
         }
     });
 }

@@ -266,6 +266,7 @@ function HDXStartFileselectorRead(filesel) {
             pointboxErrorMsg("Error: unable to access file (Perhaps no browser support?  Try recent Firefox or Chrome releases.).");
             return;
         }
+        loadingMenu();
         reader.readAsText(file, "UTF-8");
         reader.onload = HDXFileLoadedCallback;
         //reader.onerror = fileLoadError;
@@ -281,6 +282,7 @@ function HDXReadSelectedGraphFromServer(event) {
     
     if (graphName != "") {
 	HDXReadFileFromWebServer(graphName);
+    loadingMenu();
     }
 }
 
