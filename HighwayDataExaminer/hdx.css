@@ -1269,6 +1269,11 @@ input.typeahead.tt-input
     color: black!important;
 }
 
+#advancedTitle
+{
+    margin-top: 70px;
+}
+
 @media (max-width: 885px)
 {
     #metalTitle
