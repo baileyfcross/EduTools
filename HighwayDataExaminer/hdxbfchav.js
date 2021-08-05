@@ -98,7 +98,7 @@ var hdxBFConvexHullAV = {
             name: "checkedNegative",
             value: 0
         },
-        mismatch: visualSettings.searchFailed,
+        mismatch: visualSettings.mismatchFound,
         hullComponent: visualSettings.spanningTree
     },
 
