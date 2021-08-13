@@ -17,7 +17,7 @@ function basicMenu() {
     box.setAttribute("class", "typeahead");
     box.setAttribute("type", "text");
     box.setAttribute("id", "searchBox");
-    box.setAttribute("placeholder", "Pick a Graph");
+    box.setAttribute("placeholder", "Start typing to get suggestions");
     
     // Datapanel to contain all of the elements
     var dataPanel = document.getElementById("loadDataPanel");
@@ -46,11 +46,11 @@ function basicMenu() {
     var instructions = document.createElement("p");
     instructions.innerHTML = "Search by name for a METAL graph";
     dataPanel.appendChild(instructions);
-    var instr2 = document.createElement("p");
+    /*var instr2 = document.createElement("p");
     instr2.innerHTML = "Start typing a place name to get suggestions";
     instr2.setAttribute("class", "descr");
     instr2.setAttribute("id", "instr2");
-    dataPanel.appendChild(instr2);
+    dataPanel.appendChild(instr2);*/
     
     // Container for the input element
     var basic = document.createElement("div");
@@ -88,6 +88,7 @@ function advancedMenu() {
     
     var title = document.createElement("h4");
     title.innerHTML = "Advanced Graph Data Search";
+    title.setAttribute("id", "advancedTitle");
     container.appendChild(title);
     
     if (titleScreen) {

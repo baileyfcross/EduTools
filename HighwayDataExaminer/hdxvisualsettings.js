@@ -66,6 +66,13 @@ var visualSettings = {
         name: "searchFailed",
         value: 0
     },
+    mismatchFound: {
+        color: "rgb(255, 233, 64)",
+        textColor: "white",
+        scale: 6,
+        name: "mismatchFound",
+        value: 0
+    },
     discarded: { //discard on removal
         color: "rgb(142, 142, 142)",
         textColor: "white",
