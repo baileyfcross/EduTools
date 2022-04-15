@@ -62,8 +62,6 @@ var hdxQuadtreeAV = {
     //the current quadtree is changed
     highlightPoly: [],
 
-    allCurrentQT: [],
-
     avActions: [
         {
             label: "START",
@@ -261,6 +259,8 @@ var hdxQuadtreeAV = {
                     thisAV.boundingPoly[i].addTo(map);
                 }
                 hdxAV.nextAction = "topRefLoop";
+                thisAV.identity += 1;
+                updateAVControlEntry("quadtreeGraph","Quadtrees Added: " + thisAV.identity);
 
             },
             logMessage: function(thisAV){
