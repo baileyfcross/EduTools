@@ -126,6 +126,7 @@ var hdxQuadtreeAV = {
                     updateAVControlEntry("undiscovered",thisAV.numVUndiscovered + " vertices not yet visited");
                     updateAVControlEntry("numLeaves","Number of leaf quadtrees: " + thisAV.numLeaves);
                     updateAVControlEntry("maxDepth","Depth of the quadtree: " + thisAV.maxDepth);
+                    updateAVControlEntry("quadtreeGraph","<svg width='100%' height='100%'> <circle cx='50%' cy='10%' r='10' fill='white'/> </svg>");
                     thisAV.qtStack.push(thisAV.currentQuadtree);
                     thisAV.highlightBoundingBox();
                     hdxAV.nextAction = "topAddPoint";
@@ -260,7 +261,7 @@ var hdxQuadtreeAV = {
                 }
                 hdxAV.nextAction = "topRefLoop";
                 thisAV.identity += 1;
-                updateAVControlEntry("quadtreeGraph","Quadtrees Added: " + thisAV.identity);
+                updateAVControlEntry("quadtreeCreated","Quadtrees Added: " + thisAV.identity);
 
             },
             logMessage: function(thisAV){
@@ -645,6 +646,7 @@ var hdxQuadtreeAV = {
         addEntryToAVControlPanel("visiting",visualSettings.visiting)
         addEntryToAVControlPanel("numLeaves",visualSettings.discovered);
         addEntryToAVControlPanel("maxDepth",visualSettings.highlightBounding);
+        addEntryToAVControlPanel("quadtreeCreated",visualSettings.visiting);
         addEntryToAVControlPanel("quadtreeGraph",visualSettings.visiting);
 
     },

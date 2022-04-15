@@ -13,7 +13,7 @@ var rows = [];
 
 /* add entry to the algorithm visualization control panel */
 function addEntryToAVControlPanel(namePrefix, vs) {
-    
+
     let avControlTbody = document.getElementById('algorithmVars');
     let infoBox = document.createElement('td');
     let infoBoxtr = document.createElement('tr');
@@ -69,7 +69,7 @@ function removeEntryFromAVControlPanel(namePrefix) {
 /* set the HTML of an AV control panel entry */
 function updateAVControlEntry(namePrefix, text) {
 
-        
+
     document.getElementById(namePrefix + AVCPsuffix).innerHTML = text;
     if (text == "")
     {
@@ -82,8 +82,8 @@ function updateAVControlEntry(namePrefix, text) {
     if (hdxAV.delay != 0) {
         HDXAddCustomTitles();
     }
-    
-    
+
+
 }
 
 /* set the visualSettings of an AV control panel entry */
